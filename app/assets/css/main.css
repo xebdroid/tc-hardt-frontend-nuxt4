@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+
+  --color-green-50: #EFFDF5;
+  --color-green-100: #D9FBE8;
+  --color-green-200: #B3F5D1;
+  --color-green-300: #75EDAE;
+  --color-green-400: #00DC82;
+  --color-green-500: #00C16A;
+  --color-green-600: #00A155;
+  --color-green-700: #007F45;
+  --color-green-800: #016538;
+  --color-green-900: #0A5331;
+  --color-green-950: #052E16;
+
+  /* Wir definieren die Palette 'tennis' */
+  --color-tennis-50: #f4faff;
+  --color-tennis-100: #e6f5fe;
+  --color-tennis-200: #cce9fc;
+  --color-tennis-300: #a3d9fa;
+  --color-tennis-400: #7ac7ea; /* Dein Hellblau (Highlight) */
+  --color-tennis-500: #4dabde; /* Etwas kräftiger für Buttons */
+  --color-tennis-600: #338fc2;
+  --color-tennis-700: #26729e;
+  --color-tennis-800: #1c3063; /* Dein Dunkelblau (Basis) */
+  --color-tennis-900: #192952;
+  --color-tennis-950: #101a35;
+}

@@ -1,0 +1,70 @@
+{
+  "clubInfo": {
+    "name": "TC Hardt 1976 e.V.",
+    "address": "Birkmannsweg 16, 41169 Mönchengladbach",
+    "email": "info@tc-hardt.de"
+  },
+  "news": [
+    {
+      "id": 1,
+      "title": "Saisoneröffnung 2025",
+      "date": "2025-04-15",
+      "excerpt": "Endlich geht es wieder los! Die Plätze sind aufbereitet."
+    },
+    {
+      "id": 2,
+      "title": "Mitgliederversammlung",
+      "date": "2025-03-10",
+      "excerpt": "Wichtige Entscheidungen stehen an. Bitte zahlreich erscheinen."
+    }
+  ],
+  "board": [
+    {
+      "role": "Vorsitzender",
+      "name": "Kaspar Fuchs",
+      "area": "Vereinsleben, Organisation & Beschwerdemanagement",
+      "email": "kaspar.fuchs@tc-hardt.de",
+      "image": null
+    },
+    {
+      "role": "Stv. Vorsitzender",
+      "name": "Boris Rütten",
+      "area": "Infrastruktur, Platzanlage und Sponsoring",
+      "email": "boris.ruetten@tc-hardt.de",
+      "image": null
+    },
+    {
+      "role": "Schatzmeister",
+      "name": "Witold Bialy",
+      "area": "Finanzen",
+      "email": "witold.bialy@tc-hardt.de",
+      "image": null
+    },
+    {
+      "role": "Stv. Schatzmeister",
+      "name": "Manni Schröer",
+      "area": "Finanzen und Schlüsselverwaltung",
+      "email": "manni.schroeer@tc-hardt.de",
+      "image": null
+    },
+    {
+      "role": "Geschäftsführerin",
+      "name": "Steffi Henckel-Wollny",
+      "area": "Clubhaus und Organisation",
+      "email": "geschaeftsfuehrung@tc-hardt.de",
+      "image": null
+    }
+  ],
+  "teams": [
+    { "name": "Damen offen", "category": "Erwachsene" },
+    { "name": "Damen 50", "category": "Senioren" },
+    { "name": "Damen 55", "category": "Senioren" },
+    { "name": "Herren offen", "category": "Erwachsene" },
+    { "name": "Herren 30", "category": "Senioren" },
+    { "name": "Herren 50", "category": "Senioren" },
+    { "name": "U15", "category": "Jugend" },
+    { "name": "U12", "category": "Jugend" },
+    { "name": "U8", "category": "Jugend" },
+    { "name": "Mixed-Team", "category": "Erwachsene" }
+  ]
+}
