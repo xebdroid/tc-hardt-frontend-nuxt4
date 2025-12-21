@@ -7,35 +7,55 @@
     "training": "Training",
     "sponsoring": "Sponsoring",
     "contact": "Kontakt",
-    "member": "Mitglied werden"
+    "member": "Mitglied werden",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
   },
   "home": {
     "hero": {
       "badge": "Seit 1976",
       "title": "Willkommen beim TC Hardt",
-      "description": "Dein Treffpunkt für sportliche Gemeinschaft und Wettkampf am Hardter Wald.",
+      "description": "Der Tennisclub Hardt ist der Treffpunkt für Klein und Groß, um sportliche Gemeinschaft und Wettkampf zu erleben!",
       "cta_primary": "Mitglied werden",
       "cta_secondary": "Mehr erfahren"
     },
-    "features": {
+    "intro_features": {
+      "courts": {
+        "title": "6 Ascheplätze",
+        "desc": "Gepflegte Plätze im Grünen."
+      },
+      "community": {
+        "title": "Gemeinschaft",
+        "desc": "Spielpartner für jedes Niveau."
+      },
+      "training": {
+        "title": "Training",
+        "desc": "Förderung für Jugend & Erwachsene."
+      },
+      "gastronomy": {
+        "title": "Gastronomie",
+        "desc": "Sonnenterrasse & kühle Drinks."
+      }
+    },
+    "values": {
       "title": "Darauf legen wir Wert",
       "description": "Unsere Philosophie für ein gutes Miteinander.",
       "items": {
         "hospitality": {
           "title": "Gastfreundschaft",
-          "desc": "Wir heißen alle herzlich willkommen."
+          "desc": "Wir heißen alle Mitglieder und Gäste herzlich willkommen."
         },
         "team_spirit": {
           "title": "Teamgeist",
-          "desc": "Wir fördern den Zusammenhalt."
+          "desc": "Wir fördern den Zusammenhalt und die Zusammenarbeit."
         },
         "fairness": {
           "title": "Fairness",
-          "desc": "Respektvoller Umgang ist uns wichtig."
+          "desc": "Wir legen großen Wert auf Fairplay und respektvollen Umgang."
         },
         "fun": {
           "title": "Spaß am Spiel",
-          "desc": "Freude am Sport steht im Vordergrund."
+          "desc": "Der Spaß am Sport steht bei uns im Vordergrund."
         }
       }
     },
@@ -47,5 +67,72 @@
       "description": "Komm vorbei, wir freuen uns auf dich!",
       "button": "Kontakt aufnehmen"
     }
+  },
+  "about": {
+    "title": "Unser Verein",
+    "description": "Der Tennisclub Hardt 1976 e.V. ist ein Tennisverein mit Herz und Seele mitten in Hardt.",
+    "text": "In unmittelbarer Nähe zur Bezirkssportanlage des SC Hardt und in direkter Nachbarschaft zum Hardter Wald glänzt unsere Tennisanlage durch eine traumhafte Lage. Unser Verein feiert 2026 sein 50-jähriges Bestehen."
+  },
+  "board": {
+    "title": "Vorstand & Ansprechpartner",
+    "roles": {
+      "chair": "Vorsitzender",
+      "vice_chair": "Stv. Vorsitzender",
+      "treasurer": "Schatzmeister",
+      "vice_treasurer": "Stv. Schatzmeister",
+      "manager": "Geschäftsführerin"
+    },
+    "areas": {
+      "org": "Vereinsleben & Organisation",
+      "infra": "Infrastruktur & Sponsoring",
+      "finance": "Finanzen",
+      "keys": "Schlüsselverwaltung",
+      "clubhouse": "Clubhaus & Organisation"
+    }
+  },
+  "teams": {
+    "title": "Unsere Mannschaften",
+    "subtitle": "Gemeinsam stark auf dem Platz",
+    "description": "Ob jung oder erfahren, ambitioniert oder einfach mit Spaß dabei – unsere Mannschaften sind das sportliche Herz des TC Hardt.",
+    "categories": {
+      "ladies": "Damen offen",
+      "ladies50": "Damen 50",
+      "men": "Herren offen",
+      "men30": "Herren 30",
+      "men50": "Herren 50",
+      "youth": "Jugend (U8 - U15)"
+    }
+  },
+  "training": {
+    "title": "Training",
+    "subtitle": "Für jedes Spielniveau das Richtige",
+    "school": "Tennisschule Rot-Weiß",
+    "offers": {
+      "kids": "Kinder & Jugendtraining",
+      "adults": "Erwachsenen- & Wiedereinsteigertraining",
+      "performance": "Mannschafts- & Leistungstraining",
+      "camps": "Sommerferien-Tenniscamp",
+      "ag": "Tennis-Schul-AG"
+    }
+  },
+  "facility": {
+    "title": "Platz und Anlage",
+    "courts": "6 Sandplätze",
+    "courts_desc": "Unsere Plätze wurden zur Saison 2023 komplett saniert.",
+    "clubhouse": "Clubhaus",
+    "clubhouse_desc": "Das Wohnzimmer des TC Hardt mit großer Sonnenterrasse.",
+    "specials": "Bügelbahn & Beachvolleyball"
+  },
+  "sponsoring": {
+    "title": "Sponsoring",
+    "subtitle": "Gemeinsam mehr bewegen",
+    "description": "Unsere Sponsoren sind ein wichtiger Teil der TC-Hardt-Familie. Sie unterstützen nicht nur den Tennissport, sondern auch die Jugendarbeit.",
+    "cta": "Sponsor werden"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Wir freuen uns auf deine Nachricht!",
+    "address": "Birkmannsweg 16, 41169 Mönchengladbach",
+    "form_title": "Kontaktformular"
   }
 }

@@ -32,16 +32,25 @@ const links = computed(() => [
 
 <template>
   <UApp>
-    <UHeader mode="drawer" :toggle="{ color: 'gray', variant: 'ghost' }" :ui="{
-      wrapper: 'sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800',
-      container: 'max-w-7xl mx-auto'
-    }">
+    <UHeader
+      mode="drawer"
+      :toggle="{ color: 'gray', variant: 'ghost' }"
+      :ui="{
+        wrapper: 'sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800',
+        container: 'max-w-7xl mx-auto'
+      }"
+    >
 
       <template #left>
         <NuxtLink :to="localePath('/')" class="flex items-center gap-3">
           <div
-            class="h-10 w-10 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-1 border border-gray-200 dark:border-gray-700">
-            <img src="/img/logo.png" alt="TC Hardt" class="h-full w-auto" />
+            class="h-10 w-10 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center p-1 border border-gray-200 dark:border-gray-700"
+          >
+            <img
+              src="/img/logo.png"
+              alt="TC Hardt"
+              class="h-full w-auto"
+            >
           </div>
           <span class="font-bold text-xl text-gray-900 dark:text-white hidden sm:block">
             TC Hardt
@@ -51,9 +60,13 @@ const links = computed(() => [
 
       <template #default>
         <nav class="hidden lg:flex items-center gap-6">
-          <NuxtLink v-for="link in links" :key="link.to" :to="localePath(link.to)"
+          <NuxtLink
+            v-for="link in links"
+            :key="link.to"
+            :to="localePath(link.to)"
             active-class="text-primary-500 font-bold"
-            class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-500 transition-colors uppercase tracking-wide">
+            class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-500 transition-colors uppercase tracking-wide"
+          >
             {{ link.label }}
           </NuxtLink>
         </nav>
@@ -64,31 +77,54 @@ const links = computed(() => [
 
         <UColorModeButton class="mr-2" />
 
-        <UButton :to="localePath('/kontakt')" :label="$t('nav.member')" color="primary" variant="solid"
-          class="hidden sm:flex font-bold" />
+        <UButton
+          :to="localePath('/kontakt')"
+          :label="$t('nav.member')"
+          color="primary"
+          variant="solid"
+          class="hidden sm:flex font-bold"
+        />
       </template>
 
       <template #content="{ close }">
         <div class="h-full p-6 flex flex-col gap-6 bg-white dark:bg-gray-900">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-2">
-              <img src="/img/logo.png" alt="TC Hardt" class="h-8 w-auto" />
+              <img
+                src="/img/logo.png"
+                alt="TC Hardt"
+                class="h-8 w-auto"
+              >
               <span class="font-bold text-xl text-gray-900 dark:text-white">TC Hardt</span>
             </div>
-            <UButton icon="i-heroicons-x-mark" color="gray" variant="ghost" @click="close" />
+            <UButton
+              icon="i-heroicons-x-mark"
+              color="gray"
+              variant="ghost"
+              @click="close"
+            />
           </div>
 
           <nav class="flex flex-col gap-4">
-            <NuxtLink v-for="link in links" :key="link.to" :to="localePath(link.to)"
+            <NuxtLink
+              v-for="link in links"
+              :key="link.to"
+              :to="localePath(link.to)"
               class="text-lg font-medium text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-2 hover:text-primary-500"
-              @click="close">
+              @click="close"
+            >
               {{ link.label }}
             </NuxtLink>
           </nav>
 
           <div class="mt-auto flex justify-between items-center border-t border-gray-100 dark:border-gray-800 pt-6">
             <UColorModeButton />
-            <UButton :label="$t('nav.member')" :to="localePath('/kontakt')" color="primary" @click="close" />
+            <UButton
+              :label="$t('nav.member')"
+              :to="localePath('/kontakt')"
+              color="primary"
+              @click="close"
+            />
           </div>
         </div>
       </template>

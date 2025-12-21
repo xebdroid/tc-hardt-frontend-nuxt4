@@ -7,35 +7,55 @@
     "training": "Training",
     "sponsoring": "Sponsoring",
     "contact": "Contact",
-    "member": "Become a Member"
+    "member": "Become a Member",
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy"
   },
   "home": {
     "hero": {
       "badge": "Since 1976",
       "title": "Welcome to TC Hardt",
-      "description": "Your meeting place for sports community and competition at Hardter Wald.",
+      "description": "Tennisclub Hardt is the meeting place for young and old to experience sports community and competition!",
       "cta_primary": "Become a Member",
       "cta_secondary": "Learn More"
     },
-    "features": {
+    "intro_features": {
+      "courts": {
+        "title": "6 Clay Courts",
+        "desc": "Well-maintained courts in the green."
+      },
+      "community": {
+        "title": "Community",
+        "desc": "Playing partners for every level."
+      },
+      "training": {
+        "title": "Training",
+        "desc": "Support for youth & adults."
+      },
+      "gastronomy": {
+        "title": "Gastronomy",
+        "desc": "Sun terrace & cold drinks."
+      }
+    },
+    "values": {
       "title": "Our Values",
       "description": "Our philosophy for a great community.",
       "items": {
         "hospitality": {
           "title": "Hospitality",
-          "desc": "We welcome everyone warmly."
+          "desc": "We warmly welcome all members and guests."
         },
         "team_spirit": {
           "title": "Team Spirit",
-          "desc": "We promote cohesion."
+          "desc": "We promote cohesion and cooperation."
         },
         "fairness": {
           "title": "Fairness",
-          "desc": "Respectful interaction is important to us."
+          "desc": "We attach great importance to fair play and respectful interaction."
         },
         "fun": {
           "title": "Joy of Playing",
-          "desc": "Enjoyment of the sport comes first."
+          "desc": "The fun of sport is our priority."
         }
       }
     },
@@ -47,5 +67,72 @@
       "description": "Come by, we look forward to seeing you!",
       "button": "Get in Touch"
     }
+  },
+  "about": {
+    "title": "Our Club",
+    "description": "Tennisclub Hardt 1976 e.V. is a tennis club with heart and soul in the middle of Hardt.",
+    "text": "In the immediate vicinity of the SC Hardt district sports facility and right next to the Hardter Wald, our tennis facility shines with a fantastic location. Our club will celebrate its 50th anniversary in 2026."
+  },
+  "board": {
+    "title": "Board & Contacts",
+    "roles": {
+      "chair": "Chairman",
+      "vice_chair": "Vice Chairman",
+      "treasurer": "Treasurer",
+      "vice_treasurer": "Vice Treasurer",
+      "manager": "Managing Director"
+    },
+    "areas": {
+      "org": "Club Life & Organization",
+      "infra": "Infrastructure & Sponsoring",
+      "finance": "Finances",
+      "keys": "Key Management",
+      "clubhouse": "Clubhouse & Organization"
+    }
+  },
+  "teams": {
+    "title": "Our Teams",
+    "subtitle": "Strong together on the court",
+    "description": "Whether young or experienced, ambitious or just for fun – our teams are the sporting heart of TC Hardt.",
+    "categories": {
+      "ladies": "Ladies Open",
+      "ladies50": "Ladies 50",
+      "men": "Men Open",
+      "men30": "Men 30",
+      "men50": "Men 50",
+      "youth": "Youth (U8 - U15)"
+    }
+  },
+  "training": {
+    "title": "Training",
+    "subtitle": "The right thing for every level",
+    "school": "Tennis School Rot-Weiß",
+    "offers": {
+      "kids": "Kids & Youth Training",
+      "adults": "Adult & Returner Training",
+      "performance": "Team & Performance Training",
+      "camps": "Summer Holiday Tennis Camp",
+      "ag": "Tennis School AG"
+    }
+  },
+  "facility": {
+    "title": "Courts & Facility",
+    "courts": "6 Clay Courts",
+    "courts_desc": "Our courts were completely renovated for the 2023 season.",
+    "clubhouse": "Clubhouse",
+    "clubhouse_desc": "The living room of TC Hardt with a large sun terrace.",
+    "specials": "Boule & Beach Volleyball"
+  },
+  "sponsoring": {
+    "title": "Sponsoring",
+    "subtitle": "Moving more together",
+    "description": "Our sponsors are an important part of the TC Hardt family. They support not only tennis, but also youth work.",
+    "cta": "Become a Sponsor"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We look forward to your message!",
+    "address": "Birkmannsweg 16, 41169 Mönchengladbach, Germany",
+    "form_title": "Contact Form"
   }
 }
