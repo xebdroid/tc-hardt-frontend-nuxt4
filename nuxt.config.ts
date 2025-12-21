@@ -1,28 +1,30 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/eslint',
-    '@nuxt/ui'
-  ],
-
-  devtools: {
-    enabled: true
-  },
-
+  compatibilityDate: '2024-12-21',
+  modules: ['@nuxt/ui', '@nuxtjs/i18n'],
   css: ['~/assets/css/main.css'],
 
-  routeRules: {
-    '/': { prerender: true }
-  },
+  i18n: {
+    // Strategie: URL-Prefix (außer Default)
+    strategy: 'prefix_except_default',
+    defaultLocale: 'de',
 
-  compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
+    locales: [
+      {
+        code: 'de',
+        name: 'Deutsch',
+        file: 'de.json'
+      },
+      {
+        code: 'en',
+        name: 'English',
+        file: 'en.json'
       }
+    ],
+
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
     }
   }
 })

@@ -1,0 +1,19 @@
+{
+  "welcome": "Welcome",
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "board": "Board",
+    "teams": "Teams",
+    "training": "Training",
+    "sponsoring": "Sponsoring",
+    "contact": "Contact",
+    "member": "Become a member"
+  },
+  "sections": {
+    "news": "News from the club",
+    "values": "Our Values",
+    "cta_title": "Become part of our tennis family",
+    "cta_desc": "Look around, find out about our offers and come by."
+  }
+}

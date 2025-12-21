@@ -1,0 +1,19 @@
+{
+  "welcome": "Herzlich Willkommen",
+  "nav": {
+    "home": "Home",
+    "about": "Über uns",
+    "board": "Vorstand",
+    "teams": "Mannschaften",
+    "training": "Training",
+    "sponsoring": "Sponsoring",
+    "contact": "Kontakt",
+    "member": "Mitglied werden"
+  },
+  "sections": {
+    "news": "Aktuelles vom Verein",
+    "values": "Darauf legen wir Wert",
+    "cta_title": "Werde Teil unserer Tennisfamilie",
+    "cta_desc": "Schau dich bei uns um, informiere dich über unsere Angebote und komm vorbei."
+  }
+}
