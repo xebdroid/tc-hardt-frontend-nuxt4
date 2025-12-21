@@ -213,6 +213,8 @@ const values = computed(() => [
       </UContainer>
     </div>
 
+    <Sponsors />
+
     <div class="bg-tennis-900 py-24 text-center">
       <UContainer>
         <UIcon name="i-heroicons-heart" class="w-12 h-12 text-highlight-400 mb-6" />
