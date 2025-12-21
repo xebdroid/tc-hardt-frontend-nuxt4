@@ -20,13 +20,13 @@ useHead({
 })
 
 const links = computed(() => [
-  { label: useNuxtApp().$i18n.t('nav.home'), to: '/' },
-  { label: useNuxtApp().$i18n.t('nav.about'), to: '/ueber-uns' },
-  { label: useNuxtApp().$i18n.t('nav.board'), to: '/vorstand' },
-  { label: useNuxtApp().$i18n.t('nav.teams'), to: '/mannschaften' },
-  { label: useNuxtApp().$i18n.t('nav.training'), to: '/training' },
-  { label: useNuxtApp().$i18n.t('nav.sponsoring'), to: '/sponsoring' },
-  { label: useNuxtApp().$i18n.t('nav.contact'), to: '/kontakt' }
+  { label: useNuxtApp().$i18n.t('nav.home'), to: 'index' },
+  { label: useNuxtApp().$i18n.t('nav.about'), to: 'about' },
+  { label: useNuxtApp().$i18n.t('nav.board'), to: 'board' },
+  { label: useNuxtApp().$i18n.t('nav.teams'), to: 'teams' },
+  { label: useNuxtApp().$i18n.t('nav.training'), to: 'training' },
+  { label: useNuxtApp().$i18n.t('nav.sponsoring'), to: 'sponsoring' },
+  { label: useNuxtApp().$i18n.t('nav.contact'), to: 'contact' }
 ])
 </script>
 

@@ -8,6 +8,9 @@ useHead({
 
 <template>
   <div>
+    <pre class="bg-black text-white p-4 my-4 rounded">
+      Routen-Name: {{ $route.name }}
+    </pre>
     <UPageHero
       title="Unser Verein"
       description="Tennis mit Herz und Seele mitten in Hardt."
