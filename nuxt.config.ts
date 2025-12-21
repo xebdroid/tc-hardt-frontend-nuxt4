@@ -6,9 +6,22 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxtjs/i18n',
-    '@nuxt/eslint'
+    '@nuxt/eslint',
+    '@nuxtjs/google-fonts'
   ],
   css: ["~/assets/css/main.css"],
+
+  // Konfiguration für die Schriften
+  googleFonts: {
+    families: {
+      Inter: [400, 500, 600],
+      Montserrat: [700, 800]
+    },
+    display: 'swap',
+    // WICHTIG FÜR DEUTSCHLAND (DSGVO):
+    download: true,
+    inject: true
+  },
 
   i18n: {
     strategy: "prefix_except_default",

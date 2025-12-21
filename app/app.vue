@@ -16,7 +16,10 @@ const dir = computed(() => locales[locale.value]?.dir || 'ltr')
 
 useHead({
   htmlAttrs: { lang, dir },
-  link: [{ rel: 'icon', href: '/favicon.ico' }]
+  link: [{ rel: 'icon', href: '/favicon.ico' }],
+  bodyAttrs: {
+    class: 'font-sans antialiased' // 'font-sans' aktiviert Inter
+  }
 })
 
 const links = computed(() => [

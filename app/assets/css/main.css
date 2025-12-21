@@ -2,30 +2,47 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  /* 1. SCHRIFTARTEN KORRIGIEREN */
+  /* Hier stand vorher Public Sans - jetzt Inter! */
+  --font-sans: 'Inter', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Wir definieren Montserrat für Überschriften */
+  --font-heading: 'Montserrat', sans-serif;
 
-  /* Wir definieren die Palette 'tennis' */
+  /* 2. DEINE FARBPALETTE (Tennis Blau) */
+  /* Wir übernehmen die Werte, die wir uns ausgesucht hatten */
   --color-tennis-50: #f4faff;
-  --color-tennis-100: #e6f5fe;
-  --color-tennis-200: #cce9fc;
-  --color-tennis-300: #a3d9fa;
-  --color-tennis-400: #7ac7ea; /* Dein Hellblau (Highlight) */
-  --color-tennis-500: #4dabde; /* Etwas kräftiger für Buttons */
-  --color-tennis-600: #338fc2;
-  --color-tennis-700: #26729e;
-  --color-tennis-800: #1c3063; /* Dein Dunkelblau (Basis) */
-  --color-tennis-900: #192952;
-  --color-tennis-950: #101a35;
+  --color-tennis-100: #eef8ff;
+  --color-tennis-200: #dceeff;
+  --color-tennis-300: #b4ddf8;
+  --color-tennis-400: #7ac7ea;
+  --color-tennis-500: #7ac7ea; /* Deine Hauptfarbe */
+  --color-tennis-600: #4fa3d6;
+  --color-tennis-700: #3282b8;
+  --color-tennis-800: #1c3063; /* Dein Dunkelblau */
+  --color-tennis-900: #1c3063;
+  --color-tennis-950: #122045;
+
+  /* 3. HIGHLIGHT FARBE (Tennisball Lime) */
+  --color-highlight-50: #f7fee7;
+  --color-highlight-100: #ecfccb;
+  --color-highlight-200: #d9f99d;
+  --color-highlight-300: #bef264;
+  --color-highlight-400: #a3e635;
+  --color-highlight-500: #84cc16; /* Knalliges Lime */
+  --color-highlight-600: #65a30d;
+  --color-highlight-700: #4d7c0f;
+  --color-highlight-800: #3f6212;
+  --color-highlight-900: #365314;
+  --color-highlight-950: #1a2e05;
+}
+
+/* WICHTIG: Überschriften explizit auf Montserrat setzen */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Body auf Inter setzen (passiert meist automatisch durch --font-sans, aber sicher ist sicher) */
+body {
+  font-family: var(--font-sans);
 }

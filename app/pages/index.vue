@@ -88,7 +88,7 @@ const values = computed(() => [
         }]"
         :ui="{
           wrapper: 'relative z-10 py-24',
-          title: 'text-white font-extrabold sm:text-6xl',
+          title: 'text-highlight-500 font-extrabold sm:text-6xl',
           description: 'text-gray-100 mt-6 text-lg max-w-2xl mx-auto'
         }"
       >
