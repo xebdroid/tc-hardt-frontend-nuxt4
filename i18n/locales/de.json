@@ -1,7 +1,6 @@
 {
-  "welcome": "Herzlich Willkommen",
   "nav": {
-    "home": "Home",
+    "home": "Startseite",
     "about": "Über uns",
     "board": "Vorstand",
     "teams": "Mannschaften",
@@ -10,10 +9,43 @@
     "contact": "Kontakt",
     "member": "Mitglied werden"
   },
-  "sections": {
-    "news": "Aktuelles vom Verein",
-    "values": "Darauf legen wir Wert",
-    "cta_title": "Werde Teil unserer Tennisfamilie",
-    "cta_desc": "Schau dich bei uns um, informiere dich über unsere Angebote und komm vorbei."
+  "home": {
+    "hero": {
+      "badge": "Seit 1976",
+      "title": "Willkommen beim TC Hardt",
+      "description": "Dein Treffpunkt für sportliche Gemeinschaft und Wettkampf am Hardter Wald.",
+      "cta_primary": "Mitglied werden",
+      "cta_secondary": "Mehr erfahren"
+    },
+    "features": {
+      "title": "Darauf legen wir Wert",
+      "description": "Unsere Philosophie für ein gutes Miteinander.",
+      "items": {
+        "hospitality": {
+          "title": "Gastfreundschaft",
+          "desc": "Wir heißen alle herzlich willkommen."
+        },
+        "team_spirit": {
+          "title": "Teamgeist",
+          "desc": "Wir fördern den Zusammenhalt."
+        },
+        "fairness": {
+          "title": "Fairness",
+          "desc": "Respektvoller Umgang ist uns wichtig."
+        },
+        "fun": {
+          "title": "Spaß am Spiel",
+          "desc": "Freude am Sport steht im Vordergrund."
+        }
+      }
+    },
+    "news": {
+      "title": "Aktuelles vom Verein"
+    },
+    "cta_bottom": {
+      "title": "Werde Teil unserer Tennisfamilie",
+      "description": "Komm vorbei, wir freuen uns auf dich!",
+      "button": "Kontakt aufnehmen"
+    }
   }
 }

@@ -1,5 +1,4 @@
 {
-  "welcome": "Welcome",
   "nav": {
     "home": "Home",
     "about": "About Us",
@@ -8,12 +7,45 @@
     "training": "Training",
     "sponsoring": "Sponsoring",
     "contact": "Contact",
-    "member": "Become a member"
+    "member": "Become a Member"
   },
-  "sections": {
-    "news": "News from the club",
-    "values": "Our Values",
-    "cta_title": "Become part of our tennis family",
-    "cta_desc": "Look around, find out about our offers and come by."
+  "home": {
+    "hero": {
+      "badge": "Since 1976",
+      "title": "Welcome to TC Hardt",
+      "description": "Your meeting place for sports community and competition at Hardter Wald.",
+      "cta_primary": "Become a Member",
+      "cta_secondary": "Learn More"
+    },
+    "features": {
+      "title": "Our Values",
+      "description": "Our philosophy for a great community.",
+      "items": {
+        "hospitality": {
+          "title": "Hospitality",
+          "desc": "We welcome everyone warmly."
+        },
+        "team_spirit": {
+          "title": "Team Spirit",
+          "desc": "We promote cohesion."
+        },
+        "fairness": {
+          "title": "Fairness",
+          "desc": "Respectful interaction is important to us."
+        },
+        "fun": {
+          "title": "Joy of Playing",
+          "desc": "Enjoyment of the sport comes first."
+        }
+      }
+    },
+    "news": {
+      "title": "Latest Club News"
+    },
+    "cta_bottom": {
+      "title": "Join our Tennis Family",
+      "description": "Come by, we look forward to seeing you!",
+      "button": "Get in Touch"
+    }
   }
 }

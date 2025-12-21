@@ -2,7 +2,7 @@
   "name": "tc-hardt-frontend-nuxt4",
   "private": true,
   "type": "module",
-"scripts": {
+  "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -17,6 +17,7 @@
     "nuxt": "^4.2.2"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.2.10",
     "@nuxt/eslint": "^1.10.0",
     "eslint": "^9.39.1",
     "typescript": "^5.9.3",

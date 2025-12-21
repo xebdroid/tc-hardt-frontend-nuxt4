@@ -2,25 +2,20 @@
 const { locale, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
-const flags: Record<string, string> = {
-  de: '🇩🇪',
-  en: '🇬🇧'
+// Mapping: Sprach-Code zu Icon-Name (Circle Flags Collection)
+const flagIcons: Record<string, string> = {
+  de: 'i-circle-flags-de',
+  en: 'i-circle-flags-gb' // oder 'i-circle-flags-us'
 }
 
-// Items für das DropdownMenu
 const items = computed(() => [
   locales.value.map(l => ({
     label: l.name,
-    // type: 'link' ist wichtig in Nuxt UI v3 für Navigation
-    type: 'link',
+    // Wir nutzen 'icon' statt 'avatar' -> das ist sauberer in Nuxt UI
+    icon: flagIcons[l.code],
     to: switchLocalePath(l.code),
-    // Icon oder Avatar
-    avatar: {
-      src: '',
-      alt: flags[l.code] || '🌐',
-      text: flags[l.code] || '🌐'
-    },
-    // Deaktiviert den aktuellen Link
+    type: 'link',
+    // Aktive Sprache deaktivieren (grau)
     disabled: locale.value === l.code
   }))
 ])
@@ -36,9 +31,12 @@ const items = computed(() => [
       variant="ghost"
       class="font-bold"
     >
-      <span class="mr-1 text-lg">{{ flags[locale] }}</span>
-      <span class="hidden sm:inline">{{ locale === 'de' ? 'Deutsch' : 'English' }}</span>
-      <UIcon name="i-heroicons-chevron-down-20-solid" class="w-4 h-4 ml-1" />
+      <UIcon :name="flagIcons[locale]" class="w-5 h-5 mr-1" />
+
+      <span class="hidden sm:inline">
+        {{ locale === 'de' ? 'DE' : 'EN' }}
+      </span>
+      <UIcon name="i-heroicons-chevron-down-20-solid" class="w-4 h-4 ml-1 opacity-50" />
     </UButton>
   </UDropdownMenu>
 </template>
