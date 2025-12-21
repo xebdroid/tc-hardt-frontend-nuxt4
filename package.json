@@ -2,13 +2,12 @@
   "name": "tc-hardt-frontend-nuxt4",
   "private": true,
   "type": "module",
-  "scripts": {
+"scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.74",
