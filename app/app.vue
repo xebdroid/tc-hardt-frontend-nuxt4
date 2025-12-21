@@ -60,6 +60,8 @@ const links = computed(() => [
       </template>
 
       <template #right>
+        <LanguageSwitcher class="mr-2" />
+
         <UColorModeButton class="mr-2" />
 
         <UButton :to="localePath('/kontakt')" :label="$t('nav.member')" color="primary" variant="solid"
