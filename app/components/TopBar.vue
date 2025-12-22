@@ -8,7 +8,7 @@ const { t } = useI18n()
 
       <div class="flex items-center gap-6">
         <a
-          href="https://maps.google.com"
+          href="https://maps.app.goo.gl/em8mhm3wfSaVeRrc8"
           target="_blank"
           class="flex items-center gap-2 hover:text-white transition-colors"
         >
