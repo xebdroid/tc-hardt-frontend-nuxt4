@@ -1,11 +1,18 @@
 {
   "nav": {
     "home": "Startseite",
+    "club": "Der Verein",
+    "sport": "Sport & Teams",
     "about": "Über uns",
+    "about_desc": "Unsere Geschichte & Werte",
     "board": "Vorstand",
+    "board_desc": "Die Köpfe hinter dem Verein",
     "teams": "Mannschaften",
+    "teams_desc": "Erwachsene, Jugend & Senioren",
     "training": "Training",
+    "training_desc": "Tennisschule & Kurse",
     "sponsoring": "Sponsoring",
+    "sponsoring_desc": "Unsere starken Partner",
     "contact": "Kontakt",
     "member": "Mitglied werden",
     "imprint": "Impressum",

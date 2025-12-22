@@ -1,13 +1,20 @@
 {
-  "nav": {
+"nav": {
     "home": "Home",
+    "club": "The Club",
+    "sport": "Sport & Teams",
     "about": "About Us",
-    "board": "Board",
+    "about_desc": "Our history & values",
+    "board": "The Board",
+    "board_desc": "The leadership team",
     "teams": "Teams",
+    "teams_desc": "Adults, Youth & Seniors",
     "training": "Training",
+    "training_desc": "Tennis school & courses",
     "sponsoring": "Sponsoring",
+    "sponsoring_desc": "Our strong partners",
     "contact": "Contact",
-    "member": "Become a Member",
+    "member": "Become a member",
     "imprint": "Imprint",
     "privacy": "Privacy Policy"
   },
