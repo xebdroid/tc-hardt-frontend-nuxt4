@@ -1,0 +1,131 @@
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'gray' | 'white' | 'black' | 'transparent' | 'neutral'
+type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link' | 'subtle'
+
+interface NavButton {
+  label: string
+  to: string
+  color?: ButtonColor
+  variant?: ButtonVariant
+  target?: string
+  icon?: string
+  disabled?: boolean
+}
+
+interface I18nRawItem {
+  label: string
+  disabled?: boolean
+  [key: string]: unknown
+}
+
+interface SocialLink {
+  href: string
+  icon: string
+  label?: string
+}
+
+export const useNavigation = () => {
+  const { t, tm, rt } = useI18n()
+  const localePath = useLocalePath()
+
+  // 1. Hauptmenü
+  const headerMenu = computed<NavigationMenuItem[]>(() => [
+    {
+      label: t('nav.main.club'),
+      icon: 'i-heroicons-building-library',
+      children: [
+        {
+          label: t('nav.sup.about'),
+          to: localePath('about'),
+          description: t('nav.sup.about_desc'),
+          icon: 'i-heroicons-information-circle'
+        },
+        {
+          label: t('nav.sup.board'),
+          to: localePath('board'),
+          description: t('nav.sup.board_desc'),
+          icon: 'i-heroicons-users'
+        },
+        {
+          label: t('nav.sup.sponsoring'),
+          to: localePath('sponsoring'),
+          description: t('nav.sup.sponsoring_desc'),
+          icon: 'i-heroicons-currency-euro'
+        }
+      ]
+    },
+    {
+      label: t('nav.main.sport'),
+      icon: 'i-heroicons-trophy',
+      children: [
+        {
+          label: t('nav.sup.teams'),
+          to: localePath('teams'),
+          description: t('nav.sup.teams_desc'),
+          icon: 'i-heroicons-user-group'
+        },
+        {
+          label: t('nav.main.training'),
+          to: localePath('training'),
+          description: t('nav.sup.training_desc'),
+          icon: 'i-heroicons-academic-cap'
+        }
+      ]
+    },
+    {
+      label: t('nav.main.contact'),
+      icon: 'i-heroicons-envelope',
+      to: localePath('contact')
+    }
+  ])
+
+  const navButtons = computed<NavButton[]>(() => {
+    const data = tm('nav.buttons') as unknown
+
+    if (!Array.isArray(data)) return []
+
+    return data
+      .map((item) => {
+        const rawItem = item as I18nRawItem
+        return {
+          ...rawItem,
+          label: rt(rawItem.label),
+          disabled: rawItem.disabled === true
+        } as NavButton
+      })
+      .filter(btn => !btn.disabled)
+  })
+
+  const socialLinks = computed<SocialLink[]>(() => {
+    const data = tm('nav.topbar.socialmedia') as unknown
+
+    if (!Array.isArray(data)) return []
+
+    return data.map((item) => {
+      const rawItem = item as { label?: string; [key: string]: unknown }
+      return {
+        ...rawItem,
+        label: rawItem.label ? rt(rawItem.label) : undefined
+      } as SocialLink
+    })
+  })
+
+  const addressInfo = computed(() => ({
+    label: t('nav.topbar.address.label'),
+    href: t('nav.topbar.address.href')
+  }))
+
+  const contactInfo = computed(() => ({
+    email: t('nav.topbar.email'),
+    mailto: `mailto:${t('nav.topbar.email')}`
+  }))
+
+  return {
+    headerMenu,
+    navButtons,
+    socialLinks,
+    addressInfo,
+    contactInfo
+  }
+}

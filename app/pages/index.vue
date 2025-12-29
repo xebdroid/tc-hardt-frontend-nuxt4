@@ -213,7 +213,7 @@ const values = computed(() => [
       </UContainer>
     </div>
 
-    <Sponsors2 />
+    <Sponsors />
 
     <div class="bg-tennis-900 py-24 text-center">
       <UContainer>

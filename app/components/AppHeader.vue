@@ -1,61 +1,7 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
-
 const localePath = useLocalePath()
-const { t } = useI18n()
-
-// Wir nutzen 'computed', damit die Übersetzungen beim Sprachwechsel funktionieren
-const items = computed<NavigationMenuItem[]>(() => [
-  {
-    label: t('nav.club'),
-    icon: 'i-heroicons-building-library',
-    defaultOpen: true,
-    children: [
-      {
-        label: t('nav.about'),
-        to: localePath('about'),
-        description: t('nav.about_desc'),
-        icon: 'i-heroicons-information-circle'
-      },
-      {
-        label: t('nav.board'),
-        to: localePath('board'),
-        description: t('nav.board_desc'),
-        icon: 'i-heroicons-users'
-      },
-      {
-        label: t('nav.sponsoring'),
-        to: localePath('sponsoring'),
-        description: t('nav.sponsoring_desc'),
-        icon: 'i-heroicons-currency-euro'
-      }
-    ]
-  },
-  {
-    label: t('nav.sport'),
-    icon: 'i-heroicons-trophy',
-    defaultOpen: true,
-    children: [
-      {
-        label: t('nav.teams'),
-        to: localePath('teams'),
-        description: t('nav.teams_desc'),
-        icon: 'i-heroicons-user-group'
-      },
-      {
-        label: t('nav.training'),
-        to: localePath('training'),
-        description: t('nav.training_desc'),
-        icon: 'i-heroicons-academic-cap'
-      }
-    ]
-  },
-  {
-    label: t('nav.contact'),
-    icon: 'i-heroicons-envelope',
-    to: localePath('contact')
-  }
-])
+// contactInfo holen wir hier jetzt auch dazu für das Mobile Menü
+const { headerMenu, navButtons } = useNavigation()
 </script>
 
 <template>
@@ -65,6 +11,10 @@ const items = computed<NavigationMenuItem[]>(() => [
       color: 'primary',
       variant: 'subtle',
       class: 'rounded-full'
+    }"
+    :ui="{
+      root: 'sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800',
+      container: 'max-w-7xl mx-auto'
     }"
   >
     <template #title>
@@ -80,77 +30,42 @@ const items = computed<NavigationMenuItem[]>(() => [
       </NuxtLink>
     </template>
 
-
     <UNavigationMenu
-      :items="items"
+      :items="headerMenu"
       highlight
       highlight-color="secondary"
       orientation="horizontal"
+      class="hidden lg:flex"
     />
 
     <template #right>
       <UButton
-        :to="localePath('contact')"
-        :label="t('nav.member')"
-        color="primary"
-        variant="solid"
+        v-for="(btn, index) in navButtons"
+        :key="index"
+        :to="localePath(btn.to)"
+        :label="btn.label"
+        :color="(btn.color as any) || 'primary'"
+        :variant="(btn.variant as any) || 'solid'"
+        :target="btn.target"
         class="hidden sm:flex font-bold"
       />
     </template>
 
     <template #body>
-
-      <div class="flex items-center gap-6">
-        <a
-          href="https://maps.app.goo.gl/em8mhm3wfSaVeRrc8"
-          target="_blank"
-          class="flex items-center gap-2 hover:text-white transition-colors"
-        >
-          <UIcon name="i-heroicons-map-pin" class="w-4 h-4 text-highlight-500" />
-          <span>Birkmannsweg 16, MG</span>
-        </a>
-        <a href="mailto:info@tc-hardt.de" class="flex items-center gap-2 hover:text-white transition-colors">
-          <UIcon name="i-heroicons-envelope" class="w-4 h-4 text-highlight-500" />
-          <span>info@tc-hardt.de</span>
-        </a>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
-          <UButton
-            to="https://www.instagram.com/tc_hardt_1976/"
-            target="_blank"
-            variant="ghost"
-            size="xs"
-            icon="i-simple-icons-instagram"
-            class="hover:text-highlight-500"
-          />
-          <UButton
-            to="https://www.facebook.com/TCHardt1976"
-            target="_blank"
-            variant="ghost"
-            size="xs"
-            icon="i-simple-icons-facebook"
-            class="hover:text-highlight-500"
-          />
-        </div>
-
-        <LanguageSwitcher class="mr-2" />
-        <UColorModeButton class="mr-2" />
-
-      </div>
-
       <UNavigationMenu
-        :items="items"
+        :items="headerMenu"
         orientation="vertical"
-        class="-mx-2"
+        class="-mx-2 mb-6"
       />
 
-      <div class="mt-6">
+      <div class="flex flex-col gap-2">
         <UButton
-          :to="localePath('contact')"
-          :label="t('nav.member')"
-          color="primary"
+          v-for="(btn, index) in navButtons"
+          :key="index"
+          :to="localePath(btn.to)"
+          :label="btn.label"
+          :color="(btn.color as any) || 'primary'"
+          :variant="(btn.variant as any) || 'solid'"
           block
           size="xl"
         />
