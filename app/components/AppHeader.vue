@@ -35,7 +35,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 pointer-events-none w-full">
+  <header class="fixed top-4 left-0 right-0 z-50 pointer-events-none w-full">
 
     <div class="relative max-w-5xl mx-auto flex justify-center drop-shadow-md">
 
