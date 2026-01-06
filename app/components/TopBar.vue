@@ -26,7 +26,7 @@ const { socialLinks, addressInfo, contactInfo } = useNavigation()
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 border-r border-white/10 pr-4 mr-2">
 
-          <UButton
+          <!-- <UButton
             v-for="(social, index) in socialLinks"
             :key="index"
             :to="social.href"
@@ -35,7 +35,7 @@ const { socialLinks, addressInfo, contactInfo } = useNavigation()
             size="xs"
             :icon="social.icon"
             class="hover:text-highlight-500"
-          />
+          /> -->
         </div>
 
         <LanguageSwitcher class="mr-2" />

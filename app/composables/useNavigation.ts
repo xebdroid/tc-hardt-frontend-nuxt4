@@ -1,5 +1,6 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+// ... deine Typen (ButtonColor, NavButton etc.) bleiben gleich ...
 type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'gray' | 'white' | 'black' | 'transparent' | 'neutral'
 type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link' | 'subtle'
 
@@ -25,15 +26,22 @@ interface SocialLink {
   label?: string
 }
 
+// NEU: Einfaches Interface für Footer Links
+interface FooterLink {
+  label: string
+  to: string
+}
+
 export const useNavigation = () => {
   const { t, tm, rt } = useI18n()
   const localePath = useLocalePath()
 
   // 1. Hauptmenü
   const headerMenu = computed<NavigationMenuItem[]>(() => [
+     // ... dein existierender Code ...
     {
       label: t('nav.main.club'),
-      icon: 'i-heroicons-building-library',
+      // icon: 'i-heroicons-building-library',
       children: [
         {
           label: t('nav.sup.about'),
@@ -57,7 +65,7 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.sport'),
-      icon: 'i-heroicons-trophy',
+      // icon: 'i-heroicons-trophy',
       children: [
         {
           label: t('nav.sup.teams'),
@@ -75,7 +83,7 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.contact'),
-      icon: 'i-heroicons-envelope',
+      // icon: 'i-heroicons-envelope',
       to: localePath('contact')
     }
   ])
@@ -121,11 +129,24 @@ export const useNavigation = () => {
     mailto: `mailto:${t('nav.topbar.email')}`
   }))
 
+  // NEU: Footer Links zentral definiert
+  const footerLinks = computed<FooterLink[]>(() => [
+    {
+      label: t('nav.sup.imprint'), // Nutzt "Impressum" aus deiner JSON
+      to: localePath('imprint')    // Leitet auf /impressum (oder localized)
+    },
+    {
+      label: t('nav.sup.privacy'), // Nutzt "Datenschutz" aus deiner JSON
+      to: localePath('privacy')
+    }
+  ])
+
   return {
     headerMenu,
     navButtons,
     socialLinks,
     addressInfo,
-    contactInfo
+    contactInfo,
+    footerLinks
   }
 }
