@@ -85,10 +85,8 @@ const values = computed(() => [
           <UButton
             :to="localePath('contact')"
             size="xl"
-            color="highlight"
             variant="solid"
             class="font-bold text-tennis-950"
-            :ui="{ rounded: 'rounded-full' }"
           >
             {{ $t('home.hero.cta_primary') }}
             <template #trailing>
@@ -99,10 +97,8 @@ const values = computed(() => [
           <UButton
             :to="localePath('about')"
             size="xl"
-            color="white"
             variant="soft"
             class="font-bold"
-            :ui="{ rounded: 'rounded-full' }"
           >
             {{ $t('home.hero.cta_secondary') }}
           </UButton>
@@ -183,7 +179,6 @@ const values = computed(() => [
           </div>
           <UButton
             variant="ghost"
-            color="gray"
             trailing-icon="i-heroicons-arrow-right"
           >
             Alle News
@@ -227,10 +222,8 @@ const values = computed(() => [
         <UButton
           :to="localePath('contact')"
           size="xl"
-          color="highlight"
           variant="solid"
           class="font-bold text-tennis-950"
-          :ui="{ rounded: 'rounded-full' }"
         >
           {{ $t('home.cta_bottom.button') }}
         </UButton>

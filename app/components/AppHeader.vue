@@ -1,11 +1,10 @@
 <script setup lang="ts">
-const localePath = useLocalePath()
-const { headerMenu, navButtons } = useNavigation()
+const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
+const localePath = useLocalePath()
 
 const isMobileMenuOpen = ref(false)
 
-// --- LOGIK ---
 const closeMenu = () => {
   isMobileMenuOpen.value = false
 }
@@ -113,7 +112,34 @@ onUnmounted(() => {
           </NuxtLink>
 
 
-          <div class="flex items-center gap-4 ml-auto">
+          <div class="flex items-center gap-3 ml-auto">
+
+            <div class="hidden lg:flex items-center gap-1 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
+              <template v-for="(social, index) in socialLinks" :key="index">
+                <UButton
+                  v-if="social.icon"
+                  :to="social.href"
+                  target="_blank"
+                  variant="ghost"
+                  color="gray"
+                  size="xs"
+                  :icon="social.icon"
+                  class="hover:text-primary-500"
+                />
+              </template>
+
+              <UColorModeButton
+                size="xs"
+                variant="ghost"
+                color="gray"
+              />
+              <LanguageSwitcher
+                size="xs"
+                variant="ghost"
+                color="gray"
+              />
+            </div>
+
 
             <div class="flex items-center gap-2">
               <UButton
@@ -165,6 +191,7 @@ onUnmounted(() => {
                 :ui="{ link: { active: 'text-primary font-bold', base: 'py-3' } }"
               />
 
+              <USeparator />
 
               <div class="flex flex-col gap-3">
                 <UButton
@@ -179,6 +206,35 @@ onUnmounted(() => {
                   @click="closeMenu"
                 />
               </div>
+
+              <USeparator />
+
+              <div class="flex flex-col gap-4 text-sm text-gray-500 dark:text-gray-400">
+
+                <div class="flex items-center justify-center gap-4 pt-2">
+
+                  <div class="flex items-center gap-2">
+                    <template v-for="(social, index) in socialLinks" :key="index">
+                      <UButton
+                        v-if="social.icon"
+                        :href="social.href"
+                        target="_blank"
+                        variant="ghost"
+                        :icon="social.icon"
+                      />
+                    </template>
+                  </div>
+
+                  <div class="h-4 w-px bg-gray-200 dark:bg-gray-700"/>
+
+                  <div class="flex items-center gap-2">
+                    <UColorModeButton />
+                    <LanguageSwitcher />
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
         </div>

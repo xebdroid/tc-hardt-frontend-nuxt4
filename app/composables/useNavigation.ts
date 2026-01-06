@@ -26,7 +26,6 @@ interface SocialLink {
   label?: string
 }
 
-// NEU: Einfaches Interface für Footer Links
 interface FooterLink {
   label: string
   to: string
@@ -88,33 +87,34 @@ export const useNavigation = () => {
     }
   ])
 
-  const navButtons = computed<NavButton[]>(() => {
+const navButtons = computed<NavButton[]>(() => {
     const data = tm('nav.buttons') as unknown
-
     if (!Array.isArray(data)) return []
 
     return data
       .map((item) => {
-        const rawItem = item as I18nRawItem
         return {
-          ...rawItem,
-          label: rt(rawItem.label),
-          disabled: rawItem.disabled === true
+          label: rt(item.label),
+          to: item.to ? rt(item.to) : undefined,
+          color: item.color,
+          variant: item.variant,
+          target: item.target ? rt(item.target) : undefined,
+          disabled: item.disabled === true
         } as NavButton
       })
       .filter(btn => !btn.disabled)
   })
 
-  const socialLinks = computed<SocialLink[]>(() => {
+const socialLinks = computed<SocialLink[]>(() => {
     const data = tm('nav.topbar.socialmedia') as unknown
 
     if (!Array.isArray(data)) return []
 
     return data.map((item) => {
-      const rawItem = item as { label?: string; [key: string]: unknown }
       return {
-        ...rawItem,
-        label: rawItem.label ? rt(rawItem.label) : undefined
+        label: item.label ? rt(item.label) : undefined,
+        href: rt(item.href),
+        icon: rt(item.icon)
       } as SocialLink
     })
   })
