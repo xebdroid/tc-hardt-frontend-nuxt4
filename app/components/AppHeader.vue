@@ -35,60 +35,18 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-4 left-0 right-0 z-50 pointer-events-none w-full">
+  <header class="fixed top-0 lg:top-4 left-0 right-0 z-50 pointer-events-none w-full">
 
-    <div class="relative max-w-5xl mx-auto flex justify-center drop-shadow-md">
+    <div class="relative max-w-5xl mx-auto flex justify-center">
 
-      <svg
-        class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block rotate-180"
-        viewBox="0 0 26 26"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <mask id="curve-mask-left">
-          <rect
-            width="26"
-            height="26"
-            fill="white"
-          />
-          <path d="M 0 0 C 0 14.359 11.641 26 26 26 L 26 0 Z" fill="black" />
-        </mask>
-        <rect
-          width="26"
-          height="26"
-          fill="currentColor"
-          mask="url(#curve-mask-left)"
-        />
-      </svg>
+      <AppCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
+      <AppCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
 
-      <svg
-        class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block rotate-180 scale-x-[-1]"
-        viewBox="0 0 26 26"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <mask id="curve-mask-right">
-          <rect
-            width="26"
-            height="26"
-            fill="white"
-          />
-          <path d="M 0 0 C 0 14.359 11.641 26 26 26 L 26 0 Z" fill="black" />
-        </mask>
-        <rect
-          width="26"
-          height="26"
-          fill="currentColor"
-          mask="url(#curve-mask-right)"
-        />
-      </svg>
+      <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out shadow-xl">
 
+        <div class="w-full flex items-start justify-between shrink-0 relative py-2 lg:py-3">
 
-      <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out">
-
-        <div class="h-20 w-full flex items-center justify-between shrink-0 relative">
-
-          <div class="hidden lg:flex">
+          <div class="hidden lg:flex self-center">
             <UNavigationMenu
               :items="headerMenu"
               highlight
@@ -104,15 +62,26 @@ onUnmounted(() => {
             @click="closeMenu"
           >
             <img
-              src="/img/logo.png"
+              src="/tc-hardt-logo-desktop.svg"
               alt="TC Hardt"
-              class="h-10 lg:h-12 w-auto transition-all"
+              class="hidden lg:block h-[110px] w-auto transition-all duration-300 -mt-4"
             >
-            <span class="font-bold text-xl text-gray-900 dark:text-white hidden lg:block">TC Hardt</span>
+
+            <div class="lg:hidden flex items-center gap-3">
+              <img
+                src="/tc-hardt-logo.svg"
+                alt="TC Hardt"
+                class="h-10 w-auto"
+              >
+              <div class="flex flex-col leading-tight">
+                <span class="font-bold text-xl text-gray-900 dark:text-white">TC Hardt</span>
+                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">1976 e.V.</span>
+              </div>
+            </div>
           </NuxtLink>
 
 
-          <div class="flex items-center gap-3 ml-auto">
+          <div class="flex items-center gap-3 ml-auto self-center">
 
             <div class="hidden lg:flex items-center gap-1 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
               <template v-for="(social, index) in socialLinks" :key="index">
