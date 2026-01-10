@@ -1,13 +1,55 @@
 <script setup lang="ts">
+import Hero, { type HeroSlide } from '~/components/section/Hero.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-// News aus der JSON laden
-const newsItems = db.news
+// --- 1. HERO SLIDER KONFIGURATION ---
+const heroSlides = computed<HeroSlide[]>(() => [
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
+    title: t('home.hero.title'),
+    subtitle: t('home.hero.description'),
+    overlayPosition: 'center',
+    ctaPrimary: {
+      label: t('home.hero.cta_primary'),
+      to: 'contact'
+    },
+    ctaSecondary: {
+      label: t('home.hero.cta_secondary'),
+      to: 'about'
+    }
+  },
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1595435934249-fd51d6a50009?q=80&w=2000&auto=format&fit=crop',
+    title: 'Leidenschaft am Ball',
+    subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
+    overlayPosition: 'bottom-left',
+    ctaPrimary: {
+      label: 'Training buchen',
+      to: 'training'
+    }
+  },
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
+    overlayImage: '/tc-hardt-logo.svg',
+    overlayImageClass: 'w-20 mb-4 drop-shadow-md',
+    title: 'Mehr als ein Verein',
+    subtitle: 'Erlebe unsere starke Gemeinschaft.',
+    overlayPosition: 'bottom-right',
+    ctaPrimary: {
+      label: 'Termine ansehen',
+      to: 'news'
+    }
+  }
+])
 
-// Features (Ascheplätze etc.)
+
+// --- 2. FEATURES ---
 const clubFeatures = computed(() => [
   {
     icon: 'i-heroicons-trophy',
@@ -31,7 +73,7 @@ const clubFeatures = computed(() => [
   }
 ])
 
-// Werte (Fairness etc.)
+// --- 3. VALUES ---
 const values = computed(() => [
   {
     icon: 'i-heroicons-heart',
@@ -54,75 +96,22 @@ const values = computed(() => [
     description: t('home.values.items.fun.desc')
   }
 ])
+
+// --- 4. NEWS DATA ---
+const newsItems = db.news
 </script>
 
 <template>
   <div class="flex flex-col">
 
-    <div class="relative flex items-center min-h-[700px] bg-tennis-900 overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop"
-        class="absolute inset-0 w-full h-full object-cover opacity-30"
-        alt="Tennisplatz"
-      >
-      <div class="absolute inset-0 bg-gradient-to-t from-tennis-900 via-tennis-900/60 to-transparent" />
+    <Hero
+      :slides="heroSlides"
+      height="full"
+      fallback-class="bg-tennis-900"
+      :autoplay="600000"
+    />
 
-      <UContainer class="relative z-10 py-24 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-highlight-400/10 border border-highlight-400/20 text-highlight-400 mb-8 backdrop-blur-sm">
-          <UIcon name="i-heroicons-star" class="w-4 h-4" />
-          <span class="text-xs font-bold uppercase tracking-widest">{{ $t('home.hero.badge') }}</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight mb-6 font-heading">
-          {{ $t('home.hero.title') }}
-        </h1>
-
-        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-          {{ $t('home.hero.description') }}
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <UButton
-            :to="localePath('contact')"
-            size="xl"
-            variant="solid"
-            class="font-bold text-tennis-950"
-          >
-            {{ $t('home.hero.cta_primary') }}
-            <template #trailing>
-              <UIcon name="i-heroicons-arrow-right" class="w-5 h-5" />
-            </template>
-          </UButton>
-
-          <UButton
-            :to="localePath('about')"
-            size="xl"
-            variant="soft"
-            class="font-bold"
-          >
-            {{ $t('home.hero.cta_secondary') }}
-          </UButton>
-        </div>
-      </UContainer>
-    </div>
-
-    <div class="p-10 space-y-4">
-      <p class="font-euro-extended text-2xl">
-        Das ist Extended Regular (Test)
-      </p>
-      <p class="font-euro-extended font-bold text-2xl">
-        Das ist Extended Bold (Test)
-      </p>
-      <p class="font-euro-bold text-2xl">
-        Das ist Standard Bold (Test)
-      </p>
-      <p class="font-sans text-2xl">
-        Das ist Fallback Sans (Vergleich)
-      </p>
-    </div>
-
-
-    <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24">
+    <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24 relative z-10">
       <UContainer>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div
@@ -154,7 +143,7 @@ const values = computed(() => [
             <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-6">
               {{ $t('home.values.title') }}
             </h2>
-            <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">
+            <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">
               {{ $t('home.values.description') }}
             </p>
 
@@ -176,9 +165,9 @@ const values = computed(() => [
           <div class="lg:w-1/2 relative">
             <div class="absolute -inset-4 bg-highlight-100/50 dark:bg-highlight-900/20 rounded-3xl -rotate-3 transform" />
             <img
-              src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=1000&auto=format&fit=crop"
-              class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/3] border-4 border-white dark:border-gray-800"
-              alt="Tennis Community"
+              src="https://images.unsplash.com/photo-1599586120429-48285b6a8a24?q=80&w=1000&auto=format&fit=crop"
+              class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/3] border-4 border-white dark:border-gray-800 transform hover:scale-[1.02] transition-transform duration-500"
+              alt="Tennis Community TC Hardt"
             >
           </div>
         </div>
@@ -189,57 +178,78 @@ const values = computed(() => [
       <UContainer>
         <div class="flex justify-between items-end mb-12">
           <div>
+            <span class="text-tennis-600 font-bold uppercase tracking-widest text-sm mb-2 block">Aktuelles</span>
             <h2 class="text-3xl font-heading font-bold text-tennis-900 dark:text-white">
               {{ $t('home.news.title') }}
             </h2>
           </div>
           <UButton
+            :to="localePath('news')"
             variant="ghost"
+            color="gray"
             trailing-icon="i-heroicons-arrow-right"
+            class="font-bold hover:text-tennis-600"
           >
             Alle News
           </UButton>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div
+          <NuxtLink
             v-for="news in newsItems"
             :key="news.id"
-            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group cursor-pointer"
+            :to="localePath(`/news/${news.id}`)"
+            class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <div class="h-48 overflow-hidden">
+            <div class="h-56 overflow-hidden relative">
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
               <img
                 :src="news.image"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                :alt="news.title"
               >
             </div>
             <div class="p-6">
-              <span class="text-xs font-bold text-highlight-600 mb-2 block">{{ news.date }}</span>
-              <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white line-clamp-1">{{ news.title }}</h3>
-              <p class="text-gray-500 text-sm line-clamp-2 mb-4">{{ news.excerpt }}</p>
-              <span class="text-tennis-600 text-sm font-medium group-hover:underline">Weiterlesen</span>
+              <div class="flex items-center gap-2 mb-3">
+                <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
+                <span class="text-xs font-bold text-gray-500 uppercase">{{ news.date }}</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-tennis-600 transition-colors line-clamp-2">
+                {{ news.title }}
+              </h3>
+              <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-4">
+                {{ news.excerpt }}
+              </p>
+              <span class="inline-flex items-center text-tennis-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
+                Weiterlesen <UIcon name="i-heroicons-arrow-small-right" class="w-4 h-4 ml-1" />
+              </span>
             </div>
-          </div>
+          </NuxtLink>
         </div>
       </UContainer>
     </div>
 
-    <!-- <Sponsors /> -->
+    <div class="bg-tennis-900 relative overflow-hidden py-24 text-center">
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"/>
 
-    <div class="bg-tennis-900 py-24 text-center">
-      <UContainer>
-        <UIcon name="i-heroicons-heart" class="w-12 h-12 text-highlight-400 mb-6" />
+      <UContainer class="relative z-10">
+        <div class="inline-flex p-4 rounded-full bg-white/10 mb-6 backdrop-blur-sm">
+          <UIcon name="i-heroicons-heart" class="w-10 h-10 text-highlight-400" />
+        </div>
+
         <h2 class="text-3xl sm:text-5xl font-heading font-bold text-white mb-6">
           {{ $t('home.cta_bottom.title') }}
         </h2>
-        <p class="text-tennis-100 text-lg mb-8 max-w-2xl mx-auto">
+
+        <p class="text-tennis-100 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
           {{ $t('home.cta_bottom.description') }}
         </p>
+
         <UButton
           :to="localePath('contact')"
           size="xl"
           variant="solid"
-          class="font-bold text-tennis-950"
+          class="font-bold text-slate-900 bg-highlight-400 hover:bg-highlight-300 px-8"
         >
           {{ $t('home.cta_bottom.button') }}
         </UButton>
