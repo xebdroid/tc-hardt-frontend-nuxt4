@@ -1,7 +1,12 @@
 <script setup lang="ts">
-// Pfad entspricht deinem Screenshot (layout).
 import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
+// Neue Komponenten importieren (Nuxt Auto-Import würde auch gehen: LayoutHeaderLogo etc.)
+import HeaderLogo from '~/components/layout/header/Logo.vue'
+import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
+import HeaderCtaButton from '~/components/layout/header/CtaButton.vue'
+import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
+
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 const { headerMenu, navButtons, socialLinks } = useNavigation()
@@ -9,23 +14,13 @@ const route = useRoute()
 const localePath = useLocalePath()
 
 const isMobileMenuOpen = ref(false)
+const closeMenu = () => { isMobileMenuOpen.value = false }
+const toggleMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value }
 
-const closeMenu = () => {
-  isMobileMenuOpen.value = false
-}
-
-const toggleMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
-
-watch(() => route.fullPath, () => {
-  closeMenu()
-})
+watch(() => route.fullPath, closeMenu)
 
 const handleScrollOrResize = () => {
-  if (isMobileMenuOpen.value) {
-    closeMenu()
-  }
+  if (isMobileMenuOpen.value) closeMenu()
 }
 
 onMounted(() => {
@@ -51,17 +46,8 @@ onUnmounted(() => {
 
       <InverseCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
       <InverseCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
-
-
-      <InverseCorner
-        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
-        :angle="180"
-      />
-      <InverseCorner
-        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
-        :angle="90"
-      />
-
+      <InverseCorner class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]" :angle="180" />
+      <InverseCorner class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]" :angle="90" />
 
       <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out shadow-xl">
 
@@ -76,35 +62,7 @@ onUnmounted(() => {
             />
           </div>
 
-
-          <NuxtLink
-            :to="localePath('/')"
-            class="flex items-center gap-2 lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10"
-            @click="closeMenu"
-          >
-            <img
-              src="/tc-hardt-logo-desktop.svg"
-              alt="TC Hardt"
-              class="hidden lg:block h-[110px] w-auto transition-all duration-300 -mt-4 relative z-10"
-            >
-
-            <div class="lg:hidden flex items-center gap-3">
-              <img
-                src="/tc-hardt-logo.svg"
-                alt="TC Hardt"
-                class="h-10 w-auto"
-              >
-              <div class="flex flex-col leading-tight">
-                <span class="font-euro-extended font-bold text-xl text-slate-900 dark:text-white">
-                  TC Hardt
-                </span>
-                <span class="font-euro-bold text-xs text-slate-900 dark:text-white">
-                  1976 e.V.
-                </span>
-              </div>
-            </div>
-          </NuxtLink>
-
+          <HeaderLogo @click="closeMenu" />
 
           <div class="flex items-center gap-3 ml-auto self-center">
 
@@ -120,7 +78,6 @@ onUnmounted(() => {
                   class="hover:text-primary-500"
                 />
               </template>
-
               <UColorModeButton
                 size="xs"
                 variant="ghost"
@@ -132,106 +89,31 @@ onUnmounted(() => {
               />
             </div>
 
-
             <div class="flex items-center gap-2">
-              <UButton
+              <HeaderCtaButton
                 v-for="(btn, index) in navButtons"
                 :key="index"
+                class="hidden sm:flex"
                 :to="localePath(btn.to)"
                 :label="btn.label"
-                variant="solid"
                 :target="btn.target"
-                class="hidden lg:block font-bold transition-colors bg-primary-500 text-slate-900 dark:bg-highlight-500 dark:hover:bg-highlight-400 dark:hover:bg-highlight-400"
               />
             </div>
 
-            <button
-              class="lg:hidden relative w-10 h-10 flex items-center justify-center focus:outline-none text-gray-900 dark:text-white"
-              aria-label="Menu öffnen"
-              @click="toggleMenu"
-            >
-              <span class="relative w-6 h-5 block" aria-hidden="true">
-                <span
-                  class="absolute left-0 block w-full h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out"
-                  :class="isMobileMenuOpen ? 'top-2 rotate-45' : 'top-0'"
-                />
-                <span
-                  class="absolute left-0 block w-full h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out top-2"
-                  :class="isMobileMenuOpen ? 'opacity-0' : 'opacity-100'"
-                />
-                <span
-                  class="absolute left-0 block w-full h-0.5 bg-current rounded-full transition-all duration-300 ease-in-out"
-                  :class="isMobileMenuOpen ? 'top-2 -rotate-45' : 'top-4'"
-                />
-              </span>
-            </button>
+            <HeaderHamburger :is-open="isMobileMenuOpen" @toggle="toggleMenu" />
 
           </div>
         </div>
 
-
-        <div
-          class="lg:hidden grid transition-[grid-template-rows] duration-300 ease-in-out"
-          :class="isMobileMenuOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
-        >
-          <div class="overflow-hidden">
-            <div class="pb-6 pt-2 flex flex-col gap-6">
-              <UNavigationMenu
-                :items="headerMenu"
-                orientation="vertical"
-                :ui="{ link: { active: 'text-primary font-bold', base: 'py-3' } }"
-              />
-
-              <USeparator />
-
-              <div class="flex flex-col gap-3">
-                <UButton
-                  v-for="(btn, index) in navButtons"
-                  :key="index"
-                  :to="localePath(btn.to)"
-                  :label="btn.label"
-                  variant="solid"
-                  block
-                  size="xl"
-                  class="font-bold transition-colors bg-primary-500 text-slate-900 dark:bg-highlight-500 dark:hover:bg-highlight-400"
-                  @click="closeMenu"
-                />
-              </div>
-
-              <USeparator />
-
-              <div class="flex flex-col gap-4 text-sm text-gray-500 dark:text-gray-400">
-
-                <div class="flex items-center justify-center gap-4 pt-2">
-
-                  <div class="flex items-center gap-2">
-                    <template v-for="(social, index) in socialLinks" :key="index">
-                      <UButton
-                        v-if="social.icon"
-                        :href="social.href"
-                        target="_blank"
-                        variant="ghost"
-                        :icon="social.icon"
-                      />
-                    </template>
-                  </div>
-
-                  <div class="h-4 w-px bg-gray-200 dark:bg-gray-700"/>
-
-                  <div class="flex items-center gap-2">
-                    <UColorModeButton />
-                    <LanguageSwitcher />
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
+        <HeaderMobileMenu
+          :is-open="isMobileMenuOpen"
+          :header-menu="headerMenu"
+          :nav-buttons="navButtons"
+          :social-links="socialLinks"
+          @close="closeMenu"
+        />
 
       </div>
-
     </div>
   </header>
 </template>
