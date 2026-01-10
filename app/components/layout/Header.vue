@@ -1,4 +1,10 @@
 <script setup lang="ts">
+// Pfad entspricht deinem Screenshot (layout).
+// Falls du es nach 'base' verschoben hast, ändere es hier in '~/components/base/InverseCorner.vue'
+import InverseCorner from '~/components/layout/InverseCorner.vue'
+import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+
 const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
 const localePath = useLocalePath()
@@ -41,19 +47,19 @@ onUnmounted(() => {
       class="relative lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto flex justify-center
       before:content-[''] before:block before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2
       before:w-[97px] before:h-[113px] before:rounded-[10px] before:bg-white dark:before:bg-gray-900 before:hidden before:lg:block
-      before:shadow-[0_15px_20px_-5px_rgba(0,0,0,0.15)]"
+      before:shadow-[0_25px_15px_-10px_rgba(0,0,0,0.15)]"
     >
 
-      <AppCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
-      <AppCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
+      <InverseCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
+      <InverseCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
 
 
-      <AppCorner
-        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
+      <InverseCorner
+        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900"
         :angle="180"
       />
-      <AppCorner
-        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
+      <InverseCorner
+        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900"
         :angle="90"
       />
 
