@@ -37,10 +37,26 @@ onUnmounted(() => {
 <template>
   <header class="fixed top-0 lg:top-4 left-0 right-0 z-50 pointer-events-none w-full">
 
-    <div class="relative max-w-5xl mx-auto flex justify-center">
+    <div
+      class="relative lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto flex justify-center
+      before:content-[''] before:block before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2
+      before:w-[97px] before:h-[113px] before:rounded-[10px] before:bg-white dark:before:bg-gray-900 before:hidden before:lg:block
+      before:shadow-[0_15px_20px_-5px_rgba(0,0,0,0.15)]"
+    >
 
       <AppCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
       <AppCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
+
+
+      <AppCorner
+        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
+        :angle="180"
+      />
+      <AppCorner
+        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
+        :angle="90"
+      />
+
 
       <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out shadow-xl">
 
@@ -64,7 +80,7 @@ onUnmounted(() => {
             <img
               src="/tc-hardt-logo-desktop.svg"
               alt="TC Hardt"
-              class="hidden lg:block h-[110px] w-auto transition-all duration-300 -mt-4"
+              class="hidden lg:block h-[110px] w-auto transition-all duration-300 -mt-4 relative z-10"
             >
 
             <div class="lg:hidden flex items-center gap-3">
