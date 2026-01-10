@@ -8,7 +8,24 @@ const localePath = useLocalePath()
 // --- 1. HERO SLIDER KONFIGURATION ---
 const heroSlides = computed<HeroSlide[]>(() => [
   {
+    type: 'video', // WICHTIG: Typ auf video setzen
+    src: '/videos/tennis_example.mp4', // Pfad relativ zum public Ordner
+    poster: '/img/video-poster.jpg', // Bild, das angezeigt wird, bis das Video lädt
+
+    // Optional: Text über dem Video
+    title: 'Training in Aktion',
+    subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
+    overlayPosition: 'center',
+
+    // Optional: Buttons
+    ctaPrimary: {
+      label: 'Probetraining',
+      to: 'contact'
+    }
+  },
+  {
     type: 'image',
+    // Bild 1: Top-Down Shot (Bleibt gleich, funktionierte)
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
     title: t('home.hero.title'),
     subtitle: t('home.hero.description'),
@@ -24,7 +41,8 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1595435934249-fd51d6a50009?q=80&w=2000&auto=format&fit=crop',
+    // NEU Bild 2: Action Shot (Aufschlag/Spieler in Bewegung)
+    src: 'https://images.unsplash.com/photo-1530915365347-e35b749a0381?q=80&w=1740&auto=format&fit=crop',
     title: 'Leidenschaft am Ball',
     subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
     overlayPosition: 'bottom-left',
@@ -35,6 +53,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
+    // Bild 3: Detailaufnahme (Bleibt gleich, funktionierte)
     src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
     overlayImage: '/tc-hardt-logo.svg',
     overlayImageClass: 'w-20 mb-4 drop-shadow-md',
@@ -108,7 +127,7 @@ const newsItems = db.news
       :slides="heroSlides"
       height="full"
       fallback-class="bg-tennis-900"
-      :autoplay="600000"
+      :autoplay="6000"
     />
 
     <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24 relative z-10">
@@ -165,7 +184,7 @@ const newsItems = db.news
           <div class="lg:w-1/2 relative">
             <div class="absolute -inset-4 bg-highlight-100/50 dark:bg-highlight-900/20 rounded-3xl -rotate-3 transform" />
             <img
-              src="https://images.unsplash.com/photo-1599586120429-48285b6a8a24?q=80&w=1000&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1591100463799-a9ef12226ba4?q=80&w=928&auto=format&fit=crop"
               class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/3] border-4 border-white dark:border-gray-800 transform hover:scale-[1.02] transition-transform duration-500"
               alt="Tennis Community TC Hardt"
             >
@@ -230,7 +249,7 @@ const newsItems = db.news
     </div>
 
     <div class="bg-tennis-900 relative overflow-hidden py-24 text-center">
-      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"/>
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
 
       <UContainer class="relative z-10">
         <div class="inline-flex p-4 rounded-full bg-white/10 mb-6 backdrop-blur-sm">
