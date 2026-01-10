@@ -106,6 +106,22 @@ const values = computed(() => [
       </UContainer>
     </div>
 
+    <div class="p-10 space-y-4">
+      <p class="font-euro-extended text-2xl">
+        Das ist Extended Regular (Test)
+      </p>
+      <p class="font-euro-extended font-bold text-2xl">
+        Das ist Extended Bold (Test)
+      </p>
+      <p class="font-euro-bold text-2xl">
+        Das ist Standard Bold (Test)
+      </p>
+      <p class="font-sans text-2xl">
+        Das ist Fallback Sans (Vergleich)
+      </p>
+    </div>
+
+
     <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24">
       <UContainer>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

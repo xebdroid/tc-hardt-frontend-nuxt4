@@ -1,13 +1,21 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* Hier konfigurieren wir Tailwind v4.
+  Die Variablen --font-* erzeugen automatisch Klassen wie "font-euro-extended".
+*/
+@theme {
+  --font-euro-extended: "EurostileExtended", sans-serif;
+  --font-euro-bold: "EurostileBold", sans-serif;
+}
+
 @theme static {
   /* 1. SCHRIFTARTEN KORRIGIEREN */
   /* Hier stand vorher Public Sans - jetzt Inter! */
-  --font-sans: 'Inter', sans-serif;
+  /* --font-sans: 'Inter', sans-serif; */
 
   /* Wir definieren Montserrat für Überschriften */
-  --font-heading: 'Montserrat', sans-serif;
+  /* --font-heading: 'Montserrat', sans-serif; */
 
   /* 2. DEINE FARBPALETTE (Tennis Blau) */
   /* Wir übernehmen die Werte, die wir uns ausgesucht hatten */
@@ -36,6 +44,38 @@
   --color-highlight-900: #365314;
   --color-highlight-950: #1a2e05;
 }
+
+/* 1. Extended (Breit) - Normal */
+@font-face {
+  font-family: "EurostileExtended";
+  src: url("/fonts/Eurostile-ExtendedTwo.woff2") format("woff2"),
+       url("/fonts/Eurostile-ExtendedTwo.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Extended (Breit) - Fett */
+@font-face {
+  font-family: "EurostileExtended";
+  src: url("/fonts/Eurostile-BoldExtendedTwo.woff2") format("woff2"),
+       url("/fonts/Eurostile-BoldExtendedTwo.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 3. Standard Bold (Eng) */
+@font-face {
+  font-family: "EurostileBold";
+  src: url("/fonts/EurostileBold.woff2") format("woff2"),
+       url("/fonts/EurostileBold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind utilities;
 
 /* WICHTIG: Überschriften explizit auf Montserrat setzen */
 h1, h2, h3, h4, h5, h6 {

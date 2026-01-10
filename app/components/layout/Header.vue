@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // Pfad entspricht deinem Screenshot (layout).
-// Falls du es nach 'base' verschoben hast, ändere es hier in '~/components/base/InverseCorner.vue'
 import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
@@ -55,11 +54,11 @@ onUnmounted(() => {
 
 
       <InverseCorner
-        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900"
+        class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
         :angle="180"
       />
       <InverseCorner
-        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900"
+        class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900 drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)]"
         :angle="90"
       />
 
@@ -96,8 +95,12 @@ onUnmounted(() => {
                 class="h-10 w-auto"
               >
               <div class="flex flex-col leading-tight">
-                <span class="font-bold text-xl text-gray-900 dark:text-white">TC Hardt</span>
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">1976 e.V.</span>
+                <span class="font-euro-extended font-bold text-xl text-slate-900 dark:text-white">
+                  TC Hardt
+                </span>
+                <span class="font-euro-bold text-xs text-slate-900 dark:text-white">
+                  1976 e.V.
+                </span>
               </div>
             </div>
           </NuxtLink>
@@ -112,7 +115,6 @@ onUnmounted(() => {
                   :to="social.href"
                   target="_blank"
                   variant="ghost"
-                  color="gray"
                   size="xs"
                   :icon="social.icon"
                   class="hover:text-primary-500"
@@ -122,7 +124,6 @@ onUnmounted(() => {
               <UColorModeButton
                 size="xs"
                 variant="ghost"
-                color="gray"
               />
               <LanguageSwitcher
                 size="xs"
@@ -138,10 +139,9 @@ onUnmounted(() => {
                 :key="index"
                 :to="localePath(btn.to)"
                 :label="btn.label"
-                :color="(btn.color as any) || 'primary'"
-                :variant="(btn.variant as any) || 'solid'"
+                variant="solid"
                 :target="btn.target"
-                class="hidden sm:flex font-bold"
+                class="hidden lg:block font-bold transition-colors bg-primary-500 text-slate-900 dark:bg-highlight-500 dark:hover:bg-highlight-400 dark:hover:bg-highlight-400"
               />
             </div>
 
@@ -190,10 +190,10 @@ onUnmounted(() => {
                   :key="index"
                   :to="localePath(btn.to)"
                   :label="btn.label"
-                  :color="(btn.color as any) || 'primary'"
-                  :variant="(btn.variant as any) || 'solid'"
+                  variant="solid"
                   block
                   size="xl"
+                  class="font-bold transition-colors bg-primary-500 text-slate-900 dark:bg-highlight-500 dark:hover:bg-highlight-400"
                   @click="closeMenu"
                 />
               </div>
