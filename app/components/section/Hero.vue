@@ -8,7 +8,6 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
-// --- TYPEN ---
 export interface HeroSlide {
   type: 'image' | 'video'
   src: string
@@ -23,7 +22,6 @@ export interface HeroSlide {
   overlayPosition?: 'center' | 'bottom-left' | 'bottom-right'
 }
 
-// --- PROPS ---
 const props = withDefaults(defineProps<{
   slides?: HeroSlide[]
   height?: 'full' | 'large' | 'small'
@@ -40,14 +38,10 @@ const props = withDefaults(defineProps<{
 
 const swiperInstance = ref<any>(null)
 
-// --- HÖHEN LOGIK (KORRIGIERT) ---
+// --- HÖHEN LOGIK ---
 const containerHeightClass = computed(() => {
   switch (props.height) {
-    // KORREKTUR:
-    // Mobile: h-screen (Volle Höhe)
-    // Desktop (lg): 100vh minus 2rem (für das p-4 Padding oben/unten im Layout)
     case 'full': return 'h-screen lg:h-[calc(100vh-2rem)]'
-
     case 'large': return 'h-[600px]'
     case 'small': return 'h-[400px]'
     default: return 'h-[600px]'
@@ -56,24 +50,66 @@ const containerHeightClass = computed(() => {
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
+// --- VIDEO EVENT HANDLER ---
+
+// 1. Wird gefeuert, wenn das Video genug geladen hat, um zu starten
+const handleVideoLoaded = (e: Event) => {
+  const video = e.target as HTMLVideoElement
+
+  // Sicherstellen, dass Swiper steht
+  if (swiperInstance.value && swiperInstance.value.autoplay.running) {
+    swiperInstance.value.autoplay.stop()
+  }
+
+  // Video starten
+  video.play().catch(() => {
+    // Falls Autoplay vom Browser blockiert wird (selten bei muted, aber möglich)
+    console.log('Autoplay blocked usually due to unmuted audio')
+  })
+}
+
+// 2. Wird gefeuert, wenn das Video zu Ende ist
 const handleVideoEnded = () => {
   if (swiperInstance.value && !props.loopVideo) {
+    // Erst JETZT zum nächsten Slide
     swiperInstance.value.slideNext()
+    // Und den globalen Autoplay wieder anwerfen (für nachfolgende Bilder)
     swiperInstance.value.autoplay.start()
   }
 }
 
+// --- SWIPER LOGIK ---
+
+// Initialisierung: Prüfen ob Slide 1 ein Video ist
+const onSwiperInit = (swiper: any) => {
+  swiperInstance.value = swiper
+
+  const firstSlide = props.slides[0]
+  if (firstSlide && firstSlide.type === 'video') {
+    // WICHTIG: Sofort anhalten! Nicht warten bis Video lädt.
+    // Wir warten auf das @loadeddata Event vom Video-Tag.
+    swiper.autoplay.stop()
+  }
+}
+
+// Bei jedem Slide-Wechsel
 const onSlideChange = (swiper: any) => {
   swiperInstance.value = swiper
   const activeIndex = swiper.realIndex
   const currentSlide = props.slides[activeIndex]
-  const videoElement = document.querySelector(`.swiper-slide-active video`) as HTMLVideoElement
+
+  // Wir suchen das Video im aktiven Slide
+  // (Hinweis: Swiper dupliziert Slides für den Loop-Modus, daher suchen wir im DOM)
+  const activeSlideEl = swiper.slides[swiper.activeIndex]
+  const videoElement = activeSlideEl.querySelector('video') as HTMLVideoElement
 
   if (currentSlide?.type === 'video' && videoElement) {
+    // Wenn Video: Swiper Timer stoppen
     swiper.autoplay.stop()
     videoElement.currentTime = 0
     videoElement.play()
   } else {
+    // Wenn Bild: Swiper Timer starten
     swiper.autoplay.start()
   }
 }
@@ -100,7 +136,7 @@ const onSlideChange = (swiper: any) => {
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
       class="h-full w-full group"
       :class="{ 'relative': slides.length === 1 }"
-      @swiper="(s) => swiperInstance = s"
+      @swiper="onSwiperInit"
       @slide-change="onSlideChange"
     >
       <component
@@ -118,6 +154,7 @@ const onSlideChange = (swiper: any) => {
             muted
             playsinline
             :loop="loopVideo"
+            @loadeddata="handleVideoLoaded"
             @ended="handleVideoEnded"
           />
           <img

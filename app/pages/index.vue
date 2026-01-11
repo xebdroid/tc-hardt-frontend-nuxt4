@@ -11,13 +11,9 @@ const heroSlides = computed<HeroSlide[]>(() => [
     type: 'video',
     src: '/videos/tennis_example.mp4',
     poster: '/img/video-poster.jpg',
-
-    // Optional: Text über dem Video
     title: 'Training in Aktion',
     subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
     overlayPosition: 'center',
-
-    // Optional: Buttons
     ctaPrimary: {
       label: 'Probetraining',
       to: 'contact'
@@ -36,7 +32,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    // Bild 1: Top-Down Shot (Bleibt gleich, funktionierte)
+    // Bild 1: Top-Down Shot
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
     title: t('home.hero.title'),
     subtitle: t('home.hero.description'),
@@ -52,7 +48,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    // NEU Bild 2: Action Shot (Aufschlag/Spieler in Bewegung)
+    // Bild 2: Action Shot
     src: 'https://images.unsplash.com/photo-1530915365347-e35b749a0381?q=80&w=1740&auto=format&fit=crop',
     title: 'Leidenschaft am Ball',
     subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
@@ -64,7 +60,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    // Bild 3: Detailaufnahme (Bleibt gleich, funktionierte)
+    // Bild 3: Detailaufnahme
     src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
     overlayImage: '/tc-hardt-logo.svg',
     overlayImageClass: 'w-20 mb-4 drop-shadow-md',
@@ -228,10 +224,9 @@ const newsItems = db.news
           <NuxtLink
             v-for="news in newsItems"
             :key="news.id"
-            :to="localePath(`/about`)"
+            :to="localePath(`/news/${news.id}`)"
             class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
-            <!-- :to="localePath(`/news/${news.id}`)" -->
             <div class="h-56 overflow-hidden relative">
               <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
               <img
