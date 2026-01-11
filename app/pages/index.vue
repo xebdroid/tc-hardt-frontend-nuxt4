@@ -8,9 +8,9 @@ const localePath = useLocalePath()
 // --- 1. HERO SLIDER KONFIGURATION ---
 const heroSlides = computed<HeroSlide[]>(() => [
   {
-    type: 'video', // WICHTIG: Typ auf video setzen
-    src: '/videos/tennis_example.mp4', // Pfad relativ zum public Ordner
-    poster: '/img/video-poster.jpg', // Bild, das angezeigt wird, bis das Video lädt
+    type: 'video',
+    src: '/videos/tennis_example.mp4',
+    poster: '/img/video-poster.jpg',
 
     // Optional: Text über dem Video
     title: 'Training in Aktion',
@@ -20,6 +20,17 @@ const heroSlides = computed<HeroSlide[]>(() => [
     // Optional: Buttons
     ctaPrimary: {
       label: 'Probetraining',
+      to: 'contact'
+    }
+  },
+  {
+    type: 'image',
+    src: '/img/50_jahre_3.png',
+    title: 'Unsere Jubiläums-Highlights 2026',
+    // subtitle: t('home.hero.description'),
+    overlayPosition: 'bottom-right',
+    ctaPrimary: {
+      label: "Mehr erfahren",
       to: 'contact'
     }
   },
@@ -217,9 +228,10 @@ const newsItems = db.news
           <NuxtLink
             v-for="news in newsItems"
             :key="news.id"
-            :to="localePath(`/news/${news.id}`)"
+            :to="localePath(`/about`)"
             class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
           >
+            <!-- :to="localePath(`/news/${news.id}`)" -->
             <div class="h-56 overflow-hidden relative">
               <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
               <img
@@ -249,7 +261,7 @@ const newsItems = db.news
     </div>
 
     <div class="bg-tennis-900 relative overflow-hidden py-24 text-center">
-      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"/>
 
       <UContainer class="relative z-10">
         <div class="inline-flex p-4 rounded-full bg-white/10 mb-6 backdrop-blur-sm">
