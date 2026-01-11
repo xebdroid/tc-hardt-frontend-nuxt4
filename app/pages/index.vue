@@ -21,10 +21,10 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    src: '/img/50_jahre_3.png',
+    src: '/img/50_jahre_large.jpg',
     title: 'Unsere Jubiläums-Highlights 2026',
     // subtitle: t('home.hero.description'),
-    overlayPosition: 'bottom-right',
+    overlayPosition: 'bottom-center',
     ctaPrimary: {
       label: "Mehr erfahren",
       to: 'contact'

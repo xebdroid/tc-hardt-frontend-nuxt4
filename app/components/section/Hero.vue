@@ -8,6 +8,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
+// --- TYPEN ---
 export interface HeroSlide {
   type: 'image' | 'video'
   src: string
@@ -19,7 +20,12 @@ export interface HeroSlide {
   subtitle?: string
   ctaPrimary?: { label: string; to: string }
   ctaSecondary?: { label: string; to: string }
-  overlayPosition?: 'center' | 'bottom-left' | 'bottom-right'
+
+  // ERWEITERTE POSITIONEN
+  overlayPosition?:
+    'top-left' | 'top-center' | 'top-right' |
+    'center-left' | 'center' | 'center-right' |
+    'bottom-left' | 'bottom-center' | 'bottom-right'
 }
 
 const props = withDefaults(defineProps<{
@@ -38,78 +44,79 @@ const props = withDefaults(defineProps<{
 
 const swiperInstance = ref<any>(null)
 
-// --- HÖHEN LOGIK ---
+// --- HÖHEN LOGIK (MOBILE FIX) ---
 const containerHeightClass = computed(() => {
   switch (props.height) {
-    case 'full': return 'h-screen lg:h-[calc(100vh-2rem)]'
+    // FIX FÜR MOBILE:
+    // h-[100svh] -> Small Viewport Height. Ignoriert die Adressleiste nicht,
+    // sondern zieht sie ab. Inhalt passt immer rein.
+    case 'full': return 'h-[100svh] lg:h-[calc(100vh-2rem)]'
+
     case 'large': return 'h-[600px]'
     case 'small': return 'h-[400px]'
     default: return 'h-[600px]'
   }
 })
 
+// --- POSITIONIERUNGS LOGIK (ERWEITERT) ---
+const getOverlayClass = (position?: string) => {
+  // Flex-Col: justify steuert Vertikal, items steuert Horizontal
+  switch (position) {
+    case 'top-left':      return 'justify-start items-start text-left'
+    case 'top-center':    return 'justify-start items-center text-center'
+    case 'top-right':     return 'justify-start items-end text-right'
+
+    case 'center-left':   return 'justify-center items-start text-left'
+    case 'center':        return 'justify-center items-center text-center'
+    case 'center-right':  return 'justify-center items-end text-right'
+
+    case 'bottom-left':   return 'justify-end items-start text-left'
+    case 'bottom-center': return 'justify-end items-center text-center'
+    case 'bottom-right':  return 'justify-end items-end text-right'
+
+    // Default fallback
+    default:              return 'justify-center items-center text-center'
+  }
+}
+
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
-// --- VIDEO EVENT HANDLER ---
-
-// 1. Wird gefeuert, wenn das Video genug geladen hat, um zu starten
+// --- VIDEO LOGIK (WIE VORHER) ---
 const handleVideoLoaded = (e: Event) => {
   const video = e.target as HTMLVideoElement
-
-  // Sicherstellen, dass Swiper steht
   if (swiperInstance.value && swiperInstance.value.autoplay.running) {
     swiperInstance.value.autoplay.stop()
   }
-
-  // Video starten
-  video.play().catch(() => {
-    // Falls Autoplay vom Browser blockiert wird (selten bei muted, aber möglich)
-    console.log('Autoplay blocked usually due to unmuted audio')
-  })
+  video.play().catch(() => console.log('Autoplay blocked'))
 }
 
-// 2. Wird gefeuert, wenn das Video zu Ende ist
 const handleVideoEnded = () => {
   if (swiperInstance.value && !props.loopVideo) {
-    // Erst JETZT zum nächsten Slide
     swiperInstance.value.slideNext()
-    // Und den globalen Autoplay wieder anwerfen (für nachfolgende Bilder)
     swiperInstance.value.autoplay.start()
   }
 }
 
-// --- SWIPER LOGIK ---
-
-// Initialisierung: Prüfen ob Slide 1 ein Video ist
 const onSwiperInit = (swiper: any) => {
   swiperInstance.value = swiper
-
   const firstSlide = props.slides[0]
   if (firstSlide && firstSlide.type === 'video') {
-    // WICHTIG: Sofort anhalten! Nicht warten bis Video lädt.
-    // Wir warten auf das @loadeddata Event vom Video-Tag.
     swiper.autoplay.stop()
   }
 }
 
-// Bei jedem Slide-Wechsel
 const onSlideChange = (swiper: any) => {
   swiperInstance.value = swiper
   const activeIndex = swiper.realIndex
   const currentSlide = props.slides[activeIndex]
-
-  // Wir suchen das Video im aktiven Slide
-  // (Hinweis: Swiper dupliziert Slides für den Loop-Modus, daher suchen wir im DOM)
   const activeSlideEl = swiper.slides[swiper.activeIndex]
   const videoElement = activeSlideEl.querySelector('video') as HTMLVideoElement
 
   if (currentSlide?.type === 'video' && videoElement) {
-    // Wenn Video: Swiper Timer stoppen
     swiper.autoplay.stop()
     videoElement.currentTime = 0
     videoElement.play()
   } else {
-    // Wenn Bild: Swiper Timer starten
     swiper.autoplay.start()
   }
 }
@@ -168,11 +175,7 @@ const onSlideChange = (swiper: any) => {
 
         <div
           class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
-          :class="{
-            'justify-center items-center text-center': !slide.overlayPosition || slide.overlayPosition === 'center',
-            'justify-end items-end text-right': slide.overlayPosition === 'bottom-right',
-            'justify-end items-start text-left': slide.overlayPosition === 'bottom-left'
-          }"
+          :class="getOverlayClass(slide.overlayPosition)"
         >
 
           <slot name="content" :slide="slide">
@@ -195,7 +198,11 @@ const onSlideChange = (swiper: any) => {
             <div
               v-if="slide.ctaPrimary || slide.ctaSecondary"
               class="flex flex-wrap gap-4"
-              :class="{ 'justify-center': !slide.overlayPosition || slide.overlayPosition === 'center' }"
+              :class="{
+                'justify-start': slide.overlayPosition?.includes('left'),
+                'justify-end': slide.overlayPosition?.includes('right'),
+                'justify-center': !slide.overlayPosition || slide.overlayPosition.includes('center')
+              }"
             >
               <UButton
                 v-if="slide.ctaPrimary"
