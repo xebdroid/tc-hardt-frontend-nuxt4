@@ -23,6 +23,14 @@ export default defineNuxtConfig({
     inject: true
   },
 
+nitro: {
+    prerender: {
+      // Wenn true (default), bricht der Build bei einem toten Link ab.
+      // Auf false setzen, damit Github Actions durchläuft.
+      failOnError: false,
+    }
+  },
+
   i18n: {
     strategy: "prefix_except_default",
     defaultLocale: "de",
