@@ -8,24 +8,27 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
-// --- TYPEN ---
 export interface HeroSlide {
   type: 'image' | 'video'
   src: string
   poster?: string
   alt?: string
+
+  // Content & Layout
   overlayImage?: string
   overlayImageClass?: string
   title?: string
   subtitle?: string
+  description?: string
   ctaPrimary?: { label: string; to: string }
   ctaSecondary?: { label: string; to: string }
-
-  // ERWEITERTE POSITIONEN
   overlayPosition?:
     'top-left' | 'top-center' | 'top-right' |
     'center-left' | 'center' | 'center-right' |
     'bottom-left' | 'bottom-center' | 'bottom-right'
+
+  // NEU: Eigener Slot-Name für komplett freies HTML
+  slotName?: string
 }
 
 const props = withDefaults(defineProps<{
@@ -44,23 +47,18 @@ const props = withDefaults(defineProps<{
 
 const swiperInstance = ref<any>(null)
 
-// --- HÖHEN LOGIK (MOBILE FIX) ---
+// --- HÖHEN BERECHNUNG ---
 const containerHeightClass = computed(() => {
   switch (props.height) {
-    // FIX FÜR MOBILE:
-    // h-[100svh] -> Small Viewport Height. Ignoriert die Adressleiste nicht,
-    // sondern zieht sie ab. Inhalt passt immer rein.
     case 'full': return 'h-[100svh] lg:h-[calc(100vh-2rem)]'
-
     case 'large': return 'h-[600px]'
     case 'small': return 'h-[400px]'
     default: return 'h-[600px]'
   }
 })
 
-// --- POSITIONIERUNGS LOGIK (ERWEITERT) ---
+// --- POSITIONIERUNGS-HELFER ---
 const getOverlayClass = (position?: string) => {
-  // Flex-Col: justify steuert Vertikal, items steuert Horizontal
   switch (position) {
     case 'top-left':      return 'justify-start items-start text-left'
     case 'top-center':    return 'justify-start items-center text-center'
@@ -74,14 +72,13 @@ const getOverlayClass = (position?: string) => {
     case 'bottom-center': return 'justify-end items-center text-center'
     case 'bottom-right':  return 'justify-end items-end text-right'
 
-    // Default fallback
     default:              return 'justify-center items-center text-center'
   }
 }
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
-// --- VIDEO LOGIK (WIE VORHER) ---
+// --- VIDEO LOGIK ---
 const handleVideoLoaded = (e: Event) => {
   const video = e.target as HTMLVideoElement
   if (swiperInstance.value && swiperInstance.value.autoplay.running) {
@@ -109,8 +106,9 @@ const onSlideChange = (swiper: any) => {
   swiperInstance.value = swiper
   const activeIndex = swiper.realIndex
   const currentSlide = props.slides[activeIndex]
+
   const activeSlideEl = swiper.slides[swiper.activeIndex]
-  const videoElement = activeSlideEl.querySelector('video') as HTMLVideoElement
+  const videoElement = activeSlideEl ? activeSlideEl.querySelector('video') : null
 
   if (currentSlide?.type === 'video' && videoElement) {
     swiper.autoplay.stop()
@@ -178,7 +176,8 @@ const onSlideChange = (swiper: any) => {
           :class="getOverlayClass(slide.overlayPosition)"
         >
 
-          <slot name="content" :slide="slide">
+          <slot :name="slide.slotName || 'content'" :slide="slide">
+
             <img
               v-if="slide.overlayImage"
               :src="slide.overlayImage"
@@ -191,8 +190,12 @@ const onSlideChange = (swiper: any) => {
               {{ slide.title }}
             </h2>
 
-            <p v-if="slide.subtitle" class="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl drop-shadow-md">
+            <p v-if="slide.subtitle" class="text-xl sm:text-2xl font-bold text-tennis-100 mb-4 max-w-2xl drop-shadow-md">
               {{ slide.subtitle }}
+            </p>
+
+            <p v-if="slide.description" class="text-base sm:text-lg text-gray-200 mb-8 max-w-2xl leading-relaxed drop-shadow-md">
+              {{ slide.description }}
             </p>
 
             <div

@@ -8,6 +8,38 @@ const localePath = useLocalePath()
 // --- 1. HERO SLIDER KONFIGURATION ---
 const heroSlides = computed<HeroSlide[]>(() => [
   {
+    type: 'image',
+    // Hintergrundbild
+    src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000',
+
+    // Das Logo darüber
+    overlayImage: '/tc-hardt-logo.svg',
+    overlayImageClass: 'w-24 mb-4',
+
+    title: 'Jubiläumsfeier 2026',
+    subtitle: '50 Jahre Leidenschaft am Ball',
+
+    // Der neue Paragraph Text
+    description: 'Wir laden alle Mitglieder, Freunde und Förderer herzlich ein, dieses besondere Ereignis mit uns zu feiern. Freut euch auf ein Wochenende voller Tennis, Spaß und Gemeinschaft.',
+
+    // Positionierung
+    overlayPosition: 'bottom-center',
+
+    // Der CTA Button
+    ctaPrimary: {
+      label: 'Zum Programm',
+      to: 'news'
+    }
+  },
+  // 2. Custom Slide (mit slotName)
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1657472503142-917ce39795af?q=80&w=1633&auto=format&fit=crop',
+    // Dieser Name ist der Schlüssel!
+    slotName: 'event-special',
+    overlayPosition: 'center'
+  },
+  {
     type: 'video',
     src: '/videos/tennis_example.mp4',
     poster: '/img/video-poster.jpg',
@@ -135,7 +167,18 @@ const newsItems = db.news
       height="full"
       fallback-class="bg-tennis-900"
       :autoplay="6000"
-    />
+    >
+      <template #event-special="{ slide }">
+        <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 text-center">
+          <div class="text-6xl mb-4">🎉</div>
+          <h2 class="text-4xl font-bold text-white mb-2">Großes Sommerfest</h2>
+          <div class="flex justify-center gap-4 text-2xl font-mono text-highlight-400 my-6">
+            <span>12</span> : <span>00</span> : <span>34</span>
+          </div>
+          <UButton size="xl" color="primary">Jetzt Ticket sichern</UButton>
+        </div>
+      </template>
+    </Hero>
 
     <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24 relative z-10">
       <UContainer>
