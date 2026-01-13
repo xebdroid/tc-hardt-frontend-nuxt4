@@ -12,6 +12,7 @@ export interface NavButton {
   target?: string
   icon?: string
   hidden?: boolean
+  disabled?: boolean // Hatte gefehlt im Interface, aber wurde im Code genutzt
 }
 
 interface SocialLink {
@@ -26,11 +27,19 @@ interface FooterLink {
 }
 
 export const useNavigation = () => {
-  const { t } = useI18n()
+  const { t, tm, rt } = useI18n()
   const localePath = useLocalePath()
 
-  // 1. Hauptmenü (Bleibt wie es war)
+  // 1. Hauptmenü
   const headerMenu = computed<NavigationMenuItem[]>(() => [
+    {
+      // NEU: Startseite Button
+      label: t('nav.main.home', 'Startseite'), // Fallback, falls Key fehlt
+      to: localePath('/'),
+      icon: 'i-heroicons-home',
+      // Wir markieren dies, um es im Header speziell zu behandeln (Desktop: nur Icon)
+      isHome: true
+    },
     {
       label: t('nav.main.club'),
       children: [
@@ -52,24 +61,30 @@ export const useNavigation = () => {
     }
   ])
 
-  // 2. Buttons (NEU: Konfiguration hier im Code)
-  const navButtons = computed<NavButton[]>(() => [
-    {
-      label: t('nav.buttons.membership'), // Text aus JSON
-      to: 'membership',                   // Route Name (statisch)
-      color: 'primary',                   // Design
-      variant: 'solid'
-    },
-    {
-      label: t('nav.buttons.login'),
-      to: 'login',
-      color: 'neutral',                   // Nuxt UI v3 'gray' ist jetzt 'neutral'
-      variant: 'ghost',
-      hidden: true
-    }
-  ])
+  // 2. Buttons
+  const navButtons = computed<NavButton[]>(() => {
+    // Array definieren
+    const buttons: NavButton[] = [
+      {
+        label: t('nav.buttons.membership'),
+        to: 'membership',
+        color: 'primary',
+        variant: 'solid'
+      },
+      {
+        label: t('nav.buttons.login'),
+        to: 'login',
+        color: 'neutral',
+        variant: 'ghost',
+        hidden: true // Soll ausgeblendet werden
+      }
+    ]
 
-  // 3. Social Media (Kann man lassen oder auch hardcoden, hier hardcoded Beispiel für Stabilität)
+    // FIX: Filtern der hidden Buttons
+    return buttons.filter(btn => !btn.hidden)
+  })
+
+  // 3. Social Media
   const socialLinks = computed<SocialLink[]>(() => [
     { href: 'https://www.instagram.com/tc_hardt_1976', icon: 'i-simple-icons-instagram' },
     { href: 'https://www.facebook.com/TCHardt1976', icon: 'i-simple-icons-facebook' }

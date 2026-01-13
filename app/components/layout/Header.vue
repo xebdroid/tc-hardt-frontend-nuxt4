@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
-// Neue Komponenten importieren (Nuxt Auto-Import würde auch gehen: LayoutHeaderLogo etc.)
 import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
 import HeaderCtaButton from '~/components/layout/header/CtaButton.vue'
@@ -59,7 +58,19 @@ onUnmounted(() => {
               highlight
               highlight-color="secondary"
               orientation="horizontal"
-            />
+              :ui="{
+                content: 'min-w-[250px]' /* Verbreitert das Popup */
+              }"
+            >
+              <template #item="{ item }">
+                <UIcon
+                  v-if="item.icon"
+                  :name="item.icon"
+                  class="w-5 h-5 shrink-0"
+                />
+                <span v-if="item.icon !== 'i-heroicons-home'" class="truncate">{{ item.label }}</span>
+              </template>
+            </UNavigationMenu>
           </div>
 
           <HeaderLogo @click="closeMenu" />
@@ -78,14 +89,11 @@ onUnmounted(() => {
                   class="hover:text-primary-500"
                 />
               </template>
-              <UColorModeButton
-                size="xs"
-                variant="ghost"
-              />
+              <UColorModeButton size="xs" variant="ghost" />
               <LanguageSwitcher
                 size="xs"
                 variant="ghost"
-                color="gray"
+                color="neutral"
               />
             </div>
 
@@ -100,7 +108,6 @@ onUnmounted(() => {
                 :color="btn.color"
                 :variant="btn.variant"
               />
-
             </div>
 
             <HeaderHamburger :is-open="isMobileMenuOpen" @toggle="toggleMenu" />

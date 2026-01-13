@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CtaButton from './CtaButton.vue' // Relativer Import im gleichen Ordner
+import CtaButton from './CtaButton.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 
 const props = defineProps<{
@@ -19,26 +19,29 @@ const localePath = useLocalePath()
     :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
   >
     <div class="overflow-hidden">
-      <div class="pb-6 pt-2 flex flex-col gap-6">
+      <div class="pb-8 pt-4 flex flex-col gap-6">
 
         <UNavigationMenu
           :items="headerMenu"
           orientation="vertical"
-          :ui="{ link: { active: 'text-primary font-bold', base: 'py-3' } }"
         />
 
         <USeparator />
 
-        <div class="flex flex-col gap-3">
-          <CtaButton
-            v-for="(btn, index) in navButtons"
-            :key="index"
-            :to="localePath(btn.to)"
-            :label="btn.label"
-            :target="btn.target"
-            block
-            @click="emit('close')"
-          />
+        <div class="flex flex-col gap-4">
+          <template v-for="(btn, index) in navButtons" :key="index">
+            <CtaButton
+              v-if="!btn.hidden"
+              :to="localePath(btn.to)"
+              :label="btn.label"
+              :target="btn.target"
+              :color="btn.color"
+              :variant="btn.variant"
+              block
+              size="xl"
+              @click="emit('close')"
+            />
+          </template>
         </div>
 
         <USeparator />
@@ -53,13 +56,14 @@ const localePath = useLocalePath()
                   target="_blank"
                   variant="ghost"
                   :icon="social.icon"
+                  size="lg"
                 />
               </template>
             </div>
-            <div class="h-4 w-px bg-gray-200 dark:bg-gray-700"/>
+            <div class="h-6 w-px bg-gray-200 dark:bg-gray-700"/>
             <div class="flex items-center gap-2">
-              <UColorModeButton />
-              <LanguageSwitcher />
+              <UColorModeButton size="lg" />
+              <LanguageSwitcher size="lg" />
             </div>
           </div>
         </div>

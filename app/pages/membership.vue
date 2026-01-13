@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Hero from '~/components/section/Hero.vue'
+import Hero, { type HeroSlide } from '~/components/section/Hero.vue'
 import db from '~/assets/data/db.json'
 import type { FormError, FormSubmitEvent } from '@nuxt/ui'
 
@@ -11,11 +11,28 @@ useHead({
 // --- DATA ---
 const rawTariffs = db.tariffs
 
+// Hero Slides
+const heroSlides = computed<HeroSlide[]>(() => [
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
+    title: 'Dein Platz ist bei uns.',
+    subtitle: 'Werde Teil einer starken Gemeinschaft.',
+    description: 'Egal ob ambitionierter Mannschaftsspieler oder Hobbyspieler – beim TC Hardt findest du Spielpartner, Freunde und ein zweites Zuhause.',
+    overlayPosition: 'center',
+    ctaPrimary: { label: 'Jetzt Mitglied werden', to: '#formular' },
+    ctaSecondary: { label: 'Zum Schnupperangebot', to: '#tarife' }
+  }
+])
+
+// Vorteile (Angepasst: Clubhaus statt Gastronomie, keine Emojis)
 const benefits = [
-  { icon: 'i-heroicons-sparkles', title: 'Top Anlage', desc: '6 top-gepflegte Ascheplätze in traumhafter Lage.', bg: 'bg-orange-50 dark:bg-orange-900/20', text: 'text-orange-600 dark:text-orange-400' },
-  { icon: 'i-heroicons-user-group', title: 'Starke Gemeinschaft', desc: 'Vom Hobby-Match bis zum Sommerfest.', bg: 'bg-blue-50 dark:bg-blue-900/20', text: 'text-blue-600 dark:text-blue-400' },
-  { icon: 'i-heroicons-academic-cap', title: 'Professionelles Training', desc: 'Tennisschule Rot-Weiß für alle Altersklassen.', bg: 'bg-green-50 dark:bg-green-900/20', text: 'text-green-600 dark:text-green-400' },
-  { icon: 'i-heroicons-currency-euro', title: 'Faire Beiträge', desc: 'Günstige Einstiegstarife & Familienrabatte.', bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600 dark:text-purple-400' }
+  { icon: 'i-heroicons-sparkles', title: 'Top Anlage', desc: '6 gepflegte Ascheplätze am Waldrand.', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' },
+  { icon: 'i-heroicons-user-group', title: 'Gemeinschaft', desc: 'Events, Turniere und Sommerfeste.', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/10' },
+  { icon: 'i-heroicons-academic-cap', title: 'Training', desc: 'Tennisschule für alle Level.', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/10' },
+  { icon: 'i-heroicons-currency-euro', title: 'Faire Preise', desc: 'Günstiger Einstieg & Familienrabatte.', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/10' },
+  { icon: 'i-heroicons-home-modern', title: 'Clubhaus & Terrasse', desc: 'Clubraum mit Beamer & Sound, Sonnenterrasse und Getränke-Selbstbedienung.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
+  { icon: 'i-heroicons-trophy', title: 'Wettkampf', desc: 'Mannschaften in vielen Altersklassen.', color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/10' },
 ]
 
 // --- STATE ---
@@ -26,35 +43,36 @@ const state = reactive({
   firstName: '',
   lastName: '',
   birthDate: '',
+  gender: 'male',
   email: '',
   phone: '',
   street: '',
   houseNumber: '',
   zip: '',
   city: '',
+  playedBefore: false,
+  isTeamPlayer: false,
+  previousClub: '',
   iban: '',
-  privacyAccepted: false,
   sepaAccepted: false,
+  privacyAccepted: false,
   keyRequested: false
 })
 
-// --- TABS ---
+// --- TABS (Ohne Emojis) ---
 const tariffTabs = [
-  { label: '🔥 Schnupperangebot', slot: 'trial' },
+  { label: 'Schnupperangebot', slot: 'trial' },
   { label: 'Erwachsene & Familie', slot: 'adults' },
   { label: 'Jugend & Ausbildung', slot: 'youth' }
 ]
 
 // --- HELPER ---
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
-}
+const formatPrice = (price: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
 
 const selectTariff = (tariffId: string) => {
   state.tariff = tariffId
-  if (formSectionRef.value) {
-    formSectionRef.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const el = document.getElementById('formular')
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 // --- TRANSFORMER ---
@@ -63,44 +81,41 @@ const mapToPlan = (t: any) => {
   const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
   const isTrial = t.id.startsWith('trial_')
 
-  // Gruppen-Identifikation für Farben
   const isAdultGroup = ['adult', 'family', 'senior', 'passive'].includes(t.id)
-  const isYouthGroup = !isTrial && !isAdultGroup
 
-  // 1. Border Farben (Top Border der Karte)
-  let borderColorClass = 'border-t-4 '
-  if (isTrial) borderColorClass += 'border-highlight-500'      // Lime
-  else if (isAdultGroup) borderColorClass += 'border-tennis-800' // Navy
-  else borderColorClass += 'border-tennis-500'                 // Blue
+  // Farben
+  let themeColorBorder = ''
+  let btnBgClass = ''
+  let btnTextClass = ''
 
-  // 2. Button Farben (Custom Classes statt "color" Prop)
-  // Wir nutzen !bg-..., um Nuxt UI Defaults sicher zu überschreiben
-  let btnClass = 'font-bold transition-transform active:scale-95 '
   if (isTrial) {
-    // Lime Button (Dunkler Text für Kontrast)
-    btnClass += 'bg-highlight-500 hover:bg-highlight-600 text-tennis-900'
+    themeColorBorder = 'border-highlight-500'
+    btnBgClass = 'bg-highlight-500 hover:bg-highlight-600'
+    btnTextClass = 'text-tennis-900'
   } else if (isAdultGroup) {
-    // Navy Button (Weißer Text)
-    btnClass += 'bg-tennis-800 hover:bg-tennis-900 text-white'
+    themeColorBorder = 'border-tennis-800'
+    btnBgClass = 'bg-tennis-800 hover:bg-tennis-900'
+    btnTextClass = 'text-white'
   } else {
-    // Blue Button (Weißer oder dunkler Text, Tennis-500 ist hell, nehmen wir Weiß oder Dunkel)
-    // Bei Tennis-500 (#7ac7ea) ist Schwarz oft besser lesbar, aber Weiß geht bei dunklerem Hover.
-    // Nehmen wir text-tennis-900 für Sicherheit.
-    btnClass += 'bg-tennis-500 hover:bg-tennis-600 text-tennis-900'
+    themeColorBorder = 'border-tennis-500'
+    btnBgClass = 'bg-tennis-500 hover:bg-tennis-600'
+    btnTextClass = 'text-white'
   }
+
+  const btnClass = `font-bold py-2 transition-transform active:scale-95 ${btnBgClass} ${btnTextClass}`
 
   // Badge
   let badge = undefined
-  if (t.id === 'adult') badge = { label: 'Beliebt', variant: 'soft', color: 'primary' }
+  if (t.id === 'adult') badge = { label: 'Bestseller', variant: 'soft', color: 'primary' }
   if (t.id === 'family') badge = { label: 'Top Deal', variant: 'subtle', color: 'primary' }
-  if (isTrial && t.price === 0) badge = { label: 'Gratis testen', variant: 'solid', color: 'primary' } // Hier nutzen wir Primary (Standard grünlich in Nuxt UI oft) oder Neutral
+  if (isTrial && t.price === 0) badge = { label: 'Gratis', variant: 'solid', color: 'primary' }
 
-  // Card Styling (Highlight Ringfarbe passt sich Button an)
-  let ringClass = 'ring-1 ring-gray-100 dark:ring-gray-700'
+  // Highlighting
+  let ringClass = 'ring-1 ring-gray-200 dark:ring-gray-700 hover:ring-2 hover:ring-opacity-50 hover:shadow-lg'
   if (isSelected) {
-    if (isTrial) ringClass = 'ring-2 ring-highlight-500 shadow-xl scale-[1.02]'
-    else if (isAdultGroup) ringClass = 'ring-2 ring-tennis-800 shadow-xl scale-[1.02]'
-    else ringClass = 'ring-2 ring-tennis-500 shadow-xl scale-[1.02]'
+    if (isTrial) ringClass = 'ring-2 ring-highlight-500 shadow-xl'
+    else if (isAdultGroup) ringClass = 'ring-2 ring-tennis-800 shadow-xl'
+    else ringClass = 'ring-2 ring-tennis-500 shadow-xl'
   }
 
   return {
@@ -112,21 +127,18 @@ const mapToPlan = (t: any) => {
     billingPeriod: isTrial ? 'Endet automatisch' : (hasDiscount ? 'im 1. Jahr' : undefined),
     features: t.features,
     badge: badge,
-
     highlight: isSelected,
     scale: isSelected,
 
-    // Klasse für die Karte selbst
-    class: `bg-white dark:bg-gray-800 shadow-sm hover:shadow-xl transition-all duration-300 ${borderColorClass} ${ringClass}`,
+    class: `bg-white dark:bg-gray-800 transition-all duration-300 border-t-4 ${themeColorBorder} ${ringClass}`,
 
-    // Button Konfiguration mit Custom Classes
     button: {
-      label: isSelected ? 'Ausgewählt' : (isTrial ? 'Jetzt testen' : 'Auswählen'),
-      color: 'neutral', // "Neutral" als Basis, damit wir mit CSS überschreiben können
+      label: isSelected ? 'Ausgewählt' : (isTrial ? 'Jetzt testen' : 'Wählen'),
+      color: 'neutral',
       variant: 'solid',
       block: true,
       size: 'md',
-      class: btnClass, // Hier kommen unsere Farben rein
+      class: btnClass,
       onClick: () => selectTariff(t.id)
     }
   }
@@ -154,7 +166,6 @@ const validate = (state: any): FormError[] => {
   if (!state.zip) errors.push({ name: 'zip', message: 'Pflichtfeld' })
   if (!state.city) errors.push({ name: 'city', message: 'Pflichtfeld' })
   if (!state.iban) { errors.push({ name: 'iban', message: 'IBAN erforderlich' }) }
-  else if (state.iban.length < 15) { errors.push({ name: 'iban', message: 'Ungültig' }) }
   if (!state.sepaAccepted) errors.push({ name: 'sepaAccepted', message: 'Zustimmung nötig' })
   if (!state.privacyAccepted) errors.push({ name: 'privacyAccepted', message: 'Zustimmung nötig' })
   return errors
@@ -163,7 +174,7 @@ const validate = (state: any): FormError[] => {
 const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
   console.log('Form Data:', event.data)
   await new Promise(r => setTimeout(r, 800))
-  alert(`Vielen Dank, ${event.data.firstName}! Dein Antrag ist eingegangen.`)
+  alert(`Danke ${event.data.firstName}! Antrag eingegangen. Wir melden uns per E-Mail.`)
 }
 </script>
 
@@ -171,14 +182,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
   <div class="flex flex-col min-h-screen font-sans bg-gray-50 dark:bg-gray-950">
 
     <Hero
-      :slides="[{
-        type: 'image',
-        src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
-        title: 'Mitglied werden',
-        subtitle: 'Tennis, Spaß & neue Freunde.',
-        description: 'Egal ob Anfänger oder Profi – bei uns findest du deinen Platz. Starte jetzt ganz einfach online.',
-        overlayPosition: 'center',
-      }]"
+      :slides="heroSlides"
       height="large"
       fallback-class="bg-tennis-900"
     />
@@ -186,33 +190,32 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
     <div class="bg-white dark:bg-gray-900 py-20 border-b border-gray-100 dark:border-gray-800">
       <UContainer>
         <div class="text-center mb-16 max-w-3xl mx-auto">
-          <span class="text-highlight-600 font-bold uppercase tracking-widest text-sm mb-3 block">50 Jahre TC Hardt</span>
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-6">
-            Dein Verein im Grünen
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-4">
+            Warum Mitglied werden?
           </h2>
-          <p class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-            Wir sind mehr als nur ein Sportverein. Wir sind ein Treffpunkt für Freunde, Familien und alle, die Tennis lieben.
+          <p class="text-gray-600 dark:text-gray-300 text-lg">
+            Tennis beim TC Hardt ist mehr als Sport.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
             v-for="(benefit, index) in benefits"
             :key="index"
-            class="flex items-start gap-5 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"
+            class="flex items-start gap-4 p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 hover:shadow-md transition-all group"
           >
             <div
-              class="w-16 h-16 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300"
+              class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 transition-colors"
               :class="benefit.bg"
             >
               <UIcon
                 :name="benefit.icon"
-                class="w-8 h-8"
+                class="w-6 h-6"
                 :class="benefit.text"
               />
             </div>
             <div>
-              <h3 class="font-bold text-xl mb-2 text-gray-900 dark:text-white group-hover:text-tennis-600 transition-colors">
+              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-tennis-600 transition-colors">
                 {{ benefit.title }}
               </h3>
               <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
@@ -226,36 +229,27 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
 
     <div id="tarife" class="bg-tennis-50/50 dark:bg-gray-950 py-24 scroll-mt-16">
       <UContainer>
-        <div class="text-center mb-12 max-w-3xl mx-auto">
+        <div class="text-center mb-10 max-w-3xl mx-auto">
           <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-4">
-            Finde deinen Tarif
+            Unsere Beiträge
           </h2>
           <p class="text-gray-600 dark:text-gray-400 text-lg">
-            Fair und transparent. Unser Highlight für Neumitglieder:<br>
-            <span class="text-highlight-600 font-bold">50% Rabatt im 1. Jahr</span> (bei regulärer Mitgliedschaft).
+            Wähle den Tarif, der zu dir passt.
           </p>
         </div>
 
         <UTabs
           :items="tariffTabs"
           class="w-full"
-          :ui="{ list: { background: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700' } }"
+          :ui="{ list: { background: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-8' } }"
         >
           <template #trial>
-            <div class="pt-10">
-              <div class="mb-10 bg-white dark:bg-gray-800 border-l-4 border-highlight-500 rounded-r-xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
-                <div class="flex-grow">
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                    <UIcon name="i-heroicons-sparkles" class="text-highlight-500 w-6 h-6" />
-                    Einfach mal ausprobieren?
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-300">
-                    Mit unserem Schnupperangebot spielst du <strong>3 Monate lang</strong> ohne Verpflichtungen.
-                    Die Mitgliedschaft endet danach <strong>automatisch</strong>. Ideal zum Testen!
-                  </p>
-                </div>
+            <div class="pt-4 animate-fade-in">
+              <div class="mb-8 bg-highlight-50 dark:bg-highlight-900/10 border border-highlight-200 rounded-xl p-6 text-center max-w-3xl mx-auto">
+                <h3 class="font-bold text-highlight-700 dark:text-highlight-400 mb-1">Dein Einstieg ohne Risiko</h3>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Die Probemitgliedschaft endet automatisch nach 3 Monaten.</p>
               </div>
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6' }">
+              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' }">
                 <UPricingPlan
                   v-for="(plan, index) in trialPlans"
                   :key="index"
@@ -266,8 +260,12 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
           </template>
 
           <template #adults>
-            <div class="pt-10">
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6' }">
+            <div class="pt-4 animate-fade-in">
+              <div class="mb-8 bg-tennis-100/50 border border-tennis-200 rounded-xl p-6 text-center max-w-3xl mx-auto">
+                <h3 class="font-bold text-tennis-800 mb-1">50% Willkommens-Rabatt</h3>
+                <p class="text-sm text-gray-700">Gilt für alle aktiven Neumitglieder im ersten Jahr.</p>
+              </div>
+              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' }">
                 <UPricingPlan
                   v-for="(plan, index) in adultPlans"
                   :key="index"
@@ -278,8 +276,8 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
           </template>
 
           <template #youth>
-            <div class="pt-10">
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto' }">
+            <div class="pt-4 animate-fade-in">
+              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto' }">
                 <UPricingPlan
                   v-for="(plan, index) in youthPlans"
                   :key="index"
@@ -289,35 +287,36 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
             </div>
           </template>
         </UTabs>
+
       </UContainer>
     </div>
 
-    <div ref="formSectionRef" class="w-full bg-white dark:bg-gray-900 py-24 scroll-mt-16 border-t border-gray-100 dark:border-gray-800">
-      <UContainer class="max-w-4xl">
+    <div id="formular" class="w-full bg-white dark:bg-gray-900 py-24 border-t border-gray-100 dark:border-gray-800 scroll-mt-16">
+      <UContainer class="max-w-3xl">
 
-        <div class="text-center mb-12">
-          <div class="inline-flex p-4 rounded-full bg-gray-100 dark:bg-gray-800 shadow-sm mb-6 text-tennis-600">
-            <UIcon name="i-heroicons-pencil-square" class="w-10 h-10" />
-          </div>
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-4">
-            Dein Mitgliedsantrag
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-heading font-bold text-tennis-900 dark:text-white mb-2">
+            Online-Mitgliedsantrag
           </h2>
-          <p class="text-xl text-gray-500 max-w-2xl mx-auto">
-            Fülle einfach das Formular aus. Wir kümmern uns um den Rest.
+          <p class="text-gray-500">
+            Bitte fülle alle Felder sorgfältig aus.
           </p>
+        </div>
+
+        <div class="mb-10 p-4 bg-gray-50 border-l-4 border-tennis-500 text-sm text-gray-600 rounded-r-md">
+          <strong>Hinweis:</strong> Dieser Online-Antrag dient der Vorab-Übermittlung deiner Daten.
+          Die Mitgliedschaft wird erst nach Leistung einer Unterschrift rechtswirksam (wird separat angefordert).
         </div>
 
         <UForm
           :state="state"
           :validate="validate"
-          class="space-y-10"
+          class="space-y-12"
           @submit="onSubmit"
         >
+
           <div class="space-y-6">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-3 border-b pb-4 border-gray-100 dark:border-gray-800">
-              <span class="flex items-center justify-center w-8 h-8 bg-tennis-100 text-tennis-700 rounded-full text-sm font-bold">1</span>
-              Tarifauswahl
-            </h3>
+            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">1. Mitgliedschaft & Tarif</h3>
 
             <UFormField
               label="Gewählter Tarif"
@@ -329,19 +328,54 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                 :items="tariffOptions"
                 option-attribute="label"
                 value-attribute="value"
-                placeholder="Bitte wählen..."
+                placeholder="Bitte oben auswählen..."
                 size="xl"
                 class="w-full"
-                :ui="{ base: 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white' }"
+                :ui="{ base: 'bg-gray-50' }"
               />
             </UFormField>
+
+            <div class="p-5 bg-gray-50 rounded-xl space-y-4">
+              <h4 class="font-bold text-gray-700 text-sm uppercase">Tennis-Erfahrung</h4>
+              <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
+                <UCheckbox
+                  v-model="state.playedBefore"
+                  label="Ich habe schon mal Tennis gespielt"
+                  color="primary"
+                />
+                <UCheckbox
+                  v-model="state.isTeamPlayer"
+                  label="Ich bin/war Mannschaftsspieler"
+                  color="primary"
+                />
+              </div>
+              <UFormField label="Bisheriger Verein (optional)" name="previousClub">
+                <UInput
+                  v-model="state.previousClub"
+                  placeholder="Name des Vereins"
+                  size="md"
+                  class="w-full bg-white"
+                />
+              </UFormField>
+            </div>
+
+            <div class="p-5 bg-gray-50 rounded-xl">
+              <UCheckbox
+                v-model="state.keyRequested"
+                name="keyRequested"
+                size="lg"
+                color="primary"
+              >
+                <template #label>
+                  <span class="font-bold text-gray-900">Eigener Schlüssel gewünscht?</span>
+                  <span class="block text-xs text-gray-500">Zzgl. 75,00 € Kaution (einmalig).</span>
+                </template>
+              </UCheckbox>
+            </div>
           </div>
 
           <div class="space-y-6">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-3 border-b pb-4 border-gray-100 dark:border-gray-800">
-              <span class="flex items-center justify-center w-8 h-8 bg-tennis-100 text-tennis-700 rounded-full text-sm font-bold">2</span>
-              Persönliche Daten
-            </h3>
+            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">2. Persönliche Daten</h3>
 
             <div class="grid md:grid-cols-2 gap-6">
               <UFormField
@@ -351,10 +385,9 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
               >
                 <UInput
                   v-model="state.firstName"
-                  icon="i-heroicons-user"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
               <UFormField
@@ -366,47 +399,32 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                   v-model="state.lastName"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
             </div>
 
-            <UFormField
-              label="Geburtsdatum"
-              name="birthDate"
-              required
-            >
-              <UInput
-                v-model="state.birthDate"
-                type="date"
-                size="xl"
-                class="w-full"
-                :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
-              />
-            </UFormField>
-
             <div class="grid md:grid-cols-2 gap-6">
               <UFormField
-                label="E-Mail Adresse"
-                name="email"
+                label="Geburtsdatum"
+                name="birthDate"
                 required
               >
                 <UInput
-                  v-model="state.email"
-                  type="email"
-                  icon="i-heroicons-envelope"
+                  v-model="state.birthDate"
+                  type="date"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
-              <UFormField label="Telefon / Mobil" name="phone">
-                <UInput
-                  v-model="state.phone"
-                  icon="i-heroicons-phone"
+              <UFormField label="Geschlecht" name="gender">
+                <USelect
+                  v-model="state.gender"
+                  :items="[{label: 'Männlich', value: 'male'}, {label: 'Weiblich', value: 'female'}]"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
             </div>
@@ -421,7 +439,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                   v-model="state.street"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
               <UFormField
@@ -433,12 +451,12 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                   v-model="state.houseNumber"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
             </div>
 
-            <div class="grid md:grid-cols-[1fr_3fr] gap-6">
+            <div class="grid md:grid-cols-[1fr_2fr] gap-6">
               <UFormField
                 label="PLZ"
                 name="zip"
@@ -448,7 +466,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                   v-model="state.zip"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
               <UFormField
@@ -460,63 +478,73 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                   v-model="state.city"
                   size="xl"
                   class="w-full"
-                  :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
+                  :ui="{ base: 'bg-gray-50' }"
                 />
               </UFormField>
             </div>
 
-            <div class="p-4 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-start gap-4 border border-gray-200 dark:border-gray-700">
-              <UCheckbox
-                v-model="state.keyRequested"
-                name="keyRequested"
-                size="lg"
-                color="primary"
-              />
-              <div>
-                <p class="font-bold text-gray-900 dark:text-white cursor-pointer select-none" @click="state.keyRequested = !state.keyRequested">
-                  Eigener Schlüssel gewünscht?
-                </p>
-                <p class="text-sm text-gray-500 mt-1">
-                  Damit hast du jederzeit Zugang zur Anlage. (Zzgl. 75,00 € Kaution).
-                </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              <UFormField
+                label="E-Mail"
+                name="email"
+                required
+              >
+                <UInput
+                  v-model="state.email"
+                  type="email"
+                  icon="i-heroicons-envelope"
+                  size="xl"
+                  class="w-full"
+                  :ui="{ base: 'bg-gray-50' }"
+                />
+              </UFormField>
+              <UFormField label="Telefon / Handy" name="phone">
+                <UInput
+                  v-model="state.phone"
+                  icon="i-heroicons-phone"
+                  size="xl"
+                  class="w-full"
+                  :ui="{ base: 'bg-gray-50' }"
+                />
+              </UFormField>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">3. Zahlung (SEPA)</h3>
+
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <p class="text-xs text-gray-500 mb-4">
+                Ich ermächtige den TC Hardt e.V., Zahlungen von meinem Konto mittels Lastschrift einzuziehen.
+                Gläubiger-ID: DE53ZZZ00000103775.
+              </p>
+              <UFormField
+                label="IBAN"
+                name="iban"
+                required
+              >
+                <UInput
+                  v-model="state.iban"
+                  icon="i-heroicons-credit-card"
+                  placeholder="DE..."
+                  size="xl"
+                  class="w-full bg-white"
+                />
+              </UFormField>
+              <div class="mt-4">
+                <UCheckbox
+                  v-model="state.sepaAccepted"
+                  required
+                  label="Ich akzeptiere das SEPA-Lastschriftmandat."
+                  color="primary"
+                />
               </div>
             </div>
           </div>
 
           <div class="space-y-6">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-3 border-b pb-4 border-gray-100 dark:border-gray-800">
-              <span class="flex items-center justify-center w-8 h-8 bg-tennis-100 text-tennis-700 rounded-full text-sm font-bold">3</span>
-              Zahlung (SEPA Lastschrift)
-            </h3>
-            <UFormField
-              label="IBAN"
-              name="iban"
-              required
-              help="Deine Daten werden sicher übertragen."
-            >
-              <UInput
-                v-model="state.iban"
-                icon="i-heroicons-credit-card"
-                placeholder="DE..."
-                size="xl"
-                class="w-full"
-                :ui="{ base: 'bg-gray-50 dark:bg-gray-800' }"
-              />
-            </UFormField>
-          </div>
+            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">4. Abschluss</h3>
 
-          <div class="space-y-6 pt-2">
-            <UFormField name="sepaAccepted">
-              <UCheckbox
-                v-model="state.sepaAccepted"
-                size="lg"
-                color="primary"
-              >
-                <template #label>
-                  <span class="text-gray-700 dark:text-gray-300">Ich ermächtige den TC Hardt e.V., Zahlungen von meinem Konto mittels Lastschrift einzuziehen.</span>
-                </template>
-              </UCheckbox>
-            </UFormField>
             <UFormField name="privacyAccepted">
               <UCheckbox
                 v-model="state.privacyAccepted"
@@ -524,45 +552,55 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
                 color="primary"
               >
                 <template #label>
-                  <span class="text-gray-700 dark:text-gray-300">Ich habe die <NuxtLink to="/privacy" class="text-highlight-600 hover:underline font-bold">Datenschutzerklärung</NuxtLink> und Satzung gelesen und akzeptiere sie.</span>
+                  Ich habe die <NuxtLink to="/privacy" class="text-highlight-600 hover:underline font-bold">Datenschutzerklärung</NuxtLink> und die Vereinssatzung gelesen.
                 </template>
               </UCheckbox>
             </UFormField>
 
-            <div class="pt-6">
+            <div class="pt-4">
               <UButton
                 type="submit"
                 block
                 size="xl"
                 color="neutral"
                 variant="solid"
-                class="bg-highlight-500 hover:bg-highlight-600 text-tennis-900 font-bold py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                class="bg-highlight-500 hover:bg-highlight-600 text-tennis-900 font-bold py-4 text-lg shadow-lg hover:shadow-xl transition-all"
                 trailing-icon="i-heroicons-paper-airplane"
               >
                 Antrag senden
               </UButton>
             </div>
           </div>
+
         </UForm>
       </UContainer>
     </div>
 
-    <div class="bg-gray-50 dark:bg-gray-950 py-12">
+    <div class="bg-gray-50 dark:bg-gray-950 py-12 text-center border-t border-gray-200">
       <UContainer>
-        <div class="flex justify-center">
-          <UButton
-            to="/downloads/Aufnahmeantrag_TC_Hardt.pdf"
-            target="_blank"
-            icon="i-heroicons-document-arrow-down"
-            color="gray"
-            variant="ghost"
-            class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-          >
-            Antrag lieber als PDF downloaden?
-          </UButton>
-        </div>
+        <p class="text-gray-500 mb-4 text-sm">Probleme mit dem Online-Formular?</p>
+        <UButton
+          to="/downloads/Aufnahmeantrag_TC_Hardt.pdf"
+          target="_blank"
+          icon="i-heroicons-document-arrow-down"
+          color="white"
+          variant="solid"
+          class="text-gray-700 border border-gray-300 hover:bg-gray-50"
+        >
+          PDF-Antrag herunterladen
+        </UButton>
       </UContainer>
     </div>
 
   </div>
 </template>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
