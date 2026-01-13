@@ -5,40 +5,7 @@ import db from '~/assets/data/db.json'
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-// --- 1. HERO SLIDER KONFIGURATION ---
 const heroSlides = computed<HeroSlide[]>(() => [
-  {
-    type: 'image',
-    // Hintergrundbild
-    src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000',
-
-    // Das Logo darüber
-    overlayImage: '/tc-hardt-logo.svg',
-    overlayImageClass: 'w-24 mb-4',
-
-    title: 'Jubiläumsfeier 2026',
-    subtitle: '50 Jahre Leidenschaft am Ball',
-
-    // Der neue Paragraph Text
-    description: 'Wir laden alle Mitglieder, Freunde und Förderer herzlich ein, dieses besondere Ereignis mit uns zu feiern. Freut euch auf ein Wochenende voller Tennis, Spaß und Gemeinschaft.',
-
-    // Positionierung
-    overlayPosition: 'bottom-center',
-
-    // Der CTA Button
-    ctaPrimary: {
-      label: 'Zum Programm',
-      to: 'news'
-    }
-  },
-  // 2. Custom Slide (mit slotName)
-  {
-    type: 'image',
-    src: 'https://images.unsplash.com/photo-1657472503142-917ce39795af?q=80&w=1633&auto=format&fit=crop',
-    // Dieser Name ist der Schlüssel!
-    slotName: 'event-special',
-    overlayPosition: 'center'
-  },
   {
     type: 'video',
     src: '/videos/tennis_example.mp4',
@@ -46,116 +13,58 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Training in Aktion',
     subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
     overlayPosition: 'center',
-    ctaPrimary: {
-      label: 'Probetraining',
-      to: 'contact'
-    }
+    ctaPrimary: { label: 'Probetraining', to: 'contact' }
   },
   {
     type: 'image',
-    src: '/img/50_jahre_large.jpg',
+    src: '/img/50_jahre_3.png',
     title: 'Unsere Jubiläums-Highlights 2026',
-    // subtitle: t('home.hero.description'),
-    overlayPosition: 'bottom-center',
-    ctaPrimary: {
-      label: "Mehr erfahren",
-      to: 'contact'
-    }
+    overlayPosition: 'bottom-right',
+    ctaPrimary: { label: "Mehr erfahren", to: 'contact' }
   },
   {
     type: 'image',
-    // Bild 1: Top-Down Shot
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
     title: t('home.hero.title'),
     subtitle: t('home.hero.description'),
     overlayPosition: 'center',
-    ctaPrimary: {
-      label: t('home.hero.cta_primary'),
-      to: 'contact'
-    },
-    ctaSecondary: {
-      label: t('home.hero.cta_secondary'),
-      to: 'about'
-    }
+    ctaPrimary: { label: t('home.hero.cta_primary'), to: 'contact' },
+    ctaSecondary: { label: t('home.hero.cta_secondary'), to: 'about' }
   },
   {
     type: 'image',
-    // Bild 2: Action Shot
     src: 'https://images.unsplash.com/photo-1530915365347-e35b749a0381?q=80&w=1740&auto=format&fit=crop',
     title: 'Leidenschaft am Ball',
     subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
     overlayPosition: 'bottom-left',
-    ctaPrimary: {
-      label: 'Training buchen',
-      to: 'training'
-    }
+    ctaPrimary: { label: 'Training buchen', to: 'training' }
   },
   {
     type: 'image',
-    // Bild 3: Detailaufnahme
     src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
     overlayImage: '/tc-hardt-logo.svg',
     overlayImageClass: 'w-20 mb-4 drop-shadow-md',
     title: 'Mehr als ein Verein',
     subtitle: 'Erlebe unsere starke Gemeinschaft.',
     overlayPosition: 'bottom-right',
-    ctaPrimary: {
-      label: 'Termine ansehen',
-      to: 'news'
-    }
+    ctaPrimary: { label: 'Termine ansehen', to: 'news' }
   }
 ])
 
-
-// --- 2. FEATURES ---
 const clubFeatures = computed(() => [
-  {
-    icon: 'i-heroicons-trophy',
-    title: t('home.intro_features.courts.title'),
-    description: t('home.intro_features.courts.desc')
-  },
-  {
-    icon: 'i-heroicons-user-group',
-    title: t('home.intro_features.community.title'),
-    description: t('home.intro_features.community.desc')
-  },
-  {
-    icon: 'i-heroicons-sparkles',
-    title: t('home.intro_features.training.title'),
-    description: t('home.intro_features.training.desc')
-  },
-  {
-    icon: 'i-heroicons-home-modern',
-    title: t('home.intro_features.gastronomy.title'),
-    description: t('home.intro_features.gastronomy.desc')
-  }
+  { icon: 'i-heroicons-trophy', title: t('home.intro_features.courts.title'), description: t('home.intro_features.courts.desc') },
+  { icon: 'i-heroicons-user-group', title: t('home.intro_features.community.title'), description: t('home.intro_features.community.desc') },
+  { icon: 'i-heroicons-sparkles', title: t('home.intro_features.training.title'), description: t('home.intro_features.training.desc') },
+  { icon: 'i-heroicons-home-modern', title: t('home.intro_features.gastronomy.title'), description: t('home.intro_features.gastronomy.desc') }
 ])
 
-// --- 3. VALUES ---
 const values = computed(() => [
-  {
-    icon: 'i-heroicons-heart',
-    title: t('home.values.items.hospitality.title'),
-    description: t('home.values.items.hospitality.desc')
-  },
-  {
-    icon: 'i-heroicons-user-group',
-    title: t('home.values.items.team_spirit.title'),
-    description: t('home.values.items.team_spirit.desc')
-  },
-  {
-    icon: 'i-heroicons-scale',
-    title: t('home.values.items.fairness.title'),
-    description: t('home.values.items.fairness.desc')
-  },
-  {
-    icon: 'i-heroicons-face-smile',
-    title: t('home.values.items.fun.title'),
-    description: t('home.values.items.fun.desc')
-  }
+  { icon: 'i-heroicons-heart', title: t('home.values.items.hospitality.title'), description: t('home.values.items.hospitality.desc') },
+  { icon: 'i-heroicons-user-group', title: t('home.values.items.team_spirit.title'), description: t('home.values.items.team_spirit.desc') },
+  { icon: 'i-heroicons-scale', title: t('home.values.items.fairness.title'), description: t('home.values.items.fairness.desc') },
+  { icon: 'i-heroicons-face-smile', title: t('home.values.items.fun.title'), description: t('home.values.items.fun.desc') }
 ])
 
-// --- 4. NEWS DATA ---
 const newsItems = db.news
 </script>
 
@@ -167,18 +76,7 @@ const newsItems = db.news
       height="full"
       fallback-class="bg-tennis-900"
       :autoplay="6000"
-    >
-      <template #event-special="{ slide }">
-        <div class="bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/20 text-center">
-          <div class="text-6xl mb-4">🎉</div>
-          <h2 class="text-4xl font-bold text-white mb-2">Großes Sommerfest</h2>
-          <div class="flex justify-center gap-4 text-2xl font-mono text-highlight-400 my-6">
-            <span>12</span> : <span>00</span> : <span>34</span>
-          </div>
-          <UButton size="xl" color="primary">Jetzt Ticket sichern</UButton>
-        </div>
-      </template>
-    </Hero>
+    />
 
     <div class="bg-gray-50 dark:bg-gray-900 py-16 lg:py-24 relative z-10">
       <UContainer>
@@ -255,7 +153,7 @@ const newsItems = db.news
           <UButton
             :to="localePath('news')"
             variant="ghost"
-            color="gray"
+            color="neutral"
             trailing-icon="i-heroicons-arrow-right"
             class="font-bold hover:text-tennis-600"
           >

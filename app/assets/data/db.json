@@ -101,5 +101,139 @@
       "name": "Getränke Schmitz",
       "image": "https://placehold.co/400x300/e2e8f0/1e293b?text=Getränke+Schmitz"
     }
+  ],
+  "tariffs": [
+    {
+      "id": "adult",
+      "label": "Erwachsene",
+      "price": 290,
+      "suffix": "/ Jahr",
+      "description": "Ab 18 Jahren",
+      "features": [
+        "Volle Spielberechtigung",
+        "50% Rabatt im 1. Jahr",
+        "Stimmrecht MV"
+      ]
+    },
+    {
+      "id": "family",
+      "label": "Familie",
+      "price": 580,
+      "suffix": "/ Jahr",
+      "description": "Eltern + Jugendliche / Azubis",
+      "features": [
+        "Gilt für beide Elternteile",
+        "Inkl. aller Kinder (<18)",
+        "Inkl. Azubis/Studenten (<27)"
+      ]
+    },
+    {
+      "id": "student",
+      "label": "Azubis / Studenten",
+      "price": 145,
+      "suffix": "/ Jahr",
+      "description": "Unter 27 Jahren (Nachweis)",
+      "features": [
+        "Günstiger Tarif",
+        "Volle Spielberechtigung",
+        "50% Rabatt im 1. Jahr"
+      ]
+    },
+    {
+      "id": "youth",
+      "label": "Jugendliche",
+      "price": 80,
+      "suffix": "/ Jahr",
+      "description": "Unter 18 Jahren",
+      "features": [
+        "Jugendtraining Förderung",
+        "Teilnahme Jugendmannschaften",
+        "50% Rabatt im 1. Jahr"
+      ]
+    },
+    {
+      "id": "child",
+      "label": "Kinder (u. 8)",
+      "price": 40,
+      "suffix": "/ Jahr",
+      "description": "Unter 8 Jahren",
+      "features": [
+        "Spielerische Einführung",
+        "Kleinfeld-Tennis",
+        "Unter 5 Jahre: Kostenlos"
+      ]
+    },
+    {
+      "id": "senior",
+      "label": "Senioren",
+      "price": 145,
+      "suffix": "/ Jahr",
+      "description": "Über 70 Jahre",
+      "features": [
+        "Reduzierter Beitrag",
+        "Volle Spielberechtigung",
+        "Gesellige Runden"
+      ]
+    },
+    {
+      "id": "passive",
+      "label": "Passives Mitglied",
+      "price": 46,
+      "suffix": "/ Jahr",
+      "description": "Förderer des Vereins",
+      "features": [
+        "Unterstützung des Vereins",
+        "Einladung zu Events",
+        "Kein Stimmrecht"
+      ]
+    },
+    {
+      "id": "trial_adult",
+      "label": "Schnupper Erwachsene",
+      "price": 60,
+      "suffix": " / 3 Monate",
+      "description": "Ab 18 Jahren & Senioren (>70)",
+      "features": [
+        "Endet automatisch",
+        "Keine Kündigung nötig",
+        "Volle Spielberechtigung"
+      ]
+    },
+    {
+      "id": "trial_young",
+      "label": "Schnupper Ausbildung",
+      "price": 30,
+      "suffix": " / 3 Monate",
+      "description": "Azubis/Studenten (<27) & Jugend (<18)",
+      "features": [
+        "Endet automatisch",
+        "Keine Kündigung nötig",
+        "Nachweis erforderlich"
+      ]
+    },
+    {
+      "id": "trial_child",
+      "label": "Schnupper Kids",
+      "price": 10,
+      "suffix": " / 3 Monate",
+      "description": "Unter 8 Jahren",
+      "features": [
+        "Endet automatisch",
+        "Spielerischer Einstieg",
+        "Kleinfeld-Tennis"
+      ]
+    },
+    {
+      "id": "trial_mini",
+      "label": "Schnupper Minis",
+      "price": 0,
+      "suffix": " / 3 Monate",
+      "description": "Unter 5 Jahren",
+      "features": [
+        "Endet automatisch",
+        "Kostenlos",
+        "Spaß an der Bewegung"
+      ]
+    }
   ]
 }

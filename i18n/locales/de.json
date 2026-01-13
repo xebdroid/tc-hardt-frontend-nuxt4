@@ -6,21 +6,10 @@
       "training": "Training",
       "contact": "Kontakt"
     },
-    "buttons": [
-      {
-        "label": "Mitglied werden",
-        "to": "contact",
-        "color": "primary",
-        "variant": "solid"
-      },
-      {
-        "label": "Login",
-        "to": "login",
-        "color": "gray",
-        "variant": "ghost",
-        "disabled": true
-      }
-    ],
+    "buttons": {
+      "membership": "Mitglied werden",
+      "login": "Login"
+    },
     "sup": {
       "about": "Über uns",
       "about_desc": "Unsere Geschichte & Werte",
