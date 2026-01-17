@@ -8,6 +8,15 @@ const localePath = useLocalePath()
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'video',
+    src: '/videos/plaetze_von_oben.mp4',
+    poster: '/img/anlage/tc-hardt-anlage-01.jpg',
+    title: 'Unsere Anlagen von oben',
+    subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
+    overlayPosition: 'center',
+    ctaPrimary: { label: 'Mitglied werden', to: 'membership' }
+  },
+  {
+    type: 'video',
     src: '/videos/tennis_example.mp4',
     poster: '/img/video-poster.jpg',
     title: 'Training in Aktion',
