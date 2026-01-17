@@ -52,30 +52,37 @@ onUnmounted(() => {
 
         <div class="w-full flex items-start justify-between shrink-0 relative py-2 lg:py-3">
 
-          <div class="hidden lg:flex self-center">
+          <div class="hidden lg:flex flex-1 items-center self-center min-w-0 pr-20">
             <UNavigationMenu
               :items="headerMenu"
-              highlight
-              highlight-color="secondary"
               orientation="horizontal"
+              class="w-full justify-start"
               :ui="{
-                content: 'min-w-[250px]' /* Verbreitert das Popup */
+                childLink: 'whitespace-nowrap text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors',
+                link: 'text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors'
               }"
             >
               <template #item="{ item }">
                 <UIcon
-                  v-if="item.icon"
+                  v-if="item.icon && !item.noDesktopIcon"
                   :name="item.icon"
                   class="w-5 h-5 shrink-0"
                 />
-                <span v-if="item.icon !== 'i-heroicons-home'" class="truncate">{{ item.label }}</span>
+
+                <span v-if="!item.isHome" class="truncate">{{ item.label }}</span>
+
+                <UIcon
+                  v-if="item.children?.length"
+                  name="i-heroicons-chevron-down-20-solid"
+                  class="w-4 h-4 ml-1 shrink-0 text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 dark:group-hover:text-brand-light-400 transition-colors duration-200 group-data-[state=open]:rotate-180"
+                />
               </template>
             </UNavigationMenu>
           </div>
 
-          <HeaderLogo @click="closeMenu" />
+          <HeaderLogo class="shrink-0 mx-auto" @click="closeMenu" />
 
-          <div class="flex items-center gap-3 ml-auto self-center">
+          <div class="flex-1 flex items-center justify-end gap-3 pl-20 self-center">
 
             <div class="hidden lg:flex items-center gap-1 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
               <template v-for="(social, index) in socialLinks" :key="index">
@@ -86,14 +93,22 @@ onUnmounted(() => {
                   variant="ghost"
                   size="xs"
                   :icon="social.icon"
-                  class="hover:text-primary-500"
+                  class="text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors"
                 />
               </template>
-              <UColorModeButton size="xs" variant="ghost" />
+
+              <UColorModeButton
+                size="xs"
+                variant="ghost"
+                :ui="{
+                  leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors'
+                }"
+              />
+
               <LanguageSwitcher
                 size="xs"
                 variant="ghost"
-                color="neutral"
+                class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
               />
             </div>
 

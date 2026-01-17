@@ -1,5 +1,12 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+// Erweiterung des Typs für unsere Custom-Logik
+export interface CustomNavigationMenuItem extends NavigationMenuItem {
+  isHome?: boolean
+  hidden?: boolean
+  noDesktopIcon?: boolean // NEU: Steuert die Sichtbarkeit auf Desktop
+}
+
 // Button Typen für Nuxt UI v3
 type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'neutral'
 type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link' | 'subtle'
@@ -12,7 +19,7 @@ export interface NavButton {
   target?: string
   icon?: string
   hidden?: boolean
-  disabled?: boolean // Hatte gefehlt im Interface, aber wurde im Code genutzt
+  disabled?: boolean
 }
 
 interface SocialLink {
@@ -27,21 +34,23 @@ interface FooterLink {
 }
 
 export const useNavigation = () => {
-  const { t, tm, rt } = useI18n()
+  const { t } = useI18n()
   const localePath = useLocalePath()
 
   // 1. Hauptmenü
-  const headerMenu = computed<NavigationMenuItem[]>(() => [
+  const headerMenu = computed<CustomNavigationMenuItem[]>(() => [
     {
-      // NEU: Startseite Button
-      label: t('nav.main.home', 'Startseite'), // Fallback, falls Key fehlt
+      label: t('nav.main.home', 'Startseite'),
       to: localePath('/'),
       icon: 'i-heroicons-home',
-      // Wir markieren dies, um es im Header speziell zu behandeln (Desktop: nur Icon)
       isHome: true
+      // Kein noDesktopIcon -> Icon bleibt auf Desktop sichtbar
     },
     {
       label: t('nav.main.club'),
+      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
+      icon: 'i-heroicons-building-library',
+      noDesktopIcon: true,
       children: [
         { label: t('nav.sup.about'), to: localePath('about'), description: t('nav.sup.about_desc'), icon: 'i-heroicons-information-circle' },
         { label: t('nav.sup.board'), to: localePath('board'), description: t('nav.sup.board_desc'), icon: 'i-heroicons-users' },
@@ -50,6 +59,9 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.sport'),
+      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
+      icon: 'i-heroicons-trophy',
+      noDesktopIcon: true,
       children: [
         { label: t('nav.sup.teams'), to: localePath('teams'), description: t('nav.sup.teams_desc'), icon: 'i-heroicons-user-group' },
         { label: t('nav.main.training'), to: localePath('training'), description: t('nav.sup.training_desc'), icon: 'i-heroicons-academic-cap' }
@@ -57,13 +69,15 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.contact'),
-      to: localePath('contact')
+      to: localePath('contact'),
+      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
+      icon: 'i-heroicons-envelope',
+      noDesktopIcon: true
     }
   ])
 
   // 2. Buttons
   const navButtons = computed<NavButton[]>(() => {
-    // Array definieren
     const buttons: NavButton[] = [
       {
         label: t('nav.buttons.membership'),
@@ -76,11 +90,9 @@ export const useNavigation = () => {
         to: 'login',
         color: 'neutral',
         variant: 'ghost',
-        hidden: true // Soll ausgeblendet werden
+        hidden: true
       }
     ]
-
-    // FIX: Filtern der hidden Buttons
     return buttons.filter(btn => !btn.hidden)
   })
 

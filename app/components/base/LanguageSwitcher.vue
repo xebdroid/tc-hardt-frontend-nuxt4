@@ -36,7 +36,7 @@ const items = computed(() => [
       <span class="hidden sm:inline">
         {{ locale === 'de' ? 'DE' : 'EN' }}
       </span>
-      <UIcon name="i-heroicons-chevron-down-20-solid" class="w-4 h-4 ml-1 opacity-50" />
+      <UIcon name="i-heroicons-chevron-down-20-solid" class="w-4 h-4 ml-1 text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors" />
     </UButton>
   </UDropdownMenu>
 </template>

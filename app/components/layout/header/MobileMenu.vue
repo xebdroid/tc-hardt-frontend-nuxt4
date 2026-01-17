@@ -24,6 +24,10 @@ const localePath = useLocalePath()
         <UNavigationMenu
           :items="headerMenu"
           orientation="vertical"
+          :ui="{
+            link: 'py-3 text-lg font-normal text-brand-dark-800 dark:text-brand-dark-100',
+            childLink: 'py-2 text-lg' // Falls du Untermenüs hast, hier etwas kleiner
+          }"
         />
 
         <USeparator />
@@ -57,13 +61,19 @@ const localePath = useLocalePath()
                   variant="ghost"
                   :icon="social.icon"
                   size="lg"
+                  class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
                 />
               </template>
             </div>
-            <div class="h-6 w-px bg-gray-200 dark:bg-gray-700"/>
+            <div class="h-6 w-px bg-gray-200 dark:bg-gray-700" />
             <div class="flex items-center gap-2">
-              <UColorModeButton size="lg" />
-              <LanguageSwitcher size="lg" />
+              <UColorModeButton
+                size="lg"
+                :ui="{
+                  leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors'
+                }"
+              />
+              <LanguageSwitcher size="lg"/>
             </div>
           </div>
         </div>

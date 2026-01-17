@@ -15,6 +15,6 @@ defineProps<{
     :block="block"
     variant="solid"
     :size="block ? 'xl' : 'md'"
-    class="font-bold transition-colors bg-primary-500 text-slate-900 dark:bg-highlight-500 dark:hover:bg-highlight-400 dark:hover:bg-highlight-400"
+    class="transition-colors bg-brand-dark-800 text-slate-100 dark:bg-highlight-500 dark:hover:bg-highlight-400 dark:hover:bg-highlight-400 dark:text-brand-dark-950"
   />
 </template>

@@ -7,42 +7,72 @@
 @theme {
   --font-euro-extended: "EurostileExtended", sans-serif;
   --font-euro-bold: "EurostileBold", sans-serif;
+
+  /* HIER: Setze die Heading-Font auf EurostileBold */
+  --font-heading: "EurostileBold", sans-serif;
 }
 
 @theme static {
-  /* 1. SCHRIFTARTEN KORRIGIEREN */
-  /* Hier stand vorher Public Sans - jetzt Inter! */
-  /* --font-sans: 'Inter', sans-serif; */
+  /* 1. BRAND DARK (Navy) */
+  /* Basis: #1C3063 (sitzt auf Stufe 800) */
+  /* Wirkt sehr technisch und seriös */
+  --color-brand-dark-50: #f0f3fa;
+  --color-brand-dark-100: #e2e7f4;
+  --color-brand-dark-200: #c9d3e9;
+  --color-brand-dark-300: #a3b5db;
+  --color-brand-dark-400: #7691ca;
+  --color-brand-dark-500: #526eb6;
+  --color-brand-dark-600: #3b529d;
+  --color-brand-dark-700: #304182;
+  --color-brand-dark-800: #1c3063; /* DEINE BASISFARBE */
+  --color-brand-dark-900: #1a2852;
+  --color-brand-dark-950: #0f1730;
 
-  /* Wir definieren Montserrat für Überschriften */
-  /* --font-heading: 'Montserrat', sans-serif; */
+  /* 2. BRAND LIGHT (Sky) */
+  /* Basis: #7AC7EA (sitzt auf Stufe 300) */
+  /* Wirkt frisch, Luft, Wasser */
+  --color-brand-light-50: #ebf7fc;
+  --color-brand-light-100: #c3e6f6;
+  --color-brand-light-200: #9bd5ef;
+  /* --color-brand-light-300: #73c4e9; */
+  --color-brand-light-300: #7ac7ea; /* DEINE BASISFARBE */
+  --color-brand-light-400: #4bb3e3;
+  --color-brand-light-500: #23a2dc;
+  --color-brand-light-600: #1c85b4;
+  --color-brand-light-700: #16678c;
+  --color-brand-light-800: #104a64;
+  --color-brand-light-900: #092c3c;
+  --color-brand-light-950: #030f14;
 
-  /* 2. DEINE FARBPALETTE (Tennis Blau) */
-  /* Wir übernehmen die Werte, die wir uns ausgesucht hatten */
-  --color-tennis-50: #f4faff;
-  --color-tennis-100: #eef8ff;
-  --color-tennis-200: #dceeff;
-  --color-tennis-300: #b4ddf8;
-  --color-tennis-400: #7ac7ea;
-  --color-tennis-500: #7ac7ea; /* Deine Hauptfarbe */
-  --color-tennis-600: #4fa3d6;
-  --color-tennis-700: #3282b8;
-  --color-tennis-800: #1c3063; /* Dein Dunkelblau */
-  --color-tennis-900: #1c3063;
-  --color-tennis-950: #122045;
-
-  /* 3. HIGHLIGHT FARBE (Tennisball Lime) */
-  --color-highlight-50: #f7fee7;
-  --color-highlight-100: #ecfccb;
-  --color-highlight-200: #d9f99d;
-  --color-highlight-300: #bef264;
-  --color-highlight-400: #a3e635;
-  --color-highlight-500: #84cc16; /* Knalliges Lime */
+  /* 3. HIGHLIGHT (Lime) */
+  /* Basis: #A3E635 (sitzt auf Stufe 400) */
+  /* Hohe Sättigung für Aufmerksamkeit */
+  --color-highlight-50: #f8fee7;
+  --color-highlight-100: #effecb;
+  --color-highlight-200: #dffda0;
+  --color-highlight-300: #c6fc67;
+  --color-highlight-400: #a3e635; /* DEINE BASISFARBE */
+  --color-highlight-500: #84cc16;
   --color-highlight-600: #65a30d;
   --color-highlight-700: #4d7c0f;
   --color-highlight-800: #3f6212;
   --color-highlight-900: #365314;
   --color-highlight-950: #1a2e05;
+
+/* 4. ACCENT (Orange) - Korrigierte Schattierungen */
+  /* Basis: #EE964B (sitzt auf Stufe 400) */
+  /* Weicherer Verlauf ohne harte Sprünge */
+  --color-accent-50: #fdf3ea;
+  --color-accent-100: #f9dabf;
+  --color-accent-200: #f5c195;
+  --color-accent-300: #f1a96b;
+  --color-accent-400: #ee964b; /* DEINE BASISFARBE */
+  --color-accent-500: #e97716;
+  --color-accent-600: #bf6112;
+  --color-accent-700: #944c0e;
+  --color-accent-800: #6a360a;
+  --color-accent-900: #402006;
+  --color-accent-950: #150b02;
 }
 
 /* 1. Extended (Breit) - Normal */

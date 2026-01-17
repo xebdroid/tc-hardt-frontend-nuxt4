@@ -1,7 +1,7 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'tennis', // Verweist auf 'tennis' in der tailwind.config
+      primary: 'brand-dark', // Verweist auf 'brand-dark' in der tailwind.config
       neutral: 'slate'   // Kühles Grau passt gut zu Blau
     }
   }
