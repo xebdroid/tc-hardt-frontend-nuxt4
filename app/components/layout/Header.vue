@@ -3,7 +3,7 @@ import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
-import HeaderCtaButton from '~/components/layout/header/CtaButton.vue'
+import AppButton from '~/components/base/AppButton.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 
 import { onMounted, onUnmounted, ref, watch } from 'vue'
@@ -113,15 +113,15 @@ onUnmounted(() => {
             </div>
 
             <div class="flex items-center gap-2">
-              <HeaderCtaButton
+              <AppButton
                 v-for="(btn, index) in navButtons"
                 :key="index"
                 class="hidden sm:flex"
                 :to="localePath(btn.to)"
                 :label="btn.label"
                 :target="btn.target"
-                :color="btn.color"
-                :variant="btn.variant"
+                variant="primary"
+                size="md"
               />
             </div>
 
