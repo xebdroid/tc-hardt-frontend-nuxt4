@@ -25,8 +25,17 @@ const localePath = useLocalePath()
           :items="headerMenu"
           orientation="vertical"
           :ui="{
-            link: 'py-3 text-lg font-normal text-brand-dark-800 dark:text-brand-dark-100',
-            childLink: 'py-2 text-lg' // Falls du Untermenüs hast, hier etwas kleiner
+            // 1. Text: Basis, Hover & Active Farben definieren
+            link: 'py-3 text-lg font-normal text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 aria-[current=page]:text-primary-600 dark:aria-[current=page]:text-primary-400 transition-colors',
+
+            // 2. Icon: Exakt gleiche Farben, aber mit 'group-' davor, damit sie beim Hover über die Zeile reagieren
+            linkLeadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 dark:group-hover:text-brand-light-400 group-aria-[current=page]:text-primary-600 dark:group-aria-[current=page]:text-primary-400 transition-colors',
+
+            // 3. Child Text
+            childLink: 'py-2 text-lg text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 aria-[current=page]:text-primary-600 dark:aria-[current=page]:text-primary-400 transition-colors',
+
+            // 4. Child Icons
+            childLinkIcon: 'text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 dark:group-hover:text-brand-light-400 group-aria-[current=page]:text-primary-600 dark:group-aria-[current=page]:text-primary-400 transition-colors'
           }"
         />
 
@@ -61,7 +70,7 @@ const localePath = useLocalePath()
                   variant="ghost"
                   :icon="social.icon"
                   size="lg"
-                  class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
+                  class="text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors"
                 />
               </template>
             </div>
@@ -70,7 +79,7 @@ const localePath = useLocalePath()
               <UColorModeButton
                 size="lg"
                 :ui="{
-                  leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors'
+                  leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors'
                 }"
               />
               <LanguageSwitcher size="lg"/>
