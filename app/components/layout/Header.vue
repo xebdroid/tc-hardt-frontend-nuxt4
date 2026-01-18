@@ -56,6 +56,7 @@ onUnmounted(() => {
             <UNavigationMenu
               :items="headerMenu"
               orientation="horizontal"
+              content-orientation="vertical"
               class="w-full justify-start"
               :ui="{
                 childLink: 'whitespace-nowrap text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors',
