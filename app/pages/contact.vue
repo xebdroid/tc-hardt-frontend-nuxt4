@@ -61,20 +61,39 @@ const onSubmit = () => {
         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h2 class="text-2xl font-bold text-tennis-900 dark:text-white mb-6">Schreib uns</h2>
 
-          <form @submit.prevent="onSubmit" class="space-y-4">
+          <form class="space-y-4" @submit.prevent="onSubmit">
             <UFormGroup label="Dein Name" required>
-              <UInput v-model="state.name" placeholder="Max Mustermann" icon="i-heroicons-user" />
+              <UInput
+                v-model="state.name"
+                placeholder="Max Mustermann"
+                icon="i-heroicons-user"
+              />
             </UFormGroup>
 
             <UFormGroup label="Deine E-Mail" required>
-              <UInput v-model="state.email" type="email" placeholder="max@beispiel.de" icon="i-heroicons-envelope" />
+              <UInput
+                v-model="state.email"
+                type="email"
+                placeholder="max@beispiel.de"
+                icon="i-heroicons-envelope"
+              />
             </UFormGroup>
 
             <UFormGroup label="Nachricht" required>
-              <UTextarea v-model="state.message" placeholder="Wie können wir dir helfen?" :rows="4" />
+              <UTextarea
+                v-model="state.message"
+                placeholder="Wie können wir dir helfen?"
+                :rows="4"
+              />
             </UFormGroup>
 
-            <UButton type="submit" block size="lg" color="primary" class="font-bold text-slate-900">
+            <UButton
+              type="submit"
+              block
+              size="lg"
+              color="primary"
+              class="font-bold text-slate-900"
+            >
               Nachricht senden
             </UButton>
           </form>

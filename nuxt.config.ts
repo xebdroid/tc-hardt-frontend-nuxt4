@@ -52,6 +52,10 @@ nitro: {
         de: '/mitglied-werden',
         en: '/membership'
       },
+      jubilee: {
+        de: '/50-jahre-tc-hardt',
+        en: '/50-years-tc-hardt'
+      },
       about: {
         de: "/ueber-uns",
         en: "/about-us",

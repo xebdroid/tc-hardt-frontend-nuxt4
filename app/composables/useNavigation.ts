@@ -4,7 +4,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 export interface CustomNavigationMenuItem extends NavigationMenuItem {
   isHome?: boolean
   hidden?: boolean
-  noDesktopIcon?: boolean // NEU: Steuert die Sichtbarkeit auf Desktop
+  noDesktopIcon?: boolean
 }
 
 // Button Typen für Nuxt UI v3
@@ -51,9 +51,39 @@ export const useNavigation = () => {
       icon: 'i-heroicons-building-library',
       noDesktopIcon: true,
       children: [
-        { label: t('nav.sup.about'), to: localePath('about'), description: t('nav.sup.about_desc'), icon: 'i-heroicons-information-circle' },
-        { label: t('nav.sup.board'), to: localePath('board'), description: t('nav.sup.board_desc'), icon: 'i-heroicons-users' },
-        { label: t('nav.sup.sponsoring'), to: localePath('sponsoring'), description: t('nav.sup.sponsoring_desc'), icon: 'i-heroicons-currency-euro' }
+        {
+          label: t('nav.sup.jubilee'),
+          to: localePath('jubilee'),
+          description: t('nav.sup.jubilee_desc'),
+          icon: 'i-heroicons-sparkles',
+
+          class: `
+            text-accent-500
+            hover:text-accent-300
+            [&_[data-slot=childLinkDescription]]:text-accent-500
+            [&_[data-slot=childLinkDescription]]:group-hover:text-accent-300
+            [&_[data-slot=childLinkIcon]]:text-accent-500
+            [&_[data-slot=childLinkIcon]]:group-hover:text-accent-300
+          `
+        },
+        {
+          label: t('nav.sup.about'),
+          to: localePath('about'),
+          description: t('nav.sup.about_desc'),
+          icon: 'i-heroicons-information-circle'
+        },
+        {
+          label: t('nav.sup.board'),
+          to: localePath('board'),
+          description: t('nav.sup.board_desc'),
+          icon: 'i-heroicons-users'
+        },
+        {
+          label: t('nav.sup.sponsoring'),
+          to: localePath('sponsoring'),
+          description: t('nav.sup.sponsoring_desc'),
+          icon: 'i-heroicons-currency-euro'
+        }
       ]
     },
     {

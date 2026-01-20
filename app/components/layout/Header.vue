@@ -59,6 +59,7 @@ onUnmounted(() => {
               content-orientation="vertical"
               class="w-full justify-start"
               :ui="{
+                content: 'w-auto min-w-max',
                 childLink: 'whitespace-nowrap text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors',
                 link: 'text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors'
               }"
@@ -69,9 +70,7 @@ onUnmounted(() => {
                   :name="item.icon"
                   class="w-5 h-5 shrink-0"
                 />
-
                 <span v-if="!item.isHome" class="truncate">{{ item.label }}</span>
-
                 <UIcon
                   v-if="item.children?.length"
                   name="i-heroicons-chevron-down-20-solid"
