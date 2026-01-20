@@ -48,7 +48,6 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.club'),
-      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
       icon: 'i-heroicons-building-library',
       noDesktopIcon: true,
       children: [
@@ -59,7 +58,6 @@ export const useNavigation = () => {
     },
     {
       label: t('nav.main.sport'),
-      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
       icon: 'i-heroicons-trophy',
       noDesktopIcon: true,
       children: [
@@ -70,7 +68,6 @@ export const useNavigation = () => {
     {
       label: t('nav.main.contact'),
       to: localePath('contact'),
-      // NEU: Icon für Mobile, aber ausgeblendet auf Desktop
       icon: 'i-heroicons-envelope',
       noDesktopIcon: true
     }
@@ -81,13 +78,13 @@ export const useNavigation = () => {
     const buttons: NavButton[] = [
       {
         label: t('nav.buttons.membership'),
-        to: 'membership',
+        to: localePath('membership'),
         color: 'primary',
         variant: 'solid'
       },
       {
         label: t('nav.buttons.login'),
-        to: 'login',
+        to: localePath('login'),
         color: 'neutral',
         variant: 'ghost',
         hidden: true

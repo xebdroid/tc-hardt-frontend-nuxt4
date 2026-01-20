@@ -48,6 +48,10 @@ nitro: {
 
     // Jetzt wird dieser Block auch endlich gelesen:
     pages: {
+      membership: {
+        de: '/mitglied-werden',
+        en: '/membership'
+      },
       about: {
         de: "/ueber-uns",
         en: "/about-us",

@@ -41,6 +41,17 @@
       ]
     }
   },
+  "footer": {
+    "cta": {
+      "title": "Werde Teil unserer Gemeinschaft",
+      "button": "Mitglied werden"
+    },
+    "logo": {
+      "name": "TC Hardt",
+      "suffix": "1976 e.V."
+    },
+    "copyright": "© {year} TC Hardt 1976 e.V."
+  },
   "home": {
     "hero": {
       "badge": "Seit 1976",

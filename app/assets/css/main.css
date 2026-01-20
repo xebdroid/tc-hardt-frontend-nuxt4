@@ -10,6 +10,8 @@
 
   /* HIER: Setze die Heading-Font auf EurostileBold */
   --font-heading: "EurostileBold", sans-serif;
+
+
 }
 
 @theme static {
