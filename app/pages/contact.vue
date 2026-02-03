@@ -15,7 +15,7 @@ const schema = z.object({
   email: z.string().email('Bitte gib eine gültige E-Mail-Adresse ein'),
   message: z.string().min(10, 'Deine Nachricht ist etwas kurz (mind. 10 Zeichen)'),
   // Bot Protection: Matheaufgabe
-  challenge: z.number().refine(val => val === 7, { message: 'Das Ergebnis ist leider falsch' }),
+  challenge: z.number().refine(val => val === 7, { message: 'Falsches Ergebnis' }),
   // Honeypot: Muss leer sein
   website: z.string().optional()
 })
@@ -32,6 +32,7 @@ const state = reactive<Partial<Schema>>({
 })
 
 const isLoading = ref(false)
+const isSent = ref(false)
 const toast = useToast()
 
 // --- 3. Submit Handler ---
@@ -39,66 +40,45 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isLoading.value = true
 
   try {
-    // ---------------------------------------------------------
-    // KONFIGURATION DES ENDPOINTS
-    // ---------------------------------------------------------
-
-    // 1. FÜR LIVE-SERVER (Produktion):
     const endpoint = '/send-mail.php'
-
-    // 2. FÜR LOKALES TESTEN (Kommentar entfernen!):
-    // Wenn du lokal testest, läuft Nuxt auf Port 3000, PHP aber auf 8000.
-    // endpoint = 'http://localhost:8000/send-mail.php'
-
-    // ---------------------------------------------------------
+    // const endpoint = 'http://localhost:8000/send-mail.php' // Lokal aktivieren
 
     const response: any = await $fetch(endpoint, {
       method: 'POST',
       body: event.data
     })
 
-    // Prüfen, ob das PHP Skript "success: false" zurückgemeldet hat
     if (response.success === false) {
       throw new Error(response.message || 'Ein unbekannter Fehler ist aufgetreten.')
     }
 
-    toast.add({
-      title: 'Nachricht gesendet!',
-      description: 'Wir melden uns schnellstmöglich bei dir.',
-      color: 'success',
-      icon: 'i-heroicons-check-circle'
-    })
+    isSent.value = true
 
-    // Formular zurücksetzen
-    Object.assign(state, {
-      name: undefined,
-      email: undefined,
-      message: undefined,
-      challenge: undefined,
-      website: undefined
-    })
+    // Scroll zum Anfang des Formular-Containers
+    const formContainer = document.getElementById('contact-form-container')
+    if (formContainer) {
+      formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
 
   } catch (error: any) {
-    // Fehlerbehandlung
     const errorMsg = error.message || error.data?.message || 'Bitte versuche es später erneut.'
-
-    toast.add({
-      title: 'Fehler beim Senden',
-      description: errorMsg,
-      color: 'error',
-      icon: 'i-heroicons-exclamation-circle'
-    })
+    toast.add({ title: 'Fehler', description: errorMsg, color: 'error' })
   } finally {
     isLoading.value = false
   }
 }
+
+function resetForm() {
+  Object.assign(state, { name: undefined, email: undefined, message: undefined, challenge: undefined, website: undefined })
+  isSent.value = false
+}
 </script>
 
 <template>
-  <div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+  <div class="bg-white dark:bg-gray-900 min-h-screen pb-24">
 
     <Hero
-      height="large"
+      height="small"
       fallback-class="bg-brand-dark-900"
     >
       <template #content>
@@ -107,141 +87,192 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             Kontakt
           </h1>
           <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-            Wir freuen uns auf deine Nachricht!
+            Fragen? Anregungen? Wir sind für dich da.
           </p>
         </div>
       </template>
     </Hero>
 
-    <UContainer class="py-16">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-24">
+    <UContainer class="py-16 space-y-16">
 
-        <div class="space-y-8 order-2 lg:order-1">
-          <div>
-            <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-4">Hier findest du uns</h2>
-            <address class="text-gray-600 dark:text-gray-300 mb-6 not-italic leading-relaxed">
-              <strong>TC Hardt 1976 e.V.</strong><br>
-              Birkmannsweg 16<br>
-              41169 Mönchengladbach
-            </address>
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
 
-            <div class="space-y-3">
-              <a href="mailto:info@tc-hardt.de" class="flex items-center gap-3 text-gray-600 dark:text-gray-300 hover:text-accent-500 transition-colors group">
-                <div class="w-10 h-10 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center group-hover:bg-accent-500 group-hover:text-brand-dark-900 transition-colors">
-                  <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
-                </div>
-                <span class="font-medium">info@tc-hardt.de</span>
-              </a>
-            </div>
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
+            <UIcon name="i-heroicons-map-pin" class="w-6 h-6" />
           </div>
-
-          <div class="rounded-2xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-700 h-[400px] w-full bg-gray-200 relative group">
-            <iframe
-              width="100%"
-              height="100%"
-              style="border:0"
-              loading="lazy"
-              allowfullscreen
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.32623456789!2d6.3685!3d51.1856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8bd30c0000001%3A0x0000000000000000!2sTC%20Hardt%201976%20e.V.!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde"
-              title="Google Maps Standort TC Hardt"
-            />
-          </div>
+          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Anschrift</h3>
+          <address class="text-gray-600 dark:text-gray-300 not-italic">
+            TC Hardt 1976 e.V.<br>
+            Birkmannsweg 16<br>
+            41169 Mönchengladbach
+          </address>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 sm:p-10 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 order-1 lg:order-2">
-          <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-2">Schreib uns</h2>
-          <p class="text-gray-500 dark:text-gray-400 mb-8 text-sm">
-            Fülle das Formular aus und wir melden uns zeitnah bei dir.
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
+            <UIcon name="i-heroicons-envelope" class="w-6 h-6" />
+          </div>
+          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">E-Mail</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">
+            Schreib uns jederzeit eine E-Mail.
           </p>
-
-          <UForm
-            :schema="schema"
-            :state="state"
-            class="space-y-6"
-            @submit="onSubmit"
-          >
-            <UFormField
-              label="Dein Name"
-              name="name"
-              required
-            >
-              <UInput
-                v-model="state.name"
-                placeholder="Max Mustermann"
-                icon="i-heroicons-user"
-                size="lg"
-                class="w-full"
-              />
-            </UFormField>
-
-            <UFormField
-              label="Deine E-Mail"
-              name="email"
-              required
-            >
-              <UInput
-                v-model="state.email"
-                type="email"
-                placeholder="max@beispiel.de"
-                icon="i-heroicons-envelope"
-                size="lg"
-                class="w-full"
-              />
-            </UFormField>
-
-            <UFormField
-              label="Nachricht"
-              name="message"
-              required
-            >
-              <UTextarea
-                v-model="state.message"
-                placeholder="Wie können wir dir helfen?"
-                :rows="5"
-                size="lg"
-                class="w-full"
-              />
-            </UFormField>
-
-            <div class="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-700/50">
-              <UFormField
-                label="Sicherheitsfrage: Was ist 3 + 4?"
-                name="challenge"
-                required
-              >
-                <UInput
-                  v-model.number="state.challenge"
-                  type="number"
-                  placeholder="Ergebnis"
-                  icon="i-heroicons-shield-check"
-                  size="md"
-                  class="w-32"
-                />
-              </UFormField>
-            </div>
-
-            <div class="hidden">
-              <UInput
-                v-model="state.website"
-                name="website"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
-
-            <AppButton
-              type="submit"
-              block
-              size="xl"
-              variant="primary"
-              :loading="isLoading"
-              label="Nachricht senden"
-              icon="i-heroicons-paper-airplane"
-            />
-          </UForm>
+          <a href="mailto:info@tc-hardt.de" class="text-accent-600 dark:text-accent-400 font-bold hover:underline">
+            info@tc-hardt.de
+          </a>
         </div>
 
       </div>
+
+      <div id="contact-form-container" class="max-w-5xl mx-auto w-full">
+        <div class="bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700">
+
+          <div v-if="!isSent">
+            <div class="mb-10">
+              <h2 class="text-3xl font-bold text-brand-dark-900 dark:text-white mb-3">Schreib uns eine Nachricht</h2>
+              <p class="text-gray-500 dark:text-gray-400">
+                Fülle das Formular aus und wir melden uns zeitnah bei dir.
+              </p>
+            </div>
+
+            <UForm
+              :schema="schema"
+              :state="state"
+              class="space-y-8"
+              @submit="onSubmit"
+            >
+              <div class="grid md:grid-cols-2 gap-8">
+                <UFormField
+                  label="Dein Name"
+                  name="name"
+                  required
+                >
+                  <UInput
+                    v-model="state.name"
+                    placeholder="Max Mustermann"
+                    icon="i-heroicons-user"
+                    size="lg"
+                    class="w-full"
+                  />
+                </UFormField>
+
+                <UFormField
+                  label="Deine E-Mail"
+                  name="email"
+                  required
+                >
+                  <UInput
+                    v-model="state.email"
+                    type="email"
+                    placeholder="max@beispiel.de"
+                    icon="i-heroicons-envelope"
+                    size="lg"
+                    class="w-full"
+                  />
+                </UFormField>
+              </div>
+
+              <UFormField
+                label="Nachricht"
+                name="message"
+                required
+              >
+                <UTextarea
+                  v-model="state.message"
+                  placeholder="Wie können wir dir helfen?"
+                  :rows="6"
+                  size="lg"
+                  class="w-full"
+                />
+              </UFormField>
+
+              <div class="rounded-xl bg-gray-100 dark:bg-gray-900 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+
+                  <div class="flex items-center gap-4">
+                    <div class="shrink-0 w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                      <UIcon name="i-heroicons-shield-check" class="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span class="block font-bold text-gray-900 dark:text-white text-sm">Sicherheitsfrage</span>
+                      <p class="text-gray-500 dark:text-gray-400 text-sm">Was ist <strong class="text-gray-900 dark:text-white">3 + 4</strong>?</p>
+                    </div>
+                  </div>
+
+                  <div class="w-full sm:w-auto">
+                    <UFormField name="challenge">
+                      <UInput
+                        v-model.number="state.challenge"
+                        type="number"
+                        placeholder="?"
+                        size="lg"
+                        class="w-full sm:w-24"
+                        input-class="text-center font-bold"
+                      />
+                    </UFormField>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="hidden">
+                <UInput
+                  v-model="state.website"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="pt-2">
+                <AppButton
+                  type="submit"
+                  block
+                  size="xl"
+                  variant="primary"
+                  :loading="isLoading"
+                  label="Nachricht absenden"
+                  icon="i-heroicons-paper-airplane"
+                />
+              </div>
+            </UForm>
+          </div>
+
+          <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
+            <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-6 shadow-sm">
+              <UIcon name="i-heroicons-check" class="w-12 h-12" />
+            </div>
+            <h3 class="text-4xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank!</h3>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
+              Deine Nachricht wurde erfolgreich an uns übermittelt. <br>Wir werden uns in Kürze bei dir melden.
+            </p>
+            <AppButton
+              variant="outline"
+              label="Eine weitere Nachricht schreiben"
+              size="lg"
+              @click="resetForm"
+            />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="w-full max-w-5xl mx-auto">
+        <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-6">Anfahrt</h2>
+        <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative grayscale-[20%] hover:grayscale-0 transition-all duration-500">
+          <iframe
+            width="100%"
+            height="100%"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.364428362876!2d6.353389076939943!3d51.19253967174366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8ad63bd63484f%3A0x6739097734680072!2sBirkmannsweg%2016%2C%2041169%20M%C3%B6nchengladbach!5e0!3m2!1sde!2sde!4v1709647200000!5m2!1sde!2sde"
+            title="Google Maps Standort TC Hardt"
+          />
+        </div>
+      </div>
+
     </UContainer>
   </div>
 </template>
