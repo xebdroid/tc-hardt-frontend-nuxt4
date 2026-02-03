@@ -79,7 +79,8 @@ try {
     $mail->setFrom('tc-hardt-contact@v0id.de', 'TC Hardt Website');
 
     // Empfänger (Der Verein)
-    $mail->addAddress('info@tc-hardt.de');
+    // $mail->addAddress('info@tc-hardt.de');
+    $mail->addAddress('info@v0id.de');
 
     // Antwort an: Wenn du auf "Antworten" klickst, geht es an den Besucher
     $mail->addReplyTo($email, $name);
