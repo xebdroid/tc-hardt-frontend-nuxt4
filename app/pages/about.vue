@@ -26,8 +26,8 @@ useHead({
       </template>
     </Hero>
 
-    <UContainer class="py-16 space-y-16">
-       <div class="grid md:grid-cols-2 gap-12 items-center">
+    <UContainer class="test py-16 space-y-16">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="space-y-6 text-lg text-gray-600 leading-relaxed dark:text-gray-300">
           <p>
             Der <strong class="text-tennis-900 dark:text-white">Tennisclub Hardt 1976 e.V.</strong> ist mehr als nur ein Sportverein.
@@ -41,7 +41,11 @@ useHead({
           </p>
         </div>
         <div class="rounded-xl overflow-hidden shadow-lg h-64 md:h-full bg-gray-200 relative">
-           <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Tennisplatz im Grünen" />
+          <img
+            src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=1000&auto=format&fit=crop"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Tennisplatz im Grünen"
+          >
         </div>
       </div>
 
@@ -88,7 +92,12 @@ useHead({
       <UContainer>
         <h2 class="text-2xl font-bold mb-4">Fragen zum Verein?</h2>
         <p class="mb-8 text-gray-600 dark:text-gray-300">Melde dich gerne bei uns – wir helfen dir weiter!</p>
-        <UButton to="/kontakt" color="primary" size="xl" class="text-slate-900 font-bold">Kontakt aufnehmen</UButton>
+        <UButton
+          to="/kontakt"
+          color="primary"
+          size="xl"
+          class="text-slate-900 font-bold"
+        >Kontakt aufnehmen</UButton>
       </UContainer>
     </div>
   </div>

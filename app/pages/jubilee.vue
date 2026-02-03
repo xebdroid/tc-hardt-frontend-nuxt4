@@ -118,7 +118,7 @@ const timelineItems = [
         :default-value="5"
         size="3xl"
         :ui="{ item: 'even:lg:flex-row-reverse even:lg:-translate-x-[calc(100%-3rem)] even:lg:text-right',
-               wrapper: 'border border-brand-dark-100 rounded-2xl p-6 lg:max-w-[30vw]',
+               wrapper: 'border border-brand-dark-100 rounded-2xl p-6 lg:max-w-[400px]',
                date: 'text-accent-500 dark:text-accent-400 font-semibold text-md',
                title: 'text-accent-500 dark:text-accent-400 font-bold text-lg'}"
         class="lg:translate-x-[calc(50%-1rem)]"

@@ -2,7 +2,6 @@
 import AppButton from '~/components/base/AppButton.vue'
 
 const { footerLinks, socialLinks } = useNavigation()
-const localePath = useLocalePath()
 
 // Das aktuelle Jahr für das Copyright einmal berechnen
 const currentYear = new Date().getFullYear()
@@ -23,7 +22,7 @@ const currentYear = new Date().getFullYear()
           </h3>
 
           <AppButton
-            :to="localePath('membership')"
+            :to="$localePath('membership')"
             :label="$t('footer.cta.button')"
             size="xl"
             variant="brand-dark"
