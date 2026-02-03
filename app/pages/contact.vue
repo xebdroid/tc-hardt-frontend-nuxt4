@@ -3,6 +3,7 @@ import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import Hero from '~/components/section/Hero.vue'
 import AppButton from '~/components/base/AppButton.vue'
+import PrivacyGate from '~/components/base/PrivacyGate.vue'
 
 useHead({
   title: 'Kontakt | TC Hardt',
@@ -259,18 +260,41 @@ function resetForm() {
 
       <div class="w-full max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-6">Anfahrt</h2>
-        <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative grayscale-[20%] hover:grayscale-0 transition-all duration-500">
-          <iframe
-            width="100%"
-            height="100%"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.364428362876!2d6.353389076939943!3d51.19253967174366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8ad63bd63484f%3A0x6739097734680072!2sBirkmannsweg%2016%2C%2041169%20M%C3%B6nchengladbach!5e0!3m2!1sde!2sde!4v1709647200000!5m2!1sde!2sde"
-            title="Google Maps Standort TC Hardt"
-          />
+
+        <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative">
+
+          <PrivacyGate
+            id="google-maps"
+            title="Google Maps laden"
+            description="Wir nutzen Google Maps, um Ihnen den Weg zu zeigen. Dabei werden Daten (z.B. IP-Adresse) an Google übertragen."
+            icon="i-heroicons-map"
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.3639946487!2d6.34789!3d51.19655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8aad0c6e00001%3A0x42760fc4a2a7a40!2sTennisclub%20Hardt%20e.V.!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde"
+              title="Google Maps Standort TC Hardt"
+              class="absolute inset-0 w-full h-full animate-in fade-in duration-500 grayscale-[20%] hover:grayscale-0 transition-all"
+            />
+          </PrivacyGate>
+
         </div>
+
+        <div class="mt-4 text-center">
+          <a
+            href="https://maps.app.goo.gl/DEIN_LINK_HIER"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-gray-500 hover:text-accent-600 underline"
+          >
+            Route in Google Maps App öffnen
+          </a>
+        </div>
+
       </div>
 
     </UContainer>

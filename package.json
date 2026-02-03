@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@dargmuesli/nuxt-cookie-control": "9.1.14",
     "@iconify-json/lucide": "^1.2.74",
     "@nuxt/ui": "^4.2.1",
     "@nuxtjs/i18n": "10.2.1",

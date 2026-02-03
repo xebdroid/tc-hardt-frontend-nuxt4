@@ -7,8 +7,15 @@ const description = 'Dein Tennisclub im Herzen von Mönchengladbach.'
 useSeoMeta({ title, description })
 
 const { locale } = useI18n()
-const lang = computed(() => locales[locale.value]?.code || 'de')
-const dir = computed(() => locales[locale.value]?.dir || 'ltr')
+const lang = computed(() => {
+  const currentLocale = locale.value as keyof typeof locales
+  return locales[currentLocale]?.code || 'de'
+})
+
+const dir = computed(() => {
+  const currentLocale = locale.value as keyof typeof locales
+  return locales[currentLocale]?.dir || 'ltr'
+})
 
 useHead({
   htmlAttrs: { lang, dir },
@@ -21,6 +28,10 @@ useHead({
 
 <template>
   <UApp>
-    <NuxtLayout name="default" />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+
+    <CookieControl locale="de" />
   </UApp>
 </template>
