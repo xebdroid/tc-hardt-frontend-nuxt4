@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as locales from '@nuxt/ui/locale'
+import CookieModal from '~/components/base/CookieModal.vue'
 
 const title = 'TC Hardt - Tennis in Mönchengladbach'
 const description = 'Dein Tennisclub im Herzen von Mönchengladbach.'
@@ -32,6 +33,6 @@ useHead({
       <NuxtPage />
     </NuxtLayout>
 
-    <CookieControl locale="de" />
+    <CookieModal />
   </UApp>
 </template>

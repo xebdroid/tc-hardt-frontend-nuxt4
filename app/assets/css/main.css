@@ -118,31 +118,3 @@ h1, h2, h3, h4, h5, h6 {
 body {
   font-family: var(--font-sans);
 }
-
-/* --- COOKIE CONTROL FIXES (Tailwind v4 compatible) --- */
-
-/* Fix für Cookie Control Buttons */
-.cookie-control button {
-  /* WICHTIG: ! vor die Klassen setzen, nicht ans Ende der Zeile! */
-  @apply !font-medium !px-4 !py-2 !rounded !transition-colors;
-}
-
-/* Modal Close Button sichtbar machen */
-.cookie-control .cookie-control__modal-close button {
-  @apply !bg-transparent !text-gray-500 hover:!text-gray-900;
-  /* Standard CSS Properties dürfen !important behalten */
-  width: auto !important;
-  height: auto !important;
-}
-
-/* Falls das X immer noch fehlt, erzwingen wir es per CSS */
-.cookie-control__modal-close button::before {
-  content: "✕";
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-/* Sicherstellen, dass das Banner über allem liegt */
-.cookie-control {
-  z-index: 9999 !important;
-}
