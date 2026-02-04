@@ -41,7 +41,6 @@ export const useNavigation = () => {
   const headerMenu = computed<CustomNavigationMenuItem[]>(() => [
     {
       label: t('nav.main.home'),
-      label: t('nav.main.home'),
       to: localePath('/'),
       icon: 'i-heroicons-home',
       isHome: true

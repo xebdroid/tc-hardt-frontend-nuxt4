@@ -276,9 +276,8 @@ function resetForm() {
               loading="lazy"
               allowfullscreen
               referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2524.3639946487!2d6.34789!3d51.19655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8aad0c6e00001%3A0x42760fc4a2a7a40!2sTennisclub%20Hardt%20e.V.!5e0!3m2!1sde!2sde!4v1700000000000!5m2!1sde!2sde"
+              src="https://maps.google.com/maps?q=TC+Hardt+1976+e.V.,+Birkmannsweg+16,+41169+Mönchengladbach&t=&z=15&ie=UTF8&iwloc=&output=embed"
               title="Google Maps Standort TC Hardt"
-              class="absolute inset-0 w-full h-full animate-in fade-in duration-500 grayscale-[20%] hover:grayscale-0 transition-all"
             />
           </PrivacyGate>
 

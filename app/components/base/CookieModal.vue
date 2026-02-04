@@ -77,7 +77,7 @@ function openLegalPage() {
         <div class="text-center mb-6 mt-2">
           <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-2">Datenschutz</h2>
           <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-            Wir verwenden Cookies und externe Dienste (Google Maps), um dir das beste Erlebnis zu bieten.
+            Wir verwenden Cookies und externe Dienste, um dir das beste Erlebnis zu bieten.
           </p>
         </div>
 
