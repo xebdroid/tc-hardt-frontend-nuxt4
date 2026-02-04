@@ -1,6 +1,7 @@
 {
   "nav": {
     "main": {
+      "home": "Startseite",
       "club": "Verein",
       "sport": "Spielbetrieb",
       "training": "Training",

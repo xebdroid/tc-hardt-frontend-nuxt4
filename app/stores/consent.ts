@@ -1,4 +1,3 @@
-// stores/consent.ts
 import { defineStore } from 'pinia'
 
 interface ConsentState {
@@ -8,26 +7,26 @@ interface ConsentState {
 
 export const useConsentStore = defineStore('consent', () => {
 
-  // 1. DAS COOKIE (Speichert die Entscheidung dauerhaft)
+  // 1. Das Einstellungs-Cookie (Speichert WAS erlaubt ist)
   const cookie = useCookie<ConsentState>('cookie-consent', {
     default: () => ({ necessary: true, maps: false }),
-    maxAge: 60 * 60 * 24 * 365, // 1 Jahr gültig
-    watch: true // Änderungen am State speichern automatisch ins Cookie
+    maxAge: 60 * 60 * 24 * 365, // 1 Jahr
+    watch: true // State Änderungen landen automatisch im Cookie
   })
 
-  // 2. ENTSCHEIDUNGS-STATUS (Wurde schon gewählt?)
+  // 2. Das Status-Cookie (Speichert OB schon gewählt wurde)
   const hasDecided = useCookie<boolean>('cookie-decided', {
     default: () => false,
     maxAge: 60 * 60 * 24 * 365
   })
 
-  // 3. MODAL STATE (Offen, wenn noch keine Entscheidung getroffen wurde)
+  // 3. Modal State (Initial offen, wenn noch nicht entschieden)
   const isModalOpen = ref(!hasDecided.value)
 
-  // 4. GETTER
+  // 4. Getter
   const isMapsAllowed = computed(() => cookie.value.maps)
 
-  // 5. ACTIONS
+  // 5. Actions
   function acceptAll() {
     cookie.value.maps = true
     _finalize()
@@ -47,7 +46,7 @@ export const useConsentStore = defineStore('consent', () => {
     isModalOpen.value = true
   }
 
-  // Interne Funktion zum Speichern und Schließen
+  // Interne Funktion zum Schließen & Speichern des Status
   function _finalize() {
     hasDecided.value = true
     isModalOpen.value = false
@@ -56,6 +55,7 @@ export const useConsentStore = defineStore('consent', () => {
   return {
     isModalOpen,
     isMapsAllowed,
+    hasDecided,
     acceptAll,
     saveSettings,
     declineAll,

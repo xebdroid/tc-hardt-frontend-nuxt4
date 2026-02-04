@@ -2,18 +2,52 @@
 import AppButton from '~/components/base/AppButton.vue'
 
 const store = useConsentStore()
+const localePath = useLocalePath()
+const route = useRoute()
 
 // Lokaler State
 const mapsSelected = ref(store.isMapsAllowed)
 
-watch(() => store.isModalOpen, (isOpen) => {
-  if (isOpen) {
-    mapsSelected.value = store.isMapsAllowed
+// --- LOGIK: Modal-Steuerung ---
+const legalPages = ['impressum', 'datenschutz', 'imprint', 'privacy']
+
+const isLegalPage = computed(() => {
+  return legalPages.some(path => route.path.includes(path))
+})
+
+// 1. Beim Start prüfen: Sind wir auf einer Legal-Page? Dann Modal ZU.
+// Sonst: Modal AUF (falls noch nicht entschieden).
+onMounted(() => {
+  if (isLegalPage.value) {
+    store.isModalOpen = false
+  } else if (!store.hasDecided) {
+    store.isModalOpen = true
   }
+})
+
+// 2. Bei Navigation beobachten
+watch(() => route.path, () => {
+  if (isLegalPage.value) {
+    // Nutzer geht zum Impressum -> Modal weg, damit er lesen kann
+    store.isModalOpen = false
+  } else if (!store.hasDecided) {
+    // Nutzer geht zurück zur Startseite/Kontakt -> Modal muss wieder her!
+    store.isModalOpen = true
+  }
+})
+
+// State synchronisieren
+watch(() => store.isModalOpen, (isOpen) => {
+  if (isOpen) mapsSelected.value = store.isMapsAllowed
 })
 
 function handleSave() {
   store.saveSettings({ maps: mapsSelected.value })
+}
+
+// Helper für Links im Modal
+function openLegalPage() {
+  store.isModalOpen = false
 }
 </script>
 
@@ -21,16 +55,26 @@ function handleSave() {
   <UModal
     v-model:open="store.isModalOpen"
     :dismissible="store.isMapsAllowed"
+    :transition="false"
     :ui="{
-      overlay: 'z-[9999] bg-gray-950/75 backdrop-blur-sm',
-      content: 'z-[9999] w-full sm:max-w-md'
+      overlay: 'z-[9999] bg-gray-950/80 backdrop-blur-sm transition-none duration-0',
+      content: 'z-[9999] w-full sm:max-w-md transition-none duration-0 !bg-transparent !shadow-none !ring-0 !border-0'
     }"
   >
     <template #content>
+      <div class="relative p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800">
 
-      <div class="p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800">
+        <UButton
+          icon="i-heroicons-x-mark"
+          variant="ghost"
+          color="gray"
+          class="absolute top-3 right-3 z-10"
+          tabindex="-1"
+          aria-label="Ablehnen und Schließen"
+          @click="store.declineAll"
+        />
 
-        <div class="text-center mb-6">
+        <div class="text-center mb-6 mt-2">
           <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-2">Datenschutz</h2>
           <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
             Wir verwenden Cookies und externe Dienste (Google Maps), um dir das beste Erlebnis zu bieten.
@@ -44,7 +88,7 @@ function handleSave() {
               <UIcon name="i-heroicons-check-circle" class="text-green-500 w-6 h-6" />
               <div class="text-left">
                 <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Notwendig</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400">Grundfunktionen der Seite</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">Grundfunktionen</span>
               </div>
             </div>
             <USwitch
@@ -59,7 +103,7 @@ function handleSave() {
               <UIcon name="i-heroicons-map" class="text-brand-dark-900 dark:text-white w-6 h-6" />
               <div class="text-left">
                 <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Google Maps</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400">Interaktive Karten anzeigen</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">Karten & Anfahrt</span>
               </div>
             </div>
             <USwitch v-model="mapsSelected" size="lg" />
@@ -73,6 +117,7 @@ function handleSave() {
             variant="primary"
             block
             size="lg"
+            autofocus
             @click="store.acceptAll"
           />
           <AppButton
@@ -84,17 +129,24 @@ function handleSave() {
           />
         </div>
 
-        <div class="mt-6 text-center">
-          <button
-            class="text-xs text-gray-400 hover:text-brand-dark-900 dark:hover:text-white transition-colors underline"
-            @click="store.declineAll"
+        <div class="mt-6 flex justify-center gap-4 text-xs text-gray-400">
+          <NuxtLink
+            :to="localePath('imprint')"
+            class="hover:underline hover:text-gray-600 dark:hover:text-gray-300"
+            @click="openLegalPage"
           >
-            Nur essenzielle Cookies nutzen
-          </button>
+            Impressum
+          </NuxtLink>
+          <NuxtLink
+            :to="localePath('privacy')"
+            class="hover:underline hover:text-gray-600 dark:hover:text-gray-300"
+            @click="openLegalPage"
+          >
+            Datenschutz
+          </NuxtLink>
         </div>
 
       </div>
-
     </template>
   </UModal>
 </template>
