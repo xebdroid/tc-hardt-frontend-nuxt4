@@ -1,50 +1,39 @@
 <script setup lang="ts">
 import Hero, { type HeroSlide } from '~/components/section/Hero.vue'
+import AppButton from '~/components/base/AppButton.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
   title: 'Mitglied werden | TC Hardt',
-  meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Lade hier deinen Mitgliedsantrag herunter.' }]
+  meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Tarife und Aufnahmeantrag.' }]
 })
 
 // --- CONFIG ---
-// Pfad zur PDF-Datei (muss im Ordner /public/files/ liegen oder angepasst werden)
-const PDF_PATH = '/files/Aufnahmeantrag_TC_Hardt.pdf'
+const PDF_PATH = '/downloads/Aufnahmeantrag_TC_Hardt.pdf'
 
 // --- DATA ---
 const rawTariffs = db.tariffs
 
-// Hero Slides
+// 1. HERO SLIDES
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
     title: 'Dein Platz ist bei uns.',
-    subtitle: 'Werde Teil einer starken Gemeinschaft.',
-    description: 'Egal ob ambitionierter Mannschaftsspieler oder Hobbyspieler – beim TC Hardt findest du Spielpartner, Freunde und ein zweites Zuhause.',
+    subtitle: 'Tennis, Gemeinschaft & Leidenschaft.',
+    description: 'Egal ob Anfänger oder Profi – beim TC Hardt findest du ideale Bedingungen und ein lebendiges Vereinsleben.',
     overlayPosition: 'center',
-    // CTA 1: Scrollt zur Anleitung/Download
-    ctaPrimary: { label: 'Mitgliedsantrag herunterladen', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
-    // CTA 2: Scrollt zu den Preisen
-    ctaSecondary: { label: 'Zu den Tarifen', to: '#tarife' }
+    ctaPrimary: { label: 'Tarife wählen', to: '#tarife' },
+    ctaSecondary: { label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' }
   }
 ])
 
-// Vorteile
+// 2. BENEFITS
 const benefits = [
-  { icon: 'i-heroicons-sparkles', title: 'Top Anlage', desc: '6 gepflegte Ascheplätze am Waldrand.', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' },
-  { icon: 'i-heroicons-user-group', title: 'Gemeinschaft', desc: 'Events, Turniere und Sommerfeste.', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/10' },
-  { icon: 'i-heroicons-academic-cap', title: 'Training', desc: 'Tennisschule für alle Level.', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/10' },
-  { icon: 'i-heroicons-currency-euro', title: 'Faire Preise', desc: 'Günstiger Einstieg & Familienrabatte.', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/10' },
-  { icon: 'i-heroicons-home-modern', title: 'Clubhaus & Terrasse', desc: 'Clubraum mit Beamer & Sound, Sonnenterrasse.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
-  { icon: 'i-heroicons-trophy', title: 'Wettkampf', desc: 'Mannschaften in vielen Altersklassen.', color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/10' },
-]
-
-// Tabs
-const tariffTabs = [
-  { label: 'Schnupperangebot', slot: 'trial' },
-  { label: 'Erwachsene & Familie', slot: 'adults' },
-  { label: 'Jugend & Ausbildung', slot: 'youth' }
+  { icon: 'i-heroicons-sparkles', title: '6 Top-Plätze', desc: 'Hervorragend gepflegte Ascheplätze.', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' },
+  { icon: 'i-heroicons-user-group', title: 'Tolle Community', desc: 'Vom Schleifchenturnier bis zum Sommerfest.', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/10' },
+  { icon: 'i-heroicons-academic-cap', title: 'Training', desc: 'Tennisschule für Groß & Klein.', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/10' },
+  { icon: 'i-heroicons-home-modern', title: 'Gastronomie', desc: 'Sonnenterrasse & Clubhaus.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
 ]
 
 // --- HELPER ---
@@ -52,24 +41,24 @@ const formatPrice = (price: number) => new Intl.NumberFormat('de-DE', { style: '
 
 const scrollToDownload = () => {
   const el = document.getElementById('anmeldung')
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
-// --- TRANSFORMER (Für Pricing Cards) ---
+// --- TRANSFORMER ---
 const mapToPlan = (t: any) => {
-  const isAdultGroup = ['adult', 'family', 'senior', 'passive'].includes(t.id)
   const isTrial = t.id.startsWith('trial_')
   const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
 
-  // Styling
-  const themeColorBorder = isTrial ? 'border-highlight-500' : (isAdultGroup ? 'border-tennis-800' : 'border-tennis-500')
-  const btnBgClass = isTrial ? 'bg-highlight-500 hover:bg-highlight-600 text-tennis-900' : (isAdultGroup ? 'bg-tennis-800 hover:bg-tennis-900 text-white' : 'bg-tennis-500 hover:bg-tennis-600 text-white')
+  // Design Logic
+  let borderClass = isTrial
+    ? 'ring-2 ring-highlight-500 shadow-lg'
+    : 'border border-gray-200 dark:border-gray-800 hover:border-brand-dark-500 hover:shadow-lg'
 
   // Badges
   let badge = undefined
   if (t.id === 'adult') badge = { label: 'Bestseller', variant: 'soft', color: 'primary' }
   if (t.id === 'family') badge = { label: 'Top Deal', variant: 'subtle', color: 'primary' }
-  if (isTrial && t.price === 0) badge = { label: 'Gratis', variant: 'solid', color: 'primary' }
+  if (isTrial && t.price === 0) badge = { label: 'Kostenlos', variant: 'solid', color: 'primary' }
 
   return {
     title: t.label,
@@ -77,230 +66,314 @@ const mapToPlan = (t: any) => {
     price: formatPrice(t.price),
     discount: hasDiscount ? formatPrice(t.price / 2) : undefined,
     billingCycle: t.suffix,
-    billingPeriod: isTrial ? 'Endet automatisch' : (hasDiscount ? 'im 1. Jahr' : undefined),
     features: t.features,
     badge: badge,
-    class: `bg-white dark:bg-gray-800 transition-all duration-300 border-t-4 ${themeColorBorder} ring-1 ring-gray-200 dark:ring-gray-700 hover:shadow-xl`,
 
-    // Button führt jetzt zum Download-Bereich
+    class: `bg-white dark:bg-gray-900 rounded-2xl p-6 flex flex-col h-full relative transition-all duration-300 ${borderClass}`,
+
+    // Config für AppButton
     button: {
-      label: 'Antrag laden',
+      label: 'Zum Antrag',
       icon: 'i-heroicons-arrow-down-tray',
-      color: 'neutral',
-      variant: 'solid',
+      variant: 'primary', // HIER GEÄNDERT: Immer Primary für bessere Sichtbarkeit
       block: true,
       size: 'md',
-      class: `font-bold py-2 ${btnBgClass}`,
-      onClick: scrollToDownload
     }
   }
 }
 
-const adultPlans = computed(() => rawTariffs.filter(t => ['adult', 'family', 'senior', 'passive'].includes(t.id)).map(mapToPlan))
-const youthPlans = computed(() => rawTariffs.filter(t => ['student', 'youth', 'child'].includes(t.id)).map(mapToPlan))
 const trialPlans = computed(() => rawTariffs.filter(t => t.id.startsWith('trial_')).map(mapToPlan))
+const adultPlans = computed(() => rawTariffs.filter(t => ['adult', 'family', 'senior'].includes(t.id)).map(mapToPlan))
+const otherPlans = computed(() => rawTariffs.filter(t => ['student', 'youth', 'child', 'passive'].includes(t.id)).map(mapToPlan))
 
+// --- ACCORDION CONFIG ---
+const accordionItems = [
+  {
+    label: '1. Schnupperangebot (Risikofrei testen)',
+    icon: 'i-heroicons-sparkles',
+    slot: 'trial',
+    value: 'trial',
+    content: 'Ideal für Einsteiger. Endet automatisch nach 3 Monaten.'
+  },
+  {
+    label: '2. Reguläre Mitgliedschaft',
+    icon: 'i-heroicons-users',
+    slot: 'regular',
+    value: 'regular',
+    content: 'Für aktive Spieler und Familien. Mit 50% Rabatt im ersten Jahr.'
+  },
+  {
+    label: '3. Weitere Optionen (Jugend & Passiv)',
+    icon: 'i-heroicons-academic-cap',
+    slot: 'others',
+    value: 'others',
+    content: 'Tarife für Studenten, Azubis, Kinder und passive Förderer.'
+  }
+]
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen font-sans bg-gray-50 dark:bg-gray-950">
+  <div class="flex flex-col min-h-screen font-sans bg-gray-50 dark:bg-gray-950 pb-24 sm:pb-0">
 
-    <Hero
-      :slides="heroSlides"
-      height="large"
-      fallback-class="bg-tennis-900"
-    />
+    <Hero :slides="heroSlides" height="medium" fallback-class="bg-brand-dark-900" />
 
-    <div class="bg-white dark:bg-gray-900 py-20 border-b border-gray-100 dark:border-gray-800">
+    <div class="bg-white dark:bg-gray-900 py-16 border-b border-gray-100 dark:border-gray-800">
       <UContainer>
-        <div class="text-center mb-16 max-w-3xl mx-auto">
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-4">
-            Warum Mitglied werden?
+        <div class="text-center mb-12 max-w-3xl mx-auto">
+          <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-4">
+            Mehr als nur ein Tennisclub
           </h2>
           <p class="text-gray-600 dark:text-gray-300 text-lg">
-            Tennis beim TC Hardt ist mehr als Sport. Entdecke unsere Vorteile.
+            Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander,
+            sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
-            v-for="(benefit, index) in benefits"
-            :key="index"
-            class="flex items-start gap-4 p-5 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 hover:shadow-md transition-all group"
-          >
-            <div
-              class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 transition-colors"
-              :class="benefit.bg"
-            >
-              <UIcon
-                :name="benefit.icon"
-                class="w-6 h-6"
-                :class="benefit.color"
-              />
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div v-for="(benefit, index) in benefits" :key="index" class="text-center p-4">
+             <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 transition-transform hover:scale-110" :class="benefit.bg">
+              <UIcon :name="benefit.icon" class="w-7 h-7" :class="benefit.color" />
             </div>
-            <div>
-              <h3 class="font-bold text-gray-900 dark:text-white mb-1 group-hover:text-tennis-600 transition-colors">
-                {{ benefit.title }}
-              </h3>
-              <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                {{ benefit.desc }}
-              </p>
-            </div>
+            <h3 class="font-bold text-gray-900 dark:text-white mb-2">{{ benefit.title }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ benefit.desc }}</p>
           </div>
         </div>
       </UContainer>
     </div>
 
-    <div id="tarife" class="bg-tennis-50/50 dark:bg-gray-950 py-24 scroll-mt-16">
-      <UContainer>
-        <div class="text-center mb-10 max-w-3xl mx-auto">
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-4">
-            Unsere Beiträge
+    <div id="tarife" class="py-20 scroll-mt-16 bg-gray-50 dark:bg-gray-950">
+      <UContainer class="max-w-4xl">
+
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
+            Wähle deinen Tarif
           </h2>
-          <p class="text-gray-600 dark:text-gray-400 text-lg">
-            Transparent und fair. Wähle den Tarif, der zu dir passt.
+          <p class="text-gray-500 dark:text-gray-400 mt-2">
+            Klicke auf die Bereiche, um die Optionen zu sehen.
           </p>
         </div>
 
-        <UTabs
-          :items="tariffTabs"
-          class="w-full"
-          :ui="{ list: { background: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 mb-8' } }"
+        <UAccordion
+          type="multiple"
+          :items="accordionItems"
+          :default-value="['trial']"
+          :ui="{
+            wrapper: 'space-y-4',
+            item: {
+              base: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden mb-4',
+              padding: 'p-0'
+            },
+            trigger: 'px-6 py-5 text-lg font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors',
+            content: 'px-6 pb-8 pt-2 text-gray-500 dark:text-gray-400',
+            trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
+          }"
         >
+
           <template #trial>
-            <div class="pt-4 animate-fade-in">
-              <div class="mb-8 bg-highlight-50 dark:bg-highlight-900/10 border border-highlight-200 rounded-xl p-6 text-center max-w-3xl mx-auto">
-                <h3 class="font-bold text-highlight-700 dark:text-highlight-400 mb-1">Dein Einstieg ohne Risiko</h3>
-                <p class="text-sm text-gray-700 dark:text-gray-300">Die Probemitgliedschaft endet automatisch nach 3 Monaten.</p>
+            <div class="mt-4">
+              <div class="mb-6 flex items-center gap-2 text-sm text-highlight-600 bg-highlight-50 dark:bg-highlight-900/10 p-3 rounded-lg border border-highlight-200">
+                <UIcon name="i-heroicons-information-circle" class="w-5 h-5 shrink-0" />
+                <span>Das Schnupperangebot endet automatisch nach 3 Monaten. Keine Kündigung nötig.</span>
               </div>
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' }">
-                <UPricingPlan
-                  v-for="(plan, index) in trialPlans"
-                  :key="index"
-                  v-bind="plan"
-                />
-              </UPricingPlans>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div v-for="(plan, i) in trialPlans" :key="i" :class="plan.class">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
+                    <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
+                  </div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
+
+                  <ul class="space-y-2 mb-8 flex-1">
+                    <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
+                      <span>{{ feature }}</span>
+                    </li>
+                  </ul>
+
+                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
+                    <div class="flex items-baseline gap-1 mb-4">
+                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
+                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
+                    </div>
+                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                  </div>
+                </div>
+              </div>
             </div>
           </template>
 
-          <template #adults>
-            <div class="pt-4 animate-fade-in">
-              <div class="mb-8 bg-tennis-100/50 border border-tennis-200 rounded-xl p-6 text-center max-w-3xl mx-auto">
-                <h3 class="font-bold text-tennis-800 mb-1">50% Willkommens-Rabatt</h3>
-                <p class="text-sm text-gray-700">Gilt für alle aktiven Neumitglieder im ersten Jahr.</p>
+          <template #regular>
+             <div class="mt-4">
+               <div class="mb-6 flex items-center gap-2 text-sm text-green-600 bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-200">
+                <UIcon name="i-heroicons-currency-euro" class="w-5 h-5 shrink-0" />
+                <span>50% Rabatt im ersten Jahr für alle aktiven Neumitglieder!</span>
               </div>
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' }">
-                <UPricingPlan
-                  v-for="(plan, index) in adultPlans"
-                  :key="index"
-                  v-bind="plan"
-                />
-              </UPricingPlans>
+               <div class="grid md:grid-cols-2 gap-6">
+                  <div v-for="(plan, i) in adultPlans" :key="i" :class="plan.class">
+                    <div class="flex justify-between items-start mb-2">
+                      <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
+                      <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
+
+                    <ul class="space-y-2 mb-8 flex-1">
+                      <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                        <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
+                        <span>{{ feature }}</span>
+                      </li>
+                    </ul>
+
+                    <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
+                      <div class="flex items-baseline gap-1 mb-4">
+                        <div v-if="plan.discount" class="text-sm text-gray-400 line-through mr-2">{{ plan.price }}</div>
+                        <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discount || plan.price }}</span>
+                        <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
+                      </div>
+                      <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                    </div>
+                  </div>
+               </div>
+             </div>
+          </template>
+
+          <template #others>
+            <div class="mt-4">
+              <p class="text-sm text-gray-500 mb-6">Tarife für Kinder, Jugendliche, Azubis und passive Förderer.</p>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div v-for="(plan, i) in otherPlans" :key="i" :class="plan.class">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
+                    <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
+                  </div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
+
+                  <ul class="space-y-2 mb-8 flex-1">
+                    <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
+                      <span>{{ feature }}</span>
+                    </li>
+                  </ul>
+
+                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
+                    <div class="flex items-baseline gap-1 mb-4">
+                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
+                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
+                    </div>
+                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                  </div>
+                </div>
+              </div>
             </div>
           </template>
 
-          <template #youth>
-            <div class="pt-4 animate-fade-in">
-              <UPricingPlans :ui="{ wrapper: 'grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto' }">
-                <UPricingPlan
-                  v-for="(plan, index) in youthPlans"
-                  :key="index"
-                  v-bind="plan"
-                />
-              </UPricingPlans>
-            </div>
-          </template>
-        </UTabs>
+        </UAccordion>
+
       </UContainer>
     </div>
 
-    <div id="anmeldung" class="w-full bg-white dark:bg-gray-900 py-24 border-t border-gray-100 dark:border-gray-800 scroll-mt-16">
-      <UContainer class="max-w-4xl">
+    <div id="anmeldung" class="w-full bg-brand-dark-900 dark:bg-gray-950 py-24 border-t border-brand-dark-800 scroll-mt-16 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+      <UContainer class="max-w-4xl relative z-10">
 
         <div class="text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-6">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">
             So wirst du Mitglied
           </h2>
-          <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-            Wir haben den Prozess so einfach wie möglich gestaltet. Lade den Antrag herunter, fülle ihn aus und schicke ihn uns zurück.
+          <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+            Dein Weg in den Club – einfach und unkompliziert.
           </p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8 relative mb-16">
-          <div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gray-200 dark:bg-gray-700 -z-10"/>
+          <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-brand-dark-700 -z-10"></div>
 
-          <div class="flex flex-col items-center text-center">
-            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-highlight-500 flex items-center justify-center mb-6 shadow-lg z-10">
-              <span class="text-4xl">📥</span>
+          <div class="flex flex-col items-center text-center group">
+            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
+              <UIcon name="i-heroicons-arrow-down-tray" class="w-8 h-8 text-highlight-400" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">1. Herunterladen</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Lade dir das PDF-Formular auf dein Gerät herunter.</p>
+            <h3 class="text-lg font-bold text-white mb-2">1. Herunterladen</h3>
+            <p class="text-sm text-gray-400">Lade das PDF auf dein Gerät.</p>
           </div>
 
-          <div class="flex flex-col items-center text-center">
-            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-tennis-500 flex items-center justify-center mb-6 shadow-lg z-10">
-              <span class="text-4xl">✍️</span>
+          <div class="flex flex-col items-center text-center group">
+             <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
+              <UIcon name="i-heroicons-pencil-square" class="w-8 h-8 text-white" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">2. Ausfüllen</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Fülle das Formular digital oder handschriftlich aus.</p>
+            <h3 class="text-lg font-bold text-white mb-2">2. Ausfüllen</h3>
+            <p class="text-sm text-gray-400">Digital oder per Hand.</p>
           </div>
 
-          <div class="flex flex-col items-center text-center">
-            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-green-500 flex items-center justify-center mb-6 shadow-lg z-10">
-              <span class="text-4xl">✉️</span>
+          <div class="flex flex-col items-center text-center group">
+             <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
+              <UIcon name="i-heroicons-paper-airplane" class="w-8 h-8 text-green-400" />
             </div>
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">3. Absenden</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Schicke es per E-Mail oder wirf es in den Briefkasten.</p>
+            <h3 class="text-lg font-bold text-white mb-2">3. Absenden</h3>
+            <p class="text-sm text-gray-400">E-Mail oder Post.</p>
           </div>
         </div>
 
-        <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 sm:p-12 border border-gray-200 dark:border-gray-700 text-center shadow-sm">
-          <UIcon name="i-heroicons-document-text" class="w-16 h-16 text-tennis-600 mb-6 mx-auto" />
+        <div class="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
+          <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-gray-100 dark:text-gray-800 rotate-12 pointer-events-none" />
 
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Aufnahmeantrag TC Hardt
-          </h3>
-          <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto">
-            Das PDF enthält alle Tarife, Datenschutzinformationen und das SEPA-Mandat.
-          </p>
+          <div class="relative z-10">
+            <h3 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-4">
+              Aufnahmeantrag TC Hardt
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto">
+              Hier findest du das offizielle Anmeldeformular inklusive der Datenschutzhinweise.
+            </p>
 
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <UButton
-              :to="PDF_PATH"
-              target="_blank"
-              size="xl"
-              icon="i-heroicons-arrow-down-tray"
-              class="font-bold py-4 px-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-transform"
-              color="primary"
-            >
-              Antrag herunterladen (PDF)
-            </UButton>
-          </div>
-
-          <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 grid sm:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
-            <div class="flex items-center justify-center sm:justify-end gap-2">
-              <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
-              <span>Per E-Mail an: <a href="mailto:info@tc-hardt.de" class="text-tennis-600 font-bold hover:underline">info@tc-hardt.de</a></span>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <AppButton
+                :to="PDF_PATH"
+                target="_blank"
+                size="xl"
+                icon="i-heroicons-arrow-down-tray"
+                class="shadow-xl hover:shadow-2xl transition-all"
+                variant="primary"
+                label="Antrag herunterladen (PDF)"
+              />
             </div>
-            <div class="flex items-center justify-center sm:justify-start gap-2">
-              <UIcon name="i-heroicons-map-pin" class="w-5 h-5" />
-              <span>Oder Post/Einwurf: <strong>Birkmannsweg 16</strong></span>
+
+            <div class="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800 grid sm:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+              <div class="flex items-center justify-center sm:justify-end gap-2">
+                <UIcon name="i-heroicons-envelope" class="w-5 h-5 text-brand-dark-500" />
+                <span>E-Mail: <a href="mailto:info@tc-hardt.de" class="text-brand-dark-600 dark:text-brand-dark-400 font-bold hover:underline">info@tc-hardt.de</a></span>
+              </div>
+              <div class="flex items-center justify-center sm:justify-start gap-2">
+                 <UIcon name="i-heroicons-map-pin" class="w-5 h-5 text-brand-dark-500" />
+                <span>Post: <strong>Birkmannsweg 16</strong></span>
+              </div>
             </div>
           </div>
         </div>
 
       </UContainer>
+    </div>
+
+    <div class="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-fade-in-up">
+      <AppButton
+        :to="PDF_PATH"
+        target="_blank"
+        block
+        size="xl"
+        variant="primary"
+        class="shadow-2xl border-2 border-white dark:border-gray-800"
+        icon="i-heroicons-arrow-down-tray"
+        label="Antrag jetzt laden"
+      />
     </div>
 
   </div>
 </template>
 
 <style scoped>
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out 1s backwards;
 }
 </style>
