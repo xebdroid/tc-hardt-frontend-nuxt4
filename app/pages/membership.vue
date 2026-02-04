@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import Hero, { type HeroSlide } from '~/components/section/Hero.vue'
 import db from '~/assets/data/db.json'
-import type { FormError, FormSubmitEvent } from '@nuxt/ui'
 
 useHead({
   title: 'Mitglied werden | TC Hardt',
-  meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft.' }]
+  meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Lade hier deinen Mitgliedsantrag herunter.' }]
 })
+
+// --- CONFIG ---
+// Pfad zur PDF-Datei (muss im Ordner /public/files/ liegen oder angepasst werden)
+const PDF_PATH = '/files/Aufnahmeantrag_TC_Hardt.pdf'
 
 // --- DATA ---
 const rawTariffs = db.tariffs
@@ -20,46 +23,24 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitle: 'Werde Teil einer starken Gemeinschaft.',
     description: 'Egal ob ambitionierter Mannschaftsspieler oder Hobbyspieler – beim TC Hardt findest du Spielpartner, Freunde und ein zweites Zuhause.',
     overlayPosition: 'center',
-    ctaPrimary: { label: 'Jetzt Mitglied werden', to: '#formular' },
-    ctaSecondary: { label: 'Zum Schnupperangebot', to: '#tarife' }
+    // CTA 1: Scrollt zur Anleitung/Download
+    ctaPrimary: { label: 'Mitgliedsantrag herunterladen', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
+    // CTA 2: Scrollt zu den Preisen
+    ctaSecondary: { label: 'Zu den Tarifen', to: '#tarife' }
   }
 ])
 
-// Vorteile (Angepasst: Clubhaus statt Gastronomie, keine Emojis)
+// Vorteile
 const benefits = [
   { icon: 'i-heroicons-sparkles', title: 'Top Anlage', desc: '6 gepflegte Ascheplätze am Waldrand.', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' },
   { icon: 'i-heroicons-user-group', title: 'Gemeinschaft', desc: 'Events, Turniere und Sommerfeste.', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/10' },
   { icon: 'i-heroicons-academic-cap', title: 'Training', desc: 'Tennisschule für alle Level.', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/10' },
   { icon: 'i-heroicons-currency-euro', title: 'Faire Preise', desc: 'Günstiger Einstieg & Familienrabatte.', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/10' },
-  { icon: 'i-heroicons-home-modern', title: 'Clubhaus & Terrasse', desc: 'Clubraum mit Beamer & Sound, Sonnenterrasse und Getränke-Selbstbedienung.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
+  { icon: 'i-heroicons-home-modern', title: 'Clubhaus & Terrasse', desc: 'Clubraum mit Beamer & Sound, Sonnenterrasse.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
   { icon: 'i-heroicons-trophy', title: 'Wettkampf', desc: 'Mannschaften in vielen Altersklassen.', color: 'text-yellow-500', bg: 'bg-yellow-50 dark:bg-yellow-900/10' },
 ]
 
-// --- STATE ---
-const formSectionRef = ref<HTMLElement | null>(null)
-
-const state = reactive({
-  tariff: '' as string,
-  firstName: '',
-  lastName: '',
-  birthDate: '',
-  gender: 'male',
-  email: '',
-  phone: '',
-  street: '',
-  houseNumber: '',
-  zip: '',
-  city: '',
-  playedBefore: false,
-  isTeamPlayer: false,
-  previousClub: '',
-  iban: '',
-  sepaAccepted: false,
-  privacyAccepted: false,
-  keyRequested: false
-})
-
-// --- TABS (Ohne Emojis) ---
+// Tabs
 const tariffTabs = [
   { label: 'Schnupperangebot', slot: 'trial' },
   { label: 'Erwachsene & Familie', slot: 'adults' },
@@ -69,54 +50,26 @@ const tariffTabs = [
 // --- HELPER ---
 const formatPrice = (price: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
 
-const selectTariff = (tariffId: string) => {
-  state.tariff = tariffId
-  const el = document.getElementById('formular')
+const scrollToDownload = () => {
+  const el = document.getElementById('anmeldung')
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-// --- TRANSFORMER ---
+// --- TRANSFORMER (Für Pricing Cards) ---
 const mapToPlan = (t: any) => {
-  const isSelected = state.tariff === t.id
-  const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
-  const isTrial = t.id.startsWith('trial_')
-
   const isAdultGroup = ['adult', 'family', 'senior', 'passive'].includes(t.id)
+  const isTrial = t.id.startsWith('trial_')
+  const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
 
-  // Farben
-  let themeColorBorder = ''
-  let btnBgClass = ''
-  let btnTextClass = ''
+  // Styling
+  const themeColorBorder = isTrial ? 'border-highlight-500' : (isAdultGroup ? 'border-tennis-800' : 'border-tennis-500')
+  const btnBgClass = isTrial ? 'bg-highlight-500 hover:bg-highlight-600 text-tennis-900' : (isAdultGroup ? 'bg-tennis-800 hover:bg-tennis-900 text-white' : 'bg-tennis-500 hover:bg-tennis-600 text-white')
 
-  if (isTrial) {
-    themeColorBorder = 'border-highlight-500'
-    btnBgClass = 'bg-highlight-500 hover:bg-highlight-600'
-    btnTextClass = 'text-tennis-900'
-  } else if (isAdultGroup) {
-    themeColorBorder = 'border-tennis-800'
-    btnBgClass = 'bg-tennis-800 hover:bg-tennis-900'
-    btnTextClass = 'text-white'
-  } else {
-    themeColorBorder = 'border-tennis-500'
-    btnBgClass = 'bg-tennis-500 hover:bg-tennis-600'
-    btnTextClass = 'text-white'
-  }
-
-  const btnClass = `font-bold py-2 transition-transform active:scale-95 ${btnBgClass} ${btnTextClass}`
-
-  // Badge
+  // Badges
   let badge = undefined
   if (t.id === 'adult') badge = { label: 'Bestseller', variant: 'soft', color: 'primary' }
   if (t.id === 'family') badge = { label: 'Top Deal', variant: 'subtle', color: 'primary' }
   if (isTrial && t.price === 0) badge = { label: 'Gratis', variant: 'solid', color: 'primary' }
-
-  // Highlighting
-  let ringClass = 'ring-1 ring-gray-200 dark:ring-gray-700 hover:ring-2 hover:ring-opacity-50 hover:shadow-lg'
-  if (isSelected) {
-    if (isTrial) ringClass = 'ring-2 ring-highlight-500 shadow-xl'
-    else if (isAdultGroup) ringClass = 'ring-2 ring-tennis-800 shadow-xl'
-    else ringClass = 'ring-2 ring-tennis-500 shadow-xl'
-  }
 
   return {
     title: t.label,
@@ -127,19 +80,18 @@ const mapToPlan = (t: any) => {
     billingPeriod: isTrial ? 'Endet automatisch' : (hasDiscount ? 'im 1. Jahr' : undefined),
     features: t.features,
     badge: badge,
-    highlight: isSelected,
-    scale: isSelected,
+    class: `bg-white dark:bg-gray-800 transition-all duration-300 border-t-4 ${themeColorBorder} ring-1 ring-gray-200 dark:ring-gray-700 hover:shadow-xl`,
 
-    class: `bg-white dark:bg-gray-800 transition-all duration-300 border-t-4 ${themeColorBorder} ${ringClass}`,
-
+    // Button führt jetzt zum Download-Bereich
     button: {
-      label: isSelected ? 'Ausgewählt' : (isTrial ? 'Jetzt testen' : 'Wählen'),
+      label: 'Antrag laden',
+      icon: 'i-heroicons-arrow-down-tray',
       color: 'neutral',
       variant: 'solid',
       block: true,
       size: 'md',
-      class: btnClass,
-      onClick: () => selectTariff(t.id)
+      class: `font-bold py-2 ${btnBgClass}`,
+      onClick: scrollToDownload
     }
   }
 }
@@ -148,34 +100,6 @@ const adultPlans = computed(() => rawTariffs.filter(t => ['adult', 'family', 'se
 const youthPlans = computed(() => rawTariffs.filter(t => ['student', 'youth', 'child'].includes(t.id)).map(mapToPlan))
 const trialPlans = computed(() => rawTariffs.filter(t => t.id.startsWith('trial_')).map(mapToPlan))
 
-const tariffOptions = computed(() => rawTariffs.map(t => ({
-  label: `${t.label} (${formatPrice(t.price)})`,
-  value: t.id
-})))
-
-// --- VALIDATION ---
-const validate = (state: any): FormError[] => {
-  const errors = []
-  if (!state.tariff) errors.push({ name: 'tariff', message: 'Bitte Tarif wählen' })
-  if (!state.firstName) errors.push({ name: 'firstName', message: 'Pflichtfeld' })
-  if (!state.lastName) errors.push({ name: 'lastName', message: 'Pflichtfeld' })
-  if (!state.birthDate) errors.push({ name: 'birthDate', message: 'Pflichtfeld' })
-  if (!state.email) errors.push({ name: 'email', message: 'Pflichtfeld' })
-  if (!state.street) errors.push({ name: 'street', message: 'Pflichtfeld' })
-  if (!state.houseNumber) errors.push({ name: 'houseNumber', message: 'Pflichtfeld' })
-  if (!state.zip) errors.push({ name: 'zip', message: 'Pflichtfeld' })
-  if (!state.city) errors.push({ name: 'city', message: 'Pflichtfeld' })
-  if (!state.iban) { errors.push({ name: 'iban', message: 'IBAN erforderlich' }) }
-  if (!state.sepaAccepted) errors.push({ name: 'sepaAccepted', message: 'Zustimmung nötig' })
-  if (!state.privacyAccepted) errors.push({ name: 'privacyAccepted', message: 'Zustimmung nötig' })
-  return errors
-}
-
-const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
-  console.log('Form Data:', event.data)
-  await new Promise(r => setTimeout(r, 800))
-  alert(`Danke ${event.data.firstName}! Antrag eingegangen. Wir melden uns per E-Mail.`)
-}
 </script>
 
 <template>
@@ -194,7 +118,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
             Warum Mitglied werden?
           </h2>
           <p class="text-gray-600 dark:text-gray-300 text-lg">
-            Tennis beim TC Hardt ist mehr als Sport.
+            Tennis beim TC Hardt ist mehr als Sport. Entdecke unsere Vorteile.
           </p>
         </div>
 
@@ -211,7 +135,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
               <UIcon
                 :name="benefit.icon"
                 class="w-6 h-6"
-                :class="benefit.text"
+                :class="benefit.color"
               />
             </div>
             <div>
@@ -234,7 +158,7 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
             Unsere Beiträge
           </h2>
           <p class="text-gray-600 dark:text-gray-400 text-lg">
-            Wähle den Tarif, der zu dir passt.
+            Transparent und fair. Wähle den Tarif, der zu dir passt.
           </p>
         </div>
 
@@ -287,308 +211,84 @@ const onSubmit = async (event: FormSubmitEvent<typeof state>) => {
             </div>
           </template>
         </UTabs>
-
       </UContainer>
     </div>
 
-    <div id="formular" class="w-full bg-white dark:bg-gray-900 py-24 border-t border-gray-100 dark:border-gray-800 scroll-mt-16">
-      <UContainer class="max-w-3xl">
+    <div id="anmeldung" class="w-full bg-white dark:bg-gray-900 py-24 border-t border-gray-100 dark:border-gray-800 scroll-mt-16">
+      <UContainer class="max-w-4xl">
 
-        <div class="text-center mb-10">
-          <h2 class="text-3xl font-heading font-bold text-tennis-900 dark:text-white mb-2">
-            Online-Mitgliedsantrag
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-tennis-900 dark:text-white mb-6">
+            So wirst du Mitglied
           </h2>
-          <p class="text-gray-500">
-            Bitte fülle alle Felder sorgfältig aus.
+          <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+            Wir haben den Prozess so einfach wie möglich gestaltet. Lade den Antrag herunter, fülle ihn aus und schicke ihn uns zurück.
           </p>
         </div>
 
-        <div class="mb-10 p-4 bg-gray-50 border-l-4 border-tennis-500 text-sm text-gray-600 rounded-r-md">
-          <strong>Hinweis:</strong> Dieser Online-Antrag dient der Vorab-Übermittlung deiner Daten.
-          Die Mitgliedschaft wird erst nach Leistung einer Unterschrift rechtswirksam (wird separat angefordert).
+        <div class="grid md:grid-cols-3 gap-8 relative mb-16">
+          <div class="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gray-200 dark:bg-gray-700 -z-10"/>
+
+          <div class="flex flex-col items-center text-center">
+            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-highlight-500 flex items-center justify-center mb-6 shadow-lg z-10">
+              <span class="text-4xl">📥</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">1. Herunterladen</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Lade dir das PDF-Formular auf dein Gerät herunter.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center">
+            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-tennis-500 flex items-center justify-center mb-6 shadow-lg z-10">
+              <span class="text-4xl">✍️</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">2. Ausfüllen</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Fülle das Formular digital oder handschriftlich aus.</p>
+          </div>
+
+          <div class="flex flex-col items-center text-center">
+            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-800 border-4 border-green-500 flex items-center justify-center mb-6 shadow-lg z-10">
+              <span class="text-4xl">✉️</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">3. Absenden</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Schicke es per E-Mail oder wirf es in den Briefkasten.</p>
+          </div>
         </div>
 
-        <UForm
-          :state="state"
-          :validate="validate"
-          class="space-y-12"
-          @submit="onSubmit"
-        >
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 sm:p-12 border border-gray-200 dark:border-gray-700 text-center shadow-sm">
+          <UIcon name="i-heroicons-document-text" class="w-16 h-16 text-tennis-600 mb-6 mx-auto" />
 
-          <div class="space-y-6">
-            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">1. Mitgliedschaft & Tarif</h3>
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Aufnahmeantrag TC Hardt
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto">
+            Das PDF enthält alle Tarife, Datenschutzinformationen und das SEPA-Mandat.
+          </p>
 
-            <UFormField
-              label="Gewählter Tarif"
-              name="tariff"
-              required
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <UButton
+              :to="PDF_PATH"
+              target="_blank"
+              size="xl"
+              icon="i-heroicons-arrow-down-tray"
+              class="font-bold py-4 px-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-transform"
+              color="primary"
             >
-              <USelect
-                v-model="state.tariff"
-                :items="tariffOptions"
-                option-attribute="label"
-                value-attribute="value"
-                placeholder="Bitte oben auswählen..."
-                size="xl"
-                class="w-full"
-                :ui="{ base: 'bg-gray-50' }"
-              />
-            </UFormField>
-
-            <div class="p-5 bg-gray-50 rounded-xl space-y-4">
-              <h4 class="font-bold text-gray-700 text-sm uppercase">Tennis-Erfahrung</h4>
-              <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
-                <UCheckbox
-                  v-model="state.playedBefore"
-                  label="Ich habe schon mal Tennis gespielt"
-                  color="primary"
-                />
-                <UCheckbox
-                  v-model="state.isTeamPlayer"
-                  label="Ich bin/war Mannschaftsspieler"
-                  color="primary"
-                />
-              </div>
-              <UFormField label="Bisheriger Verein (optional)" name="previousClub">
-                <UInput
-                  v-model="state.previousClub"
-                  placeholder="Name des Vereins"
-                  size="md"
-                  class="w-full bg-white"
-                />
-              </UFormField>
-            </div>
-
-            <div class="p-5 bg-gray-50 rounded-xl">
-              <UCheckbox
-                v-model="state.keyRequested"
-                name="keyRequested"
-                size="lg"
-                color="primary"
-              >
-                <template #label>
-                  <span class="font-bold text-gray-900">Eigener Schlüssel gewünscht?</span>
-                  <span class="block text-xs text-gray-500">Zzgl. 75,00 € Kaution (einmalig).</span>
-                </template>
-              </UCheckbox>
-            </div>
+              Antrag herunterladen (PDF)
+            </UButton>
           </div>
 
-          <div class="space-y-6">
-            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">2. Persönliche Daten</h3>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <UFormField
-                label="Vorname"
-                name="firstName"
-                required
-              >
-                <UInput
-                  v-model="state.firstName"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-              <UFormField
-                label="Nachname"
-                name="lastName"
-                required
-              >
-                <UInput
-                  v-model="state.lastName"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
+          <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 grid sm:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+            <div class="flex items-center justify-center sm:justify-end gap-2">
+              <UIcon name="i-heroicons-envelope" class="w-5 h-5" />
+              <span>Per E-Mail an: <a href="mailto:info@tc-hardt.de" class="text-tennis-600 font-bold hover:underline">info@tc-hardt.de</a></span>
             </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <UFormField
-                label="Geburtsdatum"
-                name="birthDate"
-                required
-              >
-                <UInput
-                  v-model="state.birthDate"
-                  type="date"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-              <UFormField label="Geschlecht" name="gender">
-                <USelect
-                  v-model="state.gender"
-                  :items="[{label: 'Männlich', value: 'male'}, {label: 'Weiblich', value: 'female'}]"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-            </div>
-
-            <div class="grid md:grid-cols-[3fr_1fr] gap-6">
-              <UFormField
-                label="Straße"
-                name="street"
-                required
-              >
-                <UInput
-                  v-model="state.street"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-              <UFormField
-                label="Nr."
-                name="houseNumber"
-                required
-              >
-                <UInput
-                  v-model="state.houseNumber"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-            </div>
-
-            <div class="grid md:grid-cols-[1fr_2fr] gap-6">
-              <UFormField
-                label="PLZ"
-                name="zip"
-                required
-              >
-                <UInput
-                  v-model="state.zip"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-              <UFormField
-                label="Stadt"
-                name="city"
-                required
-              >
-                <UInput
-                  v-model="state.city"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6">
-              <UFormField
-                label="E-Mail"
-                name="email"
-                required
-              >
-                <UInput
-                  v-model="state.email"
-                  type="email"
-                  icon="i-heroicons-envelope"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
-              <UFormField label="Telefon / Handy" name="phone">
-                <UInput
-                  v-model="state.phone"
-                  icon="i-heroicons-phone"
-                  size="xl"
-                  class="w-full"
-                  :ui="{ base: 'bg-gray-50' }"
-                />
-              </UFormField>
+            <div class="flex items-center justify-center sm:justify-start gap-2">
+              <UIcon name="i-heroicons-map-pin" class="w-5 h-5" />
+              <span>Oder Post/Einwurf: <strong>Birkmannsweg 16</strong></span>
             </div>
           </div>
+        </div>
 
-          <div class="space-y-6">
-            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">3. Zahlung (SEPA)</h3>
-
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-              <p class="text-xs text-gray-500 mb-4">
-                Ich ermächtige den TC Hardt e.V., Zahlungen von meinem Konto mittels Lastschrift einzuziehen.
-                Gläubiger-ID: DE53ZZZ00000103775.
-              </p>
-              <UFormField
-                label="IBAN"
-                name="iban"
-                required
-              >
-                <UInput
-                  v-model="state.iban"
-                  icon="i-heroicons-credit-card"
-                  placeholder="DE..."
-                  size="xl"
-                  class="w-full bg-white"
-                />
-              </UFormField>
-              <div class="mt-4">
-                <UCheckbox
-                  v-model="state.sepaAccepted"
-                  required
-                  label="Ich akzeptiere das SEPA-Lastschriftmandat."
-                  color="primary"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="space-y-6">
-            <h3 class="text-xl font-bold text-tennis-900 border-b pb-2 border-gray-100">4. Abschluss</h3>
-
-            <UFormField name="privacyAccepted">
-              <UCheckbox
-                v-model="state.privacyAccepted"
-                size="lg"
-                color="primary"
-              >
-                <template #label>
-                  Ich habe die <NuxtLink to="/privacy" class="text-highlight-600 hover:underline font-bold">Datenschutzerklärung</NuxtLink> und die Vereinssatzung gelesen.
-                </template>
-              </UCheckbox>
-            </UFormField>
-
-            <div class="pt-4">
-              <UButton
-                type="submit"
-                block
-                size="xl"
-                color="neutral"
-                variant="solid"
-                class="bg-highlight-500 hover:bg-highlight-600 text-tennis-900 font-bold py-4 text-lg shadow-lg hover:shadow-xl transition-all"
-                trailing-icon="i-heroicons-paper-airplane"
-              >
-                Antrag senden
-              </UButton>
-            </div>
-          </div>
-
-        </UForm>
-      </UContainer>
-    </div>
-
-    <div class="bg-gray-50 dark:bg-gray-950 py-12 text-center border-t border-gray-200">
-      <UContainer>
-        <p class="text-gray-500 mb-4 text-sm">Probleme mit dem Online-Formular?</p>
-        <UButton
-          to="/downloads/Aufnahmeantrag_TC_Hardt.pdf"
-          target="_blank"
-          icon="i-heroicons-document-arrow-down"
-          color="white"
-          variant="solid"
-          class="text-gray-700 border border-gray-300 hover:bg-gray-50"
-        >
-          PDF-Antrag herunterladen
-        </UButton>
       </UContainer>
     </div>
 
