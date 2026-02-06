@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AppButton from '~/components/base/AppButton.vue'
+import Section from '~/components/base/Section.vue'
+import db from '~/assets/data/db.json'
 
 const { footerLinks, socialLinks } = useNavigation()
 const route = useRoute()
@@ -14,32 +16,42 @@ const showCta = computed(() => !route.meta.hideFooterCta)
 
 <template>
   <footer class="mt-auto w-full isolate">
-    <div v-if="showCta" class="relative z-10 px-4 lg:px-0 lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto -mb-20 lg:-mb-32">
-
-      <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl aspect-auto md:aspect-[21/7] lg:aspect-[21/6]">
-
-        <div class="absolute inset-0 bg-brand-light-300" />
-
-        <div class="relative md:absolute inset-0 flex flex-col items-center justify-center text-center p-6 py-12 md:py-6">
-          <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark-800 mb-8 drop-shadow-md">
-            {{ $t('footer.cta.title') }}
-          </h3>
-
-          <AppButton
-            :to="$localePath('membership')"
-            :label="$t('footer.cta.button')"
-            size="xl"
-            variant="brand-dark"
-            cta
-          />
+    <UContainer class="-mb-20 lg:-mb-32">
+      <Section
+        variant="secondary"
+        padding-top="xl"
+        padding-bottom="xl"
+        class="text-center z-10 relative"
+        rounded
+      >
+        <div class="inline-flex p-4 rounded-full bg-white mb-6 shadow-sm">
+          <UIcon name="i-heroicons-heart" class="w-10 h-10 text-highlight-600" />
         </div>
-      </div>
-    </div>
+
+        <h2 class="text-3xl sm:text-5xl font-heading font-bold text-brand-dark-900 mb-6">
+          {{ $t('home.cta_bottom.title') }}
+        </h2>
+
+        <p class="text-brand-dark-600 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          {{ $t('home.cta_bottom.description') }}
+        </p>
+
+        <AppButton
+          :to="$localePath('membership')"
+          size="xl"
+          variant="brand-dark"
+          cta
+          class="shadow-lg"
+        >
+          {{ $t('nav.buttons.membership') }}
+        </AppButton>
+      </Section>
+    </UContainer>
 
     <div
       class="bg-brand-dark-900 text-white pb-12 rounded-t-3xl relative z-0 mt-0"
       :class="showCta ? 'pt-32 lg:pt-52' : 'lg:pt-32'"
-      >
+    >
 
       <div class="lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto px-6 lg:px-0">
 
@@ -82,7 +94,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
           </span>
 
           <div class="flex items-center gap-6 md:gap-3">
-            <UButton
+            <AppButton
               v-for="(social, index) in socialLinks"
               :key="index"
               :to="social.href"
@@ -90,11 +102,6 @@ const showCta = computed(() => !route.meta.hideFooterCta)
               variant="ghost"
               :icon="social.icon"
               size="lg"
-              :ui="{
-                icon: {
-                  base: 'w-10 h-10 md:w-5 md:h-5 transition-transform hover:scale-110'
-                }
-              }"
               class="text-gray-300 hover:text-white hover:bg-brand-dark-700"
             />
           </div>

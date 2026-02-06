@@ -6,11 +6,6 @@ import AppButton from '~/components/base/AppButton.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
-
-definePageMeta({
-  hideFooterCta: true
-})
 
 // --- DATA ---
 const heroSlides = computed<HeroSlide[]>(() => [
@@ -21,7 +16,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Unsere Anlagen von oben',
     subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
     overlayPosition: 'center',
-    ctaPrimary: { label: 'Mitglied werden', to: 'membership' }
+    ctaPrimary: { label: 'Mitglied werden', to: '/membership' }
   },
   {
     type: 'video',
@@ -30,14 +25,14 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Training in Aktion',
     subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
     overlayPosition: 'center',
-    ctaPrimary: { label: 'Probetraining', to: 'contact' }
+    ctaPrimary: { label: 'Probetraining', to: '/contact' }
   },
   {
     type: 'image',
     src: '/img/50_jahre_3.png',
     title: 'Unsere Jubiläums-Highlights 2026',
     overlayPosition: 'bottom-right',
-    ctaPrimary: { label: "Mehr erfahren", to: 'contact' }
+    ctaPrimary: { label: "Mehr erfahren", to: '/contact' }
   },
   {
     type: 'image',
@@ -45,8 +40,8 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: t('home.hero.title'),
     subtitle: t('home.hero.description'),
     overlayPosition: 'center',
-    ctaPrimary: { label: t('home.hero.cta_primary'), to: 'contact' },
-    ctaSecondary: { label: t('home.hero.cta_secondary'), to: 'about' }
+    ctaPrimary: { label: t('home.hero.cta_primary'), to: '/contact' },
+    ctaSecondary: { label: t('home.hero.cta_secondary'), to: '/about' }
   },
   {
     type: 'image',
@@ -54,7 +49,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Leidenschaft am Ball',
     subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
     overlayPosition: 'bottom-left',
-    ctaPrimary: { label: 'Training buchen', to: 'training' }
+    ctaPrimary: { label: 'Training buchen', to: '/training' }
   },
   {
     type: 'image',
@@ -64,15 +59,35 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Mehr als ein Verein',
     subtitle: 'Erlebe unsere starke Gemeinschaft.',
     overlayPosition: 'bottom-right',
-    ctaPrimary: { label: 'Termine ansehen', to: 'news' }
+    ctaPrimary: { label: 'Termine ansehen', to: '/news' }
   }
 ])
 
 const clubFeatures = computed(() => [
-  { icon: 'i-heroicons-trophy', title: t('home.intro_features.courts.title'), description: t('home.intro_features.courts.desc') },
-  { icon: 'i-heroicons-user-group', title: t('home.intro_features.community.title'), description: t('home.intro_features.community.desc') },
-  { icon: 'i-heroicons-sparkles', title: t('home.intro_features.training.title'), description: t('home.intro_features.training.desc') },
-  { icon: 'i-heroicons-home-modern', title: t('home.intro_features.gastronomy.title'), description: t('home.intro_features.gastronomy.desc') }
+  {
+    icon: 'i-heroicons-trophy',
+    title: t('home.intro_features.courts.title'),
+    description: t('home.intro_features.courts.desc'),
+    to: 'membership'
+  },
+  {
+    icon: 'i-heroicons-user-group',
+    title: t('home.intro_features.community.title'),
+    description: t('home.intro_features.community.desc'),
+    to: 'membership'
+  },
+  {
+    icon: 'i-heroicons-sparkles',
+    title: t('home.intro_features.training.title'),
+    description: t('home.intro_features.training.desc'),
+    to: 'training'
+  },
+  {
+    icon: 'i-heroicons-home-modern',
+    title: 'Clubheim',
+    description: 'Geselligkeit & kühle Getränke nach dem Match.',
+    to: 'about'
+  }
 ])
 
 const values = computed(() => [
@@ -96,70 +111,117 @@ const newsItems = db.news
     />
 
     <Section
-      variant="default"
-      padding-top="lg"
-      padding-bottom="lg"
+      variant="gray-light"
+      padding-top="xl"
+      overlap-top
+      rounded
     >
+      <div class="text-center mb-12 max-w-3xl mx-auto">
+        <span class="text-brand-light-600 font-bold uppercase tracking-widest text-sm mb-2 block">
+          Willkommen beim TC Hardt
+        </span>
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-dark-900 dark:text-white">
+          Tennis, Tradition & Teamgeist
+        </h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-400 text-lg">
+          Entdecke, was unseren Verein besonders macht und warum du dich bei uns wohlfühlen wirst.
+        </p>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div
+        <NuxtLink
           v-for="(feature, index) in clubFeatures"
           :key="index"
-          class="flex flex-col items-center text-center p-6 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-brand-light-400 dark:hover:border-brand-light-600 transition-all duration-300 group"
+          :to="$localePath(feature.to)"
+          class="
+            flex flex-col items-center text-center p-8 rounded-2xl
+            bg-white dark:bg-gray-800
+            shadow-md hover:shadow-xl hover:-translate-y-1
+            border-t-4 border-highlight-400
+            transition-all duration-300 group
+          "
         >
-          <div class="w-12 h-12 rounded-xl bg-brand-light-100 dark:bg-brand-light-900/50 flex items-center justify-center text-brand-light-700 dark:text-brand-light-300 mb-4 group-hover:scale-110 transition-transform">
-            <UIcon :name="feature.icon" class="w-7 h-7" />
+          <div class="w-14 h-14 rounded-full bg-brand-light-50 dark:bg-brand-light-900/50 flex items-center justify-center text-brand-light-600 mb-6 group-hover:scale-110 transition-transform">
+            <UIcon :name="feature.icon" class="w-8 h-8" />
           </div>
-          <h3 class="font-heading font-bold text-lg text-brand-dark-900 dark:text-white mb-2">
+          <h3 class="font-heading font-bold text-xl text-brand-dark-900 dark:text-white mb-3 group-hover:text-highlight-600 transition-colors">
             {{ feature.title }}
           </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
             {{ feature.description }}
           </p>
-        </div>
+        </NuxtLink>
       </div>
     </Section>
 
     <Section
-      variant="gray-light"
-      padding-top="lg"
-      padding-bottom="lg"
+      variant="default"
+      padding-top="xl"
+      padding-bottom="xl"
       class="overflow-hidden"
     >
-      <div class="flex flex-col lg:flex-row items-center gap-16">
-        <div class="lg:w-1/2">
+      <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+
+        <div class="lg:w-1/2 relative order-2 lg:order-1 px-4 lg:px-0">
+
+          <div class="relative z-10 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-800">
+            <img
+              src="https://images.unsplash.com/photo-1591100463799-a9ef12226ba4?q=80&w=928&auto=format&fit=crop"
+              class="w-full h-auto object-cover aspect-[4/3] transform hover:scale-105 transition-transform duration-700"
+              alt="Tennis Community TC Hardt"
+            >
+          </div>
+
+          <div class="absolute top-6 right-6 z-30 bg-highlight-400 text-brand-dark-900 p-4 rounded-xl shadow-lg rotate-3 hidden sm:block">
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-star" class="w-5 h-5" />
+              <span class="font-bold font-heading text-sm">Seit 1976</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="lg:w-1/2 order-1 lg:order-2">
           <span class="text-accent-600 font-bold uppercase tracking-widest text-sm mb-2 block">
             TC Hardt Philosophie
           </span>
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-brand-dark-900 dark:text-white mb-6">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-brand-dark-900 dark:text-white mb-6">
             {{ $t('home.values.title') }}
           </h2>
-          <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg leading-relaxed">
+          <p class="text-gray-600 dark:text-gray-300 mb-10 text-lg leading-relaxed">
             {{ $t('home.values.description') }}
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               v-for="(val, i) in values"
               :key="i"
-              class="flex gap-4"
+              class="flex items-start gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-brand-light-200 transition-colors"
             >
-              <UIcon :name="val.icon" class="w-6 h-6 text-highlight-500 flex-shrink-0 mt-1" />
+              <div class="mt-1 flex-shrink-0">
+                <UIcon :name="val.icon" class="w-6 h-6 text-highlight-500" />
+              </div>
               <div>
-                <h4 class="font-bold text-brand-dark-900 dark:text-white">{{ val.title }}</h4>
-                <p class="text-sm text-gray-500 mt-1">{{ val.description }}</p>
+                <h4 class="font-bold text-brand-dark-900 dark:text-white text-lg">
+                  {{ val.title }}
+                </h4>
+                <p class="text-base text-gray-600 dark:text-gray-400 mt-1 leading-snug">
+                  {{ val.description }}
+                </p>
               </div>
             </div>
           </div>
+
+          <div class="mt-10 flex justify-end">
+            <AppButton
+              to="/about"
+              variant="brand-dark"
+              label="Mehr über uns"
+              trailing-icon="i-heroicons-arrow-right"
+            />
+          </div>
         </div>
 
-        <div class="lg:w-1/2 relative">
-          <div class="absolute -inset-4 bg-highlight-100/50 dark:bg-highlight-900/20 rounded-3xl -rotate-3 transform" />
-          <img
-            src="https://images.unsplash.com/photo-1591100463799-a9ef12226ba4?q=80&w=928&auto=format&fit=crop"
-            class="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/3] border-4 border-white dark:border-gray-800 transform hover:scale-[1.02] transition-transform duration-500"
-            alt="Tennis Community TC Hardt"
-          >
-        </div>
       </div>
     </Section>
 
@@ -178,8 +240,8 @@ const newsItems = db.news
         </div>
 
         <AppButton
-          :to="localePath('news')"
-          variant="ghost"
+          :to="$localePath('news')"
+          variant="highlight"
           trailing-icon="i-heroicons-arrow-right"
           class="!text-white hover:!text-highlight-400"
         >
@@ -191,7 +253,7 @@ const newsItems = db.news
         <NuxtLink
           v-for="news in newsItems"
           :key="news.id"
-          :to="localePath(`/news/${news.id}`)"
+          :to="$localePath(`/news/${news.id}`)"
           class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group text-brand-dark-900"
         >
           <div class="h-56 overflow-hidden relative">
@@ -221,7 +283,11 @@ const newsItems = db.news
       </div>
     </Section>
 
-    <Section :use-container="false">
+    <Section
+      :use-container="false"
+      padding-top="xl"
+      padding-bottom="lg"
+    >
       <UContainer>
         <div class="text-center mb-10 px-4">
           <h2 class="text-3xl font-bold font-heading text-gray-900 dark:text-white mb-2">
@@ -235,39 +301,5 @@ const newsItems = db.news
 
       <Sponsors />
     </Section>
-
-    <UContainer>
-      <Section
-        variant="secondary"
-        padding-top="xl"
-        padding-bottom="xl"
-        class="text-center overflow-hidden"
-        overlap
-        rounded
-      >
-        <div class="inline-flex p-4 rounded-full bg-white mb-6 shadow-sm">
-          <UIcon name="i-heroicons-heart" class="w-10 h-10 text-highlight-600" />
-        </div>
-
-        <h2 class="text-3xl sm:text-5xl font-heading font-bold text-brand-dark-900 mb-6">
-          {{ $t('home.cta_bottom.title') }}
-        </h2>
-
-        <p class="text-brand-dark-600 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-          {{ $t('home.cta_bottom.description') }}
-        </p>
-
-        <AppButton
-          :to="localePath('contact')"
-          size="xl"
-          variant="brand-dark"
-          cta
-          class="shadow-lg"
-        >
-          {{ $t('home.cta_bottom.button') }}
-        </AppButton>
-      </Section>
-    </UContainer>
-
   </div>
 </template>

@@ -2,15 +2,9 @@
 type PaddingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
 
 interface Props {
-  /**
-   * Design-Variante des Hintergrunds
-   * [name]       -> Kräftige/Satte Farbe
-   * [name]-light -> Helle/Pastellige Farbe
-   */
   variant?:
-    | 'default'       // Weiß
-    | 'gray'          // Sattgrau (bg-gray-200)
-    | 'gray-light'    // Hellgrau (bg-gray-50)
+    | 'default'
+    | 'gray'          | 'gray-light'
     | 'primary'       | 'primary-light'
     | 'secondary'     | 'secondary-light'
     | 'highlight'     | 'highlight-light'
@@ -19,7 +13,17 @@ interface Props {
   rounded?: boolean
   paddingTop?: PaddingSize
   paddingBottom?: PaddingSize
-  overlap?: boolean
+
+  /**
+   * Zieht die Section nach oben über den Vorgänger (-mt)
+   */
+  overlapTop?: boolean
+
+  /**
+   * Zieht die nachfolgende Section unter diese Section (-mb)
+   */
+  overlapBottom?: boolean
+
   useContainer?: boolean
 }
 
@@ -28,48 +32,29 @@ const props = withDefaults(defineProps<Props>(), {
   rounded: false,
   paddingTop: 'lg',
   paddingBottom: 'lg',
-  overlap: false,
+  overlapTop: false,
+  overlapBottom: false,
   useContainer: true
 })
 
+// --- FARBEN ---
 const variantClasses = computed(() => {
   switch (props.variant) {
-    // --- 1. GRAY (Neutral) ---
-    case 'gray': // Stronger Gray
-      return 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
-    case 'gray-light': // Subtle Gray
-      return 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border-t border-gray-100 dark:border-gray-800'
-
-    // --- 2. PRIMARY (Navy) ---
-    case 'primary':
-      return 'bg-brand-dark-900 text-white'
-    case 'primary-light':
-      return 'bg-brand-dark-50 dark:bg-brand-dark-900/50 text-brand-dark-900 dark:text-white'
-
-    // --- 3. SECONDARY (Sky) ---
-    case 'secondary':
-      return 'bg-brand-light-300 text-white'
-    case 'secondary-light':
-      return 'bg-brand-light-50 dark:bg-brand-light-950/30 text-brand-dark-900 dark:text-brand-light-50'
-
-    // --- 4. HIGHLIGHT (Lime) ---
-    case 'highlight':
-      return 'bg-highlight-400 text-brand-dark-900'
-    case 'highlight-light':
-      return 'bg-highlight-50 dark:bg-highlight-900/10 text-brand-dark-900 dark:text-white'
-
-    // --- 5. ACCENT (Orange) ---
-    case 'accent':
-      return 'bg-accent-500 text-white'
-    case 'accent-light':
-      return 'bg-accent-50 dark:bg-accent-900/10 text-brand-dark-900 dark:text-white'
-
-    // --- DEFAULT ---
-    default:
-      return 'bg-white dark:bg-gray-950 text-gray-900 dark:text-white'
+    case 'gray': return 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
+    case 'gray-light': return 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border-t border-gray-100 dark:border-gray-800'
+    case 'primary': return 'bg-brand-dark-900 text-white'
+    case 'primary-light': return 'bg-brand-dark-50 dark:bg-brand-dark-900/50 text-brand-dark-900 dark:text-white'
+    case 'secondary': return 'bg-brand-light-300 text-white'
+    case 'secondary-light': return 'bg-brand-light-50 dark:bg-brand-light-950/30 text-brand-dark-900 dark:text-brand-light-50'
+    case 'highlight': return 'bg-highlight-400 text-brand-dark-900'
+    case 'highlight-light': return 'bg-highlight-50 dark:bg-highlight-900/10 text-brand-dark-900 dark:text-white'
+    case 'accent': return 'bg-accent-500 text-white'
+    case 'accent-light': return 'bg-accent-50 dark:bg-accent-900/10 text-brand-dark-900 dark:text-white'
+    default: return 'bg-white dark:bg-gray-950 text-gray-900 dark:text-white'
   }
 })
 
+// --- PADDING (Rein manuell) ---
 const ptMap: Record<PaddingSize, string> = {
   none: 'pt-0', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32'
 }
@@ -80,19 +65,27 @@ const pbMap: Record<PaddingSize, string> = {
 const spacingClasses = computed(() => {
   return `${ptMap[props.paddingTop]} ${pbMap[props.paddingBottom]}`
 })
+
+// --- OVERLAP LOGIK ---
+const layoutClasses = computed(() => {
+  const classes = []
+
+  // Negative Margins
+  if (props.overlapTop) classes.push('-mt-16')
+  if (props.overlapBottom) classes.push('-mb-16')
+  if (props.rounded) classes.push('rounded-3xl')
+
+  return classes.join(' ')
+})
 </script>
 
 <template>
   <section
-    class="relative w-full transition-colors duration-300"
+    class="w-full transition-colors duration-300"
     :class="[
       variantClasses,
       spacingClasses,
-      {
-        'rounded-3xl': rounded,
-        '-mb-16 z-20 relative': overlap,
-        'z-10': !overlap
-      }
+      layoutClasses
     ]"
   >
     <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">

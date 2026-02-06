@@ -20,12 +20,12 @@ const items = [
     loop
     arrows
     dots
-    :autoplay="{ delay: 113000 }"
+    :autoplay="{ delay: 3000 }"
     :items="items"
     :ui="{
       viewport: 'md:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]',
       container: 'md:overflow-visible -ms-4 px-8 sm:px-0 md:pb-12',
-      item: 'basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 py-2 snap-center ps-4',
+      item: 'basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 xl:basis-1/7 py-2 snap-center ps-4',
       arrows: 'flex md:hidden',
       dots: 'hidden md:flex',
     }"
