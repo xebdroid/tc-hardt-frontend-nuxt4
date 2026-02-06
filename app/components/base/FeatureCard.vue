@@ -1,49 +1,55 @@
 <script setup lang="ts">
-/**
- * FeatureCard - Eine vielseitige Karte für Features oder Benefits.
- * Kann als Link oder reine Infobox verwendet werden.
- */
+import { NuxtLink } from '#components'
 
 interface Props {
   title: string
   description: string
   icon: string
-  // Optionale Link-URL. Wenn gesetzt, wird die Karte ein NuxtLink.
   to?: string
-  // Icon-Farben (Tailwind-Klassen)
   iconColor?: string
   iconBg?: string
-  // Rahmenfarbe bei Hover/Aktiv (Tailwind-Klasse)
-  borderColor?: string
+  showHighlightBorder?: boolean
+  borderColorClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   to: undefined,
   iconColor: 'text-brand-light-600',
   iconBg: 'bg-brand-light-50 dark:bg-brand-light-900/50',
-  borderColor: 'border-highlight-400'
+  showHighlightBorder: true,
+  borderColorClass: 'border-t-highlight-500'
 })
 
-// Dynamische Bestimmung der Komponente (Link vs. Div)
 const isLink = computed(() => !!props.to)
-const componentType = computed(() => isLink.value ? defineNuxtLink({}) : 'div')
 
-// Gemeinsame Klassen für beide Zustände
 const baseClasses = `
   flex flex-col items-center text-center p-8 rounded-2xl
-  bg-white dark:bg-gray-800 shadow-md border-t-4 transition-all duration-300 group
+  bg-white dark:bg-gray-800 shadow-md transition-all duration-300 group
+  border border-gray-100 dark:border-gray-700
 `
 
-const interactionClasses = isLink.value
-  ? `hover:shadow-xl hover:-translate-y-1 ${props.borderColor} cursor-pointer`
-  : `border-transparent shadow-sm`
+const dynamicClasses = computed(() => {
+  let classes = ''
+
+  if (props.showHighlightBorder) {
+    classes += ` border-t-4 ${props.borderColorClass}`
+  }
+
+  if (isLink.value) {
+    classes += ' hover:shadow-xl hover:-translate-y-1 cursor-pointer'
+  } else {
+    classes += ' shadow-sm'
+  }
+
+  return classes
+})
 </script>
 
 <template>
   <component
-    :is="isLink ? 'NuxtLink' : 'div'"
+    :is="isLink ? NuxtLink : 'div'"
     :to="to"
-    :class="[baseClasses, interactionClasses]"
+    :class="[baseClasses, dynamicClasses]"
   >
     <div
       class="w-14 h-14 rounded-full flex items-center justify-center mb-6 transition-transform group-hover:scale-110"

@@ -6,6 +6,7 @@ import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import CardTeaser from '~/components/base/CardTeaser.vue'
+import FeatureCard from '~/components/base/FeatureCard.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
@@ -72,25 +73,33 @@ const clubFeatures = computed(() => [
     icon: 'i-heroicons-trophy',
     title: t('home.intro_features.courts.title'),
     description: t('home.intro_features.courts.desc'),
-    to: localePath('membership')
+    to: localePath('membership'),
+    iconColor: 'text-orange-500',
+    iconBg: 'bg-orange-50 dark:bg-orange-900/10'
   },
   {
     icon: 'i-heroicons-user-group',
     title: t('home.intro_features.community.title'),
     description: t('home.intro_features.community.desc'),
-    to: localePath('membership')
+    to: localePath('membership'),
+    iconColor: 'text-blue-500',
+    iconBg: 'bg-blue-50 dark:bg-blue-900/10'
   },
   {
     icon: 'i-heroicons-sparkles',
     title: t('home.intro_features.training.title'),
     description: t('home.intro_features.training.desc'),
-    to: localePath('training')
+    to: localePath('training'),
+    iconColor: 'text-green-500',
+    iconBg: 'bg-green-50 dark:bg-green-900/10'
   },
   {
     icon: 'i-heroicons-home-modern',
     title: 'Clubheim',
     description: 'Geselligkeit & kühle Getränke nach dem Match.',
-    to: localePath('about')
+    to: localePath('about'),
+    iconColor: 'text-teal-500',
+    iconBg: 'bg-teal-50 dark:bg-teal-900/10'
   }
 ])
 
@@ -129,20 +138,11 @@ const newsItems = db.news
       />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <NuxtLink
+        <FeatureCard
           v-for="(feature, index) in clubFeatures"
           :key="index"
-          :to="feature.to"
-          class="flex flex-col items-center text-center p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-md hover:shadow-xl hover:-translate-y-1 border-t-4 border-highlight-400 transition-all duration-300 group"
-        >
-          <div class="w-14 h-14 rounded-full bg-brand-light-50 dark:bg-brand-light-900/50 flex items-center justify-center text-brand-light-600 mb-6 group-hover:scale-110 transition-transform">
-            <UIcon :name="feature.icon" class="w-8 h-8" />
-          </div>
-          <h3 class="font-heading font-bold text-xl text-brand-dark-900 dark:text-white mb-3 group-hover:text-highlight-600 transition-colors">
-            {{ feature.title }}
-          </h3>
-          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">{{ feature.description }}</p>
-        </NuxtLink>
+          v-bind="feature"
+        />
       </div>
     </Section>
 

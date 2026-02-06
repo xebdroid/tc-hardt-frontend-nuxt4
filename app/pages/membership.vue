@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import AppButton from '~/components/base/Button.vue'
+import FeatureCard from '~/components/base/FeatureCard.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
@@ -35,10 +36,34 @@ const heroSlides = computed<HeroSlide[]>(() => [
 
 // 2. BENEFITS
 const benefits = [
-  { icon: 'i-heroicons-sparkles', title: '6 Top-Plätze', desc: 'Hervorragend gepflegte Ascheplätze.', color: 'text-orange-500', bg: 'bg-orange-50 dark:bg-orange-900/10' },
-  { icon: 'i-heroicons-user-group', title: 'Tolle Community', desc: 'Vom Schleifchenturnier bis zum Sommerfest.', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-900/10' },
-  { icon: 'i-heroicons-academic-cap', title: 'Training', desc: 'Tennisschule für Groß & Klein.', color: 'text-green-500', bg: 'bg-green-50 dark:bg-green-900/10' },
-  { icon: 'i-heroicons-home-modern', title: 'Gastronomie', desc: 'Sonnenterrasse & Clubhaus.', color: 'text-teal-500', bg: 'bg-teal-50 dark:bg-teal-900/10' },
+  {
+    icon: 'i-heroicons-sparkles',
+    title: '6 Top-Plätze',
+    description: 'Hervorragend gepflegte Ascheplätze.',
+    iconColor: 'text-orange-500',
+    iconBg: 'bg-orange-50 dark:bg-orange-900/10'
+  },
+  {
+    icon: 'i-heroicons-user-group',
+    title: 'Tolle Community',
+    description: 'Vom Schleifchenturnier bis zum Sommerfest.',
+    iconColor: 'text-blue-500',
+    iconBg: 'bg-blue-50 dark:bg-blue-900/10'
+  },
+  {
+    icon: 'i-heroicons-academic-cap',
+    title: 'Training',
+    description: 'Tennisschule für Groß & Klein.',
+    iconColor: 'text-green-500',
+    iconBg: 'bg-green-50 dark:bg-green-900/10'
+  },
+  {
+    icon: 'i-heroicons-home-modern',
+    title: 'Gastronomie',
+    description: 'Sonnenterrasse & Clubhaus.',
+    iconColor: 'text-teal-500',
+    iconBg: 'bg-teal-50 dark:bg-teal-900/10'
+  },
 ]
 
 // --- HELPER ---
@@ -80,7 +105,7 @@ const mapToPlan = (t: any) => {
     button: {
       label: 'Zum Antrag',
       icon: 'i-heroicons-arrow-down-tray',
-      variant: 'primary', // HIER GEÄNDERT: Immer Primary für bessere Sichtbarkeit
+      variant: 'primary',
       block: true,
       size: 'md',
     }
@@ -139,21 +164,11 @@ const accordionItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div
+          <FeatureCard
             v-for="(benefit, index) in benefits"
             :key="index"
-            class="text-center p-4"
-          >
-            <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 transition-transform hover:scale-110" :class="benefit.bg">
-              <UIcon
-                :name="benefit.icon"
-                class="w-7 h-7"
-                :class="benefit.color"
-              />
-            </div>
-            <h3 class="font-bold text-gray-900 dark:text-white mb-2">{{ benefit.title }}</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ benefit.desc }}</p>
-          </div>
+            v-bind="benefit"
+          />
         </div>
       </UContainer>
     </div>
