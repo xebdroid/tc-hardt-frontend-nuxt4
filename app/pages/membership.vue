@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 import db from '~/assets/data/db.json'
 
 useHead({

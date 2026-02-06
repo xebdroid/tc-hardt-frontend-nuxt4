@@ -3,7 +3,7 @@ import Hero from '~/components/base/Hero.vue'
 import db from '~/assets/data/db.json'
 
 useHead({ title: 'Aktuelles | TC Hardt' })
-const localePath = useLocalePath()
+
 const newsItems = db.news
 </script>
 
@@ -31,7 +31,7 @@ const newsItems = db.news
         <NuxtLink
           v-for="news in newsItems"
           :key="news.id"
-          :to="localePath(`/news/${news.id}`)"
+          :to="$localePath(`/news/${news.id}`)"
           class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col"
         >
           <div class="h-56 overflow-hidden relative shrink-0">

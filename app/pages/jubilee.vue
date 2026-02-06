@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
 

@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['close'])
-const localePath = useLocalePath()
+
 </script>
 
 <template>
@@ -45,7 +45,7 @@ const localePath = useLocalePath()
           <template v-for="(btn, index) in navButtons" :key="index">
             <CtaButton
               v-if="!btn.hidden"
-              :to="localePath(btn.to)"
+              :to="$localePath(btn.to)"
               :label="btn.label"
               :target="btn.target"
               :color="btn.color"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Hero from '~/components/base/Hero.vue'
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 
 useHead({
   title: 'Impressum | TC Hardt',

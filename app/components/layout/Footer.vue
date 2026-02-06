@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppButton from '~/components/base/AppButton.vue'
+import Button from '~/components/base/Button.vue'
 import Section from '~/components/base/Section.vue'
 import db from '~/assets/data/db.json'
 
@@ -16,12 +16,12 @@ const showCta = computed(() => !route.meta.hideFooterCta)
 
 <template>
   <footer class="mt-auto w-full isolate">
-    <UContainer class="-mb-20 lg:-mb-32">
+    <UContainer>
       <Section
         variant="secondary"
         padding-top="xl"
         padding-bottom="xl"
-        class="text-center z-10 relative"
+        class="text-center z-10 relative -mb-18 lg:-mb-36"
         rounded
       >
         <div class="inline-flex p-4 rounded-full bg-white mb-6 shadow-sm">
@@ -36,7 +36,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
           {{ $t('home.cta_bottom.description') }}
         </p>
 
-        <AppButton
+        <Button
           :to="$localePath('membership')"
           size="xl"
           variant="brand-dark"
@@ -44,7 +44,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
           class="shadow-lg"
         >
           {{ $t('nav.buttons.membership') }}
-        </AppButton>
+        </Button>
       </Section>
     </UContainer>
 
@@ -94,7 +94,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
           </span>
 
           <div class="flex items-center gap-6 md:gap-3">
-            <AppButton
+            <Button
               v-for="(social, index) in socialLinks"
               :key="index"
               :to="social.href"

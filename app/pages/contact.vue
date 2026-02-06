@@ -2,7 +2,7 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import Hero from '~/components/base/Hero.vue'
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
 
 useHead({

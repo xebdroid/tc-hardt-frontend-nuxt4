@@ -3,14 +3,14 @@ import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
-const localePath = useLocalePath()
+
 
 const isMobileMenuOpen = ref(false)
 const closeMenu = () => { isMobileMenuOpen.value = false }

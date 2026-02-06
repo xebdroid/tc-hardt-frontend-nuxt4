@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const localePath = useLocalePath()
+
 </script>
 
 <template>
   <NuxtLink
-    :to="localePath('/')"
+    :to="$localePath('/')"
     class="flex items-center gap-2 lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10"
     @click="$emit('click')"
   >

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import AppButton from '~/components/base/AppButton.vue'
+import AppButton from '~/components/base/Button.vue'
 
 const store = useConsentStore()
-const localePath = useLocalePath()
+
 const route = useRoute()
 
 // Lokaler State
@@ -131,14 +131,14 @@ function openLegalPage() {
 
         <div class="mt-6 flex justify-center gap-4 text-xs text-gray-400">
           <NuxtLink
-            :to="localePath('imprint')"
+            :to="$localePath('imprint')"
             class="hover:underline hover:text-gray-600 dark:hover:text-gray-300"
             @click="openLegalPage"
           >
             Impressum
           </NuxtLink>
           <NuxtLink
-            :to="localePath('privacy')"
+            :to="$localePath('privacy')"
             class="hover:underline hover:text-gray-600 dark:hover:text-gray-300"
             @click="openLegalPage"
           >

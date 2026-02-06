@@ -27,7 +27,11 @@ useHead({ title: 'Vorstand | TC Hardt' })
           </div>
 
           <h3 class="text-xl font-bold text-tennis-900">{{ member.name }}</h3>
-          <UBadge variant="subtle" color="primary" class="mt-2 mb-4">{{ member.role }}</UBadge>
+          <UBadge
+            variant="subtle"
+            color="primary"
+            class="mt-2 mb-4"
+          >{{ member.role }}</UBadge>
 
           <div class="text-sm text-gray-500 mb-6 min-h-[40px]">
             <span class="font-semibold block text-gray-700 mb-1">Zuständig für:</span>

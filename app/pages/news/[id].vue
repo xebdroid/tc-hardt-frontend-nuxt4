@@ -3,7 +3,7 @@ import Hero from '~/components/base/Hero.vue'
 import db from '~/assets/data/db.json'
 
 const route = useRoute()
-const localePath = useLocalePath()
+
 
 // News Item finden
 const newsItem = computed(() => {
@@ -57,7 +57,7 @@ useHead({ title: newsItem.value ? `${newsItem.value.title} | TC Hardt` : 'News' 
 
         <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-700">
           <UButton
-            :to="localePath('news')"
+            :to="$localePath('news')"
             variant="ghost"
             icon="i-heroicons-arrow-left"
           >
