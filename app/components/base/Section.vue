@@ -24,7 +24,15 @@ interface Props {
    */
   overlapBottom?: boolean
 
+  /**
+   * Wickelt nur den INHALT in einen Container (Standard: true)
+   */
   useContainer?: boolean
+
+  /**
+   * Wickelt die GESAMTE Sektion in einen Container
+   */
+  outerContainer?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,7 +42,8 @@ const props = withDefaults(defineProps<Props>(), {
   paddingBottom: 'lg',
   overlapTop: false,
   overlapBottom: false,
-  useContainer: true
+  useContainer: true,
+  outerContainer: false
 })
 
 // --- FARBEN ---
@@ -54,7 +63,7 @@ const variantClasses = computed(() => {
   }
 })
 
-// --- PADDING (Rein manuell) ---
+// --- PADDING ---
 const ptMap: Record<PaddingSize, string> = {
   none: 'pt-0', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32'
 }
@@ -69,35 +78,37 @@ const spacingClasses = computed(() => {
 // --- OVERLAP LOGIK ---
 const layoutClasses = computed(() => {
   const classes = []
-
-  // Negative Margins
   if (props.overlapTop) classes.push('-mt-16')
   if (props.overlapBottom) classes.push('-mb-16')
   if (props.rounded) classes.push('rounded-3xl')
-
   return classes.join(' ')
 })
+
+// Dynamische Komponente für die äußere Hülle
+const RootElement = computed(() => props.outerContainer ? resolveComponent('UContainer') : 'div')
 </script>
 
 <template>
-  <section
-    class="w-full transition-colors duration-300"
-    :class="[
-      variantClasses,
-      spacingClasses,
-      layoutClasses
-    ]"
-  >
-    <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
-      <slot name="background" />
-    </div>
+  <component :is="RootElement" :class="{ 'px-0': outerContainer }">
+    <section
+      class="w-full transition-colors duration-300 relative"
+      :class="[
+        variantClasses,
+        spacingClasses,
+        layoutClasses
+      ]"
+    >
+      <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
+        <slot name="background" />
+      </div>
 
-    <UContainer v-if="useContainer" class="relative z-10 h-full">
-      <slot />
-    </UContainer>
+      <UContainer v-if="useContainer" class="relative z-10 h-full">
+        <slot />
+      </UContainer>
 
-    <div v-else class="relative z-10 h-full w-full">
-      <slot />
-    </div>
-  </section>
+      <div v-else class="relative z-10 h-full w-full">
+        <slot />
+      </div>
+    </section>
+  </component>
 </template>

@@ -19,8 +19,8 @@ const showCta = computed(() => !route.meta.hideFooterCta)
     <UContainer>
       <Section
         variant="secondary"
-        padding-top="xl"
-        padding-bottom="xl"
+        padding-top="sm"
+        padding-bottom="sm"
         class="text-center z-10 relative -mb-18 lg:-mb-36"
         rounded
       >

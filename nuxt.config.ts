@@ -56,8 +56,8 @@ export default defineNuxtConfig({
         en: '/50-years-tc-hardt'
       },
       facility: {
-        de: '/unsere-anlage',
-        en: '/our-facility'
+        de: '/anlage',
+        en: '/facility'
       },
       about: {
         de: "/ueber-uns",

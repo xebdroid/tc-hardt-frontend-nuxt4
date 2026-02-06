@@ -35,7 +35,6 @@ useHead({
         image-src="/img/anlage/tc-hardt-anlage-01.jpg"
         image-alt="Tennisplätze des TC Hardt"
         image-position="left"
-        badge-text="Top Zustand"
       >
         <Headline
           tagline="Der Kern des Vereins"
@@ -47,7 +46,7 @@ useHead({
 
     <Section variant="gray-light">
       <FeatureSection
-        image-src="https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?q=80&w=1000&auto=format&fit=crop"
+        image-src="https://images.unsplash.com/photo-1436076863939-06870fe779c2?q=80&w=1740&auto=format&fit=crop"
         image-alt="Clubhaus Terrasse"
         image-position="right"
       >
@@ -87,7 +86,7 @@ useHead({
       </FeatureSection>
     </Section>
 
-    <Section padding-bottom="none">
+    <Section padding-bottom="lg">
       <FeatureSection
         image-src="https://images.unsplash.com/photo-1597091361793-3149a9777210?q=80&w=1750&auto=format&fit=crop"
         image-alt="Kinderspielplatz Schaukel"
@@ -101,9 +100,15 @@ useHead({
       </FeatureSection>
     </Section>
 
-    <Section>
+    <Section
+      variant="secondary-light"
+      padding-top="md"
+      padding-bottom="xl"
+      overlap-bottom
+      rounded
+      outer-container
+    >
       <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
-        <div class="w-12 h-1.5 bg-highlight-500 rounded-full mb-8" />
         <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-6">
           Neugierig geworden?
         </h2>
@@ -117,12 +122,6 @@ useHead({
             size="lg"
             label="Anlage besichtigen"
             icon="i-heroicons-map-pin"
-          />
-          <Button
-            to="/mitglied-werden"
-            variant="outline"
-            size="lg"
-            label="Mitglied werden"
           />
         </div>
       </div>
