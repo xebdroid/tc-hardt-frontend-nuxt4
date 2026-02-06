@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Hero from '~/components/section/Hero.vue'
+import Hero from '~/components/base/Hero.vue'
 
 useHead({
   title: 'Über uns | TC Hardt',

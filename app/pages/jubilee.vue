@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppButton from '~/components/base/AppButton.vue'
-import type { HeroSlide } from '~/components/section/Hero.vue'
-import Hero from '~/components/section/Hero.vue'
+import type { HeroSlide } from '~/components/base/Hero.vue'
+import Hero from '~/components/base/Hero.vue'
 
 useHead({
   title: '50 Jahre Tennis op de Hardt - Jubiläum 2026',

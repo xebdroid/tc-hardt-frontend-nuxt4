@@ -2,15 +2,19 @@
 import AppButton from '~/components/base/AppButton.vue'
 
 const { footerLinks, socialLinks } = useNavigation()
+const route = useRoute()
 
 // Das aktuelle Jahr für das Copyright einmal berechnen
 const currentYear = new Date().getFullYear()
+
+// Computed Property prüft, ob das Meta-Feld "hideFooterCta" true ist.
+// Standardmäßig ist es undefined (falsy), also wird der CTA angezeigt.
+const showCta = computed(() => !route.meta.hideFooterCta)
 </script>
 
 <template>
   <footer class="mt-auto w-full isolate">
-
-    <div class="relative z-10 px-4 lg:px-0 lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto -mb-20 lg:-mb-32">
+    <div v-if="showCta" class="relative z-10 px-4 lg:px-0 lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto -mb-20 lg:-mb-32">
 
       <div class="relative w-full rounded-3xl overflow-hidden shadow-2xl aspect-auto md:aspect-[21/7] lg:aspect-[21/6]">
 
@@ -32,7 +36,10 @@ const currentYear = new Date().getFullYear()
       </div>
     </div>
 
-    <div class="bg-brand-dark-900 text-white pt-32 lg:pt-52 pb-12 rounded-t-3xl relative z-0 mt-0">
+    <div
+      class="bg-brand-dark-900 text-white pb-12 rounded-t-3xl relative z-0 mt-0"
+      :class="showCta ? 'pt-32 lg:pt-52' : 'lg:pt-32'"
+      >
 
       <div class="lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto px-6 lg:px-0">
 
@@ -43,7 +50,7 @@ const currentYear = new Date().getFullYear()
               src="/tc-hardt-logo.svg"
               alt="TC Hardt"
               class="h-16 w-auto"
-            />
+            >
             <div class="flex flex-col leading-none gap-1">
               <span class="font-euro-extended font-bold text-3xl lg:text-2xl text-brand-dark-200">
                 {{ $t('footer.logo.name') }}

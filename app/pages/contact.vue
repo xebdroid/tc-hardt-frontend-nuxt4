@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
-import Hero from '~/components/section/Hero.vue'
+import Hero from '~/components/base/Hero.vue'
 import AppButton from '~/components/base/AppButton.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
 

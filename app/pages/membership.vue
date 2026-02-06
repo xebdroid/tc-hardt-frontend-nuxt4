@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import Hero, { type HeroSlide } from '~/components/section/Hero.vue'
+import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import AppButton from '~/components/base/AppButton.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
   title: 'Mitglied werden | TC Hardt',
   meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Tarife und Aufnahmeantrag.' }]
+})
+
+// BEST PRACTICE: Seite konfigurieren
+definePageMeta({
+  hideFooterCta: true
 })
 
 // --- CONFIG ---
@@ -50,7 +55,7 @@ const mapToPlan = (t: any) => {
   const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
 
   // Design Logic
-  let borderClass = isTrial
+  const borderClass = isTrial
     ? 'ring-2 ring-highlight-500 shadow-lg'
     : 'border border-gray-200 dark:border-gray-800 hover:border-brand-dark-500 hover:shadow-lg'
 
@@ -115,7 +120,11 @@ const accordionItems = [
 <template>
   <div class="flex flex-col min-h-screen font-sans bg-gray-50 dark:bg-gray-950 pb-24 sm:pb-0">
 
-    <Hero :slides="heroSlides" height="medium" fallback-class="bg-brand-dark-900" />
+    <Hero
+      :slides="heroSlides"
+      height="medium"
+      fallback-class="bg-brand-dark-900"
+    />
 
     <div class="bg-white dark:bg-gray-900 py-16 border-b border-gray-100 dark:border-gray-800">
       <UContainer>
@@ -130,9 +139,17 @@ const accordionItems = [
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="(benefit, index) in benefits" :key="index" class="text-center p-4">
-             <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 transition-transform hover:scale-110" :class="benefit.bg">
-              <UIcon :name="benefit.icon" class="w-7 h-7" :class="benefit.color" />
+          <div
+            v-for="(benefit, index) in benefits"
+            :key="index"
+            class="text-center p-4"
+          >
+            <div class="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-4 transition-transform hover:scale-110" :class="benefit.bg">
+              <UIcon
+                :name="benefit.icon"
+                class="w-7 h-7"
+                :class="benefit.color"
+              />
             </div>
             <h3 class="font-bold text-gray-900 dark:text-white mb-2">{{ benefit.title }}</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ benefit.desc }}</p>
@@ -176,15 +193,28 @@ const accordionItems = [
                 <span>Das Schnupperangebot endet automatisch nach 3 Monaten. Keine Kündigung nötig.</span>
               </div>
               <div class="grid md:grid-cols-2 gap-6">
-                <div v-for="(plan, i) in trialPlans" :key="i" :class="plan.class">
+                <div
+                  v-for="(plan, i) in trialPlans"
+                  :key="i"
+                  :class="plan.class"
+                >
                   <div class="flex justify-between items-start mb-2">
                     <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                    <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
+                    <UBadge
+                      v-if="plan.badge"
+                      :color="plan.badge.color"
+                      :variant="plan.badge.variant"
+                      size="xs"
+                    >{{ plan.badge.label }}</UBadge>
                   </div>
                   <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
 
                   <ul class="space-y-2 mb-8 flex-1">
-                    <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <li
+                      v-for="feature in plan.features"
+                      :key="feature"
+                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
+                    >
                       <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
                       <span>{{ feature }}</span>
                     </li>
@@ -203,52 +233,78 @@ const accordionItems = [
           </template>
 
           <template #regular>
-             <div class="mt-4">
-               <div class="mb-6 flex items-center gap-2 text-sm text-green-600 bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-200">
+            <div class="mt-4">
+              <div class="mb-6 flex items-center gap-2 text-sm text-green-600 bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-200">
                 <UIcon name="i-heroicons-currency-euro" class="w-5 h-5 shrink-0" />
                 <span>50% Rabatt im ersten Jahr für alle aktiven Neumitglieder!</span>
               </div>
-               <div class="grid md:grid-cols-2 gap-6">
-                  <div v-for="(plan, i) in adultPlans" :key="i" :class="plan.class">
-                    <div class="flex justify-between items-start mb-2">
-                      <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                      <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
-                    </div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
-
-                    <ul class="space-y-2 mb-8 flex-1">
-                      <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
-                        <span>{{ feature }}</span>
-                      </li>
-                    </ul>
-
-                    <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
-                      <div class="flex items-baseline gap-1 mb-4">
-                        <div v-if="plan.discount" class="text-sm text-gray-400 line-through mr-2">{{ plan.price }}</div>
-                        <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discount || plan.price }}</span>
-                        <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
-                      </div>
-                      <AppButton v-bind="plan.button" @click="scrollToDownload" />
-                    </div>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div
+                  v-for="(plan, i) in adultPlans"
+                  :key="i"
+                  :class="plan.class"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
+                    <UBadge
+                      v-if="plan.badge"
+                      :color="plan.badge.color"
+                      :variant="plan.badge.variant"
+                      size="xs"
+                    >{{ plan.badge.label }}</UBadge>
                   </div>
-               </div>
-             </div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
+
+                  <ul class="space-y-2 mb-8 flex-1">
+                    <li
+                      v-for="feature in plan.features"
+                      :key="feature"
+                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
+                    >
+                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
+                      <span>{{ feature }}</span>
+                    </li>
+                  </ul>
+
+                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
+                    <div class="flex items-baseline gap-1 mb-4">
+                      <div v-if="plan.discount" class="text-sm text-gray-400 line-through mr-2">{{ plan.price }}</div>
+                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discount || plan.price }}</span>
+                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
+                    </div>
+                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </template>
 
           <template #others>
             <div class="mt-4">
               <p class="text-sm text-gray-500 mb-6">Tarife für Kinder, Jugendliche, Azubis und passive Förderer.</p>
               <div class="grid md:grid-cols-2 gap-6">
-                <div v-for="(plan, i) in otherPlans" :key="i" :class="plan.class">
+                <div
+                  v-for="(plan, i) in otherPlans"
+                  :key="i"
+                  :class="plan.class"
+                >
                   <div class="flex justify-between items-start mb-2">
                     <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                    <UBadge v-if="plan.badge" :color="plan.badge.color" :variant="plan.badge.variant" size="xs">{{ plan.badge.label }}</UBadge>
+                    <UBadge
+                      v-if="plan.badge"
+                      :color="plan.badge.color"
+                      :variant="plan.badge.variant"
+                      size="xs"
+                    >{{ plan.badge.label }}</UBadge>
                   </div>
                   <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
 
                   <ul class="space-y-2 mb-8 flex-1">
-                    <li v-for="feature in plan.features" :key="feature" class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <li
+                      v-for="feature in plan.features"
+                      :key="feature"
+                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
+                    >
                       <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
                       <span>{{ feature }}</span>
                     </li>
@@ -272,7 +328,7 @@ const accordionItems = [
     </div>
 
     <div id="anmeldung" class="w-full bg-brand-dark-900 dark:bg-gray-950 py-24 border-t border-brand-dark-800 scroll-mt-16 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+      <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"/>
 
       <UContainer class="max-w-4xl relative z-10">
 
@@ -286,7 +342,7 @@ const accordionItems = [
         </div>
 
         <div class="grid md:grid-cols-3 gap-8 relative mb-16">
-          <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-brand-dark-700 -z-10"></div>
+          <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-brand-dark-700 -z-10"/>
 
           <div class="flex flex-col items-center text-center group">
             <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
@@ -297,7 +353,7 @@ const accordionItems = [
           </div>
 
           <div class="flex flex-col items-center text-center group">
-             <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
+            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
               <UIcon name="i-heroicons-pencil-square" class="w-8 h-8 text-white" />
             </div>
             <h3 class="text-lg font-bold text-white mb-2">2. Ausfüllen</h3>
@@ -305,7 +361,7 @@ const accordionItems = [
           </div>
 
           <div class="flex flex-col items-center text-center group">
-             <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
+            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
               <UIcon name="i-heroicons-paper-airplane" class="w-8 h-8 text-green-400" />
             </div>
             <h3 class="text-lg font-bold text-white mb-2">3. Absenden</h3>
@@ -342,7 +398,7 @@ const accordionItems = [
                 <span>E-Mail: <a href="mailto:info@tc-hardt.de" class="text-brand-dark-600 dark:text-brand-dark-400 font-bold hover:underline">info@tc-hardt.de</a></span>
               </div>
               <div class="flex items-center justify-center sm:justify-start gap-2">
-                 <UIcon name="i-heroicons-map-pin" class="w-5 h-5 text-brand-dark-500" />
+                <UIcon name="i-heroicons-map-pin" class="w-5 h-5 text-brand-dark-500" />
                 <span>Post: <strong>Birkmannsweg 16</strong></span>
               </div>
             </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Hero from '~/components/section/Hero.vue'
+import Hero from '~/components/base/Hero.vue'
 import db from '~/assets/data/db.json'
 
 const route = useRoute()
