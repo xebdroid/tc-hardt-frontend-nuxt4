@@ -12,6 +12,8 @@
       "login": "Login"
     },
     "sup": {
+      "facility": "Anlage",
+      "facility_desc": "Entdecke unser Gelände am Hardter Wald.",
       "about": "Über uns",
       "about_desc": "Unsere Geschichte & Werte",
       "jubilee": "50 Jahre TC Hardt",

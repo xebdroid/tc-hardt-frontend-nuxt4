@@ -41,7 +41,7 @@ const contentOrderClass = computed(() => {
   <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 
     <div
-      class="w-full lg:w-1/2 relative px-4 lg:px-0"
+      class="w-full lg:w-1/2 relative lg:px-0"
       :class="imageOrderClass"
     >
       <div class="relative z-10 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-800">

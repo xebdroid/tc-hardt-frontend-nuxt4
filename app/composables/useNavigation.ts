@@ -44,7 +44,6 @@ export const useNavigation = () => {
       to: localePath('/'),
       icon: 'i-heroicons-home',
       isHome: true
-      // Kein noDesktopIcon -> Icon bleibt auf Desktop sichtbar
     },
     {
       label: t('nav.main.club'),
@@ -56,7 +55,6 @@ export const useNavigation = () => {
           to: localePath('jubilee'),
           description: t('nav.sup.jubilee_desc'),
           icon: 'i-heroicons-sparkles',
-
           class: `
             text-accent-500
             hover:text-accent-300
@@ -65,6 +63,12 @@ export const useNavigation = () => {
             [&_[data-slot=childLinkIcon]]:text-accent-500
             [&_[data-slot=childLinkIcon]]:group-hover:text-accent-300
           `
+        },
+        {
+          label: t('nav.sup.facility'),
+          to: localePath('facility'),
+          description: t('nav.sup.facility_desc'),
+          icon: 'i-heroicons-map'
         },
         {
           label: t('nav.sup.about'),
