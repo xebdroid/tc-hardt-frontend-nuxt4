@@ -5,6 +5,7 @@ import Sponsors from '~/components/base/Sponsors.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
+import CardTeaser from '~/components/base/CardTeaser.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
@@ -196,7 +197,7 @@ const newsItems = db.news
       padding-bottom="xl"
       rounded
     >
-      <div class="flex justify-between items-start mb-12">
+      <div class="flex justify-between items-start">
         <div class="flex-1">
           <Headline
             mode="light"
@@ -217,34 +218,16 @@ const newsItems = db.news
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <NuxtLink
+        <CardTeaser
           v-for="news in newsItems"
           :key="news.id"
+          :image="news.image"
+          :title="news.title"
+          :date="news.date"
+          :description="news.excerpt"
+          link-text="Weiterlesen"
           :to="localePath({ name: 'news-id', params: { id: news.id } })"
-          class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group text-brand-dark-900"
-        >
-          <div class="h-56 overflow-hidden relative">
-            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
-            <img
-              :src="news.image"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              :alt="news.title"
-            >
-          </div>
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-3">
-              <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
-              <span class="text-xs font-bold text-gray-500 uppercase">{{ news.date }}</span>
-            </div>
-            <h3 class="text-xl font-bold mb-3 text-brand-dark-900 dark:text-white group-hover:text-highlight-600 transition-colors line-clamp-2">
-              {{ news.title }}
-            </h3>
-            <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2 mb-4">{{ news.excerpt }}</p>
-            <span class="inline-flex items-center text-highlight-600 text-sm font-bold group-hover:translate-x-1 transition-transform">
-              Weiterlesen <UIcon name="i-heroicons-arrow-small-right" class="w-4 h-4 ml-1" />
-            </span>
-          </div>
-        </NuxtLink>
+        />
       </div>
     </Section>
 
