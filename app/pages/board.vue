@@ -54,7 +54,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
       </div>
 
       <div class="mt-16 text-center text-gray-500 italic">
-        Erweiterter Vorstand: Folgt... [cite: 150, 151]
+        Erweiterter Vorstand: Folgt...
       </div>
     </UContainer>
   </div>

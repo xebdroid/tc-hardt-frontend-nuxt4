@@ -11,7 +11,7 @@ export const useConsentStore = defineStore('consent', () => {
   const cookie = useCookie<ConsentState>('cookie-consent', {
     default: () => ({ necessary: true, maps: false }),
     maxAge: 60 * 60 * 24 * 365, // 1 Jahr
-    watch: true // State Änderungen landen automatisch im Cookie
+    watch: true
   })
 
   // 2. Das Status-Cookie (Speichert OB schon gewählt wurde)
@@ -20,8 +20,8 @@ export const useConsentStore = defineStore('consent', () => {
     maxAge: 60 * 60 * 24 * 365
   })
 
-  // 3. Modal State (Initial offen, wenn noch nicht entschieden)
-  const isModalOpen = ref(!hasDecided.value)
+  // 3. Modal State (Initial immer zu, um SSR-Flackern zu vermeiden)
+  const isModalOpen = ref(false)
 
   // 4. Getter
   const isMapsAllowed = computed(() => cookie.value.maps)

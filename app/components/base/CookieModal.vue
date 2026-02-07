@@ -2,7 +2,6 @@
 import AppButton from '~/components/base/Button.vue'
 
 const store = useConsentStore()
-
 const route = useRoute()
 
 // Lokaler State
@@ -15,23 +14,20 @@ const isLegalPage = computed(() => {
   return legalPages.some(path => route.path.includes(path))
 })
 
-// 1. Beim Start prüfen: Sind wir auf einer Legal-Page? Dann Modal ZU.
-// Sonst: Modal AUF (falls noch nicht entschieden).
+// Beim Start prüfen: Nur öffnen, wenn noch nicht entschieden UND keine Legal-Page
 onMounted(() => {
-  if (isLegalPage.value) {
-    store.isModalOpen = false
-  } else if (!store.hasDecided) {
-    store.isModalOpen = true
-  }
+  nextTick(() => {
+    if (!store.hasDecided && !isLegalPage.value) {
+      store.isModalOpen = true
+    }
+  })
 })
 
-// 2. Bei Navigation beobachten
+// Bei Navigation beobachten
 watch(() => route.path, () => {
   if (isLegalPage.value) {
-    // Nutzer geht zum Impressum -> Modal weg, damit er lesen kann
     store.isModalOpen = false
   } else if (!store.hasDecided) {
-    // Nutzer geht zurück zur Startseite/Kontakt -> Modal muss wieder her!
     store.isModalOpen = true
   }
 })
@@ -62,13 +58,17 @@ function openLegalPage() {
     }"
   >
     <template #content>
-      <div class="relative p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800">
+      <div
+        class="relative p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 outline-none"
+        tabindex="-1"
+        @vue:mounted="({ el }) => el.focus()"
+      >
 
         <UButton
           icon="i-heroicons-x-mark"
           variant="ghost"
           color="gray"
-          class="absolute top-3 right-3 z-10"
+          class="absolute top-3 right-3 z-10 focus:ring-0"
           tabindex="-1"
           aria-label="Ablehnen und Schließen"
           @click="store.declineAll"
@@ -117,7 +117,6 @@ function openLegalPage() {
             variant="primary"
             block
             size="lg"
-            autofocus
             @click="store.acceptAll"
           />
           <AppButton
