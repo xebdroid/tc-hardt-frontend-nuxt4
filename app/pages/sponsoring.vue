@@ -93,22 +93,63 @@ const impressions = [
         alignment="center"
       />
 
-      <div class="grid md:grid-cols-3 gap-8 mt-12">
-        <FeatureCard
-          title="Gastfreundschaft"
-          description="Wir bieten ein familiäres Umfeld und eine sehr gute Infrastruktur für Mitglieder und Gäste."
-          icon="i-heroicons-heart"
-        />
-        <FeatureCard
-          title="Teamgeist"
-          description="Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel."
-          icon="i-heroicons-users"
-        />
-        <FeatureCard
-          title="Fairness"
-          description="Wir legen Wert auf sportliches Verhalten und eine Partnerschaft auf Augenhöhe."
-          icon="i-heroicons-hand-raised"
-        />
+      <div class="mt-16 space-y-20">
+        <FeatureSection
+          image-src="/img/sponsoring/sponsoring-freundetafel_4x3.jpg"
+          image-alt="Freundetafel des TC Hardt"
+        >
+          <Headline
+            tagline="Unsere Werte"
+            title="Eine starke Gemeinschaft"
+            description="Als Partner des TC Hardt werden Sie Teil eines Vereins, der auf drei zentralen Werten aufgebaut ist."
+            alignment="none"
+            class="text-left items-start"
+            :margin-bottom="'none'"
+          />
+          <ul class="space-y-4 text-gray-700 mt-8">
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-heart" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Gastfreundschaft:</strong> Wir bieten ein familiäres Umfeld und eine erstklassige Infrastruktur für Mitglieder und Gäste.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-users" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Teamgeist:</strong> Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel und starkem Zusammenhalt.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-hand-raised" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Fairness:</strong> Wir legen Wert auf sportliches Verhalten und eine transparente Partnerschaft auf Augenhöhe.</span>
+            </li>
+          </ul>
+        </FeatureSection>
+
+        <FeatureSection
+          image-src="/img/sponsoring/sponsoring-bandenwerbung.jpg"
+          image-alt="Bandenwerbung auf der Anlage des TC Hardt"
+          image-position="right"
+        >
+          <Headline
+            tagline="Ihre Vorteile"
+            title="Ein Gewinn für Ihre Marke"
+            description="Ihr Engagement bei uns ist mehr als nur ein Logo – es ist eine Investition, die sich auszahlt."
+            alignment="none"
+            class="text-left items-start"
+            :margin-bottom="'none'"
+          />
+          <ul class="space-y-4 text-gray-700 mt-8">
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-megaphone" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Hohe Sichtbarkeit:</strong> Profitieren Sie von unserer starken Präsenz – online und vor Ort auf unserer Anlage mit hunderten wöchentlichen Besuchern.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-user-group" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine engagierte Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <UIcon name="i-heroicons-sparkles" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <span><strong>Positives Image:</strong> Positionieren Sie sich als Förderer des lokalen Sports und der Jugendarbeit. Das schafft Sympathie und Vertrauen.</span>
+            </li>
+          </ul>
+        </FeatureSection>
       </div>
     </Section>
 
@@ -136,51 +177,6 @@ const impressions = [
               <span class="text-xs font-bold text-brand-light-600 uppercase tracking-wider block mb-1">Format</span>
               <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ item.size }}</p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-24">
-        <Headline title="Impressionen" alignment="center" />
-
-        <!-- Mobile Slider -->
-        <div class="mt-12 md:hidden">
-          <Swiper
-            :modules="[Pagination]"
-            :slides-per-view="1.1"
-            :centered-slides="true"
-            :space-between="20"
-            :pagination="{ clickable: true }"
-            class="pb-12"
-          >
-            <SwiperSlide v-for="img in impressions" :key="img.label">
-              <div class="rounded-xl overflow-hidden aspect-square bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
-                <img
-                  :src="img.src"
-                  :alt="img.alt"
-                  class="w-full h-full object-cover"
-                >
-              </div>
-              <p class="text-center text-sm font-medium text-gray-500">{{ img.label }}</p>
-            </SwiperSlide>
-          </Swiper>
-        </div>
-
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid md:grid-cols-3 gap-8 mt-12">
-          <div
-            v-for="img in impressions"
-            :key="img.label"
-            class="group"
-          >
-            <div class="rounded-xl overflow-hidden aspect-square bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
-              <img
-                :src="img.src"
-                :alt="img.alt"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              >
-            </div>
-            <p class="text-center text-sm font-medium text-gray-500">{{ img.label }}</p>
           </div>
         </div>
       </div>
