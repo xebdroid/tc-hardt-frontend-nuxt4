@@ -12,12 +12,48 @@ useHead({
 })
 
 const pricing = [
-  { name: 'Homepage', price: '100 €', size: '600 Pixel', icon: 'i-heroicons-computer-desktop' },
-  { name: 'Freunde-Tafel', price: '200 €', size: '33 cm x 15,5 cm', icon: 'i-heroicons-user-group' },
-  { name: 'Kombi: Web + Tafel', price: '250 €', size: 'Bestes Preis-Leistungs-Verhältnis', icon: 'i-heroicons-star', highlight: true },
-  { name: 'Bandenwerbung', price: '450 €', size: '260 cm x 90 cm', icon: 'i-heroicons-megaphone' },
-  { name: 'Kombi: Web + Bande', price: '500 €', size: 'Hohe Sichtbarkeit digital & analog', icon: 'i-heroicons-bolt' },
-  { name: 'Full-Package', price: '650 €', size: 'Homepage, Tafel + Bande', icon: 'i-heroicons-trophy' }
+  {
+    name: 'Homepage Banner',
+    size: '600px Breite',
+    icon: 'i-heroicons-computer-desktop',
+    description: 'Digitale Präsenz auf unserer stark frequentierten Vereinswebsite mit direkter Verlinkung zu Ihrem Angebot.'
+  },
+  {
+    name: 'Freunde-Tafel',
+    size: '33 x 15,5 cm',
+    icon: 'i-heroicons-user-group',
+    description: 'Zeigen Sie Verbundenheit. Ihr Schild an prominenter Stelle direkt am Clubhaus-Eingang.'
+  },
+  {
+    name: 'Bandenwerbung',
+    size: '260 x 90 cm',
+    icon: 'i-heroicons-megaphone',
+    description: 'Der Klassiker: Große Werbefläche direkt am Platz. Maximale Sichtbarkeit für Spieler und Zuschauer.'
+  },
+  {
+    name: 'Kombi: Web + Tafel',
+    size: 'Digital & Analog',
+    icon: 'i-heroicons-star',
+    description: 'Doppelte Wirkung: Nutzen Sie die Reichweite unserer Website und die physische Präsenz vor Ort.'
+  },
+  {
+    name: 'Kombi: Web + Bande',
+    size: 'Hohe Sichtbarkeit',
+    icon: 'i-heroicons-bolt',
+    description: 'Die Profi-Lösung: Großflächige Bandenwerbung kombiniert mit digitaler Vernetzung.'
+  },
+  {
+    name: 'Full-Package',
+    size: 'Alles inklusive',
+    icon: 'i-heroicons-trophy',
+    description: 'Das Rundum-Sorglos-Paket für Premium-Partner. Maximale Sichtbarkeit auf allen Kanälen.'
+  }
+]
+
+const impressions = [
+  { src: '/img/sponsoring/homepage-mockup.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' },
+  { src: '/img/sponsoring/freundetafel.jpg', alt: 'Beispiel Freunde-Tafel', label: 'Freunde-Tafel' },
+  { src: '/img/sponsoring/bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' }
 ]
 </script>
 
@@ -76,25 +112,47 @@ const pricing = [
         title="Ihre Werbemöglichkeiten"
         tagline="Pakete & Preise"
         description="Wählen Sie das passende Paket. Alle Preise verstehen sich pro Jahr (p.a.)."
+        alignment="center"
       />
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UCard
+        <div
           v-for="item in pricing"
           :key="item.name"
-          class="flex flex-col"
-          :class="[item.highlight ? 'ring-2 ring-highlight-500 shadow-md' : 'border border-gray-100']"
+          class="group flex flex-col p-8 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
-          <div class="mb-4 flex items-center gap-2">
-            <UIcon :name="item.icon" class="w-6 h-6 text-brand-light-600" />
-            <span class="font-bold">{{ item.name }}</span>
+          <div class="w-16 h-16 mx-auto bg-brand-light-50 dark:bg-brand-light-900/30 rounded-2xl flex items-center justify-center mb-6 text-brand-light-600 dark:text-brand-light-400 group-hover:scale-110 transition-transform duration-300">
+            <UIcon :name="item.icon" class="w-8 h-8" />
           </div>
-          <div class="text-3xl font-black text-brand-dark-900 mb-1">{{ item.price }}</div>
-          <p class="text-xs text-gray-500 mb-4">{{ item.size }}</p>
-          <div v-if="item.name.includes('Bande')" class="mt-auto text-[10px] text-gray-400 italic">
-            * Bei 3 Jahren Laufzeit entfallen die Erstellungskosten.
+          <h3 class="text-xl font-heading font-bold text-brand-dark-900 dark:text-white mb-3 text-center group-hover:text-brand-light-600 transition-colors">{{ item.name }}</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-base mb-8 flex-grow leading-relaxed text-center">{{ item.description }}</p>
+          <div class="pt-6 border-t border-gray-100 dark:border-gray-700 mt-auto flex flex-col items-center text-center">
+            <div class="w-full">
+              <span class="text-xs font-bold text-brand-light-600 uppercase tracking-wider block mb-1">Format</span>
+              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ item.size }}</p>
+            </div>
           </div>
-        </UCard>
+        </div>
+      </div>
+
+      <div class="mt-24">
+        <Headline title="Impressionen" alignment="center" />
+        <div class="grid md:grid-cols-3 gap-8 mt-12">
+          <div
+            v-for="img in impressions"
+            :key="img.label"
+            class="group"
+          >
+            <div class="rounded-xl overflow-hidden aspect-video bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
+              <img
+                :src="img.src"
+                :alt="img.alt"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              >
+            </div>
+            <p class="text-center text-sm font-medium text-gray-500">{{ img.label }}</p>
+          </div>
+        </div>
       </div>
 
       <div class="mt-12 p-8 bg-brand-dark-900 text-white rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg">
@@ -160,7 +218,7 @@ const pricing = [
             tagline="Ihr Ansprechpartner"
             mode="dark"
             :use-container="false"
-            class="mb-6"
+            class="mb-6 flex flex-col items-center md:items-start"
           />
 
           <p class="text-gray-600 mb-8 text-lg leading-relaxed max-w-2xl mx-auto md:mx-0">
