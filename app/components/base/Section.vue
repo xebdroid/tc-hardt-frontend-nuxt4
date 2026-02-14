@@ -1,5 +1,6 @@
 <script setup lang="ts">
-type PaddingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
+type SpacingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
+type RoundedSide = boolean | 'top' | 'bottom' | 'both'
 
 interface Props {
   variant?:
@@ -10,9 +11,11 @@ interface Props {
     | 'highlight'     | 'highlight-light'
     | 'accent'        | 'accent-light'
 
-  rounded?: boolean
-  paddingTop?: PaddingSize
-  paddingBottom?: PaddingSize
+  rounded?: RoundedSide
+  paddingTop?: SpacingSize
+  paddingBottom?: SpacingSize
+  marginTop?: SpacingSize
+  marginBottom?: SpacingSize
 
   /**
    * Zieht die Section nach oben über den Vorgänger (-mt)
@@ -38,6 +41,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   rounded: false,
+  marginTop: undefined,
+  marginBottom: undefined,
   paddingTop: 'lg',
   paddingBottom: 'lg',
   overlapTop: false,
@@ -64,15 +69,24 @@ const variantClasses = computed(() => {
 })
 
 // --- PADDING ---
-const ptMap: Record<PaddingSize, string> = {
+const ptMap: Record<SpacingSize, string> = {
   none: 'pt-0', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32'
 }
-const pbMap: Record<PaddingSize, string> = {
+const pbMap: Record<SpacingSize, string> = {
   none: 'pb-0', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32'
+}
+const mtMap: Record<SpacingSize, string> = {
+  none: 'mt-0', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32'
+}
+const mbMap: Record<SpacingSize, string> = {
+  none: 'mb-0', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32'
 }
 
 const spacingClasses = computed(() => {
-  return `${ptMap[props.paddingTop]} ${pbMap[props.paddingBottom]}`
+  const classes = [ptMap[props.paddingTop], pbMap[props.paddingBottom]]
+  if (props.marginTop) classes.push(mtMap[props.marginTop])
+  if (props.marginBottom) classes.push(mbMap[props.marginBottom])
+  return classes.join(' ')
 })
 
 // --- OVERLAP LOGIK ---
@@ -80,7 +94,16 @@ const layoutClasses = computed(() => {
   const classes = []
   if (props.overlapTop) classes.push('-mt-16')
   if (props.overlapBottom) classes.push('-mb-16')
-  if (props.rounded) classes.push('rounded-3xl')
+
+  const rounded = props.rounded === true ? 'both' : props.rounded
+
+  if (rounded === 'both') {
+    classes.push('rounded-3xl')
+  } else if (rounded === 'top') {
+    classes.push('rounded-t-3xl')
+  } else if (rounded === 'bottom') {
+    classes.push('rounded-b-3xl')
+  }
   return classes.join(' ')
 })
 
@@ -89,7 +112,7 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
 </script>
 
 <template>
-  <component :is="RootElement" :class="{ 'px-0': outerContainer }">
+  <component :is="RootElement">
     <section
       class="w-full transition-colors duration-300 relative"
       :class="[

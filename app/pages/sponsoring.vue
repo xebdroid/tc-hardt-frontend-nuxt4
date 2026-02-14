@@ -44,7 +44,6 @@ const pricing = [
       variant="gray-light"
       :rounded="true"
       :overlap-top="true"
-      class="relative z-0"
     >
       <Headline
         title="Warum Partner werden?"
@@ -108,7 +107,7 @@ const pricing = [
       </div>
     </Section>
 
-    <Section variant="highlight-light">
+    <Section variant="highlight-light" margin-bottom="lg">
       <FeatureSection
         image-src="/img/anlage/tc-hardt-anlage-01.jpg"
         image-alt="TC Hardt Anlage"
@@ -137,13 +136,16 @@ const pricing = [
     </Section>
 
     <Section
-      padding-top="xl"
+      variant="secondary-light"
+      padding-top="md"
       padding-bottom="xl"
+      overlap-bottom
+      rounded="top"
+      outer-container
     >
-      <div class="max-w-5xl mx-auto bg-brand-light-100 rounded-3xl p-8 md:p-16 shadow-sm flex flex-col md:flex-row items-center gap-16 border border-gray-100">
-
-        <div class="shrink-0">
-          <div class="w-48 h-64 md:w-56 md:h-72 rounded-2xl overflow-hidden border-[12px] border-white shadow-sm">
+      <div class="grid md:grid-cols-[auto_1fr] gap-12 md:gap-0 items-center">
+        <div class="flex justify-center md:px-24">
+          <div class="w-48 h-64 md:w-56 md:h-72 rounded-2xl overflow-hidden border-[12px] border-white shadow-sm shrink-0">
             <img
               src="/img/boris_ruetten.jpg"
               alt="Boris Rütten"
@@ -152,7 +154,7 @@ const pricing = [
           </div>
         </div>
 
-        <div class="flex-1 text-center md:text-left">
+        <div class="text-center md:text-left">
           <Headline
             title="Lassen Sie uns sprechen!"
             tagline="Ihr Ansprechpartner"

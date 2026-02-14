@@ -105,7 +105,7 @@ useHead({
       padding-top="md"
       padding-bottom="xl"
       overlap-bottom
-      rounded
+      rounded="top"
       outer-container
     >
       <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
