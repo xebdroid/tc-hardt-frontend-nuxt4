@@ -33,35 +33,90 @@
       "name": "Kaspar Fuchs",
       "area": "Vereinsleben, Organisation & Beschwerdemanagement",
       "email": "kaspar.fuchs@tc-hardt.de",
-      "image": null
+      "image": null,
+      "phone": "01737071994"
     },
     {
       "role": "Stv. Vorsitzender",
       "name": "Boris Rütten",
       "area": "Infrastruktur, Platzanlage und Sponsoring",
       "email": "boris.ruetten@tc-hardt.de",
-      "image": null
+      "image": "/img/boris_ruetten.jpg",
+      "phone": "01632374893"
     },
     {
       "role": "Schatzmeister",
       "name": "Witold Bialy",
       "area": "Finanzen",
       "email": "witold.bialy@tc-hardt.de",
-      "image": null
+      "image": null,
+      "phone": "015116570062"
     },
     {
       "role": "Stv. Schatzmeister",
       "name": "Manni Schröer",
       "area": "Finanzen und Schlüsselverwaltung",
-      "email": "manni.schroeer@tc-hardt.de",
-      "image": null
+      "email": "",
+      "image": null,
+      "phone": "01702963150"
     },
     {
       "role": "Geschäftsführerin",
       "name": "Steffi Henckel-Wollny",
       "area": "Clubhaus und Organisation",
       "email": "geschaeftsfuehrung@tc-hardt.de",
-      "image": null
+      "image": null,
+      "phone": "01746616690"
+    }
+  ],
+  "extendedBoard": [
+    {
+      "role": "Sportwart",
+      "name": "Torsten Schürmann",
+      "area": "",
+      "email": "sportwart@tc-hardt.de",
+      "image": null,
+      "phone": "015123836579"
+    },
+    {
+      "role": "Stv. Sportwart",
+      "name": "Neil Warden",
+      "area": "",
+      "email": "",
+      "image": null,
+      "phone": "021619465199"
+    },
+    {
+      "role": "Jugendwart",
+      "name": "Lukas Schröer",
+      "area": "",
+      "email": "jugendwart@tc-hardt.de",
+      "image": null,
+      "phone": "015782588599"
+    },
+    {
+      "role": "Beisitzer",
+      "name": "Michael Kery",
+      "area": "",
+      "email": "",
+      "image": null,
+      "phone": "02161605137"
+    },
+    {
+      "role": "Beisitzer",
+      "name": "Niclas Klumpen",
+      "area": "",
+      "email": "",
+      "image": null,
+      "phone": "01723085841"
+    },
+    {
+      "role": "Beisitzer & Corona Beauftragter",
+      "name": "Michael Grefrath",
+      "area": "",
+      "email": "",
+      "image": null,
+      "phone": "017637127987"
     }
   ],
   "teams": [

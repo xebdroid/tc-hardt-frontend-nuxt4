@@ -80,7 +80,6 @@ function resetForm() {
 
     <Hero
       height="small"
-      fallback-class="bg-brand-dark-900"
     >
       <template #content>
         <div class="text-center">
@@ -96,7 +95,7 @@ function resetForm() {
 
     <UContainer class="py-16 space-y-16">
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
+      <div class="grid md:grid-cols-2 gap-8 mx-auto w-full">
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
@@ -125,7 +124,7 @@ function resetForm() {
 
       </div>
 
-      <div id="contact-form-container" class="max-w-5xl mx-auto w-full">
+      <div id="contact-form-container" class="mx-auto w-full">
         <div class="bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700">
 
           <div v-if="!isSent">
@@ -258,7 +257,7 @@ function resetForm() {
         </div>
       </div>
 
-      <div class="w-full max-w-5xl mx-auto">
+      <div class="w-full mx-auto">
         <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-6">Anfahrt</h2>
 
         <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative">

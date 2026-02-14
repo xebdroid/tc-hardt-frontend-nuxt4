@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   slides: () => [],
   height: 'large',
-  fallbackClass: 'bg-tennis-500',
+  fallbackClass: 'bg-primary-900',
   autoplay: 5000,
   loopVideo: false
 })
@@ -52,7 +52,7 @@ const containerHeightClass = computed(() => {
   switch (props.height) {
     case 'full': return 'h-[100svh] lg:h-[calc(100vh-2rem)]'
     case 'large': return 'h-[600px]'
-    case 'small': return 'h-[400px]'
+    case 'small': return 'h-[450px]'
     default: return 'h-[600px]'
   }
 })

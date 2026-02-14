@@ -1,61 +1,210 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
+import Hero from '~/components/base/Hero.vue'
+import Headline from '~/components/base/Headline.vue'
+import Section from '~/components/base/Section.vue'
+import Button from '~/components/base/Button.vue'
 
 useHead({ title: 'Vorstand | TC Hardt' })
 </script>
 
 <template>
-  <div class="bg-gray-50 min-h-screen pb-24">
+  <div>
+    <Hero
+      height="small"
+      fallback-class="bg-brand-dark-900"
+    >
+      <template #content>
+        <Headline
+          title="Der Vorstand"
+          description="Deine Ansprechpartner für alle Belange rund um den TC Hardt."
+          :tag="'h1'"
+          :size="'h1'"
+          :mode="'light'"
+          :alignment="'center'"
+          :margin-bottom="'sm'"
+        />
+      </template>
+    </Hero>
 
-    <UPageHero
-      title="Der Vorstand"
-      description="Deine Ansprechpartner für alle Belange rund um den TC Hardt."
-      align="center"
-      class="bg-white pb-12"
-    />
-
-    <UContainer class="mt-12">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <UCard
-          v-for="(member, index) in db.board"
-          :key="index"
-          class="text-center group hover:-translate-y-1 transition-transform duration-300"
-        >
-          <div class="mx-auto w-32 h-32 rounded-full bg-tennis-100 flex items-center justify-center mb-4 border-4 border-white shadow-sm group-hover:border-tennis-200">
-            <UIcon name="i-heroicons-user" class="w-16 h-16 text-tennis-400" />
-          </div>
-
-          <h3 class="text-xl font-bold text-tennis-900">{{ member.name }}</h3>
-          <UBadge
-            variant="subtle"
-            color="primary"
-            class="mt-2 mb-4"
-          >{{ member.role }}</UBadge>
-
-          <div class="text-sm text-gray-500 mb-6 min-h-[40px]">
-            <span class="font-semibold block text-gray-700 mb-1">Zuständig für:</span>
-            {{ member.area }}
-          </div>
-
-          <template #footer>
-            <UButton
-              :to="`mailto:${member.email}`"
-              color="white"
-              variant="solid"
-              icon="i-heroicons-envelope"
-              class="w-full justify-center group-hover:bg-tennis-50 group-hover:text-tennis-600"
+    <div>
+      <Section
+        v-for="(member, index) in db.board"
+        :key="index"
+        :variant="index % 2 === 0 ? 'default' : 'secondary-light'"
+        :rounded="index !== 0 ? 'top' : false"
+        :overlap-top="index !== 0"
+        padding-bottom="xl"
+        outer-container
+      >
+        <div class="flex flex-col md:grid md:grid-cols-3 gap-12 items-center">
+          <div
+            v-if="index % 2 === 0"
+            class="order-2 text-left md:text-right md:justify-self-end max-w-md md:order-0"
+          >
+            <h3 class="text-3xl font-bold text-gray-800">
+              {{ member.name }}
+            </h3>
+            <UBadge
+              variant="subtle"
+              color="primary"
+              size="lg"
+              class="mt-2 mb-4"
             >
-              E-Mail schreiben
-            </UButton>
-          </template>
-        </UCard>
-
+              {{ member.role }}
+            </UBadge>
+            <div
+              v-if="member.area"
+              class="text-gray-600 my-6"
+            >
+              <span class="font-semibold block text-gray-800 mb-1">Zuständig für:</span>
+              {{ member.area }}
+            </div>
+            <div
+              class="flex gap-4 justify-start md:justify-end"
+            >
+              <Button
+                v-if="member.email"
+                :to="`mailto:${member.email}`"
+                variant="outline"
+                icon="i-heroicons-envelope"
+                size="lg"
+              >
+                E-Mail
+              </Button>
+              <Button
+                v-if="member.phone"
+                :to="`tel:${member.phone}`"
+                variant="outline"
+                icon="i-heroicons-phone"
+                size="lg"
+              >
+                Anrufen
+              </Button>
+            </div>
+          </div>
+          <div
+            v-if="index % 2 !== 0"
+            class="hidden md:block"
+          />
+          <div class="order-1 md:order-none">
+            <div class="w-64 h-64 mx-auto rounded-full overflow-hidden bg-gray-100 flex items-center justify-center shadow-lg">
+              <img
+                v-if="member.image"
+                :src="member.image"
+                :alt="member.name"
+                class="w-full h-full object-cover object-top"
+              >
+              <UIcon
+                v-else
+                name="i-heroicons-user-circle"
+                class="w-48 h-48 text-gray-300"
+              />
+            </div>
+          </div>
+          <div
+            v-if="index % 2 !== 0"
+            class="order-2 text-left md:justify-self-start max-w-md md:order-none"
+          >
+            <h3 class="text-3xl font-bold text-gray-800">
+              {{ member.name }}
+            </h3>
+            <UBadge
+              variant="subtle"
+              color="primary"
+              size="lg"
+              class="mt-2 mb-4"
+            >
+              {{ member.role }}
+            </UBadge>
+            <div
+              v-if="member.area"
+              class="text-gray-600 my-6"
+            >
+              <span class="font-semibold block text-gray-800 mb-1">Zuständig für:</span>
+              {{ member.area }}
+            </div>
+            <div
+              class="flex gap-4 justify-start"
+            >
+              <Button
+                v-if="member.email"
+                :to="`mailto:${member.email}`"
+                variant="outline"
+                icon="i-heroicons-envelope"
+                size="lg"
+              >
+                E-Mail
+              </Button>
+              <Button
+                v-if="member.phone"
+                :to="`tel:${member.phone}`"
+                variant="outline"
+                icon="i-heroicons-phone"
+                size="lg"
+              >
+                Anrufen
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Section>
+    </div>
+    <Section
+      variant="secondary-light"
+      outer-container
+      rounded
+      overlap-top
+      margin-bottom="xl"
+      class=""
+    >
+      <Headline
+        title="Erweiterter Vorstand"
+        alignment="center"
+        tagline="Zusätzliche Unterstützung für den Verein"
+      />
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 md:px-24">
+        <div
+          v-for="member in db.extendedBoard"
+          :key="member.name"
+          class="bg-white rounded-lg shadow-sm p-6 text-center flex flex-col"
+        >
+          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gray-100 flex items-center justify-center mb-4">
+            <UIcon
+              name="i-heroicons-user-circle"
+              class="w-16 h-16 text-gray-300"
+            />
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-semibold text-gray-800">
+              {{ member.name }}
+            </h3>
+            <p class="text-brand-light-700 font-medium">
+              {{ member.role }}
+            </p>
+          </div>
+          <div class="flex gap-2 mt-4">
+            <Button
+              v-if="member.email"
+              :to="`mailto:${member.email}`"
+              variant="ghost"
+              icon="i-heroicons-envelope"
+              class="flex-1 justify-center"
+            >
+              E-Mail
+            </Button>
+            <Button
+              v-if="member.phone"
+              :to="`tel:${member.phone}`"
+              variant="ghost"
+              icon="i-heroicons-phone"
+              class="flex-1 justify-center"
+            >
+              Anrufen
+            </Button>
+          </div>
+        </div>
       </div>
-
-      <div class="mt-16 text-center text-gray-500 italic">
-        Erweiterter Vorstand: Folgt...
-      </div>
-    </UContainer>
+    </Section>
   </div>
 </template>
