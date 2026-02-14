@@ -3,6 +3,7 @@
  * FeatureSection - Eine Komponente für Bild/Text-Kombinationen
  */
 import Button from '~/components/base/Button.vue'
+import Image from '~/components/base/Image.vue'
 
 interface Props {
   // Bild-Optionen
@@ -44,13 +45,11 @@ const contentOrderClass = computed(() => {
       class="w-full lg:w-1/2 relative lg:px-0"
       :class="imageOrderClass"
     >
-      <div class="relative z-10 rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-800">
-        <img
-          :src="imageSrc"
-          :alt="imageAlt"
-          class="w-full h-auto object-cover aspect-[4/3] transform hover:scale-105 transition-transform duration-700"
-        >
-      </div>
+      <Image
+        :src="imageSrc"
+        :alt="imageAlt"
+        class="z-10"
+      />
 
       <div
         v-if="badgeText"

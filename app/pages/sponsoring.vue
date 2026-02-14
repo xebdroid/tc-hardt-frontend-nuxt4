@@ -2,6 +2,7 @@
 import Section from '~/components/base/Section.vue'
 import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
+import Image from '~/components/base/Image.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import Button from '~/components/base/Button.vue'
@@ -55,9 +56,9 @@ const pricing = [
 ]
 
 const impressions = [
-  { src: '/img/sponsoring/sponsoring-website.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' },
   { src: '/img/sponsoring/sponsoring-freundetafel.jpg', alt: 'Beispiel Freunde-Tafel', label: 'Freunde-Tafel' },
-  { src: '/img/sponsoring/sponsoring-bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' }
+  { src: '/img/sponsoring/sponsoring-bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' },
+  { src: '/img/sponsoring/sponsoring-website.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' }
 ]
 </script>
 
@@ -154,7 +155,11 @@ const impressions = [
           >
             <SwiperSlide v-for="img in impressions" :key="img.label">
               <div class="rounded-xl overflow-hidden aspect-square bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
-                <img :src="img.src" :alt="img.alt" class="w-full h-full object-cover">
+                <img
+                  :src="img.src"
+                  :alt="img.alt"
+                  class="w-full h-full object-cover"
+                >
               </div>
               <p class="text-center text-sm font-medium text-gray-500">{{ img.label }}</p>
             </SwiperSlide>
@@ -204,15 +209,15 @@ const impressions = [
         <ul class="space-y-4 text-gray-700">
           <li class="flex items-start gap-3">
             <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+            <span><strong>Infrastrukturinvestitionen:</strong> Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
             <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Grundschule und Tennisschule.</span>
           </li>
           <li class="flex items-start gap-3">
             <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
             <span><strong>Events:</strong> Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
-            <span><strong>Infrastrukturinvestitionen:</strong> Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.</span>
           </li>
         </ul>
       </FeatureSection>
@@ -228,13 +233,11 @@ const impressions = [
     >
       <div class="grid md:grid-cols-[auto_1fr] gap-12 md:gap-0 items-center">
         <div class="flex justify-center md:px-24">
-          <div class="w-48 h-64 md:w-56 md:h-72 rounded-2xl overflow-hidden border-[12px] border-white shadow-sm shrink-0">
-            <img
-              src="/img/boris_ruetten.jpg"
-              alt="Boris Rütten"
-              class="w-full h-full object-cover"
-            >
-          </div>
+          <Image
+            src="/img/boris_ruetten.jpg"
+            alt="Boris Rütten"
+            variant="portrait"
+          />
         </div>
 
         <div class="text-center md:text-left">
@@ -243,6 +246,7 @@ const impressions = [
             tagline="Ihr Ansprechpartner"
             mode="dark"
             :use-container="false"
+            alignment="none"
             class="items-center md:items-start text-center md:text-left mx-auto md:mx-0"
             margin-bottom="sm"
           />
