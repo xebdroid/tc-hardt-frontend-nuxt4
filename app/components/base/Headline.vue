@@ -3,8 +3,9 @@
  * TYPE DEFINITIONS
  */
 type HeadlineSize = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-type Align = 'left' | 'center' | 'right'
+type Align = 'left' | 'center' | 'right' | 'none'
 type Mode = 'dark' | 'light'
+type SpacingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
 
 // Varianten für Tagline (Dachzeile)
 type TaglineVariant = 'default' | 'brand' | 'accent' | 'highlight'
@@ -32,6 +33,10 @@ interface Props {
   taglineVariant?: TaglineVariant
   descriptionVariant?: DescriptionVariant
 
+  // --- SPACING ---
+  marginTop?: SpacingSize
+  marginBottom?: SpacingSize
+
   // --- OVERRIDES ---
   taglineClass?: string
   titleClass?: string
@@ -49,6 +54,9 @@ const props = withDefaults(defineProps<Props>(), {
 
   taglineVariant: 'default',
   descriptionVariant: 'default',
+
+  marginTop: undefined,
+  marginBottom: undefined,
 
   taglineClass: undefined,
   titleClass: undefined,
@@ -73,8 +81,28 @@ const alignClasses = computed(() => {
   switch (props.alignment) { // Umbenannt
     case 'center': return 'text-center items-center mx-auto'
     case 'right': return 'text-right items-end ml-auto'
+    case 'none': return ''
     default: return 'text-left items-start'
   }
+})
+
+// --- SPACING ---
+const mtMap: Record<SpacingSize, string> = {
+  none: 'mt-0', sm: 'mt-6', md: 'mt-8', lg: 'mt-12', xl: 'mt-16'
+}
+const mbMap: Record<SpacingSize, string> = {
+  none: 'mb-0', sm: 'mb-6', md: 'mb-8', lg: 'mb-12', xl: 'mb-16'
+}
+
+const spacingClasses = computed(() => {
+  const classes = []
+  if (props.marginTop) classes.push(mtMap[props.marginTop])
+  if (props.marginBottom) {
+    classes.push(mbMap[props.marginBottom])
+  } else {
+    classes.push('mb-8 md:mb-12')
+  }
+  return classes.join(' ')
 })
 
 // --- FARBEN / VARIANTEN ---
@@ -111,8 +139,8 @@ const colors = computed(() => {
 
 <template>
   <div
-    class="flex flex-col gap-4 mb-8 md:mb-12 max-w-3xl"
-    :class="alignClasses"
+    class="flex flex-col gap-4 max-w-3xl"
+    :class="[alignClasses, spacingClasses]"
   >
     <component
       :is="taglineTag"

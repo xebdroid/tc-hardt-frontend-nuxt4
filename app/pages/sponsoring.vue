@@ -5,6 +5,10 @@ import Headline from '~/components/base/Headline.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import Button from '~/components/base/Button.vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 useHead({
   title: 'Sponsoring | TC Hardt',
@@ -51,9 +55,9 @@ const pricing = [
 ]
 
 const impressions = [
-  { src: '/img/sponsoring/homepage-mockup.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' },
-  { src: '/img/sponsoring/freundetafel.jpg', alt: 'Beispiel Freunde-Tafel', label: 'Freunde-Tafel' },
-  { src: '/img/sponsoring/bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' }
+  { src: '/img/sponsoring/sponsoring-website.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' },
+  { src: '/img/sponsoring/sponsoring-freundetafel.jpg', alt: 'Beispiel Freunde-Tafel', label: 'Freunde-Tafel' },
+  { src: '/img/sponsoring/sponsoring-bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' }
 ]
 </script>
 
@@ -137,13 +141,34 @@ const impressions = [
 
       <div class="mt-24">
         <Headline title="Impressionen" alignment="center" />
-        <div class="grid md:grid-cols-3 gap-8 mt-12">
+
+        <!-- Mobile Slider -->
+        <div class="mt-12 md:hidden">
+          <Swiper
+            :modules="[Pagination]"
+            :slides-per-view="1.1"
+            :centered-slides="true"
+            :space-between="20"
+            :pagination="{ clickable: true }"
+            class="pb-12"
+          >
+            <SwiperSlide v-for="img in impressions" :key="img.label">
+              <div class="rounded-xl overflow-hidden aspect-square bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
+                <img :src="img.src" :alt="img.alt" class="w-full h-full object-cover">
+              </div>
+              <p class="text-center text-sm font-medium text-gray-500">{{ img.label }}</p>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden md:grid md:grid-cols-3 gap-8 mt-12">
           <div
             v-for="img in impressions"
             :key="img.label"
             class="group"
           >
-            <div class="rounded-xl overflow-hidden aspect-video bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
+            <div class="rounded-xl overflow-hidden aspect-square bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
               <img
                 :src="img.src"
                 :alt="img.alt"
@@ -218,7 +243,8 @@ const impressions = [
             tagline="Ihr Ansprechpartner"
             mode="dark"
             :use-container="false"
-            class="mb-6 flex flex-col items-center md:items-start"
+            class="items-center md:items-start text-center md:text-left mx-auto md:mx-0"
+            margin-bottom="sm"
           />
 
           <p class="text-gray-600 mb-8 text-lg leading-relaxed max-w-2xl mx-auto md:mx-0">
