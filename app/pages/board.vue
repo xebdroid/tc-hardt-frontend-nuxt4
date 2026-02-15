@@ -156,7 +156,6 @@ useHead({ title: 'Vorstand | TC Hardt' })
       rounded
       overlap-top
       margin-bottom="xl"
-      class=""
     >
       <Headline
         title="Erweiterter Vorstand"

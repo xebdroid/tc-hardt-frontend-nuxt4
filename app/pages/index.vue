@@ -17,7 +17,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'video',
     src: '/videos/anlage-von-oben-large.mp4',
-    poster: '/img/facility/anlage-von-oben-large-preview.png',
+    poster: '/img/home/anlage-von-oben-large-preview.png',
     title: 'Unsere Anlagen von oben',
     subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
     overlayPosition: 'center',
