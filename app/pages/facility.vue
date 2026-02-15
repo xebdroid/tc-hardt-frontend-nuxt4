@@ -32,7 +32,7 @@ useHead({
 
     <Section variant="default" padding-top="xl">
       <FeatureSection
-        image-src="/img/anlage/tc-hardt-anlage-01.jpg"
+        image-src="/img/facility/tc-hardt-facility-01.jpg"
         image-alt="Tennisplätze des TC Hardt"
         image-position="left"
       >
@@ -46,7 +46,7 @@ useHead({
 
     <Section variant="gray-light">
       <FeatureSection
-        image-src="https://images.unsplash.com/photo-1436076863939-06870fe779c2?q=80&w=1740&auto=format&fit=crop"
+        image-src="/img/facility/clubhaus-sonnenterrasse.jpg"
         image-alt="Clubhaus Terrasse"
         image-position="right"
       >
@@ -60,7 +60,7 @@ useHead({
 
     <Section variant="default">
       <FeatureSection
-        image-src="/img/anlage/buegeln.jpg"
+        image-src="/img/facility/buegeln.jpg"
         image-alt="Bügelbahn am Niederrhein"
         image-position="left"
       >
@@ -74,7 +74,7 @@ useHead({
 
     <Section variant="gray-light">
       <FeatureSection
-        image-src="/img/anlage/beachvolleyball.jpg"
+        image-src="/img/facility/beachvolleyball.jpg"
         image-alt="Beach-Volleyball Feld"
         image-position="right"
       >

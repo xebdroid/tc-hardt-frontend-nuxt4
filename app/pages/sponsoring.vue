@@ -193,7 +193,7 @@ const impressions = [
 
     <Section variant="highlight-light" margin-bottom="lg">
       <FeatureSection
-        image-src="/img/anlage/tc-hardt-anlage-01.jpg"
+        image-src="/img/facility/tc-hardt-anlage-01.jpg"
         image-alt="TC Hardt Anlage"
         image-position="right"
       >

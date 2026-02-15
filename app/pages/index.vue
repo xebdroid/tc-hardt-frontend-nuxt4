@@ -16,12 +16,19 @@ const localePath = useLocalePath()
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'video',
-    src: '/videos/plaetze_von_oben.mp4',
-    poster: '/img/anlage/tc-hardt-anlage-01.jpg',
+    src: '/videos/anlage-von-oben-large.mp4',
+    poster: '/img/facility/anlage-von-oben-large-preview.png',
     title: 'Unsere Anlagen von oben',
     subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
     overlayPosition: 'center',
     ctaPrimary: { label: 'Mitglied werden', to: localePath('membership') }
+  },
+  {
+    type: 'image',
+    src: '/img/50_jahre_3.png',
+    title: 'Unsere Jubiläums-Highlights 2026',
+    overlayPosition: 'bottom-right',
+    ctaPrimary: { label: "Mehr erfahren", to: localePath('contact') }
   },
   {
     type: 'video',
@@ -31,13 +38,6 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
     overlayPosition: 'center',
     ctaPrimary: { label: 'Probetraining', to: localePath('contact') }
-  },
-  {
-    type: 'image',
-    src: '/img/50_jahre_3.png',
-    title: 'Unsere Jubiläums-Highlights 2026',
-    overlayPosition: 'bottom-right',
-    ctaPrimary: { label: "Mehr erfahren", to: localePath('contact') }
   },
   {
     type: 'image',

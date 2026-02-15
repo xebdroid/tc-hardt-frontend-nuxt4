@@ -1,26 +1,38 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
+import Hero from '~/components/base/Hero.vue'
+import Section from '~/components/base/Section.vue'
+import Headline from '~/components/base/Headline.vue'
+import Button from '~/components/base/Button.vue'
 
 useHead({
   title: 'Mannschaften | TC Hardt',
   meta: [{ name: 'description', content: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren.' }]
 })
 
-// Teams gruppieren (Optional, hier zeigen wir sie einfach als Liste)
 </script>
 
 <template>
   <div>
-    <UPageHero
-      title="Unsere Mannschaften"
-      description="Gemeinsam stark auf dem Platz – wo Tennis auf Teamgeist trifft."
-      align="center"
-      class="bg-gray-50 py-16"
-    />
+    <Hero
+      height="small"
+      fallback-class="bg-brand-dark-900"
+    >
+      <template #content>
+        <Headline
+          title="Unsere Mannschaften"
+          description="Gemeinsam stark auf dem Platz – wo Tennis auf Teamgeist trifft."
+          :tag="'h1'"
+          :size="'h1'"
+          :mode="'light'"
+          :alignment="'center'"
+          :margin-bottom="'sm'"
+        />
+      </template>
+    </Hero>
 
-    <UContainer class="py-16">
-
-      <div class="max-w-3xl mx-auto text-center mb-16 space-y-6">
+    <Section>
+      <div class="max-w-3xl mx-auto text-center space-y-6">
         <p class="text-lg text-gray-600">
           Ob jung oder erfahren, ambitioniert oder einfach mit Spaß dabei – unsere Mannschaften sind das sportliche Herz des TC Hardt.
           In verschiedenen Alters- und Leistungsklassen vertreten wir unseren Verein mit
@@ -32,48 +44,78 @@ useHead({
           sondern auch das Miteinander – auf und neben dem Platz.
         </p>
       </div>
+    </Section>
 
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-tennis-900 mb-8 text-center border-b border-gray-200 pb-4">
-          Aktuell spielen für den TC Hardt
-        </h2>
+    <Section
+      variant="secondary-light"
+      rounded="both"
+    >
+      <Headline
+        title="Aktuell spielen für den TC Hardt"
+        alignment="center"
+        tag="h2"
+      />
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <UCard
-            v-for="team in db.teams"
-            :key="team.name"
-            class="text-center hover:border-tennis-400 border-2 border-transparent transition-all"
-          >
-            <div class="py-4">
-              <UIcon name="i-heroicons-user-group" class="w-8 h-8 text-tennis-300 mb-2" />
-              <h3 class="font-bold text-lg text-tennis-800">{{ team.name }}</h3>
-              <span class="text-xs text-gray-400 uppercase tracking-wider">{{ team.category }}</span>
-            </div>
-          </UCard>
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div
+          v-for="team in db.teams"
+          :key="team.name"
+          class="text-center p-4 rounded-xl bg-white shadow-sm transition-all hover:shadow-md"
+        >
+          <UIcon name="i-heroicons-user-group" class="w-8 h-8 text-brand-light-400 mb-2 mx-auto" />
+          <h3 class="font-bold text-lg text-gray-800">{{ team.name }}</h3>
+          <span class="text-xs text-gray-400 uppercase tracking-wider">{{ team.category }}</span>
         </div>
       </div>
+    </Section>
 
-      <div class="bg-tennis-50 rounded-2xl p-8 md:p-12 text-center">
-        <h3 class="text-2xl font-bold text-tennis-900 mb-4">Du möchtest Teil eines Teams werden?</h3>
-        <p class="text-gray-700 mb-8 max-w-2xl mx-auto">
+    <Section>
+      <div class="bg-brand-light-50 rounded-2xl p-8 md:p-12 text-center">
+        <Headline
+          title="Spielpläne, Tabellen & Ergebnisse"
+          tagline="Live dabei"
+          alignment="center"
+        />
+        <p class="text-gray-700 my-4 max-w-2xl mx-auto">
+          Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse,
+          findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga.
+        </p>
+        <div class="mt-8">
+          <Button
+            to="https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786"
+            target="_blank"
+            variant="primary"
+            size="lg"
+            label="Zu den Mannschaften auf nuLiga"
+            icon="i-heroicons-arrow-top-right-on-square"
+          />
+        </div>
+      </div>
+    </Section>
+
+    <Section
+      variant="highlight-light"
+    >
+      <div class=" text-center">
+        <Headline
+          title="Du möchtest Teil eines Teams werden?"
+          alignment="center"
+          tag="h3"
+        />
+        <p class="text-gray-700 mt-4 mb-8 max-w-2xl mx-auto">
           Dann sprich uns an – wir freuen uns über neue Gesichter, Spielstärke ist zweitrangig.
           Was zählt, ist der Spaß am Spiel und der Zusammenhalt im Team.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <UButton to="/kontakt" size="lg" color="primary">Kontakt aufnehmen</UButton>
-          <UButton
-            to="#"
-            target="_blank"
-            variant="outline"
+          <Button
+            :to="$localePath('contact')"
             size="lg"
-            color="black"
-            icon="i-heroicons-arrow-top-right-on-square"
-          >
-            Spielpläne & Ergebnisse (nuLiga)
-          </UButton>
+            variant="primary"
+            label="Kontakt aufnehmen"
+          />
         </div>
       </div>
+    </Section>
 
-    </UContainer>
   </div>
 </template>
