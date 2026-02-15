@@ -5,11 +5,24 @@ import Headline from '~/components/base/Headline.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
+import type { HeroSlide } from '~/components/base/Hero.vue'
 
 useHead({
   title: 'Training & Tennisschule | TC Hardt',
   meta: [{ name: 'description', content: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß.' }]
 })
+
+const slides: HeroSlide[] = [
+  {
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1646343253545-9171464ce425?q=80&w=1740&auto=format&fit=crop',
+    overlayImage: '/img/training/tennisschule-rot-weiss.jpg',
+    overlayImageClass: 'w-80 mb-4 drop-shadow-lg rounded-full bg-white p-3',
+    title: 'Training',
+    subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
+    overlayPosition: 'center',
+  }
+]
 
 const trainingTypes = [
   {
@@ -33,34 +46,18 @@ const trainingTypes = [
 <template>
   <div>
     <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
-      <template #content>
-        <Headline
-          title="Tennisschule Rot-Weiss"
-          description="Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage."
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'sm'"
-        />
-      </template>
-    </Hero>
+      :slides="slides"
+      height="large"
+    />
 
     <Section>
-      <FeatureSection
-        image-src="/img/training/tennisschule-rot-weiss.jpg"
-        image-alt="Logo der Tennisschule Rot-Weiss"
-      >
+      <div class="max-w-4xl mx-auto text-center">
         <Headline
           tagline="Unser Partner für dein Spiel"
           title="Qualifiziertes Training mit DTB/VDT-Lizenz"
           description="Seit der Sommersaison 2014 arbeiten wir erfolgreich mit der Tennisschule Rot-Weiss zusammen. Als „Deutsche Tennisschule“, anerkannt vom DTB und VDT, garantiert sie ein qualifiziertes Training nach modernsten Methoden und festgelegten Qualitätsstandards."
-          alignment="none"
-          class="items-start text-left"
-          :margin-bottom="'none'"
+          alignment="center"
+          :margin-bottom="'sm'"
         />
         <div class="mt-8">
           <Button
@@ -71,7 +68,7 @@ const trainingTypes = [
             icon="i-heroicons-arrow-top-right-on-square"
           />
         </div>
-      </FeatureSection>
+      </div>
     </Section>
 
     <Section
@@ -100,26 +97,14 @@ const trainingTypes = [
       rounded
       overlap-top
       padding-bottom="xl"
+      margin-bottom="xl"
     >
       <Headline
         title="Unsere Trainer"
         tagline="Kompetenz und Erfahrung für deinen Erfolg"
         alignment="center"
       />
-      <div class="mt-12 grid md:grid-cols-2 gap-x-12 gap-y-16">
-        <FeatureSection
-          image-src="/img/training/trainer-marc-wigge.jpg"
-          image-alt="Trainer Marc Wigge"
-          :image-rounded="true"
-        >
-          <Headline
-            title="Marc Wigge"
-            description="Staatlich geprüfter Tennislehrer und DTB B-Trainer. Mit seiner langjährigen Erfahrung bringt er dein Spiel auf das nächste Level."
-            alignment="none"
-            class="items-start text-left"
-            :margin-bottom="'none'"
-          />
-        </FeatureSection>
+      <div class="mt-12 max-w-5xl mx-auto space-y-16">
         <FeatureSection
           image-src="/img/training/trainer-nicole-gafert.jpg"
           image-alt="Trainerin Nicole Gafert"
@@ -133,25 +118,59 @@ const trainingTypes = [
             :margin-bottom="'none'"
           />
         </FeatureSection>
+        <FeatureSection
+          image-src="/img/training/trainer-marc-wigge.jpg"
+          image-alt="Trainer Marc Wigge"
+          :image-rounded="true"
+          image-position="right"
+        >
+          <Headline
+            title="Marc Wigge"
+            description="Staatlich geprüfter Tennislehrer und DTB B-Trainer. Mit seiner langjährigen Erfahrung bringt er dein Spiel auf das nächste Level."
+            alignment="none"
+            class="items-start text-left"
+            :margin-bottom="'none'"
+          />
+        </FeatureSection>
       </div>
     </Section>
 
-    <Section>
-      <div class="bg-brand-light-50 rounded-2xl p-8 md:p-12 text-center">
-        <Headline
-          title="Interesse geweckt?"
-          tagline="Nimm Kontakt auf"
-          alignment="center"
+    <Section
+      variant="secondary-light"
+      padding-top="md"
+      padding-bottom="xl"
+      overlap-bottom
+      rounded="top"
+      outer-container
+      class="text-center"
+    >
+      <Headline
+        title="Interesse geweckt?"
+        tagline="Nimm Kontakt auf"
+        alignment="center"
+      />
+      <p class="text-gray-700 my-4 max-w-2xl mx-auto">
+        Für weitere Informationen zum Trainingsangebot, Preisen oder zur Buchung einer Probestunde, kontaktiere die Tennisschule Rot-Weiss direkt.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <Button
+          to="tel:01608081655"
+          label="Nicole Gafert anrufen"
+          variant="outline"
+          icon="i-heroicons-phone"
         />
-        <p class="text-gray-700 my-4 max-w-2xl mx-auto">
-          Für weitere Informationen zum Trainingsangebot, Preisen oder zur Buchung einer Probestunde, kontaktiere die Tennisschule Rot-Weiss direkt.
-        </p>
-        <div class="mt-8 text-gray-800 space-y-2">
-          <p><strong>Tennisschule Rot-Weiss (M. Wigge und N. Gafert GbR)</strong></p>
-          <p>Marc Wigge: <a href="tel:017696519561" class="hover:underline">0176 / 96 51 95 61</a></p>
-          <p>Nicole Gafert: <a href="tel:01608081655" class="hover:underline">0160 / 8 08 16 55</a></p>
-          <p><a href="mailto:info@tennisschule-rotweiss.de" class="hover:underline">info@tennisschule-rotweiss.de</a></p>
-        </div>
+        <Button
+          to="tel:017696519561"
+          label="Marc Wigge anrufen"
+          variant="outline"
+          icon="i-heroicons-phone"
+        />
+        <Button
+          to="mailto:info@tennisschule-rotweiss.de"
+          label="E-Mail schreiben"
+          variant="outline"
+          icon="i-heroicons-envelope"
+        />
       </div>
     </Section>
 

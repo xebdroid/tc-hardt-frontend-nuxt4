@@ -47,8 +47,10 @@ useHead({
     </Section>
 
     <Section
-      variant="secondary-light"
-      rounded="both"
+      variant="highlight-light"
+      outer-container
+      rounded
+      padding-bottom="xl"
     >
       <Headline
         title="Aktuell spielen für den TC Hardt"
@@ -56,7 +58,7 @@ useHead({
         tag="h2"
       />
 
-      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:px-24">
         <div
           v-for="team in db.teams"
           :key="team.name"
@@ -69,32 +71,44 @@ useHead({
       </div>
     </Section>
 
-    <Section>
-      <div class="bg-brand-light-50 rounded-2xl p-8 md:p-12 text-center">
-        <Headline
-          title="Spielpläne, Tabellen & Ergebnisse"
-          tagline="Live dabei"
-          alignment="center"
+    <Section
+      variant="accent-light"
+      overlap-top
+      rounded
+      outer-container
+      class="text-center"
+      padding-top="sm"
+      padding-bottom="md"
+      margin-bottom="xl"
+    >
+      <Headline
+        title="Spielpläne, Tabellen & Ergebnisse"
+        tagline="Live dabei"
+        alignment="center"
+      />
+      <p class="text-gray-700 my-4 max-w-2xl mx-auto">
+        Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse,
+        findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga.
+      </p>
+      <div class="mt-8">
+        <Button
+          to="https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786"
+          target="_blank"
+          variant="primary"
+          size="lg"
+          label="Zu den Mannschaften auf nuLiga"
+          icon="i-heroicons-arrow-top-right-on-square"
         />
-        <p class="text-gray-700 my-4 max-w-2xl mx-auto">
-          Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse,
-          findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga.
-        </p>
-        <div class="mt-8">
-          <Button
-            to="https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786"
-            target="_blank"
-            variant="primary"
-            size="lg"
-            label="Zu den Mannschaften auf nuLiga"
-            icon="i-heroicons-arrow-top-right-on-square"
-          />
-        </div>
       </div>
     </Section>
 
     <Section
-      variant="highlight-light"
+      variant="secondary-light"
+      padding-top="md"
+      padding-bottom="xl"
+      overlap-bottom
+      rounded="top"
+      outer-container
     >
       <div class=" text-center">
         <Headline
