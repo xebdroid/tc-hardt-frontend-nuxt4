@@ -8,6 +8,9 @@ import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
+const showColorModeButton = ref(false);
+const showLanguageSwitch = ref(false);
+
 const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
 
@@ -98,6 +101,7 @@ onUnmounted(() => {
               </template>
 
               <UColorModeButton
+                v-if="showColorModeButton"
                 size="xs"
                 variant="ghost"
                 :ui="{
@@ -106,6 +110,7 @@ onUnmounted(() => {
               />
 
               <LanguageSwitcher
+                v-if="showLanguageSwitch"
                 size="xs"
                 variant="ghost"
                 class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
@@ -135,6 +140,8 @@ onUnmounted(() => {
           :header-menu="headerMenu"
           :nav-buttons="navButtons"
           :social-links="socialLinks"
+          :show-appearance-mode-button="showColorModeButton"
+          :show-language-switch="showLanguageSwitch"
           @close="closeMenu"
         />
 

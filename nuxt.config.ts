@@ -5,6 +5,10 @@ export default defineNuxtConfig({
 
   compatibilityDate: "2024-12-21",
 
+  colorMode: {
+    preference: 'light'
+  },
+
   modules: [
     '@nuxt/ui',
     '@nuxtjs/i18n',
