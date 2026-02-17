@@ -1,18 +1,29 @@
 <script setup lang="ts">
 interface Props {
-  src: string;
+  src?: string | null;
   alt?: string;
-  variant?: 'feature' | 'portrait';
+  variant?: 'feature' | 'portrait' | 'round';
+  size?: 'small' | 'large';
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  src: undefined,
   alt: '',
   variant: 'feature',
+  size: 'large',
 });
 
 // classes for the wrapper div
 const variantClasses = computed(() => {
   switch (props.variant) {
+    case 'round':
+      switch (props.size) {
+        case 'small':
+          return 'w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-gray-100 flex items-center justify-center';
+        case 'large':
+        default:
+          return 'w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-100 flex items-center justify-center';
+      }
     case 'portrait':
       return 'w-48 h-64 md:w-56 md:h-72 rounded-2xl overflow-hidden border-[12px] border-white shadow-sm shrink-0';
     case 'feature':
@@ -22,7 +33,7 @@ const variantClasses = computed(() => {
 });
 
 const imageClasses = computed(() => {
-    const classes = ['w-full', 'h-full', 'object-cover'];
+    const classes = ['w-full', 'h-full', 'object-cover', 'object-top'];
     // hover effect only for feature variant
     if(props.variant === 'feature') {
         classes.push('transform hover:scale-105 transition-transform duration-700');
@@ -34,9 +45,11 @@ const imageClasses = computed(() => {
 <template>
   <div :class="variantClasses">
     <img
+      v-if="src"
       :src="src"
       :alt="alt"
       :class="imageClasses"
     >
+    <slot v-else />
   </div>
 </template>

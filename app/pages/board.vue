@@ -4,6 +4,7 @@ import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import Button from '~/components/base/Button.vue'
+import Image from '~/components/base/Image.vue'
 
 useHead({ title: 'Vorstand | TC Hardt' })
 </script>
@@ -40,7 +41,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
         <div class="flex flex-col md:grid md:grid-cols-3 gap-12 items-center">
           <div
             v-if="index % 2 === 0"
-            class="order-2 text-left md:text-right md:justify-self-end max-w-md md:order-0"
+            class="order-2 text-center md:text-right md:justify-self-end max-w-md md:order-0"
           >
             <h3 class="text-3xl font-bold text-gray-800">
               {{ member.name }}
@@ -61,7 +62,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
               {{ member.area }}
             </div>
             <div
-              class="flex gap-4 justify-start md:justify-end"
+              class="flex gap-4 justify-center md:justify-end"
             >
               <Button
                 v-if="member.email"
@@ -87,24 +88,22 @@ useHead({ title: 'Vorstand | TC Hardt' })
             v-if="index % 2 !== 0"
             class="hidden md:block"
           />
-          <div class="order-1 md:order-none">
-            <div class="w-64 h-64 mx-auto rounded-full overflow-hidden bg-gray-100 flex items-center justify-center shadow-lg">
-              <img
-                v-if="member.image"
-                :src="member.image"
-                :alt="member.name"
-                class="w-full h-full object-cover object-top"
-              >
+          <div class="order-1 md:order-none mx-auto">
+            <Image
+              :src="member.image"
+              :alt="member.name"
+              variant="round"
+              size="large"
+            >
               <UIcon
-                v-else
                 name="i-heroicons-user-circle"
                 class="w-48 h-48 text-gray-300"
               />
-            </div>
+            </Image>
           </div>
           <div
             v-if="index % 2 !== 0"
-            class="order-2 text-left md:justify-self-start max-w-md md:order-none"
+            class="order-2 text-center md:text-left md:justify-self-start max-w-md md:order-none"
           >
             <h3 class="text-3xl font-bold text-gray-800">
               {{ member.name }}
@@ -125,7 +124,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
               {{ member.area }}
             </div>
             <div
-              class="flex gap-4 justify-start"
+              class="flex gap-4 justify-center md:justify-start"
             >
               <Button
                 v-if="member.email"
@@ -168,18 +167,18 @@ useHead({ title: 'Vorstand | TC Hardt' })
           :key="member.name"
           class="bg-white rounded-lg shadow-sm p-6 text-center flex flex-col"
         >
-          <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gray-100 flex items-center justify-center mb-4">
-            <img
-              v-if="member.image"
+          <div class="mx-auto mb-4">
+            <Image
               :src="member.image"
               :alt="member.name"
-              class="w-full h-full object-cover object-top"
+              variant="round"
+              size="small"
             >
-            <UIcon
-              v-else
-              name="i-heroicons-user-circle"
-              class="w-16 h-16 text-gray-300"
-            />
+              <UIcon
+                name="i-heroicons-user-circle"
+                class="w-16 h-16 text-gray-300"
+              />
+            </Image>
           </div>
           <div class="flex-grow">
             <h3 class="text-lg font-semibold text-gray-800">
@@ -193,7 +192,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
             <Button
               v-if="member.email"
               :to="`mailto:${member.email}`"
-              variant="ghost"
+              variant="outline"
               icon="i-heroicons-envelope"
               class="flex-1 justify-center"
             >
@@ -202,7 +201,7 @@ useHead({ title: 'Vorstand | TC Hardt' })
             <Button
               v-if="member.phone"
               :to="`tel:${member.phone}`"
-              variant="ghost"
+              variant="outline"
               icon="i-heroicons-phone"
               class="flex-1 justify-center"
             >
