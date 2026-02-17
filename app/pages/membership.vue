@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
-import AppButton from '~/components/base/Button.vue'
+import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import db from '~/assets/data/db.json'
 
@@ -15,7 +15,7 @@ definePageMeta({
 })
 
 // --- CONFIG ---
-const PDF_PATH = '/downloads/Aufnahmeantrag_TC_Hardt.pdf'
+const PDF_PATH = '/downloads/aufnahmeantrag-tc-hardt.pdf'
 
 // --- DATA ---
 const rawTariffs = db.tariffs
@@ -101,7 +101,7 @@ const mapToPlan = (t: any) => {
 
     class: `bg-white dark:bg-gray-900 rounded-2xl p-6 flex flex-col h-full relative transition-all duration-300 ${borderClass}`,
 
-    // Config für AppButton
+    // Config für Button
     button: {
       label: 'Zum Antrag',
       icon: 'i-heroicons-arrow-down-tray',
@@ -240,7 +240,7 @@ const accordionItems = [
                       <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
                       <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
                     </div>
-                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                    <Button v-bind="plan.button" @click="scrollToDownload" />
                   </div>
                 </div>
               </div>
@@ -287,7 +287,7 @@ const accordionItems = [
                       <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discount || plan.price }}</span>
                       <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
                     </div>
-                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                    <Button v-bind="plan.button" @click="scrollToDownload" />
                   </div>
                 </div>
               </div>
@@ -330,7 +330,7 @@ const accordionItems = [
                       <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
                       <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
                     </div>
-                    <AppButton v-bind="plan.button" @click="scrollToDownload" />
+                    <Button v-bind="plan.button" @click="scrollToDownload" />
                   </div>
                 </div>
               </div>
@@ -396,7 +396,7 @@ const accordionItems = [
             </p>
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-              <AppButton
+              <Button
                 :to="PDF_PATH"
                 target="_blank"
                 size="xl"
@@ -424,7 +424,7 @@ const accordionItems = [
     </div>
 
     <div class="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-fade-in-up">
-      <AppButton
+      <Button
         :to="PDF_PATH"
         target="_blank"
         block

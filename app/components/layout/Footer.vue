@@ -16,7 +16,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
 
 <template>
   <footer class="mt-auto w-full isolate">
-    <UContainer>
+    <UContainer v-if="showCta">
       <Section
         variant="secondary"
         padding-top="sm"

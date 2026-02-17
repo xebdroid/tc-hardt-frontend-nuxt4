@@ -9,8 +9,9 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
 export interface HeroSlide {
-  type: 'image' | 'video'
-  src: string
+  type: 'image' | 'video' | 'color'
+  src?: string
+  color?: string
   poster?: string
   alt?: string
 
@@ -45,7 +46,7 @@ const props = withDefaults(defineProps<{
   loopVideo: false
 })
 
-const swiperInstance = ref<any>(null)
+const swiperInstance = ref<any>(null);
 
 // --- HÖHEN BERECHNUNG ---
 const containerHeightClass = computed(() => {
@@ -151,8 +152,13 @@ const onSlideChange = (swiper: any) => {
         class="relative bg-gray-900 h-full w-full"
       >
         <div class="absolute inset-0 select-none">
+          <div
+            v-if="slide.type === 'color'"
+            class="w-full h-full"
+            :style="{ backgroundColor: slide.color }"
+          />
           <video
-            v-if="slide.type === 'video'"
+            v-else-if="slide.type === 'video'"
             :src="slide.src"
             :poster="slide.poster"
             class="w-full h-full object-cover"
@@ -163,7 +169,7 @@ const onSlideChange = (swiper: any) => {
             @ended="handleVideoEnded"
           />
           <img
-            v-else
+            v-else-if="slide.type === 'image'"
             :src="slide.src"
             :alt="slide.alt"
             class="w-full h-full object-cover"
