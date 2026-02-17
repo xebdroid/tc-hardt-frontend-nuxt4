@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { NuxtImg } from '#components'
+
 interface Props {
   src?: string | null;
   alt?: string;
   variant?: 'feature' | 'portrait' | 'round';
   size?: 'small' | 'large';
+  objectPosition?: string;
+  sizes?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -11,6 +15,8 @@ const props = withDefaults(defineProps<Props>(), {
   alt: '',
   variant: 'feature',
   size: 'large',
+  objectPosition: 'object-top',
+  sizes: 'sm:100vw md:50vw lg:800px',
 });
 
 // classes for the wrapper div
@@ -33,7 +39,7 @@ const variantClasses = computed(() => {
 });
 
 const imageClasses = computed(() => {
-    const classes = ['w-full', 'h-full', 'object-cover', 'object-top'];
+    const classes = ['w-full', 'h-full', 'object-cover', props.objectPosition];
     // hover effect only for feature variant
     if(props.variant === 'feature') {
         classes.push('transform hover:scale-105 transition-transform duration-700');
@@ -44,12 +50,14 @@ const imageClasses = computed(() => {
 
 <template>
   <div :class="variantClasses">
-    <img
+    <NuxtImg
       v-if="src"
       :src="src"
       :alt="alt"
       :class="imageClasses"
-    >
+      :sizes="sizes"
+      loading="lazy"
+    />
     <slot v-else />
   </div>
 </template>

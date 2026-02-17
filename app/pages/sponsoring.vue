@@ -4,10 +4,7 @@ import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Image from '~/components/base/Image.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
-import FeatureCard from '~/components/base/FeatureCard.vue'
 import Button from '~/components/base/Button.vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
@@ -19,7 +16,7 @@ useHead({
 const pricing = [
   {
     name: 'Homepage Banner',
-    size: '600px Breite',
+    size: 'Präsenz auf der Website',
     icon: 'i-heroicons-computer-desktop',
     description: 'Digitale Präsenz auf unserer stark frequentierten Vereinswebsite mit direkter Verlinkung zu Ihrem Angebot.'
   },

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CtaButton from './CtaButton.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
+import Button from '~/components/base/Button.vue'
 
 const props = defineProps<{
   isOpen: boolean
@@ -44,19 +45,17 @@ const emit = defineEmits(['close'])
         <USeparator />
 
         <div class="flex flex-col gap-4">
-          <template v-for="(btn, index) in navButtons" :key="index">
-            <CtaButton
-              v-if="!btn.hidden"
-              :to="$localePath(btn.to)"
-              :label="btn.label"
-              :target="btn.target"
-              :color="btn.color"
-              :variant="btn.variant"
-              block
-              size="xl"
-              @click="emit('close')"
-            />
-          </template>
+          <Button
+            v-for="(btn, index) in navButtons"
+            :key="index"
+            class="flex sm:hidden"
+            :to="btn.to"
+            :label="btn.label"
+            :target="btn.target"
+            :variant="(btn.variant as any) || 'outline'"
+            block
+            size="xl"
+          />
         </div>
 
         <USeparator />

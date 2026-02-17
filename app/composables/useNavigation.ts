@@ -1,4 +1,5 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
+import type { ButtonVariant } from '~/components/base/Button.vue'
 
 // Erweiterung des Typs für unsere Custom-Logik
 export interface CustomNavigationMenuItem extends NavigationMenuItem {
@@ -7,14 +8,11 @@ export interface CustomNavigationMenuItem extends NavigationMenuItem {
   noDesktopIcon?: boolean
 }
 
-// Button Typen für Nuxt UI v3
-type ButtonColor = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'error' | 'neutral'
-type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link' | 'subtle'
+
 
 export interface NavButton {
   label: string
   to: string
-  color?: ButtonColor
   variant?: ButtonVariant
   target?: string
   icon?: string
@@ -99,12 +97,6 @@ export const useNavigation = () => {
         { label: t('nav.sup.teams'), to: localePath('teams'), description: t('nav.sup.teams_desc'), icon: 'i-heroicons-user-group' },
         { label: t('nav.main.training'), to: localePath('training'), description: t('nav.sup.training_desc'), icon: 'i-heroicons-academic-cap' }
       ]
-    },
-    {
-      label: t('nav.main.contact'),
-      to: localePath('contact'),
-      icon: 'i-heroicons-envelope',
-      noDesktopIcon: true
     }
   ])
 
@@ -112,15 +104,18 @@ export const useNavigation = () => {
   const navButtons = computed<NavButton[]>(() => {
     const buttons: NavButton[] = [
       {
+        label: t('nav.main.contact'),
+        to: localePath('contact'),
+        variant: 'outline',
+      },
+      {
         label: t('nav.buttons.membership'),
         to: localePath('membership'),
-        color: 'primary',
-        variant: 'solid'
+        variant: 'primary'
       },
       {
         label: t('nav.buttons.login'),
         to: localePath('login'),
-        color: 'neutral',
         variant: 'ghost',
         hidden: true
       }

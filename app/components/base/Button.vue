@@ -3,7 +3,7 @@
  * AppButton - Zentraler Button
  */
 
-type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost'
+export type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost'
 
 interface Props {
   to?: string
