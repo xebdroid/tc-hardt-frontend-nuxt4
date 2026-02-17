@@ -78,6 +78,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
               v-for="(link, index) in footerLinks"
               :key="index"
               :to="link.to"
+              :target="link.target || '_self'"
               class="text-lg font-medium text-gray-300 hover:text-white transition-colors"
             >
               {{ link.label }}

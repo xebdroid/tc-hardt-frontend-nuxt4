@@ -31,6 +31,7 @@ interface SocialLink {
 interface FooterLink {
   label: string
   to: string
+  target?: string
 }
 
 export const useNavigation = () => {
@@ -135,6 +136,7 @@ export const useNavigation = () => {
 
   // 4. Footer
   const footerLinks = computed<FooterLink[]>(() => [
+    { label: t('nav.sup.statutes'), to: '/downloads/satzung-tc-hardt_stand_28_04_2025.pdf', target: '_blank' },
     { label: t('nav.sup.imprint'), to: localePath('imprint') },
     { label: t('nav.sup.privacy'), to: localePath('privacy') }
   ])
