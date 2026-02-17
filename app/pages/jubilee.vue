@@ -26,38 +26,44 @@ const timelineItems = [
   {
     date: '19.04.2026',
     title: 'Tag der offenen Tür / Saisoneröffnung',
-    description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt. Alle Tennisinteressierten sind herzlich eingeladen.',
-    icon: 'i-heroicons-home-modern'
+    description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt.',
+    icon: 'i-heroicons-home-modern',
+    image: 'https://images.unsplash.com/photo-1554287898-906a6586d6ac?q=80&w=800'
   },
   {
     date: '27.06.2026',
     title: 'Jubiläumsfeier',
-    description: 'Das Highlight unseres Festjahres! Eine Jubiläums-Gala mit Musik, leckerem Essen und Highlights aus 50 Jahren.',
-    icon: 'i-heroicons-cake'
+    description: 'Eine Jubiläums-Gala mit Musik, leckerem Essen und Highlights aus 50 Jahren.',
+    icon: 'i-heroicons-cake',
+    image: 'https://images.unsplash.com/photo-1519671482749-b09be7956a6a?q=80&w=800'
   },
   {
     date: '25.07.2026',
     title: 'Sangria Open',
     description: 'Sommer, Sonne, Sangria – unser Kultturnier für Jung und Alt.',
-    icon: 'i-heroicons-sun'
+    icon: 'i-heroicons-sun',
+    image: 'https://images.unsplash.com/photo-1587049352851-d4895c09a37d?q=80&w=800'
   },
   {
     date: '29.08. – 13.09.2026',
     title: 'Kreis- & Stadtmeisterschaften',
     description: 'Wir sind Gastgeber der Stadtmeisterschaften! Spannende Matches garantiert.',
-    icon: 'i-heroicons-trophy'
+    icon: 'i-heroicons-trophy',
+    image: 'https://images.unsplash.com/photo-1612154363435-0873b885b734?q=80&w=800'
   },
   {
     date: '26./27.09.2026',
     title: 'Finaltag der Clubmeisterschaften',
     description: 'Wer wird Clubmeister 2026? Das große Finalwochenende.',
-    icon: 'i-heroicons-star'
+    icon: 'i-heroicons-star',
+    image: 'https://images.unsplash.com/photo-1594464296232-950337d24271?q=80&w=800'
   },
   {
     date: '10.10.2026',
     title: 'Glühwein Open & Saisonabschluss',
     description: 'Ein gemütliches Herbstturnier mit Glühwein und anschließendem Saisonabschluss.',
-    icon: 'i-heroicons-fire'
+    icon: 'i-heroicons-fire',
+    image: 'https://images.unsplash.com/photo-1605199124451-ebadace9db38?q=80&w=800'
   }
 ]
 </script>
@@ -112,18 +118,41 @@ const timelineItems = [
       </div>
     </div>
 
-    <UContainer class="py-16 space-y-16 overflow-x-hidden">
-      <UTimeline
-        :items="timelineItems"
-        :default-value="5"
-        size="3xl"
-        :ui="{ item: 'even:lg:flex-row-reverse even:lg:-translate-x-[calc(100%-3rem)] even:lg:text-right',
-               wrapper: 'border border-brand-dark-100 rounded-2xl p-6 lg:max-w-[400px]',
-               date: 'text-accent-500 dark:text-accent-400 font-semibold text-md',
-               title: 'text-accent-500 dark:text-accent-400 font-bold text-lg'}"
-        class="lg:translate-x-[calc(50%-1rem)]"
-      />
-    </UContainer>
+    <div id="events" class="py-16 sm:py-24 bg-gray-50 dark:bg-brand-dark-950">
+      <UContainer>
+        <div class="text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
+            Unsere Jubiläums-Highlights 2026
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400">
+            Ein ganzes Jahr voller besonderer Events für unsere Mitglieder und Freunde.
+          </p>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            v-for="(item, index) in timelineItems"
+            :key="index"
+            class="relative rounded-2xl h-80 overflow-hidden group shadow-lg"
+          >
+            <img :src="item.image" :alt="item.title" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+            <div class="relative h-full flex flex-col justify-end p-6 text-white">
+              <UIcon :name="item.icon" class="w-10 h-10 text-accent-400 mb-4" />
+              <p class="text-xl font-bold mb-1">
+                {{ item.title }}
+              </p>
+              <p class="text-md font-semibold text-gray-300 mb-2">
+                {{ item.date }}
+              </p>
+              <p class="text-gray-200 text-sm">
+                {{ item.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </UContainer>
+    </div>
 
   </div>
 </template>

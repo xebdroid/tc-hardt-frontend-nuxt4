@@ -97,6 +97,12 @@ export const useNavigation = () => {
         { label: t('nav.sup.teams'), to: localePath('teams'), description: t('nav.sup.teams_desc'), icon: 'i-heroicons-user-group' },
         { label: t('nav.main.training'), to: localePath('training'), description: t('nav.sup.training_desc'), icon: 'i-heroicons-academic-cap' }
       ]
+    },
+    {
+      label: t('nav.main.events'),
+      to: localePath('events'),
+      icon: 'i-heroicons-calendar-days',
+      noDesktopIcon: true
     }
   ])
 
