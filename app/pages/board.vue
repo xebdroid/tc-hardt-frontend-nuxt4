@@ -169,7 +169,14 @@ useHead({ title: 'Vorstand | TC Hardt' })
           class="bg-white rounded-lg shadow-sm p-6 text-center flex flex-col"
         >
           <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gray-100 flex items-center justify-center mb-4">
+            <img
+              v-if="member.image"
+              :src="member.image"
+              :alt="member.name"
+              class="w-full h-full object-cover object-top"
+            >
             <UIcon
+              v-else
               name="i-heroicons-user-circle"
               class="w-16 h-16 text-gray-300"
             />

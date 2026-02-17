@@ -33,7 +33,7 @@
       "name": "Kaspar Fuchs",
       "area": "Vereinsleben, Organisation & Beschwerdemanagement",
       "email": "kaspar.fuchs@tc-hardt.de",
-      "image": null,
+      "image": "/img/board/vorstand-kaspar-fuchs.jpg",
       "phone": "01737071994"
     },
     {
@@ -41,7 +41,7 @@
       "name": "Boris Rütten",
       "area": "Infrastruktur, Platzanlage und Sponsoring",
       "email": "boris.ruetten@tc-hardt.de",
-      "image": "/img/boris_ruetten.jpg",
+      "image": "/img/board/vorstand-boris-ruetten.jpg",
       "phone": "01632374893"
     },
     {
@@ -49,7 +49,7 @@
       "name": "Witold Bialy",
       "area": "Finanzen",
       "email": "witold.bialy@tc-hardt.de",
-      "image": null,
+      "image": "/img/board/vorstand-witold-bialy.jpg",
       "phone": "015116570062"
     },
     {
@@ -57,7 +57,7 @@
       "name": "Manni Schröer",
       "area": "Finanzen und Schlüsselverwaltung",
       "email": "",
-      "image": null,
+      "image": "/img/board/vorstand-manfred-schroeer.jpg",
       "phone": "01702963150"
     },
     {
@@ -65,7 +65,7 @@
       "name": "Steffi Henckel-Wollny",
       "area": "Clubhaus und Organisation",
       "email": "geschaeftsfuehrung@tc-hardt.de",
-      "image": null,
+      "image": "/img/board/vorstand-stefanie-henckel-wollny.jpg",
       "phone": "01746616690"
     }
   ],
@@ -75,7 +75,7 @@
       "name": "Torsten Schürmann",
       "area": "",
       "email": "sportwart@tc-hardt.de",
-      "image": null,
+      "image": "/img/board/vorstand-torsten-schuermann.jpg",
       "phone": "015123836579"
     },
     {
@@ -91,7 +91,7 @@
       "name": "Lukas Schröer",
       "area": "",
       "email": "jugendwart@tc-hardt.de",
-      "image": null,
+      "image": "/img/board/vorstand-lukas-schroeer.jpg",
       "phone": "015782588599"
     },
     {
@@ -99,7 +99,7 @@
       "name": "Michael Kery",
       "area": "",
       "email": "",
-      "image": null,
+      "image": "/img/board/vorstand-michael-kery.jpg",
       "phone": "02161605137"
     },
     {
@@ -107,7 +107,7 @@
       "name": "Niclas Klumpen",
       "area": "",
       "email": "",
-      "image": null,
+      "image": "/img/board/vorstand-niclas-klumpen.jpg",
       "phone": "01723085841"
     },
     {
@@ -115,7 +115,7 @@
       "name": "Michael Grefrath",
       "area": "",
       "email": "",
-      "image": null,
+      "image": "/img/board/vorstand-michael-grefrath.jpg",
       "phone": "017637127987"
     }
   ],
