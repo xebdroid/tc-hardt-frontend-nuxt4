@@ -12,6 +12,7 @@ export interface HeroSlide {
   type: 'image' | 'video' | 'color'
   src?: string
   color?: string
+  colorClass?: string
   poster?: string
   alt?: string
 
@@ -155,6 +156,7 @@ const onSlideChange = (swiper: any) => {
           <div
             v-if="slide.type === 'color'"
             class="w-full h-full"
+            :class="slide.colorClass"
             :style="{ backgroundColor: slide.color }"
           />
           <video
@@ -174,7 +176,6 @@ const onSlideChange = (swiper: any) => {
             :alt="slide.alt"
             class="w-full h-full object-cover"
           >
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         </div>
 
         <div

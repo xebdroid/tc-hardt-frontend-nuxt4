@@ -5,6 +5,7 @@ import Headline from '~/components/base/Headline.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
+import Image from '~/components/base/Image.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 
 useHead({
@@ -20,7 +21,7 @@ const slides: HeroSlide[] = [
     overlayImageClass: 'w-full max-w-[250px] lg:w-[300px] mb-4 drop-shadow-lg rounded-full bg-white p-3',
     title: 'Training',
     subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
-    overlayPosition: 'center',
+    overlayPosition: 'bottom-center',
   }
 ]
 
