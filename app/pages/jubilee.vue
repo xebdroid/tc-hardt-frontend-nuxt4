@@ -3,6 +3,7 @@ import AppButton from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
+import EventDate from '~/components/base/EventDate.vue'
 
 useHead({
   title: '50 Jahre Tennis op de Hardt - Jubiläum 2026',
@@ -36,7 +37,6 @@ const timelineItems = [
     title: 'Jubiläumsfeier',
     description: 'Eine Jubiläums-Gala mit Musik, leckerem Essen und Highlights aus 50 Jahren.',
     icon: 'i-heroicons-cake',
-    // image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1740'
     image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1740'
   },
   {
@@ -54,7 +54,7 @@ const timelineItems = [
     image: '/img/jubilee/tennis-plaetze-von-oben.jpg'
   },
   {
-    date: '26./27.09.2026',
+    date: '26.09. – 27.09.2026',
     title: 'Finaltag der Clubmeisterschaften',
     description: 'Wer wird Clubmeister 2026? Das große Finalwochenende.',
     icon: 'i-heroicons-star',
@@ -106,32 +106,20 @@ const timelineItems = [
       </template>
     </Hero>
 
-    <div class="mx-auto max-w-3xl px-6 py-20 sm:py-24 lg:px-8">
-      <div class="text-base leading-7 text-gray-700 dark:text-gray-300 text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-8">
-          50 Jahre Tennis op de Hardt
-        </h2>
-        <div class="text-lg leading-relaxed space-y-6">
-          <p>
-            Der <strong>TC Hardt 1976 e.V.</strong> feiert im Jahr 2026 sein <strong class="text-accent-500 dark:text-accent-500">50-jähriges Vereinsjubiläum</strong>.
-            Dieses besondere Jubiläum wollen wir gemeinsam mit euch feiern.
-          </p>
-        </div>
-      </div>
-    </div>
-
     <div id="events" class="scroll-mt-16">
       <div
         class="text-center relative"
         :style="{ zIndex: timelineItems.length + 1 }"
       >
         <Section>
-          <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
-            Unsere Jubiläums-Highlights 2026
-          </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Ein ganzes Jahr voller besonderer Events für unsere Mitglieder und Freunde.
-          </p>
+          <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
+              Ein Jahr voller Highlights
+            </h2>
+            <p class="text-lg leading-8 text-gray-600 dark:text-gray-400">
+              Das Jahr 2026 steht ganz im Zeichen unseres 50-jährigen Bestehens. Wir haben ein abwechslungsreiches Programm für euch zusammengestellt – von sportlichen Wettkämpfen bis hin zu geselligen Feiern. Seid dabei und feiert mit uns!
+            </p>
+          </div>
         </Section>
       </div>
 
@@ -144,18 +132,18 @@ const timelineItems = [
           :style="{ zIndex: timelineItems.length - index }"
         >
           <Section
-            :variant="index % 2 === 0 ? 'accent' : 'default'"
+            :variant="index % 2 === 0 ? 'secondary-light' : 'default'"
             :background-image="index % 2 !== 0 ? item.image : undefined"
             :parallax="index % 2 !== 0"
             :rounded="index === 0 ? true : 'bottom'"
-            padding-top="xl"
-            padding-bottom="xl"
+            :padding-top="index === 0 ? 'md' : 'xl'"
+            padding-bottom="md"
             :overlap-top="index !== 0 ? true : false"
+            :margin-bottom="index === timelineItems.length - 1 ? 'xl' : undefined"
+            outer-container
           >
-            <div class="bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
-              <p class="text-lg font-bold text-accent-500 mb-2">
-                {{ item.date }}
-              </p>
+            <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
+              <EventDate :date-string="item.date" />
               <h3 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
                 {{ item.title }}
               </h3>
