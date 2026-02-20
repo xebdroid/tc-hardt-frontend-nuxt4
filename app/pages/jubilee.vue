@@ -2,6 +2,7 @@
 import AppButton from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
+import Section from '~/components/base/Section.vue'
 
 useHead({
   title: '50 Jahre Tennis op de Hardt - Jubiläum 2026',
@@ -28,42 +29,43 @@ const timelineItems = [
     title: 'Tag der offenen Tür / Saisoneröffnung',
     description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt.',
     icon: 'i-heroicons-home-modern',
-    image: 'https://images.unsplash.com/photo-1554287898-906a6586d6ac?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1683691357603-7538f78a6c83'
   },
   {
     date: '27.06.2026',
     title: 'Jubiläumsfeier',
     description: 'Eine Jubiläums-Gala mit Musik, leckerem Essen und Highlights aus 50 Jahren.',
     icon: 'i-heroicons-cake',
-    image: 'https://images.unsplash.com/photo-1519671482749-b09be7956a6a?q=80&w=800'
+    // image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1740'
+    image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1740'
   },
   {
     date: '25.07.2026',
     title: 'Sangria Open',
     description: 'Sommer, Sonne, Sangria – unser Kultturnier für Jung und Alt.',
     icon: 'i-heroicons-sun',
-    image: 'https://images.unsplash.com/photo-1587049352851-d4895c09a37d?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=774'
   },
   {
     date: '29.08. – 13.09.2026',
     title: 'Kreis- & Stadtmeisterschaften',
     description: 'Wir sind Gastgeber der Stadtmeisterschaften! Spannende Matches garantiert.',
     icon: 'i-heroicons-trophy',
-    image: 'https://images.unsplash.com/photo-1612154363435-0873b885b734?q=80&w=800'
+    image: '/img/jubilee/tennis-plaetze-von-oben.jpg'
   },
   {
     date: '26./27.09.2026',
     title: 'Finaltag der Clubmeisterschaften',
     description: 'Wer wird Clubmeister 2026? Das große Finalwochenende.',
     icon: 'i-heroicons-star',
-    image: 'https://images.unsplash.com/photo-1594464296232-950337d24271?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1614713509225-720e74941913'
   },
   {
     date: '10.10.2026',
     title: 'Glühwein Open & Saisonabschluss',
     description: 'Ein gemütliches Herbstturnier mit Glühwein und anschließendem Saisonabschluss.',
     icon: 'i-heroicons-fire',
-    image: 'https://images.unsplash.com/photo-1605199124451-ebadace9db38?q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1669847171248-8f12c8160d57?q=80&w=774'
   }
 ]
 </script>
@@ -118,40 +120,52 @@ const timelineItems = [
       </div>
     </div>
 
-    <div id="events" class="py-16 sm:py-24 bg-gray-50 dark:bg-brand-dark-950">
-      <UContainer>
-        <div class="text-center">
+    <div id="events" class="scroll-mt-16">
+      <div
+        class="text-center relative"
+        :style="{ zIndex: timelineItems.length + 1 }"
+      >
+        <Section>
           <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
             Unsere Jubiläums-Highlights 2026
           </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-400">
+          <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Ein ganzes Jahr voller besonderer Events für unsere Mitglieder und Freunde.
           </p>
-        </div>
+        </Section>
+      </div>
 
-        <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            v-for="(item, index) in timelineItems"
-            :key="index"
-            class="relative rounded-2xl h-80 overflow-hidden group shadow-lg"
+      <template
+        v-for="(item, index) in timelineItems"
+        :key="index"
+      >
+        <div
+          class="relative"
+          :style="{ zIndex: timelineItems.length - index }"
+        >
+          <Section
+            :variant="index % 2 === 0 ? 'accent' : 'default'"
+            :background-image="index % 2 !== 0 ? item.image : undefined"
+            :parallax="index % 2 !== 0"
+            :rounded="index === 0 ? true : 'bottom'"
+            padding-top="xl"
+            padding-bottom="xl"
+            :overlap-top="index !== 0 ? true : false"
           >
-            <img :src="item.image" :alt="item.title" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-            <div class="relative h-full flex flex-col justify-end p-6 text-white">
-              <UIcon :name="item.icon" class="w-10 h-10 text-accent-400 mb-4" />
-              <p class="text-xl font-bold mb-1">
-                {{ item.title }}
-              </p>
-              <p class="text-md font-semibold text-gray-300 mb-2">
+            <div class="bg-white/80 dark:bg-gray-950/80 backdrop-blur-sm p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
+              <p class="text-lg font-bold text-accent-500 mb-2">
                 {{ item.date }}
               </p>
-              <p class="text-gray-200 text-sm">
+              <h3 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
+                {{ item.title }}
+              </h3>
+              <p class="text-lg text-gray-700 dark:text-gray-300">
                 {{ item.description }}
               </p>
             </div>
-          </div>
+          </Section>
         </div>
-      </UContainer>
+      </template>
     </div>
 
   </div>

@@ -36,6 +36,16 @@ interface Props {
    * Wickelt die GESAMTE Sektion in einen Container
    */
   outerContainer?: boolean
+
+  /**
+   * URL zu einem Hintergrundbild
+   */
+  backgroundImage?: string
+
+  /**
+   * Ob das Hintergrundbild einen Parallax-Effekt haben soll
+   */
+  parallax?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -48,7 +58,20 @@ const props = withDefaults(defineProps<Props>(), {
   overlapTop: false,
   overlapBottom: false,
   useContainer: true,
-  outerContainer: false
+  outerContainer: false,
+  backgroundImage: undefined,
+  parallax: false
+})
+
+const backgroundStyles = computed(() => {
+  if (!props.backgroundImage) { return {} }
+  return {
+    backgroundImage: `url(${props.backgroundImage})`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundAttachment: props.parallax ? 'fixed' : 'scroll'
+  }
 })
 
 // --- FARBEN ---
@@ -120,6 +143,7 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
         spacingClasses,
         layoutClasses
       ]"
+      :style="backgroundStyles"
     >
       <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
         <slot name="background" />
