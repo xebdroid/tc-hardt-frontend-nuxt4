@@ -115,6 +115,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Body auf Inter setzen (passiert meist automatisch durch --font-sans, aber sicher ist sicher) */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
 }

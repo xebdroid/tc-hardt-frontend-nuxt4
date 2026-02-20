@@ -16,8 +16,8 @@ useHead({
 const heroSlides: HeroSlide[] = [
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=2070&auto=format&fit=crop',
-    alt: 'Tennisplatz',
+    src: '/img/50_jahre_large.jpg',
+    alt: '50 Jahre TC Hardt Jubiläum',
     overlayPosition: 'center',
     slotName: 'jubilee-hero'
   }
@@ -76,13 +76,9 @@ const timelineItems = [
     <Hero :slides="heroSlides" height="large">
       <template #jubilee-hero>
         <div class="text-center max-w-4xl mx-auto">
-          <div class="mb-6 flex justify-center">
-            <span class="rounded-full bg-accent-500 text-brand-dark-950 px-4 py-1.5 text-sm font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(234,179,8,0.4)] backdrop-blur-sm">
-              Jubiläumsjahr 2026
-            </span>
-          </div>
-          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 font-euro-extended drop-shadow-2xl">
-            50 Jahre <span class="text-accent-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.5)]">Tennis op de Hardt</span>
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 font-euro-extended drop-shadow-lg pt-16">
+            <span class="block">50 Jahre Tennis</span>
+            <span class="block text-2xl sm:text-4xl lg:text-5xl tracking-wide">op de Hardt</span>
           </h1>
           <p class="text-lg sm:text-2xl text-gray-100 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
             Ein halbes Jahrhundert voller Sport, Gemeinschaft und unvergesslicher Momente.
@@ -93,13 +89,6 @@ const timelineItems = [
               label="Zu den Highlights"
               variant="primary"
               size="xl"
-            />
-            <AppButton
-              to="/contact"
-              label="Kontakt"
-              variant="outline"
-              size="xl"
-              class="!text-white !border-white hover:!bg-white/10 w-full sm:w-auto"
             />
           </div>
         </div>
