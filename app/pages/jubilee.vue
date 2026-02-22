@@ -16,9 +16,9 @@ useHead({
 const heroSlides: HeroSlide[] = [
   {
     type: 'image',
-    src: '/img/50_jahre_large.jpg',
+    src: '/img/jubilee/50-jahre-tc-hardt.jpg',
     alt: '50 Jahre TC Hardt Jubiläum',
-    overlayPosition: 'center',
+    overlayPosition: 'bottom-center',
     slotName: 'jubilee-hero'
   }
 ]
@@ -73,12 +73,11 @@ const timelineItems = [
 <template>
   <div class="bg-white dark:bg-gray-900 min-h-screen">
 
-    <Hero :slides="heroSlides" height="large">
+    <Hero :slides="heroSlides" height="full">
       <template #jubilee-hero>
         <div class="text-center max-w-4xl mx-auto">
           <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 font-euro-extended drop-shadow-lg pt-16">
-            <span class="block">50 Jahre Tennis</span>
-            <span class="block text-2xl sm:text-4xl lg:text-5xl tracking-wide">op de Hardt</span>
+            <span class="block text-2xl sm:text-4xl lg:text-5xl tracking-wide">Tennis op de Hardt</span>
           </h1>
           <p class="text-lg sm:text-2xl text-gray-100 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
             Ein halbes Jahrhundert voller Sport, Gemeinschaft und unvergesslicher Momente.
@@ -87,7 +86,7 @@ const timelineItems = [
             <AppButton
               to="#events"
               label="Zu den Highlights"
-              variant="primary"
+              variant="highlight"
               size="xl"
             />
           </div>

@@ -25,10 +25,10 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'image',
-    src: '/img/50_jahre_3.png',
+    src: '/img/jubilee/50-jahre-tc-hardt.jpg',
     title: 'Unsere Jubiläums-Highlights 2026',
-    overlayPosition: 'bottom-right',
-    ctaPrimary: { label: "Mehr erfahren", to: localePath('contact') }
+    overlayPosition: 'bottom-center',
+    ctaPrimary: { label: "Mehr erfahren", to: localePath('jubilee') }
   },
   {
     type: 'video',
