@@ -64,36 +64,15 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const backgroundStyles = computed(() => {
-  if (!props.backgroundImage || props.parallax) { return {} }
+  if (!props.backgroundImage) { return {} }
   return {
     backgroundImage: `url(${props.backgroundImage})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    backgroundAttachment: props.parallax ? 'fixed' : 'scroll'
   }
 })
-
-// --- PARALLAX (Fenster-Effekt) ---
-const sectionRef = ref<HTMLElement | null>(null)
-const parallaxImgRef = ref<HTMLImageElement | null>(null)
-
-function onScroll() {
-  if (!sectionRef.value || !parallaxImgRef.value) return
-  const top = sectionRef.value.getBoundingClientRect().top
-  parallaxImgRef.value.style.transform = `translateY(${-top}px)`
-}
-
-onMounted(() => {
-  if (props.parallax && props.backgroundImage) {
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-  }
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-})
-
 
 // --- FARBEN ---
 const variantClasses = computed(() => {
@@ -158,8 +137,7 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
 <template>
   <component :is="RootElement">
     <section
-      ref="sectionRef"
-      class="w-full transition-colors duration-300 relative overflow-hidden"
+      class="w-full transition-colors duration-300 relative"
       :class="[
         variantClasses,
         spacingClasses,
@@ -167,14 +145,6 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
       ]"
       :style="backgroundStyles"
     >
-      <img
-        v-if="parallax && backgroundImage"
-        ref="parallaxImgRef"
-        :src="backgroundImage"
-        alt=""
-        class="absolute inset-x-0 top-0 w-full h-screen object-cover pointer-events-none will-change-transform"
-      >
-
       <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
         <slot name="background" />
       </div>
