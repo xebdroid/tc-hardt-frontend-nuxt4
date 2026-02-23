@@ -73,29 +73,27 @@ const backgroundStyles = computed(() => {
   }
 })
 
-// --- PARALLAX (simple-parallax-js) ---
-const parallaxImageRef = ref<HTMLImageElement | null>(null)
-let parallaxInstance: { destroy: () => void } | null = null
+// --- PARALLAX (Fenster-Effekt) ---
+const sectionRef = ref<HTMLElement | null>(null)
+const parallaxImgRef = ref<HTMLImageElement | null>(null)
 
-onMounted(async () => {
-  if (props.parallax && props.backgroundImage && parallaxImageRef.value) {
-    const { default: SimpleParallax } = await import('simple-parallax-js/vanilla')
-    parallaxInstance = new SimpleParallax(parallaxImageRef.value, {
-      scale: 1.6,
-      orientation: 'up',
-      overflow: false,
-      delay: 0,
-      maxTransition: 50
-    })
+function onScroll() {
+  if (!sectionRef.value || !parallaxImgRef.value) return
+  const top = sectionRef.value.getBoundingClientRect().top
+  parallaxImgRef.value.style.transform = `translateY(${-top}px)`
+}
+
+onMounted(() => {
+  if (props.parallax && props.backgroundImage) {
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
   }
 })
 
 onBeforeUnmount(() => {
-  if (parallaxInstance) {
-    parallaxInstance.destroy()
-    parallaxInstance = null
-  }
+  window.removeEventListener('scroll', onScroll)
 })
+
 
 // --- FARBEN ---
 const variantClasses = computed(() => {
@@ -160,6 +158,7 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
 <template>
   <component :is="RootElement">
     <section
+      ref="sectionRef"
       class="w-full transition-colors duration-300 relative overflow-hidden"
       :class="[
         variantClasses,
@@ -168,17 +167,13 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
       ]"
       :style="backgroundStyles"
     >
-      <div
+      <img
         v-if="parallax && backgroundImage"
-        class="absolute inset-0 pointer-events-none"
+        ref="parallaxImgRef"
+        :src="backgroundImage"
+        alt=""
+        class="absolute inset-x-0 top-0 w-full h-screen object-cover pointer-events-none will-change-transform"
       >
-        <img
-          ref="parallaxImageRef"
-          :src="backgroundImage"
-          alt=""
-          class="w-full h-full object-cover"
-        >
-      </div>
 
       <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
         <slot name="background" />
