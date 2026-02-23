@@ -15,11 +15,10 @@ export const useConsentStore = defineStore('consent', () => {
     path: '/',
   })
 
-  // 2. Das Status-Cookie (Speichert OB schon gewählt wurde)
-  const hasDecided = useCookie<boolean>('cookie-decided', {
-    maxAge: 60 * 60 * 24 * 365,
-    sameSite: 'lax',
-    path: '/',
+  // 2. Status ob schon gewählt wurde (wird direkt aus document.cookie gelesen)
+  const hasDecided = computed(() => {
+    if (import.meta.server) return false
+    return document.cookie.split(';').some(c => c.trim().startsWith('cookie-decided=') && c.includes('true'))
   })
 
   // 3. Modal State (Initial immer zu, um SSR-Flackern zu vermeiden)
@@ -50,8 +49,12 @@ export const useConsentStore = defineStore('consent', () => {
 
   // Interne Funktion zum Schließen & Speichern des Status
   function _finalize() {
-    hasDecided.value = true
     isModalOpen.value = false
+
+    if (import.meta.client) {
+      const maxAge = 60 * 60 * 24 * 365
+      document.cookie = `cookie-decided=true; path=/; max-age=${maxAge}; samesite=lax`
+    }
   }
 
   return {

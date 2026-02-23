@@ -18,6 +18,10 @@ export default defineNuxtConfig({
     '@nuxt/image',
   ],
 
+  image: {
+    quality: 80,
+  },
+
   app: {
     head: {
       link: [

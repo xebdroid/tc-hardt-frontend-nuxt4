@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NuxtImg } from '#components'
+
 type SpacingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
 type RoundedSide = boolean | 'top' | 'bottom' | 'both'
 
@@ -65,13 +67,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const backgroundStyles = computed(() => {
   if (!props.backgroundImage) { return {} }
-  return {
-    backgroundImage: `url(${props.backgroundImage})`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundAttachment: props.parallax ? 'fixed' : 'scroll'
+  // Parallax: background-attachment: fixed als CSS-Hintergrund
+  if (props.parallax) {
+    return {
+      backgroundImage: `url(${props.backgroundImage})`,
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundAttachment: 'fixed'
+    }
   }
+  // Ohne Parallax: kein CSS-Hintergrund, wird per NuxtImg im Template gelöst
+  return {}
 })
 
 // --- FARBEN ---
@@ -145,6 +152,20 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
       ]"
       :style="backgroundStyles"
     >
+      <!-- Optimiertes Hintergrundbild (nicht-Parallax) -->
+      <div
+        v-if="backgroundImage && !parallax"
+        class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]"
+      >
+        <NuxtImg
+          :src="backgroundImage"
+          alt=""
+          class="w-full h-full object-cover"
+          sizes="sm:100vw md:100vw lg:1400px"
+          loading="lazy"
+        />
+      </div>
+
       <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
         <slot name="background" />
       </div>

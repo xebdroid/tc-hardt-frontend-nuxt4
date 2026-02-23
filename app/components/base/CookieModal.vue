@@ -14,13 +14,14 @@ const isLegalPage = computed(() => {
   return legalPages.some(path => route.path.includes(path))
 })
 
+// Hilfsfunktion: Prüft ob der Cookie 'cookie-decided' auf true steht
+function hasConsentCookie(): boolean {
+  return document.cookie.split(';').some(c => c.trim().startsWith('cookie-decided=') && c.includes('true'))
+}
+
 // Beim Start prüfen: Nur öffnen, wenn noch nicht entschieden UND keine Legal-Page
 onMounted(() => {
-  // Cookie direkt aus dem Browser lesen, um Hydration-Race-Conditions zu vermeiden
-  const decidedCookie = document.cookie.split('; ').find(c => c.startsWith('cookie-decided='))
-  const alreadyDecided = decidedCookie?.split('=')[1] === 'true'
-
-  if (!alreadyDecided && !isLegalPage.value) {
+  if (!hasConsentCookie() && !isLegalPage.value) {
     store.isModalOpen = true
   }
 })
@@ -29,13 +30,8 @@ onMounted(() => {
 watch(() => route.path, () => {
   if (isLegalPage.value) {
     store.isModalOpen = false
-  } else if (!store.hasDecided) {
-    // Zusätzlich den Browser-Cookie prüfen
-    const decidedCookie = document.cookie.split('; ').find(c => c.startsWith('cookie-decided='))
-    const alreadyDecided = decidedCookie?.split('=')[1] === 'true'
-    if (!alreadyDecided) {
-      store.isModalOpen = true
-    }
+  } else if (!hasConsentCookie()) {
+    store.isModalOpen = true
   }
 })
 
