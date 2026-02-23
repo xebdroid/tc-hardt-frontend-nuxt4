@@ -24,7 +24,7 @@ const pricing = [
     name: 'Freunde-Tafel',
     size: '33 x 15,5 cm',
     icon: 'i-heroicons-user-group',
-    description: 'Zeigen Sie Verbundenheit. Ihr Schild an prominenter Stelle direkt am Clubhaus-Eingang.'
+    description: 'Zeigen Sie Verbundenheit. Ihr Schild an erlesener Stelle direkt am Eingang des Vereinsgeländes.'
   },
   {
     name: 'Bandenwerbung',
@@ -86,7 +86,7 @@ const impressions = [
       <Headline
         title="Warum Partner werden?"
         tagline="Unsere Werte"
-        description="Der TC Hardt ist ein Treffpunkt für Klein bis Groß, um sportliche Gemeinschaft und Fairness zu erleben."
+        description="Der TC Hardt ist ein Treffpunkt von Klein bis Groß, um sportliche Gemeinschaft und Fairness zu erleben."
         alignment="center"
       />
 
@@ -98,7 +98,7 @@ const impressions = [
           <Headline
             tagline="Unsere Werte"
             title="Eine starke Gemeinschaft"
-            description="Als Partner des TC Hardt werden Sie Teil eines Vereins, der auf drei zentralen Werten aufgebaut ist."
+            description="Als Partner des TC Hardt werden Sie Teil eines Vereins, der auf drei zentrale Werte aufgebaut ist."
             alignment="none"
             class="text-left items-start"
             :margin-bottom="'none'"
@@ -139,7 +139,7 @@ const impressions = [
             </li>
             <li class="flex items-start gap-3">
               <UIcon name="i-heroicons-user-group" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
-              <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine engagierte Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
+              <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine vielseitige Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
             </li>
             <li class="flex items-start gap-3">
               <UIcon name="i-heroicons-sparkles" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
@@ -190,7 +190,7 @@ const impressions = [
 
     <Section variant="highlight-light" margin-bottom="lg">
       <FeatureSection
-        image-src="/img/facility/tc-hardt-anlage-01.jpg"
+        image-src="/img/facility/tc-hardt-facility-01.jpg"
         image-alt="TC Hardt Anlage"
         image-position="right"
       >
@@ -206,7 +206,7 @@ const impressions = [
           </li>
           <li class="flex items-start gap-3">
             <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
-            <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Grundschule und Tennisschule.</span>
+            <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Gemeinschaftsgrundschule Hardt, der Gesamtschule Hardt und unserer Tennisschule.</span>
           </li>
           <li class="flex items-start gap-3">
             <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
