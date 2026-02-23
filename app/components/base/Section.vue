@@ -64,13 +64,36 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const backgroundStyles = computed(() => {
-  if (!props.backgroundImage) { return {} }
+  if (!props.backgroundImage || props.parallax) { return {} }
   return {
     backgroundImage: `url(${props.backgroundImage})`,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundAttachment: props.parallax ? 'fixed' : 'scroll'
+    backgroundSize: 'cover'
+  }
+})
+
+// --- PARALLAX (simple-parallax-js) ---
+const parallaxImageRef = ref<HTMLImageElement | null>(null)
+let parallaxInstance: { destroy: () => void } | null = null
+
+onMounted(async () => {
+  if (props.parallax && props.backgroundImage && parallaxImageRef.value) {
+    const { default: SimpleParallax } = await import('simple-parallax-js/vanilla')
+    parallaxInstance = new SimpleParallax(parallaxImageRef.value, {
+      scale: 1.6,
+      orientation: 'up',
+      overflow: false,
+      delay: 0,
+      maxTransition: 50
+    })
+  }
+})
+
+onBeforeUnmount(() => {
+  if (parallaxInstance) {
+    parallaxInstance.destroy()
+    parallaxInstance = null
   }
 })
 
@@ -137,7 +160,7 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
 <template>
   <component :is="RootElement">
     <section
-      class="w-full transition-colors duration-300 relative"
+      class="w-full transition-colors duration-300 relative overflow-hidden"
       :class="[
         variantClasses,
         spacingClasses,
@@ -145,6 +168,18 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
       ]"
       :style="backgroundStyles"
     >
+      <div
+        v-if="parallax && backgroundImage"
+        class="absolute inset-0 pointer-events-none"
+      >
+        <img
+          ref="parallaxImageRef"
+          :src="backgroundImage"
+          alt=""
+          class="w-full h-full object-cover"
+        >
+      </div>
+
       <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
         <slot name="background" />
       </div>
