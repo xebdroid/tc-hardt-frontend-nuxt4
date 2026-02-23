@@ -71,6 +71,10 @@ export default defineNuxtConfig({
     ],
 
     pages: {
+      events: {
+        de: '/termine',
+        en: '/events'
+      },
       membership: {
         de: '/mitglied-werden',
         en: '/membership'

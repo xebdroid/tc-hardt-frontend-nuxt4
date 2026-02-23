@@ -3,6 +3,7 @@ import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import PricingCard from '~/components/base/PricingCard.vue'
+import Section from '~/components/base/Section.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
@@ -10,354 +11,318 @@ useHead({
   meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Tarife und Aufnahmeantrag.' }]
 })
 
-// BEST PRACTICE: Seite konfigurieren
 definePageMeta({
   hideFooterCta: true
 })
 
-// --- CONFIG ---
 const PDF_PATH = '/downloads/aufnahmeantrag-tc-hardt.pdf'
-
-// --- DATA ---
 const rawTariffs = db.tariffs
 
-// 1. HERO SLIDES
 const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
+    src: '/img/membership/leerer-tennisplatz-mit-schlaeger-ki.png',
     title: 'Dein Platz ist bei uns.',
     subtitle: 'Tennis, Gemeinschaft & Leidenschaft.',
     description: 'Egal ob Anfänger oder Profi – beim TC Hardt findest du ideale Bedingungen und ein lebendiges Vereinsleben.',
     overlayPosition: 'center',
-    ctaPrimary: { label: 'Tarife wählen', to: '#tarife' },
+    ctaPrimary: { label: 'Tarife ansehen', to: '#tarife' },
     ctaSecondary: { label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' }
   }
 ])
 
-// 2. BENEFITS
 const benefits = [
-  {
-    icon: 'i-heroicons-sparkles',
-    title: '6 Top-Plätze',
-    description: 'Hervorragend gepflegte Ascheplätze.',
-    iconColor: 'text-orange-500',
-    iconBg: 'bg-orange-50 dark:bg-orange-900/10'
-  },
-  {
-    icon: 'i-heroicons-user-group',
-    title: 'Tolle Community',
-    description: 'Vom Schleifchenturnier bis zum Sommerfest.',
-    iconColor: 'text-blue-500',
-    iconBg: 'bg-blue-50 dark:bg-blue-900/10'
-  },
-  {
-    icon: 'i-heroicons-academic-cap',
-    title: 'Training',
-    description: 'Tennisschule für Groß & Klein.',
-    iconColor: 'text-green-500',
-    iconBg: 'bg-green-50 dark:bg-green-900/10'
-  },
-  {
-    icon: 'i-heroicons-home-modern',
-    title: 'Gastronomie',
-    description: 'Sonnenterrasse & Clubhaus.',
-    iconColor: 'text-teal-500',
-    iconBg: 'bg-teal-50 dark:bg-teal-900/10'
-  },
+  { icon: 'i-heroicons-sparkles', title: '6 Top-Plätze', description: 'Hervorragend gepflegte Ascheplätze.' },
+  { icon: 'i-heroicons-user-group', title: 'Tolle Community', description: 'Vom Schleifchenturnier bis zum Sommerfest.' },
+  { icon: 'i-heroicons-academic-cap', title: 'Training für Alle', description: 'Gefördertes Training für Kinder & Jugendliche.' },
+  { icon: 'i-heroicons-home-modern', title: 'Moderne Anlage', description: 'Clubhaus mit Sonnenterrasse & Gastronomie.' }
 ]
 
-// --- HELPER ---
 const formatPrice = (price: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
 
 const scrollToDownload = () => {
-  const el = document.getElementById('anmeldung')
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  document.getElementById('anmeldung')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
-// --- TRANSFORMER ---
-const mapToPlan = (t: any) => {
-  const isTrial = t.id.startsWith('trial_')
-  const hasDiscount = ['adult', 'family', 'student', 'youth'].includes(t.id)
-
-  // Design Logic
-  const borderClass = isTrial
-    ? 'ring-2 ring-highlight-500 shadow-lg'
-    : 'border border-gray-200 dark:border-gray-800 hover:border-brand-dark-500 hover:shadow-lg'
-
-  // Badges
-  let badge = undefined
-  if (t.id === 'adult') badge = { label: 'Bestseller', variant: 'soft', color: 'primary' }
-  if (t.id === 'family') badge = { label: 'Top Deal', variant: 'subtle', color: 'primary' }
-  if (isTrial && t.price === 0) badge = { label: 'Kostenlos', variant: 'solid', color: 'primary' }
-
-  return {
-    title: t.label,
-    description: t.description,
-    price: formatPrice(t.price),
-    discount: hasDiscount ? formatPrice(t.price / 2) : undefined,
-    billingCycle: t.suffix,
-    features: t.features,
-    badge: badge,
-
-    class: `bg-white dark:bg-gray-900 rounded-2xl p-6 flex flex-col h-full relative transition-all duration-300 ${borderClass}`,
-
-    // Config für Button
-    button: {
-      label: 'Zum Antrag',
-      icon: 'i-heroicons-arrow-down-tray',
-      variant: 'primary',
-      block: true,
-      size: 'md',
-    }
+const getPlanBase = (override: Record<string, any> = {}) => {
+  const defaultButton = {
+    label: 'Zum Antrag',
+    icon: 'i-heroicons-arrow-down-tray',
+    variant: 'secondary', // Default to secondary
+    block: true,
+    size: 'lg',
   }
+
+  // Define a more prominent and consistent badge style
+  const badgeClass = 'text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full absolute top-0 -translate-y-1/2'
+
+  const basePlan = {
+    title: override.title || '',
+    description: override.description || '',
+    price: override.price || '',
+    billingCycle: override.billingCycle || '',
+    features: override.features || [],
+    class: 'bg-white dark:bg-brand-dark-950 border border-gray-200 dark:border-brand-dark-800 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-8 flex flex-col h-full relative',
+    button: { ...defaultButton, ...override.button },
+    badge: override.badge
+      ? {
+          ...override.badge,
+          class: `${badgeClass} ${override.badge.highlight ? 'bg-highlight-500 text-brand-dark-950' : 'bg-brand-dark-800 text-white'}`
+        }
+      : undefined
+  }
+
+  return { ...basePlan, ...override }
 }
 
-const trialPlans = computed(() => rawTariffs.filter(t => t.id.startsWith('trial_')).map(mapToPlan))
-const adultPlans = computed(() => rawTariffs.filter(t => ['adult', 'family', 'senior'].includes(t.id)).map(mapToPlan))
-const otherPlans = computed(() => rawTariffs.filter(t => ['student', 'youth', 'child', 'passive'].includes(t.id)).map(mapToPlan))
+// 1. Trial Plans
+const simplifiedTrialPlans = computed(() => {
+  const trialAdult = rawTariffs.find(t => t.id === 'trial_adult')!
+  const trialYoung = rawTariffs.find(t => t.id === 'trial_young')!
+  const trialChild = rawTariffs.find(t => t.id === 'trial_child')!
+  const trialMini = rawTariffs.find(t => t.id === 'trial_mini')!
 
-// --- ACCORDION CONFIG ---
-const accordionItems = [
-  {
-    label: '1. Schnupperangebot (Risikofrei testen)',
-    icon: 'i-heroicons-sparkles',
-    slot: 'trial',
-    value: 'trial',
-    content: 'Ideal für Einsteiger. Endet automatisch nach 3 Monaten.'
-  },
-  {
-    label: '2. Reguläre Mitgliedschaft',
-    icon: 'i-heroicons-users',
-    slot: 'regular',
-    value: 'regular',
-    content: 'Für aktive Spieler und Familien. Mit 50% Rabatt im ersten Jahr.'
-  },
-  {
-    label: '3. Weitere Optionen (Jugend & Passiv)',
-    icon: 'i-heroicons-academic-cap',
-    slot: 'others',
-    value: 'others',
-    content: 'Tarife für Studenten, Azubis, Kinder und passive Förderer.'
-  }
-]
+  return [
+    getPlanBase({
+      title: 'Erwachsene & Jugend',
+      description: 'Für alle ab 8 Jahren. Endet automatisch nach 3 Monaten.',
+      price: 'ab ' + formatPrice(trialYoung.price),
+      billingCycle: '/ 3 Monate',
+      priceBreakdown: [
+        { label: 'Erwachsene', price: formatPrice(trialAdult.price) },
+        { label: 'Jugend/Azubis (bis 27 J.)', price: formatPrice(trialYoung.price) },
+      ],
+      features: ['Volle Spielberechtigung', 'Keine Kündigung nötig', 'Perfekt zum Testen'],
+      badge: { label: 'Reinschnuppern' }
+    }),
+    getPlanBase({
+      title: 'Kinder & Minis',
+      description: 'Für die Jüngsten unter 8 Jahren. Endet automatisch.',
+      price: 'ab ' + formatPrice(trialMini.price),
+      billingCycle: '/ 3 Monate',
+      priceBreakdown: [
+        { label: 'Kinder (5-7 J.)', price: formatPrice(trialChild.price) },
+        { label: 'Minis (< 5 J.)', price: formatPrice(trialMini.price) },
+      ],
+      features: ['Spielerischer Einstieg', 'Soziale Kontakte', 'Gefördertes Training'],
+      badge: { label: 'Für die Kleinsten' },
+    })
+  ]
+})
+
+// 2. Regular Plans
+const simplifiedRegularPlans = computed(() => {
+  const adult = rawTariffs.find(t => t.id === 'adult')!
+  const family = rawTariffs.find(t => t.id === 'family')!
+  const senior = rawTariffs.find(t => t.id === 'senior')!
+  const student = rawTariffs.find(t => t.id === 'student')!
+  const youth = rawTariffs.find(t => t.id === 'youth')!
+  const child = rawTariffs.find(t => t.id === 'child')!
+  const passive = rawTariffs.find(t => t.id === 'passive')!
+
+  return [
+    getPlanBase({
+      title: 'Erwachsene',
+      description: 'Volle Mitgliedschaft für Einzelpersonen ab 18 Jahren.',
+      price: formatPrice(adult.price),
+      discount: `Nur ${formatPrice(adult.price / 2)} im 1. Jahr!`,
+      billingCycle: '/ Jahr',
+      features: ['Alle Vorteile des Clubs', 'Teilnahme an Events', 'Volle Spielberechtigung'],
+      badge: { label: 'Bestseller', highlight: true }
+    }),
+    getPlanBase({
+      title: 'Familie',
+      description: 'Für Eltern mit allen Kindern und Azubis bis 27 Jahre.',
+      price: formatPrice(family.price),
+      discount: `Nur ${formatPrice(family.price / 2)} im 1. Jahr!`,
+      billingCycle: '/ Jahr',
+      features: ['Gilt für beide Elternteile', 'Inklusive aller Kinder (<18)', 'Inklusive Azubis/Studenten (<27)'],
+      badge: { label: 'Top-Deal für Familien' }
+    }),
+    getPlanBase({
+      title: 'Jugend & Ausbildung',
+      description: 'Ermäßigte Tarife für alle in Ausbildung bis 27 Jahre.',
+      price: 'ab ' + formatPrice(child.price),
+      billingCycle: '/ Jahr',
+      priceBreakdown: [
+        { label: 'Studenten/Azubis (<27)', price: formatPrice(student.price) },
+        { label: 'Jugendliche (8-17)', price: formatPrice(youth.price) },
+        { label: 'Kinder (<8)', price: formatPrice(child.price) },
+      ],
+      features: ['50% Rabatt im 1. Jahr', 'Gefördertes Jugendtraining', 'Teilnahme an Jugend-Events'],
+    }),
+    getPlanBase({
+      title: 'Passiv / Förderer',
+      description: 'Unterstütze den Verein und bleibe Teil der Gemeinschaft.',
+      price: formatPrice(passive.price),
+      billingCycle: '/ Jahr',
+      features: ['Unterstützung des Vereinslebens', 'Einladung zu allen Events', 'Keine Spielberechtigung'],
+    })
+  ]
+})
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen font-sans bg-gray-50 dark:bg-gray-950 pb-24 sm:pb-0">
-
+  <div>
     <Hero
       :slides="heroSlides"
-      height="medium"
-      fallback-class="bg-brand-dark-900"
+      height="large"
     />
 
-    <div class="bg-white dark:bg-gray-900 py-16 border-b border-gray-100 dark:border-gray-800">
-      <UContainer>
-        <div class="text-center mb-12 max-w-3xl mx-auto">
-          <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-4">
-            Mehr als nur ein Tennisclub
-          </h2>
-          <p class="text-gray-600 dark:text-gray-300 text-lg">
-            Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander,
-            sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse.
-          </p>
-        </div>
+    <Section>
+      <div class="text-center mb-12 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-4">
+          Mehr als nur ein Tennisclub
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 text-lg">
+          Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander,
+          sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse.
+        </p>
+      </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <FeatureCard
-            v-for="(benefit, index) in benefits"
-            :key="index"
-            v-bind="benefit"
-          />
-        </div>
-      </UContainer>
-    </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <FeatureCard
+          v-for="(benefit, index) in benefits"
+          :key="index"
+          v-bind="benefit"
+        />
+      </div>
+    </Section>
 
-    <div id="tarife" class="py-20 scroll-mt-16 bg-gray-50 dark:bg-gray-950">
-      <UContainer class="max-w-4xl">
+    <Section
+      id="schnupperangebote"
+      variant="highlight-light"
+      outer-container
+      rounded
+      padding-top="sm"
+      padding-bottom="xl"
+      padding-left="sm"
+      padding-right="sm"
+    >
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
+          Schnupperangebote
+        </h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2 mx-auto">
+          Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 mx-auto">
+        <PricingCard
+          v-for="(plan, i) in simplifiedTrialPlans"
+          :key="i"
+          :plan="plan"
+          @button-click="scrollToDownload"
+        />
+      </div>
+    </Section>
 
-        <div class="text-center mb-10">
-          <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
-            Wähle deinen Tarif
-          </h2>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">
-            Klicke auf die Bereiche, um die Optionen zu sehen.
-          </p>
-        </div>
+    <Section
+      id="jahresmitgliedschaften"
+      variant="accent-light"
+      overlap-top
+      rounded
+      outer-container
+      padding-top="sm"
+      padding-bottom="sm"
+      margin-bottom="xl"
+      padding-left="sm"
+      padding-right="sm"
+    >
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
+          Jahresmitgliedschaften
+        </h2>
+        <p class="text-gray-500 dark:text-gray-400 mt-2 mx-auto">
+          Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-8 mx-auto">
+        <PricingCard
+          v-for="(plan, i) in simplifiedRegularPlans"
+          :key="i"
+          :plan="plan"
+          @button-click="scrollToDownload"
+        />
+      </div>
+    </Section>
 
-        <UAccordion
-          type="multiple"
-          :items="accordionItems"
-          :default-value="['trial']"
-          :ui="{
-            wrapper: 'space-y-4',
-            item: {
-              base: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden mb-4',
-              padding: 'p-0'
-            },
-            trigger: 'px-6 py-5 text-lg font-bold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors',
-            content: 'px-6 pb-8 pt-2 text-gray-500 dark:text-gray-400',
-            trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
-          }"
-        >
-
-          <template #trial>
-            <div class="mt-4">
-              <div class="mb-6 flex items-center gap-2 text-sm text-highlight-600 bg-highlight-50 dark:bg-highlight-900/10 p-3 rounded-lg border border-highlight-200">
-                <UIcon name="i-heroicons-information-circle" class="w-5 h-5 shrink-0" />
-                <span>Das Schnupperangebot endet automatisch nach 3 Monaten. Keine Kündigung nötig.</span>
-              </div>
-              <div class="grid md:grid-cols-2 gap-6">
-                <PricingCard
-                  v-for="(plan, i) in trialPlans"
-                  :key="i"
-                  :plan="plan"
-                  @button-click="scrollToDownload"
-                />
-              </div>
-            </div>
-          </template>
-
-          <template #regular>
-            <div class="mt-4">
-              <div class="mb-6 flex items-center gap-2 text-sm text-green-600 bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-200">
-                <UIcon name="i-heroicons-currency-euro" class="w-5 h-5 shrink-0" />
-                <span>50% Rabatt im ersten Jahr für alle aktiven Neumitglieder!</span>
-              </div>
-              <div class="grid md:grid-cols-2 gap-6">
-                <PricingCard
-                  v-for="(plan, i) in adultPlans"
-                  :key="i"
-                  :plan="plan"
-                  @button-click="scrollToDownload"
-                />
-              </div>
-            </div>
-          </template>
-
-          <template #others>
-            <div class="mt-4">
-              <p class="text-sm text-gray-500 mb-6">Tarife für Kinder, Jugendliche, Azubis und passive Förderer.</p>
-              <div class="grid md:grid-cols-2 gap-6">
-                <PricingCard
-                  v-for="(plan, i) in otherPlans"
-                  :key="i"
-                  :plan="plan"
-                  @button-click="scrollToDownload"
-                />
-              </div>
-            </div>
-          </template>
-
-        </UAccordion>
-
-      </UContainer>
-    </div>
-
-    <div id="anmeldung" class="w-full bg-brand-dark-900 dark:bg-gray-950 py-24 border-t border-brand-dark-800 scroll-mt-16 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"/>
-
-      <UContainer class="max-w-4xl relative z-10">
-
-        <div class="text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">
-            So wirst du Mitglied
-          </h2>
-          <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-            Dein Weg in den Club – einfach und unkompliziert.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8 relative mb-16">
-          <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-brand-dark-700 -z-10"/>
-
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
-              <UIcon name="i-heroicons-arrow-down-tray" class="w-8 h-8 text-highlight-400" />
-            </div>
-            <h3 class="text-lg font-bold text-white mb-2">1. Herunterladen</h3>
-            <p class="text-sm text-gray-400">Lade das PDF auf dein Gerät.</p>
+    <Section
+      id="anmeldung"
+      variant="secondary-light"
+      outer-container
+      rounded
+      padding-top="sm"
+      padding-bottom="sm"
+      margin-bottom="xl"
+      padding-left="sm"
+      padding-right="sm"
+    >
+      <div class="grid lg:grid-cols-2 gap-16 items-stretch">
+        <div class="relative">
+          <div class="mb-12">
+            <h2 class="text-3xl sm:text-4xl font-heading font-bold mb-4">
+              So wirst du Mitglied
+            </h2>
+            <p class="text-lg">
+              Dein Weg in den Club – einfach und unkompliziert in 3 Schritten.
+            </p>
           </div>
 
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
-              <UIcon name="i-heroicons-pencil-square" class="w-8 h-8 text-white" />
-            </div>
-            <h3 class="text-lg font-bold text-white mb-2">2. Ausfüllen</h3>
-            <p class="text-sm text-gray-400">Digital oder per Hand.</p>
-          </div>
-
-          <div class="flex flex-col items-center text-center group">
-            <div class="w-20 h-20 rounded-2xl bg-brand-dark-800 border border-brand-dark-600 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:border-highlight-500 transition-all z-10">
-              <UIcon name="i-heroicons-paper-airplane" class="w-8 h-8 text-green-400" />
-            </div>
-            <h3 class="text-lg font-bold text-white mb-2">3. Absenden</h3>
-            <p class="text-sm text-gray-400">E-Mail oder Post.</p>
-          </div>
+          <ol class="space-y-12">
+            <li class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+                1
+              </div>
+              <div class="ml-6">
+                <h3 class="text-lg font-bold mb-1">Herunterladen</h3>
+                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Lade den Aufnahmeantrag als PDF herunter.</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+                2
+              </div>
+              <div class="ml-6">
+                <h3 class="text-lg font-bold mb-1">Ausfüllen</h3>
+                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus.</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+                3
+              </div>
+              <div class="ml-6">
+                <h3 class="text-lg font-bold mb-1">Absenden</h3>
+                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Sende den Antrag per E-Mail an <a href="mailto:info@tc-hardt.de" class="font-bold hover:underline text-brand-dark-900 dark:text-white">info@tc-hardt.de</a> oder per Post.</p>
+              </div>
+            </li>
+          </ol>
         </div>
 
-        <div class="bg-white dark:bg-gray-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
-          <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-gray-100 dark:text-gray-800 rotate-12 pointer-events-none" />
+        <div class="bg-brand-dark-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl h-full flex flex-col justify-center">
+          <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
 
           <div class="relative z-10">
-            <h3 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-4">
-              Aufnahmeantrag TC Hardt
+            <h3 class="text-2xl font-bold text-white mb-4">
+              Aufnahmeantrag
             </h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto">
-              Hier findest du das offizielle Anmeldeformular inklusive der Datenschutzhinweise.
+            <p class="text-gray-300 mb-8 mx-auto">
+              Hier findest du das offizielle Formular inklusive der Datenschutzhinweise.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
-                :to="PDF_PATH"
-                target="_blank"
-                size="xl"
-                icon="i-heroicons-arrow-down-tray"
-                class="shadow-xl hover:shadow-2xl transition-all"
-                variant="primary"
-                label="Antrag herunterladen (PDF)"
-              />
-            </div>
-
-            <div class="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800 grid sm:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
-              <div class="flex items-center justify-center sm:justify-end gap-2">
-                <UIcon name="i-heroicons-envelope" class="w-5 h-5 text-brand-dark-500" />
-                <span>E-Mail: <a href="mailto:info@tc-hardt.de" class="text-brand-dark-600 dark:text-brand-dark-400 font-bold hover:underline">info@tc-hardt.de</a></span>
-              </div>
-              <div class="flex items-center justify-center sm:justify-start gap-2">
-                <UIcon name="i-heroicons-map-pin" class="w-5 h-5 text-brand-dark-500" />
-                <span>Post: <strong>Birkmannsweg 16</strong></span>
-              </div>
-            </div>
+            <Button
+              :to="PDF_PATH"
+              target="_blank"
+              size="xl"
+              icon="i-heroicons-arrow-down-tray"
+              class="shadow-xl hover:shadow-2xl transition-all"
+              variant="highlight"
+              label="Antrag herunterladen (PDF)"
+            />
           </div>
         </div>
-
-      </UContainer>
-    </div>
-
-    <div class="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-fade-in-up">
-      <Button
-        :to="PDF_PATH"
-        target="_blank"
-        block
-        size="xl"
-        variant="primary"
-        class="shadow-2xl border-2 border-white dark:border-gray-800"
-        icon="i-heroicons-arrow-down-tray"
-        label="Antrag jetzt laden"
-      />
-    </div>
-
+      </div>
+    </Section>
   </div>
 </template>
-
-<style scoped>
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out 1s backwards;
-}
-</style>
