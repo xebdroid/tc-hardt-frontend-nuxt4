@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-
 type SpacingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
 type RoundedSide = boolean | 'top' | 'bottom' | 'both'
 
@@ -65,69 +63,14 @@ const props = withDefaults(defineProps<Props>(), {
   parallax: false
 })
 
-const sectionEl = ref<HTMLElement | null>(null)
-const bgPosY = ref(50) // Initial position in percent
-
 const backgroundStyles = computed(() => {
   if (!props.backgroundImage) { return {} }
-
-  const styles: Record<string, any> = {
+  return {
     backgroundImage: `url(${props.backgroundImage})`,
+    backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
-  }
-
-  if (props.parallax) {
-    styles.backgroundAttachment = 'scroll' // Use scroll, not fixed
-    styles.backgroundPosition = `center ${bgPosY.value}%`
-  } else {
-    styles.backgroundAttachment = 'scroll'
-    styles.backgroundPosition = 'center center'
-  }
-
-  return styles
-})
-
-// --- JS-based Parallax ---
-let frameId: number | null = null
-
-const updateParallax = () => {
-  if (!sectionEl.value) {
-    frameId = null
-    return
-  }
-
-  const rect = sectionEl.value.getBoundingClientRect()
-  const viewportCenter = window.innerHeight / 2
-  const sectionCenter = rect.top + rect.height / 2
-  const diff = sectionCenter - viewportCenter
-  const parallaxFactor = 0.1
-  const position = 50 + (diff * parallaxFactor)
-
-  bgPosY.value = Math.max(0, Math.min(100, position))
-  frameId = null
-}
-
-const handleScroll = () => {
-  if (frameId === null) {
-    frameId = requestAnimationFrame(updateParallax)
-  }
-}
-
-onMounted(() => {
-  if (props.parallax && typeof window !== 'undefined') {
-    // Set initial position
-    updateParallax()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-  }
-})
-
-onUnmounted(() => {
-  if (props.parallax && typeof window !== 'undefined') {
-    window.removeEventListener('scroll', handleScroll)
-    if (frameId) {
-      cancelAnimationFrame(frameId)
-    }
+    backgroundSize: 'cover',
+    backgroundAttachment: props.parallax ? 'fixed' : 'scroll'
   }
 })
 
@@ -194,7 +137,6 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
 <template>
   <component :is="RootElement">
     <section
-      ref="sectionEl"
       class="w-full transition-colors duration-300 relative"
       :class="[
         variantClasses,
