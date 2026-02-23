@@ -196,6 +196,8 @@ const simplifiedRegularPlans = computed(() => {
       rounded
       padding-top="sm"
       padding-bottom="xl"
+      padding-left="sm"
+      padding-right="sm"
     >
       <div class="text-center mb-12">
         <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
@@ -223,7 +225,9 @@ const simplifiedRegularPlans = computed(() => {
       outer-container
       padding-top="sm"
       padding-bottom="sm"
-      margin-bottom="xl"
+      margin-bottom="sm"
+      padding-left="sm"
+      padding-right="sm"
     >
       <div class="text-center mb-12">
         <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
@@ -251,6 +255,8 @@ const simplifiedRegularPlans = computed(() => {
       padding-top="sm"
       padding-bottom="sm"
       margin-bottom="xl"
+      padding-left="sm"
+      padding-right="sm"
     >
       <div class="grid lg:grid-cols-2 gap-16 items-stretch">
         <div class="relative">

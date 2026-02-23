@@ -105,10 +105,12 @@ const variantClasses = computed(() => {
 // --- PADDING ---
 const ptMap: Record<SpacingSize, string> = { none: 'pt-0', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32' }
 const pbMap: Record<SpacingSize, string> = { none: 'pb-0', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32' }
-const plMap: Record<SpacingSize, string> = { none: 'pl-0', sm: 'pl-12', md: 'pl-16', lg: 'pl-24', xl: 'pl-32' }
-const prMap: Record<SpacingSize, string> = { none: 'pr-0', sm: 'pr-12', md: 'pr-16', lg: 'pr-24', xl: 'pr-32' }
 const mtMap: Record<SpacingSize, string> = { none: 'mt-0', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32' }
 const mbMap: Record<SpacingSize, string> = { none: 'mb-0', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32' }
+
+// Horizontal padding is only applied on large screens to avoid cramping mobile layouts
+const plMap: Record<SpacingSize, string> = { none: 'lg:pl-0', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32' }
+const prMap: Record<SpacingSize, string> = { none: 'lg:pr-0', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32' }
 
 const spacingClasses = computed(() => {
   const classes = [ptMap[props.paddingTop], pbMap[props.paddingBottom]]
