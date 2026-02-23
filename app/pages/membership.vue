@@ -2,6 +2,7 @@
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
+import PricingCard from '~/components/base/PricingCard.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
@@ -21,7 +22,7 @@ const PDF_PATH = '/downloads/aufnahmeantrag-tc-hardt.pdf'
 const rawTariffs = db.tariffs
 
 // 1. HERO SLIDES
-const heroSlides = computed<HeroSlide[]>(() => [
+const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
@@ -208,41 +209,12 @@ const accordionItems = [
                 <span>Das Schnupperangebot endet automatisch nach 3 Monaten. Keine Kündigung nötig.</span>
               </div>
               <div class="grid md:grid-cols-2 gap-6">
-                <div
+                <PricingCard
                   v-for="(plan, i) in trialPlans"
                   :key="i"
-                  :class="plan.class"
-                >
-                  <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                    <UBadge
-                      v-if="plan.badge"
-                      :color="plan.badge.color"
-                      :variant="plan.badge.variant"
-                      size="xs"
-                    >{{ plan.badge.label }}</UBadge>
-                  </div>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
-
-                  <ul class="space-y-2 mb-8 flex-1">
-                    <li
-                      v-for="feature in plan.features"
-                      :key="feature"
-                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
-                    >
-                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
-                      <span>{{ feature }}</span>
-                    </li>
-                  </ul>
-
-                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
-                    <div class="flex items-baseline gap-1 mb-4">
-                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
-                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
-                    </div>
-                    <Button v-bind="plan.button" @click="scrollToDownload" />
-                  </div>
-                </div>
+                  :plan="plan"
+                  @button-click="scrollToDownload"
+                />
               </div>
             </div>
           </template>
@@ -254,42 +226,12 @@ const accordionItems = [
                 <span>50% Rabatt im ersten Jahr für alle aktiven Neumitglieder!</span>
               </div>
               <div class="grid md:grid-cols-2 gap-6">
-                <div
+                <PricingCard
                   v-for="(plan, i) in adultPlans"
                   :key="i"
-                  :class="plan.class"
-                >
-                  <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                    <UBadge
-                      v-if="plan.badge"
-                      :color="plan.badge.color"
-                      :variant="plan.badge.variant"
-                      size="xs"
-                    >{{ plan.badge.label }}</UBadge>
-                  </div>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
-
-                  <ul class="space-y-2 mb-8 flex-1">
-                    <li
-                      v-for="feature in plan.features"
-                      :key="feature"
-                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
-                    >
-                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
-                      <span>{{ feature }}</span>
-                    </li>
-                  </ul>
-
-                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
-                    <div class="flex items-baseline gap-1 mb-4">
-                      <div v-if="plan.discount" class="text-sm text-gray-400 line-through mr-2">{{ plan.price }}</div>
-                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discount || plan.price }}</span>
-                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
-                    </div>
-                    <Button v-bind="plan.button" @click="scrollToDownload" />
-                  </div>
-                </div>
+                  :plan="plan"
+                  @button-click="scrollToDownload"
+                />
               </div>
             </div>
           </template>
@@ -298,41 +240,12 @@ const accordionItems = [
             <div class="mt-4">
               <p class="text-sm text-gray-500 mb-6">Tarife für Kinder, Jugendliche, Azubis und passive Förderer.</p>
               <div class="grid md:grid-cols-2 gap-6">
-                <div
+                <PricingCard
                   v-for="(plan, i) in otherPlans"
                   :key="i"
-                  :class="plan.class"
-                >
-                  <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ plan.title }}</h4>
-                    <UBadge
-                      v-if="plan.badge"
-                      :color="plan.badge.color"
-                      :variant="plan.badge.variant"
-                      size="xs"
-                    >{{ plan.badge.label }}</UBadge>
-                  </div>
-                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 min-h-[40px]">{{ plan.description }}</p>
-
-                  <ul class="space-y-2 mb-8 flex-1">
-                    <li
-                      v-for="feature in plan.features"
-                      :key="feature"
-                      class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300"
-                    >
-                      <UIcon name="i-heroicons-check" class="w-5 h-5 text-green-500 shrink-0" />
-                      <span>{{ feature }}</span>
-                    </li>
-                  </ul>
-
-                  <div class="pt-6 border-t border-gray-100 dark:border-gray-800 mt-auto">
-                    <div class="flex items-baseline gap-1 mb-4">
-                      <span class="text-2xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
-                      <span class="text-xs text-gray-500">{{ plan.billingCycle }}</span>
-                    </div>
-                    <Button v-bind="plan.button" @click="scrollToDownload" />
-                  </div>
-                </div>
+                  :plan="plan"
+                  @button-click="scrollToDownload"
+                />
               </div>
             </div>
           </template>

@@ -9,6 +9,15 @@ const props = defineProps({
 })
 
 const parsedDate = computed(() => {
+  if (!props.dateString) {
+    return {
+      type: 'single',
+      day: '00',
+      month: '???',
+      year: '0000'
+    }
+  }
+
   const months = ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
 
   if (props.dateString.includes('–')) {
@@ -74,7 +83,7 @@ const parsedDate = computed(() => {
     </template>
     <template v-else-if="parsedDate.type === 'range'">
       <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center gap-x-3">
+        <div class="flex items-baseline justify-center gap-x-3">
           <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedDate.startDay }}. {{ parsedDate.startMonth }}</span>
           <span class="text-2xl font-light text-gray-400">→</span>
           <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedDate.endDay }}. {{ parsedDate.endMonth }}</span>
