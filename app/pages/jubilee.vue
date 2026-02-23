@@ -28,42 +28,42 @@ const timelineItems = [
   {
     date: '19.04.2026',
     title: 'Tag der offenen Tür / Saisoneröffnung',
-    description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt.',
+    description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt. Alle Tennisinteressierten sind herzlich eingeladen, den TC Hardt kennenzulernen, den Schläger selbst in die Hand zu nehmen und gemeinsam mit unseren Mitgliedern und dem Verein in die neue Saison zu starten.',
     icon: 'i-heroicons-home-modern',
     image: 'https://images.unsplash.com/photo-1683691357603-7538f78a6c83'
   },
   {
     date: '27.06.2026',
     title: 'Jubiläumsfeier',
-    description: 'Eine Jubiläums-Gala mit Musik, leckerem Essen und Highlights aus 50 Jahren.',
+    description: 'Das Highlight unseres Festjahres für unsere Mitglieder! Freut euch auf eine Jubiläums-Gala mit Musik, leckerem Essen, Getränken und einigen weiteren Highlights. Ein Abend, an dem Sport, Geselligkeit und Erinnerungen an 50 Jahre TC Hardt im Mittelpunkt stehen.',
     icon: 'i-heroicons-cake',
     image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1740'
   },
   {
     date: '25.07.2026',
     title: 'Sangria Open',
-    description: 'Sommer, Sonne, Sangria – unser Kultturnier für Jung und Alt.',
+    description: 'Sommer, Sonne, Sangria – unser Kultturnier verbindet lockeren Tennisspaß mit geselligem Beisammensein. Ein Event für Jung und Alt, für Vereinsmitglieder und Freunde, für Anfänger und Profis, das längst zum festen Bestandteil des Clublebens gehört.',
     icon: 'i-heroicons-sun',
     image: 'https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=774'
   },
   {
     date: '29.08. – 13.09.2026',
     title: 'Kreis- & Stadtmeisterschaften',
-    description: 'Wir sind Gastgeber der Stadtmeisterschaften! Spannende Matches garantiert.',
+    description: 'Wir freuen uns, Gastgeber der Kreis- und Stadtmeisterschaften 2026 zu sein! Spannende Matches, hochklassiges Tennis und eine tolle Atmosphäre sind garantiert – kommt vorbei und feuert die Spielerinnen und Spieler an. Wir freuen uns auf viele Zuschauer aus dem gesamten Stadtgebiet!',
     icon: 'i-heroicons-trophy',
     image: '/img/jubilee/tennis-plaetze-von-oben.jpg'
   },
   {
     date: '26.09. – 27.09.2026',
     title: 'Finaltag der Clubmeisterschaften',
-    description: 'Wer wird Clubmeister 2026? Das große Finalwochenende.',
+    description: 'Wer wird Clubmeister 2026? Beim großen Finalwochenende unserer Clubmeisterschaften entscheidet sich, wer die Titel mit nach Hause nimmt. Ein sportlicher Vereins-Höhepunkt zum Ende der Sommersaison.',
     icon: 'i-heroicons-star',
     image: 'https://images.unsplash.com/photo-1614713509225-720e74941913'
   },
   {
     date: '10.10.2026',
     title: 'Glühwein Open & Saisonabschluss',
-    description: 'Ein gemütliches Herbstturnier mit Glühwein und anschließendem Saisonabschluss.',
+    description: 'Zum Ausklang unseres Jubiläumsjahres laden wir traditionellerweise gemeinsam mit unserer Tennisschule Rot-Weiss zu den Glühwein Open ein. Freut euch auf ein gemütliches Herbstturnier mit Glühwein und geselligem Beisammensein. Der Tag mündet in einem gemeinsamen Saisonabschluss in unserem Clubhaus mit leckerem Essen und guter Musik. Der perfekte Abschluss für ein Jahr voller unvergesslicher Momente.',
     icon: 'i-heroicons-fire',
     image: 'https://images.unsplash.com/photo-1669847171248-8f12c8160d57?q=80&w=774'
   }
@@ -102,10 +102,10 @@ const timelineItems = [
         <Section>
           <div class="max-w-4xl mx-auto px-6 lg:px-8">
             <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
-              Ein Jahr voller Highlights
+              Unsere Jubiläums-Highlights 2026
             </h2>
             <p class="text-lg leading-8 text-gray-600 dark:text-gray-400">
-              Das Jahr 2026 steht ganz im Zeichen unseres 50-jährigen Bestehens. Wir haben ein abwechslungsreiches Programm für euch zusammengestellt – von sportlichen Wettkämpfen bis hin zu geselligen Feiern. Seid dabei und feiert mit uns!
+              Das Jahr 2026 steht ganz im Zeichen unseres 50-jährigen Bestehens. Dieses besondere Jubiläum wollen wir gemeinsam mit euch feiern – Mitgliedern, Sponsoren, Freunden, Tennisfans und allen, die Lust auf ein tolles Festjahr haben.
             </p>
           </div>
         </Section>

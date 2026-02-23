@@ -11,14 +11,12 @@ export const useConsentStore = defineStore('consent', () => {
   const cookie = useCookie<ConsentState>('cookie-consent', {
     default: () => ({ necessary: true, maps: false }),
     maxAge: 60 * 60 * 24 * 365, // 1 Jahr
-    watch: true,
     sameSite: 'lax',
     path: '/',
   })
 
   // 2. Das Status-Cookie (Speichert OB schon gewählt wurde)
   const hasDecided = useCookie<boolean>('cookie-decided', {
-    default: () => false,
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax',
     path: '/',
