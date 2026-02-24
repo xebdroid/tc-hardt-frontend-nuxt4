@@ -4,6 +4,7 @@ import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import PricingCard from '~/components/base/PricingCard.vue'
 import Section from '~/components/base/Section.vue'
+import Headline from '~/components/base/Headline.vue'
 import db from '~/assets/data/db.json'
 
 useHead({
@@ -158,15 +159,11 @@ const simplifiedRegularPlans = computed(() => {
     />
 
     <Section>
-      <div class="text-center mb-12 max-w-3xl mx-auto">
-        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-4">
-          Mehr als nur ein Tennisclub
-        </h2>
-        <p class="text-gray-600 dark:text-gray-300 text-lg">
-          Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander,
-          sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse.
-        </p>
-      </div>
+      <Headline
+        alignment="center"
+        title="Mehr als nur ein Tennisclub"
+        description="Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander, sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse."
+      />
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <FeatureCard
@@ -187,15 +184,12 @@ const simplifiedRegularPlans = computed(() => {
       padding-left="sm"
       padding-right="sm"
     >
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
-          Schnupperangebote
-        </h2>
-        <p class="text-gray-500 dark:text-gray-400 mt-2 mx-auto">
-          Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist.
-        </p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8 mx-auto">
+      <Headline
+        alignment="center"
+        title="Schnupperangebote"
+        description="Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist."
+      />
+      <div class="grid lg:grid-cols-2 gap-8 mx-auto">
         <PricingCard
           v-for="(plan, i) in simplifiedTrialPlans"
           :key="i"
@@ -217,14 +211,11 @@ const simplifiedRegularPlans = computed(() => {
       padding-left="sm"
       padding-right="sm"
     >
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white">
-          Jahresmitgliedschaften
-        </h2>
-        <p class="text-gray-500 dark:text-gray-400 mt-2 mx-auto">
-          Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt.
-        </p>
-      </div>
+      <Headline
+        alignment="center"
+        title="Jahresmitgliedschaften"
+        description="Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt."
+      />
       <div class="grid sm:grid-cols-2 gap-8 mx-auto">
         <PricingCard
           v-for="(plan, i) in simplifiedRegularPlans"
@@ -247,12 +238,12 @@ const simplifiedRegularPlans = computed(() => {
       padding-right="sm"
     >
       <div class="mb-12 text-center md:text-left">
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold mb-4">
-          So wirst du Mitglied
-        </h2>
-        <p class="text-lg">
-          Dein Weg in den Club – einfach und unkompliziert in 3 Schritten.
-        </p>
+        <Headline
+          title="So wirst du Mitglied"
+          description="Dein Weg in den Club – einfach und unkompliziert in 3 Schritten."
+          :alignment="'left'"
+          :margin-bottom="'none'"
+        />
       </div>
       <div class="grid md:grid-cols-2 gap-16 items-stretch">
         <ol class="space-y-12">
@@ -289,12 +280,13 @@ const simplifiedRegularPlans = computed(() => {
           <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
 
           <div class="relative z-10">
-            <h3 class="text-2xl md:text-4xl font-bold text-white mb-4">
-              Aufnahmeantrag
-            </h3>
-            <p class="text-gray-300 mb-8 mx-auto">
-              Hier findest du das offizielle Formular inklusive der Datenschutzhinweise.
-            </p>
+            <Headline
+              title="Aufnahmeantrag"
+              description="Hier findest du das offizielle Formular inklusive der Datenschutzhinweise."
+              :alignment="'center'"
+              :mode="'light'"
+              :size="'h3'"
+            />
 
             <Button
               :to="PDF_PATH"
