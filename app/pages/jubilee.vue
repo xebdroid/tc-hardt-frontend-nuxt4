@@ -25,7 +25,7 @@ const heroSlides: HeroSlide[] = [
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate text-4xl',
     description: 'Leidenschaft, Gemeinschaft und Tennis',
     descriptionClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate text-4xl',
-    contentPosition: 'center',
+    contentPosition: 'bottom-center',
     overlayClass: 'bg-brand-dark-900/70',
     ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
   }
