@@ -22,10 +22,13 @@ export interface HeroSlide {
   contentImage?: string
   contentImageClass?: string
   title?: string
+  titleClass?: string
   subtitle?: string
+  subtitleClass?: string
   description?: string
-  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant }
-  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant }
+  descriptionClass?: string
+  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
+  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
   contentPosition?:
     'top-left' | 'top-center' | 'top-right' |
     'center-left' | 'center' | 'center-right' |
@@ -207,7 +210,7 @@ const onSlideChange = (swiper: any) => {
             <h2
               v-if="slide.title"
               class="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 font-heading drop-shadow-lg"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white']"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white', slide.titleClass]"
             >
               {{ slide.title }}
             </h2>
@@ -215,7 +218,7 @@ const onSlideChange = (swiper: any) => {
             <p
               v-if="slide.subtitle"
               class="text-xl sm:text-2xl font-bold mb-4 max-w-2xl drop-shadow-md"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200']"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200', slide.subtitleClass]"
             >
               {{ slide.subtitle }}
             </p>
@@ -223,7 +226,7 @@ const onSlideChange = (swiper: any) => {
             <p
               v-if="slide.description"
               class="text-base sm:text-lg mb-8 max-w-2xl leading-relaxed drop-shadow-md"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300']"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300', slide.descriptionClass]"
             >
               {{ slide.description }}
             </p>
@@ -244,6 +247,7 @@ const onSlideChange = (swiper: any) => {
                 size="xl"
                 :variant="slide.ctaPrimary.variant || 'primary'"
                 cta
+                :class="slide.ctaPrimary.class"
               />
               <BaseButton
                 v-if="slide.ctaSecondary"
@@ -253,6 +257,7 @@ const onSlideChange = (swiper: any) => {
                 :variant="slide.ctaSecondary.variant || 'ghost'"
                 cta
                 class="backdrop-blur-sm"
+                :class="slide.ctaSecondary.class"
               />
             </div>
           </slot>
