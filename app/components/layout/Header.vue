@@ -55,7 +55,7 @@ onUnmounted(() => {
 
         <div class="w-full flex items-start justify-between shrink-0 relative py-2 lg:py-3">
 
-          <div class="hidden lg:flex flex-1 items-center self-center min-w-0 pr-20">
+          <div class="hidden lg:flex flex-1 items-center self-center min-w-0 lg:pr-20">
             <UNavigationMenu
               :items="headerMenu"
               orientation="horizontal"
@@ -85,7 +85,7 @@ onUnmounted(() => {
 
           <HeaderLogo class="shrink-0 mx-auto" @click="closeMenu" />
 
-          <div class="flex-1 flex items-center justify-end gap-3 pl-20 self-center">
+          <div class="flex-1 flex items-center justify-end gap-3 lg:pl-20 self-center">
 
             <div class="hidden lg:flex items-center gap-1 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
               <template v-for="(social, index) in socialLinks" :key="index">

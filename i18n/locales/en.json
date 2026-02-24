@@ -146,5 +146,8 @@
     "subtitle": "We look forward to your message!",
     "address": "Birkmannsweg 16, 41169 Mönchengladbach, Germany",
     "form_title": "Contact Form"
+  },
+  "pricing": {
+    "afterwards": "afterwards"
   }
 }

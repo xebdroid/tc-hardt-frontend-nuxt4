@@ -186,5 +186,8 @@
     "subtitle": "Wir freuen uns auf deine Nachricht!",
     "address": "Birkmannsweg 16, 41169 Mönchengladbach",
     "form_title": "Kontaktformular"
+  },
+  "pricing": {
+    "afterwards": "danach"
   }
 }

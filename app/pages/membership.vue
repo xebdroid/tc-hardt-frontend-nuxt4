@@ -53,23 +53,14 @@ const getPlanBase = (override: Record<string, any> = {}) => {
     size: 'lg',
   }
 
-  // Define a more prominent and consistent badge style
-  const badgeClass = 'text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full absolute top-0 -translate-y-1/2'
-
   const basePlan = {
     title: override.title || '',
     description: override.description || '',
     price: override.price || '',
     billingCycle: override.billingCycle || '',
     features: override.features || [],
-    class: 'bg-white dark:bg-brand-dark-950 border border-gray-200 dark:border-brand-dark-800 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl p-8 flex flex-col h-full relative',
+    class: 'bg-white dark:bg-brand-dark-950 border border-gray-200 dark:border-brand-dark-800 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl flex flex-col h-full relative',
     button: { ...defaultButton, ...override.button },
-    badge: override.badge
-      ? {
-          ...override.badge,
-          class: `${badgeClass} ${override.badge.highlight ? 'bg-highlight-500 text-brand-dark-950' : 'bg-brand-dark-800 text-white'}`
-        }
-      : undefined
   }
 
   return { ...basePlan, ...override }
@@ -93,7 +84,6 @@ const simplifiedTrialPlans = computed(() => {
         { label: 'Jugend/Azubis (bis 27 J.)', price: formatPrice(trialYoung.price) },
       ],
       features: ['Volle Spielberechtigung', 'Keine Kündigung nötig', 'Perfekt zum Testen'],
-      badge: { label: 'Reinschnuppern' }
     }),
     getPlanBase({
       title: 'Kinder & Minis',
@@ -105,7 +95,6 @@ const simplifiedTrialPlans = computed(() => {
         { label: 'Minis (< 5 J.)', price: formatPrice(trialMini.price) },
       ],
       features: ['Spielerischer Einstieg', 'Soziale Kontakte', 'Gefördertes Training'],
-      badge: { label: 'Für die Kleinsten' },
     })
   ]
 })
@@ -114,7 +103,6 @@ const simplifiedTrialPlans = computed(() => {
 const simplifiedRegularPlans = computed(() => {
   const adult = rawTariffs.find(t => t.id === 'adult')!
   const family = rawTariffs.find(t => t.id === 'family')!
-  const senior = rawTariffs.find(t => t.id === 'senior')!
   const student = rawTariffs.find(t => t.id === 'student')!
   const youth = rawTariffs.find(t => t.id === 'youth')!
   const child = rawTariffs.find(t => t.id === 'child')!
@@ -125,19 +113,19 @@ const simplifiedRegularPlans = computed(() => {
       title: 'Erwachsene',
       description: 'Volle Mitgliedschaft für Einzelpersonen ab 18 Jahren.',
       price: formatPrice(adult.price),
-      discount: `Nur ${formatPrice(adult.price / 2)} im 1. Jahr!`,
+      discountedPrice: formatPrice(adult.price / 2),
+      discountText: 'Nur im 1. Jahr',
       billingCycle: '/ Jahr',
       features: ['Alle Vorteile des Clubs', 'Teilnahme an Events', 'Volle Spielberechtigung'],
-      badge: { label: 'Bestseller', highlight: true }
     }),
     getPlanBase({
       title: 'Familie',
       description: 'Für Eltern mit allen Kindern und Azubis bis 27 Jahre.',
       price: formatPrice(family.price),
-      discount: `Nur ${formatPrice(family.price / 2)} im 1. Jahr!`,
+      discountedPrice: formatPrice(family.price / 2),
+      discountText: 'Nur im 1. Jahr',
       billingCycle: '/ Jahr',
       features: ['Gilt für beide Elternteile', 'Inklusive aller Kinder (<18)', 'Inklusive Azubis/Studenten (<27)'],
-      badge: { label: 'Top-Deal für Familien' }
     }),
     getPlanBase({
       title: 'Jugend & Ausbildung',
@@ -180,7 +168,7 @@ const simplifiedRegularPlans = computed(() => {
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <FeatureCard
           v-for="(benefit, index) in benefits"
           :key="index"
@@ -258,53 +246,50 @@ const simplifiedRegularPlans = computed(() => {
       padding-left="sm"
       padding-right="sm"
     >
-      <div class="grid lg:grid-cols-2 gap-16 items-stretch">
-        <div class="relative">
-          <div class="mb-12">
-            <h2 class="text-3xl sm:text-4xl font-heading font-bold mb-4">
-              So wirst du Mitglied
-            </h2>
-            <p class="text-lg">
-              Dein Weg in den Club – einfach und unkompliziert in 3 Schritten.
-            </p>
-          </div>
-
-          <ol class="space-y-12">
-            <li class="flex items-start">
-              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-                1
-              </div>
-              <div class="ml-6">
-                <h3 class="text-lg font-bold mb-1">Herunterladen</h3>
-                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Lade den Aufnahmeantrag als PDF herunter.</p>
-              </div>
-            </li>
-            <li class="flex items-start">
-              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-                2
-              </div>
-              <div class="ml-6">
-                <h3 class="text-lg font-bold mb-1">Ausfüllen</h3>
-                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus.</p>
-              </div>
-            </li>
-            <li class="flex items-start">
-              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-                3
-              </div>
-              <div class="ml-6">
-                <h3 class="text-lg font-bold mb-1">Absenden</h3>
-                <p class="text-sm text-brand-dark-700 dark:text-gray-400">Sende den Antrag per E-Mail an <a href="mailto:info@tc-hardt.de" class="font-bold hover:underline text-brand-dark-900 dark:text-white">info@tc-hardt.de</a> oder per Post.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
+      <div class="mb-12 text-center md:text-left">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold mb-4">
+          So wirst du Mitglied
+        </h2>
+        <p class="text-lg">
+          Dein Weg in den Club – einfach und unkompliziert in 3 Schritten.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-16 items-stretch">
+        <ol class="space-y-12">
+          <li class="flex items-start">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+              1
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-bold mb-1">Herunterladen</h3>
+              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Lade den Aufnahmeantrag als PDF herunter.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+              2
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-bold mb-1">Ausfüllen</h3>
+              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus.</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
+              3
+            </div>
+            <div class="ml-6">
+              <h3 class="text-lg font-bold mb-1">Absenden</h3>
+              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Sende den Antrag per E-Mail an <a href="mailto:info@tc-hardt.de" class="font-bold hover:underline text-brand-dark-900 dark:text-white">info@tc-hardt.de</a> oder per Post.</p>
+            </div>
+          </li>
+        </ol>
 
         <div class="bg-brand-dark-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl h-full flex flex-col justify-center">
           <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
 
           <div class="relative z-10">
-            <h3 class="text-2xl font-bold text-white mb-4">
+            <h3 class="text-2xl md:text-4xl font-bold text-white mb-4">
               Aufnahmeantrag
             </h3>
             <p class="text-gray-300 mb-8 mx-auto">
@@ -318,7 +303,7 @@ const simplifiedRegularPlans = computed(() => {
               icon="i-heroicons-arrow-down-tray"
               class="shadow-xl hover:shadow-2xl transition-all"
               variant="highlight"
-              label="Antrag herunterladen (PDF)"
+              label="Antrag (PDF)"
             />
           </div>
         </div>
