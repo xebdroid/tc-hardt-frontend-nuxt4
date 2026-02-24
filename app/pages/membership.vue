@@ -189,7 +189,7 @@ const simplifiedRegularPlans = computed(() => {
         title="Schnupperangebote"
         description="Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist."
       />
-      <div class="grid lg:grid-cols-2 gap-8 mx-auto">
+      <div class="grid sm:grid-cols-2 gap-8 mx-auto">
         <PricingCard
           v-for="(plan, i) in simplifiedTrialPlans"
           :key="i"
