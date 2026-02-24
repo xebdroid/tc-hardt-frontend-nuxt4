@@ -22,13 +22,15 @@ const rawTariffs = db.tariffs
 const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
   {
     type: 'image',
-    src: '/img/membership/leerer-tennisplatz-mit-schlaeger-ki.png',
+    src: '/img/membership/tennis-platz-leere-bank.jpg',
     title: 'Dein Platz ist bei uns.',
     subtitle: 'Tennis, Gemeinschaft & Leidenschaft.',
     description: 'Egal ob Anfänger oder Profi – beim TC Hardt findest du ideale Bedingungen und ein lebendiges Vereinsleben.',
-    overlayPosition: 'center',
-    ctaPrimary: { label: 'Tarife ansehen', to: '#tarife' },
-    ctaSecondary: { label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' }
+    contentPosition: 'bottom-center',
+    ctaPrimary: { variant: 'highlight', label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
+    ctaSecondary: { variant: 'brand-dark', label: 'Tarife ansehen', to: '#tarife' },
+    overlayClass: 'bg-brand-dark-950/80',
+    theme: 'light'
   }
 ])
 
@@ -241,7 +243,7 @@ const simplifiedRegularPlans = computed(() => {
         <Headline
           title="So wirst du Mitglied"
           description="Dein Weg in den Club – einfach und unkompliziert in 3 Schritten."
-          :alignment="'left'"
+          :alignment="'center'"
           :margin-bottom="'none'"
         />
       </div>

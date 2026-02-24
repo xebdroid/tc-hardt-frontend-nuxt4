@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
+import type { ButtonVariant } from './Button.vue'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -17,20 +18,24 @@ export interface HeroSlide {
   alt?: string
 
   // Content & Layout
-  overlayImage?: string
-  overlayImageClass?: string
+  overlayClass?: string
+  contentImage?: string
+  contentImageClass?: string
   title?: string
   subtitle?: string
   description?: string
-  ctaPrimary?: { label: string; to: string }
-  ctaSecondary?: { label: string; to: string }
-  overlayPosition?:
+  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant }
+  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant }
+  contentPosition?:
     'top-left' | 'top-center' | 'top-right' |
     'center-left' | 'center' | 'center-right' |
     'bottom-left' | 'bottom-center' | 'bottom-right'
 
   // NEU: Eigener Slot-Name für komplett freies HTML
   slotName?: string
+
+  // Theme for text color
+  theme?: 'light' | 'dark'
 }
 
 const props = withDefaults(defineProps<{
@@ -39,12 +44,14 @@ const props = withDefaults(defineProps<{
   fallbackClass?: string
   autoplay?: boolean | number
   loopVideo?: boolean
+  theme?: 'light' | 'dark'
 }>(), {
   slides: () => [],
   height: 'large',
   fallbackClass: 'bg-primary-900',
   autoplay: 5000,
-  loopVideo: false
+  loopVideo: false,
+  theme: 'light'
 })
 
 const swiperInstance = ref<any>(null);
@@ -60,7 +67,7 @@ const containerHeightClass = computed(() => {
 })
 
 // --- POSITIONIERUNGS-HELFER ---
-const getOverlayClass = (position?: string) => {
+const getContentClass = (position?: string) => {
   switch (position) {
     case 'top-left':      return 'justify-start items-start text-left'
     case 'top-center':    return 'justify-start items-center text-center'
@@ -125,7 +132,7 @@ const onSlideChange = (swiper: any) => {
 <template>
   <div
     class="relative w-full overflow-hidden lg:rounded-3xl"
-    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900']"
+    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`]"
   >
     <div v-if="!slides.length" class="relative h-full w-full flex flex-col justify-center items-center p-8 sm:p-16 text-center">
       <slot name="content" :slide="null" />
@@ -179,29 +186,45 @@ const onSlideChange = (swiper: any) => {
         </div>
 
         <div
+          v-if="slide.overlayClass"
+          class="absolute inset-0 z-[5]"
+          :class="slide.overlayClass"
+        />
+
+        <div
           class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
-          :class="getOverlayClass(slide.overlayPosition)"
+          :class="getContentClass(slide.contentPosition)"
         >
-
           <slot :name="slide.slotName || 'content'" :slide="slide">
-
             <img
-              v-if="slide.overlayImage"
-              :src="slide.overlayImage"
+              v-if="slide.contentImage"
+              :src="slide.contentImage"
               class="mb-6 h-auto"
-              :class="slide.overlayImageClass || 'w-24 sm:w-32'"
-              alt="Overlay Icon"
+              :class="slide.contentImageClass || 'w-24 sm:w-32'"
+              alt="Content Icon"
             >
 
-            <h2 v-if="slide.title" class="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 font-heading drop-shadow-lg">
+            <h2
+              v-if="slide.title"
+              class="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 font-heading drop-shadow-lg"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white']"
+            >
               {{ slide.title }}
             </h2>
 
-            <p v-if="slide.subtitle" class="text-xl sm:text-2xl font-bold text-tennis-100 mb-4 max-w-2xl drop-shadow-md">
+            <p
+              v-if="slide.subtitle"
+              class="text-xl sm:text-2xl font-bold mb-4 max-w-2xl drop-shadow-md"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200']"
+            >
               {{ slide.subtitle }}
             </p>
 
-            <p v-if="slide.description" class="text-base sm:text-lg text-gray-200 mb-8 max-w-2xl leading-relaxed drop-shadow-md">
+            <p
+              v-if="slide.description"
+              class="text-base sm:text-lg mb-8 max-w-2xl leading-relaxed drop-shadow-md"
+              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300']"
+            >
               {{ slide.description }}
             </p>
 
@@ -209,26 +232,27 @@ const onSlideChange = (swiper: any) => {
               v-if="slide.ctaPrimary || slide.ctaSecondary"
               class="flex flex-wrap gap-4"
               :class="{
-                'justify-start': slide.overlayPosition?.includes('left'),
-                'justify-end': slide.overlayPosition?.includes('right'),
-                'justify-center': !slide.overlayPosition || slide.overlayPosition.includes('center')
+                'justify-start': slide.contentPosition?.includes('left'),
+                'justify-end': slide.contentPosition?.includes('right'),
+                'justify-center': !slide.contentPosition || slide.contentPosition.includes('center')
               }"
             >
-              <UButton
+              <BaseButton
                 v-if="slide.ctaPrimary"
                 :to="slide.ctaPrimary.to"
                 :label="slide.ctaPrimary.label"
                 size="xl"
-                variant="solid"
-                class="font-bold !bg-primary-500 !text-slate-900"
+                :variant="slide.ctaPrimary.variant || 'primary'"
+                cta
               />
-              <UButton
+              <BaseButton
                 v-if="slide.ctaSecondary"
                 :to="slide.ctaSecondary.to"
                 :label="slide.ctaSecondary.label"
                 size="xl"
-                variant="ghost"
-                class="font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm"
+                :variant="slide.ctaSecondary.variant || 'ghost'"
+                cta
+                class="backdrop-blur-sm"
               />
             </div>
           </slot>

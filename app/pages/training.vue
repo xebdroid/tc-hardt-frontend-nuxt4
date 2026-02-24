@@ -17,11 +17,11 @@ const slides: HeroSlide[] = [
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1646343253545-9171464ce425?q=80&w=1740&auto=format&fit=crop',
-    overlayImage: '/img/training/tennisschule-rot-weiss.jpg',
-    overlayImageClass: 'w-full max-w-[250px] lg:w-[300px] mb-4 drop-shadow-lg rounded-full bg-white p-3',
+    contentImage: '/img/training/tennisschule-rot-weiss.jpg',
+    contentImageClass: 'w-full max-w-[250px] lg:w-[300px] mb-4 drop-shadow-lg rounded-full bg-white p-3',
     title: 'Training',
     subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
-    overlayPosition: 'bottom-center',
+    contentPosition: 'bottom-center',
   }
 ]
 

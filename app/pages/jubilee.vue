@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppButton from '~/components/base/Button.vue'
+import BaseButton from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
@@ -18,8 +18,9 @@ const heroSlides: HeroSlide[] = [
     type: 'image',
     src: '/img/jubilee/50-jahre-tc-hardt.jpg',
     alt: '50 Jahre TC Hardt Jubiläum',
-    overlayPosition: 'bottom-center',
-    slotName: 'jubilee-hero'
+    contentPosition: 'bottom-center',
+    slotName: 'jubilee-hero',
+    theme: 'light'
   }
 ]
 
@@ -74,16 +75,22 @@ const timelineItems = [
   <div class="bg-white dark:bg-gray-900 min-h-screen">
 
     <Hero :slides="heroSlides" height="full">
-      <template #jubilee-hero>
+      <template #jubilee-hero="{ slide }">
         <div class="text-center max-w-4xl mx-auto">
-          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 font-euro-extended drop-shadow-lg pt-16">
+          <h1
+            class="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 font-euro-extended drop-shadow-lg pt-16"
+            :class="[slide.theme === 'dark' ? 'text-gray-900' : 'text-white']"
+          >
             <span class="block text-2xl sm:text-4xl lg:text-5xl tracking-wide">Tennis op de Hardt</span>
           </h1>
-          <p class="text-lg sm:text-2xl text-gray-100 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium">
+          <p
+            class="text-lg sm:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-medium"
+            :class="[slide.theme === 'dark' ? 'text-gray-600' : 'text-gray-100']"
+          >
             Ein halbes Jahrhundert voller Sport, Gemeinschaft und unvergesslicher Momente.
           </p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <AppButton
+            <BaseButton
               to="#events"
               label="Zu den Highlights"
               variant="highlight"

@@ -38,10 +38,10 @@ const emit = defineEmits(['button-click'])
     <div class="lg:min-h-[210px]">
       <!-- Header -->
       <div class="p-4 lg:p-8">
-        <h4 class="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+        <h4 class="text-xl text-center lg:text-2xl font-bold text-gray-900 dark:text-white mb-2">
           {{ plan.title }}
         </h4>
-        <p class="text-sm lg:text-base text-gray-500 dark:text-gray-400 min-h-[38px] lg:min-h-[40px]">
+        <p class="text-sm lg:text-base text-center text-gray-500 dark:text-gray-400 min-h-[38px] lg:min-h-[40px]">
           {{ plan.description }}
         </p>
       </div>
@@ -50,17 +50,17 @@ const emit = defineEmits(['button-click'])
       <div class="px-4 lg:px-8 pb-4 lg:pb-8">
         <!-- With discount -->
         <div v-if="plan.discountedPrice">
-          <div class="flex items-baseline gap-2">
+          <div class="flex items-baseline gap-2 justify-center flex-col items-center">
             <span class="text-4xl lg:text-5xl font-bold text-brand-dark-900 dark:text-white">{{ plan.discountedPrice }}</span>
             <span class="text-base lg:text-lg font-semibold text-green-600 dark:text-green-400">{{ plan.discountText }}</span>
           </div>
-          <div class="flex items-baseline gap-2 mt-1">
+          <div class="flex items-baseline gap-2 mt-1 justify-center">
             <span class="text-base lg:text-lg text-gray-500">danach {{ plan.price }} {{ plan.billingCycle }}</span>
           </div>
         </div>
         <!-- No discount / or price breakdown -->
         <div v-else>
-          <div class="flex items-baseline gap-2">
+          <div class="flex items-baseline gap-2 justify-center">
             <span class="text-4xl lg:text-5xl font-bold text-brand-dark-900 dark:text-white">{{ plan.price }}</span>
             <span class="text-sm lg:text-base text-gray-500">{{ plan.billingCycle }}</span>
           </div>

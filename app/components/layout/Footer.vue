@@ -50,7 +50,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
 
     <div
       class="bg-brand-dark-900 text-white pb-12 rounded-t-3xl relative z-0 mt-0"
-      :class="showCta ? 'pt-32 lg:pt-52' : 'lg:pt-32'"
+      :class="showCta ? 'pt-32 lg:pt-52' : 'pt-12 lg:pt-32'"
     >
 
       <div class="lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto px-6 lg:px-0">

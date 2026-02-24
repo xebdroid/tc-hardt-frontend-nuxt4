@@ -20,14 +20,14 @@ const heroSlides = computed<HeroSlide[]>(() => [
     poster: '/img/home/anlage-von-oben-large-preview.png',
     title: 'Unsere Anlagen von oben',
     subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
-    overlayPosition: 'center',
+    contentPosition: 'center',
     ctaPrimary: { label: 'Mitglied werden', to: localePath('membership') }
   },
   {
     type: 'image',
     src: '/img/jubilee/50-jahre-tc-hardt.jpg',
     title: 'Unsere Jubiläums-Highlights 2026',
-    overlayPosition: 'bottom-center',
+    contentPosition: 'bottom-center',
     ctaPrimary: { label: "Mehr erfahren", to: localePath('jubilee') }
   },
   {
@@ -36,7 +36,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     poster: '/img/video-poster.jpg',
     title: 'Training in Aktion',
     subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
-    overlayPosition: 'center',
+    contentPosition: 'center',
     ctaPrimary: { label: 'Probetraining', to: localePath('contact') }
   },
   {
@@ -44,7 +44,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
     title: t('home.hero.title'),
     subtitle: t('home.hero.description'),
-    overlayPosition: 'center',
+    contentPosition: 'center',
     ctaPrimary: { label: t('home.hero.cta_primary'), to: localePath('contact') },
     ctaSecondary: { label: t('home.hero.cta_secondary'), to: localePath('about') }
   },
@@ -53,17 +53,17 @@ const heroSlides = computed<HeroSlide[]>(() => [
     src: 'https://images.unsplash.com/photo-1530915365347-e35b749a0381?q=80&w=1740&auto=format&fit=crop',
     title: 'Leidenschaft am Ball',
     subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
-    overlayPosition: 'bottom-left',
+    contentPosition: 'bottom-left',
     ctaPrimary: { label: 'Training buchen', to: localePath('training') }
   },
   {
     type: 'image',
     src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
-    overlayImage: '/tc-hardt-logo.svg',
-    overlayImageClass: 'w-20 mb-4 drop-shadow-md',
+    contentImage: '/tc-hardt-logo.svg',
+    contentImageClass: 'w-20 mb-4 drop-shadow-md',
     title: 'Mehr als ein Verein',
     subtitle: 'Erlebe unsere starke Gemeinschaft.',
-    overlayPosition: 'bottom-right',
+    contentPosition: 'bottom-right',
     ctaPrimary: { label: 'Termine ansehen', to: localePath('news') }
   }
 ])

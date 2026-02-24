@@ -203,7 +203,7 @@ useHead({
 
     <Section>
       <FeatureSection
-        image-src="/img/50_jahre_large.jpg"
+        image-src="/img/jubilee/50-jahre-tc-hardt.jpg"
         image-alt="50 Jahre TC Hardt Logo"
         image-position="right"
       >

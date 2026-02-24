@@ -152,6 +152,10 @@ useHead({
         </div>
 
       </div>
+
+      <p>
+        Hero Foto auf der Mitglied werden Seite von <a href="https://unsplash.com/de/@erwanhesry?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Erwan Hesry</a> auf <a href="https://unsplash.com/de/fotos/weisse-linie-auf-brauner-oberflache-uJ-OO3aZsSQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+      </p>
     </UContainer>
   </div>
 </template>
