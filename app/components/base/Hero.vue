@@ -210,7 +210,7 @@ const onSlideChange = (swiper: any) => {
             <h2
               v-if="slide.title"
               class="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 font-heading drop-shadow-lg"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white', slide.titleClass]"
+              :class="[slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')]"
             >
               {{ slide.title }}
             </h2>
@@ -218,7 +218,7 @@ const onSlideChange = (swiper: any) => {
             <p
               v-if="slide.subtitle"
               class="text-xl sm:text-2xl font-bold mb-4 max-w-2xl drop-shadow-md"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200', slide.subtitleClass]"
+              :class="[slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200')]"
             >
               {{ slide.subtitle }}
             </p>
@@ -226,7 +226,7 @@ const onSlideChange = (swiper: any) => {
             <p
               v-if="slide.description"
               class="text-base sm:text-lg mb-8 max-w-2xl leading-relaxed drop-shadow-md"
-              :class="[slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300', slide.descriptionClass]"
+              :class="[slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300')]"
             >
               {{ slide.description }}
             </p>

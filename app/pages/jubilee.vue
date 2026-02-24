@@ -14,17 +14,20 @@ useHead({
 
 // 1. Hero Data
 const heroSlides: HeroSlide[] = [
-    {
+  {
     type: 'image',
     src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem.png',
     contentImageClass: 'w-80 mb-4',
-    title: 'Tennis op de Hardt',
-    subtitle: 'TC-Hardt',
-    description: '50 Jahre Leidenschaft, Gemeinschaft und Tenni',
+    title: 'TC - Hardt',
+    titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate !text-8xl font-bold',
+    subtitle: 'Tennis op de Hardt',
+    subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate text-4xl',
+    description: 'Leidenschaft, Gemeinschaft und Tennis',
+    descriptionClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate text-4xl',
     contentPosition: 'center',
     overlayClass: 'bg-brand-dark-900/70',
-    ctaPrimary: { variant: 'highlight', label: 'Unsere Jubiläums-Highlights', to: '#events' }
+    ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
   }
 ]
 
