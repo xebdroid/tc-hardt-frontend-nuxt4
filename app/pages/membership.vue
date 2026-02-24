@@ -29,16 +29,16 @@ const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
     contentPosition: 'bottom-center',
     ctaPrimary: { variant: 'highlight', label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
     ctaSecondary: { variant: 'brand-dark', label: 'Tarife ansehen', to: '#tarife' },
-    overlayClass: 'bg-brand-dark-950/80',
+    overlayClass: 'bg-brand-dark-900/70',
     theme: 'light'
   }
 ])
 
 const benefits = [
   { icon: 'i-heroicons-sparkles', title: '6 Top-Plätze', description: 'Hervorragend gepflegte Ascheplätze.' },
-  { icon: 'i-heroicons-user-group', title: 'Tolle Community', description: 'Vom Schleifchenturnier bis zum Sommerfest.' },
+  { icon: 'i-heroicons-user-group', title: 'Tolle Community', description: 'Von den Stadtmeisterschaften bis zum Glühwein Open.' },
   { icon: 'i-heroicons-academic-cap', title: 'Training für Alle', description: 'Gefördertes Training für Kinder & Jugendliche.' },
-  { icon: 'i-heroicons-home-modern', title: 'Moderne Anlage', description: 'Clubhaus mit Sonnenterrasse & Gastronomie.' }
+  { icon: 'i-heroicons-home-modern', title: 'Moderne Anlage', description: 'Clubhaus mit Sonnenterrasse, Geselligkeit & kühle Getränke nach dem Match.' }
 ]
 
 const formatPrice = (price: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price)
