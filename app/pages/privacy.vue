@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Hero from '~/components/base/Hero.vue'
+import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
 
 useHead({
@@ -37,9 +38,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Information & Verantwortlicher
-            </h2>
+            <Headline
+              title="Information & Verantwortlicher"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -63,9 +67,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Kontaktaufnahme
-            </h2>
+            <Headline
+              title="Kontaktaufnahme"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -85,9 +92,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Ihre Rechte
-            </h2>
+            <Headline
+              title="Ihre Rechte"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -109,9 +119,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Erhebung bei Besuch
-            </h2>
+            <Headline
+              title="Erhebung bei Besuch"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -137,9 +150,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Einsatz von Cookies
-            </h2>
+            <Headline
+              title="Einsatz von Cookies"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -171,9 +187,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Weitere Funktionen
-            </h2>
+            <Headline
+              title="Weitere Funktionen"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -196,9 +215,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Widerspruch & Widerruf
-            </h2>
+            <Headline
+              title="Widerspruch & Widerruf"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -225,9 +247,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Links & Social Media
-            </h2>
+            <Headline
+              title="Links & Social Media"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -286,9 +311,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Google Analytics
-            </h2>
+            <Headline
+              title="Google Analytics"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -347,9 +375,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Google Maps
-            </h2>
+            <Headline
+              title="Google Maps"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">

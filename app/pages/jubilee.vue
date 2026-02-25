@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseButton from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
@@ -90,12 +89,14 @@ const timelineItems = [
       >
         <Section>
           <div class="max-w-4xl mx-auto px-6 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
-              Unsere Jubiläums-Highlights 2026
-            </h2>
-            <p class="text-lg leading-8 text-gray-600 dark:text-gray-400">
-              Das Jahr 2026 steht ganz im Zeichen unseres 50-jährigen Bestehens. Dieses besondere Jubiläum wollen wir gemeinsam mit euch feiern – Mitgliedern, Sponsoren, Freunden, Tennisfans und allen, die Lust auf ein tolles Festjahr haben.
-            </p>
+            <Headline
+              title="Unsere Jubiläums-Highlights 2026"
+              description="Das Jahr 2026 steht ganz im Zeichen unseres 50-jährigen Bestehens. Dieses besondere Jubiläum wollen wir gemeinsam mit euch feiern – Mitgliedern, Sponsoren, Freunden, Tennisfans und allen, die Lust auf ein tolles Festjahr haben."
+              tag="h2"
+              size="h2"
+              alignment="center"
+              title-class="tracking-tight"
+            />
           </div>
         </Section>
       </div>
@@ -121,12 +122,15 @@ const timelineItems = [
           >
             <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
               <EventDate :date-string="item.date" />
-              <h3 class="text-3xl font-bold tracking-tight text-brand-dark-900 dark:text-white sm:text-4xl mb-4">
-                {{ item.title }}
-              </h3>
-              <p class="text-lg text-gray-700 dark:text-gray-300">
-                {{ item.description }}
-              </p>
+              <Headline
+                :title="item.title"
+                :description="item.description"
+                tag="h3"
+                size="h3"
+                alignment="center"
+                title-class="tracking-tight"
+                description-class="text-lg text-gray-700 dark:text-gray-300"
+              />
             </div>
           </Section>
         </div>

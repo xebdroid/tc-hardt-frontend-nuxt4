@@ -109,12 +109,15 @@ useHead({
       outer-container
     >
       <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
-        <h2 class="text-3xl font-heading font-bold text-brand-dark-900 dark:text-white mb-6">
-          Neugierig geworden?
-        </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-400 mb-10">
-          Komm einfach vorbei und mach dir selbst ein Bild von unserer idyllischen Anlage. Wir freuen uns auf deinen Besuch am Hardter Wald!
-        </p>
+        <Headline
+          title="Neugierig geworden?"
+          description="Komm einfach vorbei und mach dir selbst ein Bild von unserer idyllischen Anlage. Wir freuen uns auf deinen Besuch am Hardter Wald!"
+          tag="h2"
+          size="h2"
+          alignment="center"
+          wrapper-class="max-w-2xl"
+          margin-bottom="lg"
+        />
         <div class="flex flex-wrap justify-center gap-4">
           <Button
             to="/kontakt#map"

@@ -129,12 +129,13 @@ function resetForm() {
         <div class="bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700">
 
           <div v-if="!isSent">
-            <div class="mb-10">
-              <h2 class="text-3xl font-bold text-brand-dark-900 dark:text-white mb-3">Schreib uns eine Nachricht</h2>
-              <p class="text-gray-500 dark:text-gray-400">
-                Fülle das Formular aus und wir melden uns zeitnah bei dir.
-              </p>
-            </div>
+            <Headline
+              title="Schreib uns eine Nachricht"
+              description="Fülle das Formular aus und wir melden uns zeitnah bei dir."
+              tag="h2"
+              size="h2"
+              margin-bottom="md"
+            />
 
             <UForm
               :schema="schema"
@@ -259,9 +260,12 @@ function resetForm() {
       </div>
 
       <Section id="map">
-        <Headline>
-          Standort & Anfahrt
-        </Headline>
+        <Headline
+          title="Standort & Anfahrt"
+          tag="h2"
+          size="h2"
+          alignment="center"
+        />
 
         <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative">
 

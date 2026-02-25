@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Hero from '~/components/base/Hero.vue'
+import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
 
 useHead({
@@ -34,9 +35,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white sticky top-24">
-              Angaben zum Verein
-            </h2>
+            <Headline
+              title="Angaben zum Verein"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-8 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -76,7 +80,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h2 class="text-xl font-bold text-brand-dark-900 dark:text-white">Kontakt</h2>
+            <Headline
+              title="Kontakt"
+              tag="h2"
+              size="h4"
+              margin-bottom="none"
+            />
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
@@ -97,7 +106,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white">Haftung für Inhalte</h3>
+            <Headline
+              title="Haftung für Inhalte"
+              tag="h3"
+              size="h5"
+              margin-bottom="none"
+            />
           </div>
           <div class="md:col-span-8 lg:col-span-9 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <p>
@@ -108,7 +122,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white">Haftung für Links</h3>
+            <Headline
+              title="Haftung für Links"
+              tag="h3"
+              size="h5"
+              margin-bottom="none"
+            />
           </div>
           <div class="md:col-span-8 lg:col-span-9 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <p>
@@ -119,7 +138,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
-            <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white">Urheberrecht</h3>
+            <Headline
+              title="Urheberrecht"
+              tag="h3"
+              size="h5"
+              margin-bottom="none"
+            />
           </div>
           <div class="md:col-span-8 lg:col-span-9 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <p>
@@ -132,7 +156,12 @@ useHead({
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12 items-center">
           <div class="md:col-span-4 lg:col-span-3">
-            <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white">Datenschutz</h3>
+            <Headline
+              title="Datenschutz"
+              tag="h3"
+              size="h5"
+              margin-bottom="none"
+            />
           </div>
           <div class="md:col-span-8 lg:col-span-9">
             <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

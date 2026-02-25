@@ -38,6 +38,7 @@ interface Props {
   marginBottom?: SpacingSize
 
   // --- OVERRIDES ---
+  wrapperClass?: string
   taglineClass?: string
   titleClass?: string
   descriptionClass?: string
@@ -60,7 +61,8 @@ const props = withDefaults(defineProps<Props>(), {
 
   taglineClass: undefined,
   titleClass: undefined,
-  descriptionClass: undefined
+  descriptionClass: undefined,
+  wrapperClass: undefined
 })
 
 // --- GRÖSSEN ---
@@ -140,7 +142,7 @@ const colors = computed(() => {
 <template>
   <div
     class="flex flex-col gap-4 max-w-3xl"
-    :class="[alignClasses, spacingClasses]"
+    :class="[alignClasses, spacingClasses, wrapperClass]"
   >
     <component
       :is="taglineTag"
