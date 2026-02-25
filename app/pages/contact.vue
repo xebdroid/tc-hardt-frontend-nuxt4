@@ -2,7 +2,8 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import Hero from '~/components/base/Hero.vue'
-import AppButton from '~/components/base/Button.vue'
+import Button from '~/components/base/Button.vue'
+import Headline from '~/components/base/Headline.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
 
 useHead({
@@ -76,7 +77,7 @@ function resetForm() {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-900 min-h-screen pb-24">
+  <div>
 
     <Hero
       height="small"
@@ -225,7 +226,7 @@ function resetForm() {
               </div>
 
               <div class="pt-2">
-                <AppButton
+                <Button
                   type="submit"
                   block
                   size="xl"
@@ -246,7 +247,7 @@ function resetForm() {
             <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
               Deine Nachricht wurde erfolgreich an uns übermittelt. <br>Wir werden uns in Kürze bei dir melden.
             </p>
-            <AppButton
+            <Button
               variant="outline"
               label="Eine weitere Nachricht schreiben"
               size="lg"
@@ -257,8 +258,10 @@ function resetForm() {
         </div>
       </div>
 
-      <div class="w-full mx-auto">
-        <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-white mb-6">Anfahrt</h2>
+      <Section id="map">
+        <Headline>
+          Standort & Anfahrt
+        </Headline>
 
         <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative">
 
@@ -293,7 +296,7 @@ function resetForm() {
           </a>
         </div>
 
-      </div>
+      </Section>
 
     </UContainer>
   </div>

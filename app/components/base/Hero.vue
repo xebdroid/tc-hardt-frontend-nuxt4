@@ -43,18 +43,20 @@ export interface HeroSlide {
 
 const props = withDefaults(defineProps<{
   slides?: HeroSlide[]
-  height?: 'full' | 'large' | 'small'
+  height?: 'full' | 'large' | 'medium' | 'small'
   fallbackClass?: string
   autoplay?: boolean | number
   loopVideo?: boolean
-  theme?: 'light' | 'dark'
+  theme?: 'light' | 'dark',
+  removeTopPadding?: boolean
 }>(), {
   slides: () => [],
   height: 'large',
   fallbackClass: 'bg-primary-900',
   autoplay: 5000,
   loopVideo: false,
-  theme: 'light'
+  theme: 'light',
+  removeTopPadding: false
 })
 
 const swiperInstance = ref<any>(null);
@@ -64,8 +66,9 @@ const containerHeightClass = computed(() => {
   switch (props.height) {
     case 'full': return 'h-[100svh] lg:h-[calc(100vh-2rem)]'
     case 'large': return 'h-[800px]'
-    case 'small': return 'h-[450px]'
-    default: return 'h-[600px]'
+    case 'medium': return 'h-[450px]'
+    case 'small': return 'h-[300px]'
+    default: return 'h-[450px]'
   }
 })
 
@@ -135,7 +138,7 @@ const onSlideChange = (swiper: any) => {
 <template>
   <div
     class="relative w-full overflow-hidden lg:rounded-3xl"
-    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`]"
+    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[100px]': !removeTopPadding }]"
   >
     <div v-if="!slides.length" class="relative h-full w-full flex flex-col justify-center items-center p-8 sm:p-16 text-center">
       <slot name="content" :slide="null" />

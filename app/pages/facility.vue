@@ -117,7 +117,7 @@ useHead({
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <Button
-            to="/kontakt"
+            to="/kontakt#map"
             variant="primary"
             size="lg"
             label="Anlage besichtigen"
