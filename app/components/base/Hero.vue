@@ -138,7 +138,7 @@ const onSlideChange = (swiper: any) => {
 <template>
   <div
     class="relative w-full overflow-hidden lg:rounded-3xl"
-    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[100px]': !removeTopPadding }]"
+    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[100px]': !removeTopPadding && slides.length <= 1 }]"
   >
     <div v-if="!slides.length" class="relative h-full w-full flex flex-col justify-center items-center p-8 sm:p-16 text-center">
       <slot name="content" :slide="null" />
@@ -199,7 +199,7 @@ const onSlideChange = (swiper: any) => {
 
         <div
           class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
-          :class="getContentClass(slide.contentPosition)"
+          :class="[getContentClass(slide.contentPosition), { 'pt-[100px]': !removeTopPadding && slides.length > 1 }]"
         >
           <slot :name="slide.slotName || 'content'" :slide="slide">
             <img
