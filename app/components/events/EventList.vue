@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import EventItem from './EventItem.vue'
 import type { Event } from '~/types'
 
@@ -12,6 +13,12 @@ defineProps({
     required: true
   }
 })
+
+const openEventId = ref<number | null>(null)
+
+const handleToggle = (id: number) => {
+  openEventId.value = openEventId.value === id ? null : id
+}
 </script>
 
 <template>
@@ -24,6 +31,8 @@ defineProps({
         v-for="event in events"
         :key="event.id"
         :event="event"
+        :is-open="openEventId === event.id"
+        @toggle="handleToggle(event.id)"
       />
     </div>
   </div>

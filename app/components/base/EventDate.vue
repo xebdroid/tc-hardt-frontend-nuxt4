@@ -36,6 +36,14 @@ const parseDate = (dateInput: string | Date) => {
 const startDate = computed(() => parseDate(props.date))
 const endDate = computed(() => props.dateEnd ? parseDate(props.dateEnd) : null)
 
+const defaultDates = computed(() => {
+  const dates = [startDate.value]
+  if (endDate.value) {
+    dates.push(endDate.value)
+  }
+  return dates
+})
+
 // --- Jubilee Variant Logic ---
 const parsedJubileeDate = computed(() => {
   if (!props.dateString) {
@@ -124,55 +132,24 @@ const parsedJubileeDate = computed(() => {
   </div>
 
   <!-- Default Variant -->
-  <div v-else class="flex items-center gap-x-4">
-    <!-- Single Date Layout -->
-    <div v-if="!endDate" class="flex items-center gap-x-3">
-      <div class="text-5xl font-extrabold text-brand-dark-800 dark:text-gray-100 leading-none -mt-1">
-        {{ startDate.day }}
-      </div>
-      <div class="flex flex-col justify-between">
-        <div class="text-sm font-bold text-accent-500 dark:text-accent-400 leading-tight">
-          {{ startDate.month }}
-        </div>
-        <div class="text-sm font-medium text-gray-400 dark:text-gray-500 leading-tight">
-          {{ startDate.year }}
-        </div>
-      </div>
-    </div>
-
-    <!-- Date Range Layout -->
-    <div v-else class="flex items-center text-sm">
-      <div class="flex items-center gap-x-2">
-        <div class="text-3xl font-extrabold text-brand-dark-800 dark:text-gray-100 leading-none">
-          {{ startDate.day }}
-        </div>
-        <div class="flex flex-col justify-between">
-          <div class="font-bold text-accent-500 dark:text-accent-400 leading-tight">
-            {{ startDate.month }}
-          </div>
-          <div class="font-medium text-gray-400 dark:text-gray-500 leading-tight">
-            {{ startDate.year }}
-          </div>
-        </div>
-      </div>
-
-      <div class="mx-2 text-gray-300 dark:text-gray-600 text-2xl">
+  <div v-else-if="variant === 'default'" class="flex items-center">
+    <template v-for="(dateItem, index) in defaultDates" :key="index">
+      <div v-if="index > 0" class="mx-2 text-gray-300 dark:text-gray-600 text-2xl md:text-3xl font-light">
         -
       </div>
-
       <div class="flex items-center gap-x-2">
-        <div class="text-3xl font-extrabold text-brand-dark-800 dark:text-gray-100 leading-none">
-          {{ endDate.day }}
+        <div class="text-3xl md:text-4xl font-extrabold text-accent-500 dark:text-accent-400 leading-none -mt-1">
+          {{ dateItem.day }}
         </div>
         <div class="flex flex-col justify-between">
-          <div class="font-bold text-accent-500 dark:text-accent-400 leading-tight">
-            {{ endDate.month }}
+          <div class="text-xs md:text-sm font-bold text-brand-dark-800 dark:text-white leading-tight">
+            {{ dateItem.month }}
           </div>
-          <div class="font-medium text-gray-400 dark:text-gray-500 leading-tight">
-            {{ endDate.year }}
+          <div class="text-xs md:text-sm font-medium text-gray-400 dark:text-gray-500 leading-tight">
+            {{ dateItem.year }}
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
