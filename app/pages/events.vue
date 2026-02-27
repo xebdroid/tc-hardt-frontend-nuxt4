@@ -67,8 +67,7 @@ const handlePastEventToggle = (id: number) => {
       </template>
     </Hero>
 
-    <Section
-    variant="">
+    <Section>
       <div class="max-w-4xl mx-auto">
         <Headline
           :title="`Unsere Events ${currentYear}`"
@@ -78,44 +77,60 @@ const handlePastEventToggle = (id: number) => {
           alignment="center"
           margin-bottom="lg"
         />
-
-        <div v-if="Object.keys(upcomingEventsByMonth).length > 0">
-          <EventList
-            v-for="(monthlyEvents, month) in upcomingEventsByMonth"
-            :key="month"
-            :month="month"
-            :events="monthlyEvents"
-          />
-        </div>
-        <div v-else class="text-center text-gray-500 py-8">
-          <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
-        </div>
       </div>
     </Section>
 
+
     <Section
-      v-if="pastEvents.length > 0"
+      v-if="upcomingEvents.length > 0"
       variant="secondary-light"
       rounded
-      overlap-top
+      outer-container
+      overlap-bottom
+      padding-top="sm"
+      padding-bottom="xs"
+      padding-left="md"
+      padding-right="md"
+      class="relative z-10"
     >
-      <div class="max-w-4xl mx-auto">
-        <Headline
-          title="Vergangene Events"
-          description="Ein kleiner Rückblick auf unsere letzten Veranstaltungen."
-          alignment="center"
+      <div v-if="Object.keys(upcomingEventsByMonth).length > 0">
+        <EventList
+          v-for="(monthlyEvents, month) in upcomingEventsByMonth"
+          :key="month"
+          :month="month"
+          :events="monthlyEvents"
         />
-        <div class="space-y-4 mt-12">
-          <EventItem
-            v-for="event in pastEvents"
-            :key="event.id"
-            :event="event"
-            :is-past="true"
-            :is-open="openPastEventId === event.id"
-            @toggle="handlePastEventToggle(event.id)"
-          />
-        </div>
       </div>
+      <div v-else class="text-center text-gray-500 py-8">
+        <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
+      </div>
+    </Section>
+    <Section
+      v-if="pastEvents.length > 0"
+      variant="gray-light"
+      rounded
+      outer-container
+      overlap-top
+      padding-top="lg"
+      padding-bottom="sm"
+      padding-left="md"
+      padding-right="md"
+      margin-bottom="xl"
+      class="relative z-0"
+    >
+      <Headline
+        title="Vergangene Events"
+        description="Ein kleiner Rückblick auf unsere letzten Veranstaltungen."
+        alignment="center"
+      />
+      <EventItem
+        v-for="event in pastEvents"
+        :key="event.id"
+        :event="event"
+        :is-past="true"
+        :is-open="openPastEventId === event.id"
+        @toggle="handlePastEventToggle(event.id)"
+      />
     </Section>
   </div>
 </template>

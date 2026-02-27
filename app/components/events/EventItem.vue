@@ -4,6 +4,7 @@ import type { Event } from '~/types'
 import { useCalendar } from '~/composables/useCalendar'
 import Button from '~/components/base/Button.vue'
 import EventDate from '~/components/base/EventDate.vue'
+import Image from '~/components/base/Image.vue'
 
 const props = defineProps({
   event: {
@@ -138,11 +139,13 @@ const downloadIcs = () => {
           </div>
 
           <!-- Image -->
-          <img
-            :src="event.image || 'https://placehold.co/400x300/e2e8f0/1e293b?text=Event'"
+          <Image
+            :src="event.image"
             :alt="event.title"
-            class="w-16 h-16 md:w-16 md:h-16 object-cover rounded-lg shadow-sm flex-none"
+            variant="event"
           >
+            <UIcon name="i-heroicons-calendar-days" class="w-8 h-8 text-gray-400" />
+          </Image>
         </div>
       </div>
 
@@ -196,14 +199,6 @@ const downloadIcs = () => {
                 v-bind="action"
                 size="md"
                 variant="outline"
-                class="flex-1 sm:flex-none justify-center"
-              />
-              <Button
-                label="Apple Kalender"
-                icon="i-heroicons-calendar"
-                size="md"
-                variant="outline"
-                @click="downloadIcs"
                 class="flex-1 sm:flex-none justify-center"
               />
             </div>

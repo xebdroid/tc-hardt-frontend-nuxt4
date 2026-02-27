@@ -4,7 +4,7 @@ import { NuxtImg } from '#components'
 interface Props {
   src?: string | null;
   alt?: string;
-  variant?: 'feature' | 'portrait' | 'round';
+  variant?: 'feature' | 'portrait' | 'round' | 'event';
   size?: 'small' | 'large';
   objectPosition?: string;
   sizes?: string;
@@ -22,6 +22,8 @@ const props = withDefaults(defineProps<Props>(), {
 // classes for the wrapper div
 const variantClasses = computed(() => {
   switch (props.variant) {
+    case 'event':
+      return 'w-16 h-16 rounded-lg overflow-hidden shadow-sm bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-none';
     case 'round':
       switch (props.size) {
         case 'small':
