@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import EventItem from './EventItem.vue'
 import type { Event } from '~/types'
+import Headline from '~/components/base/Headline.vue'
 
 defineProps({
   month: {
@@ -22,10 +23,15 @@ const handleToggle = (id: number) => {
 </script>
 
 <template>
-  <div class="mb-12">
-    <h2 class="text-3xl font-bold text-brand-dark-900 dark:text-white mb-6 font-heading">
-      {{ month }}
-    </h2>
+  <div>
+    <Headline
+      :title="month"
+      tag="h2"
+      size="h3"
+      margin-top="md"
+      margin-bottom="xs"
+      alignment="center"
+    />
     <div class="space-y-4">
       <EventItem
         v-for="event in events"

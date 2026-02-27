@@ -56,28 +56,27 @@ const handlePastEventToggle = (id: number) => {
   <div>
     <Hero height="small" fallback-class="bg-brand-dark-900">
       <template #content>
-        <div class="text-center">
-          <h1 class="text-3xl sm:text-5xl font-bold text-white mb-4 font-heading">
-            Club-Veranstaltungen
-          </h1>
-          <p class="text-xl text-gray-300">
-            Das ist bei uns im Club los. Komm vorbei!
-          </p>
-        </div>
+        <Headline
+          title="Club-Veranstaltungen"
+          description="Das ist bei uns im Club los. Komm vorbei!"
+          :tag="'h1'"
+          :size="'h1'"
+          :mode="'light'"
+          :alignment="'center'"
+          :margin-bottom="'sm'"
+        />
       </template>
     </Hero>
 
-    <Section>
-      <div class="max-w-4xl mx-auto">
-        <Headline
-          :title="`Unsere Events ${currentYear}`"
-          :description="eventCountDescription"
-          tag="h2"
-          size="h2"
-          alignment="center"
-          margin-bottom="lg"
-        />
-      </div>
+    <Section margin-bottom="none">
+      <Headline
+        :title="`Unsere Events ${currentYear}`"
+        :description="eventCountDescription"
+        tag="h2"
+        size="h2"
+        alignment="center"
+        margin-bottom="none"
+      />
     </Section>
 
 
@@ -87,20 +86,20 @@ const handlePastEventToggle = (id: number) => {
       rounded
       outer-container
       overlap-bottom
-      padding-top="sm"
+      padding-top="xs"
       padding-bottom="xs"
       padding-left="md"
       padding-right="md"
       class="relative z-10"
     >
-      <div v-if="Object.keys(upcomingEventsByMonth).length > 0">
+      <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
         <EventList
           v-for="(monthlyEvents, month) in upcomingEventsByMonth"
           :key="month"
           :month="month"
           :events="monthlyEvents"
         />
-      </div>
+      </template>
       <div v-else class="text-center text-gray-500 py-8">
         <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
       </div>

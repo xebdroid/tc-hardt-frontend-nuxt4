@@ -15,56 +15,41 @@ const localePath = useLocalePath()
 // --- DATA ---
 const heroSlides = computed<HeroSlide[]>(() => [
   {
+    type: 'image',
+    src: '/img/home/hansmarkutt-tennis-5782695.jpg',
+    title: '50 Jahre Leidenschaft',
+    subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
+    contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/40 to-transparent',
+    ctaPrimary: { variant:'jubilee-gold', label: 'Unsere Geschichte', to: localePath('jubilee') }
+  },
+  {
     type: 'video',
     src: '/videos/anlage-von-oben-large.mp4',
     poster: '/img/home/anlage-von-oben-large-preview.png',
-    title: 'Unsere Anlagen von oben',
-    subtitle: 'Erkunde unsere erstklassigen Tennisplätze und Einrichtungen.',
-    contentPosition: 'center',
-    ctaPrimary: { label: 'Mitglied werden', to: localePath('membership') }
-  },
-  {
-    type: 'image',
-    src: '/img/jubilee/50-jahre-tc-hardt.jpg',
-    title: 'Unsere Jubiläums-Highlights 2026',
+    title: 'Mehr als nur ein Tennisplatz',
+    subtitle: 'Finde dein sportliches Zuhause. Genieße erstklassige Plätze, echte Gemeinschaft und die beste Zeit des Tages.',
     contentPosition: 'bottom-center',
-    ctaPrimary: { label: "Mehr erfahren", to: localePath('jubilee') }
-  },
-  {
-    type: 'video',
-    src: '/videos/tennis_example.mp4',
-    poster: '/img/video-poster.jpg',
-    title: 'Training in Aktion',
-    subtitle: 'Schau dir an, wie unsere Jugend trainiert.',
-    contentPosition: 'center',
-    ctaPrimary: { label: 'Probetraining', to: localePath('contact') }
+    overlayClass: 'bg-gradient-to-t from-highlight-900/70 via-highlight-900/10 to-transparent',
+    ctaPrimary: { variant: 'brand-dark', label: 'Jetzt Mitglied werden', to: localePath('membership') }
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2000&auto=format&fit=crop',
-    title: t('home.hero.title'),
-    subtitle: t('home.hero.description'),
-    contentPosition: 'center',
-    ctaPrimary: { label: t('home.hero.cta_primary'), to: localePath('contact') },
-    ctaSecondary: { label: t('home.hero.cta_secondary'), to: localePath('about') }
+    src: '/img/home/alexander-lunyov-wBLW_19byJY-unsplash.jpg',
+    title: 'Spielend besser werden',
+    subtitle: 'Vom ersten Aufschlag bis zum Match-Gewinn. Wir bieten professionelles Training für jedes Alter und jedes Niveau.',
+    contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/10 to-transparent',
+    ctaPrimary: { label: 'Training anfragen', to: localePath('training') }
   },
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1530915365347-e35b749a0381?q=80&w=1740&auto=format&fit=crop',
-    title: 'Leidenschaft am Ball',
-    subtitle: 'Unsere Trainer bringen dein Spiel auf das nächste Level.',
-    contentPosition: 'bottom-left',
-    ctaPrimary: { label: 'Training buchen', to: localePath('training') }
-  },
-  {
-    type: 'image',
-    src: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2000&auto=format&fit=crop',
-    contentImage: '/tc-hardt-logo.svg',
-    contentImageClass: 'w-20 mb-4 drop-shadow-md',
-    title: 'Mehr als ein Verein',
-    subtitle: 'Erlebe unsere starke Gemeinschaft.',
-    contentPosition: 'bottom-right',
-    ctaPrimary: { label: 'Termine ansehen', to: localePath('news') }
+    src: '/img/home/clubhaus-von-oben.jpg',
+    title: 'Unsere Heimat im Grünen',
+    subtitle: 'Sechs topgepflegte Plätze, ein modernes Clubhaus und die wohl schönste Sonnenterrasse im Viertel.',
+    contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/40 to-transparent',
+    ctaPrimary: { label: 'Rundgang starten', to: localePath('facility') }
   }
 ])
 
@@ -119,7 +104,7 @@ const newsItems = db.news
       :slides="heroSlides"
       height="full"
       fallback-class="bg-brand-dark-900"
-      :autoplay="6000"
+      :autoplay="100000"
     />
 
     <Section

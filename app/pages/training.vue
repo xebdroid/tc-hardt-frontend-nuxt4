@@ -22,6 +22,7 @@ const slides: HeroSlide[] = [
     title: 'Training',
     subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
     contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-brand-dark-900/90 via-brand-dark-900/20 to-transparent'
   }
 ]
 

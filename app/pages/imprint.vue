@@ -187,8 +187,16 @@ useHead({
       </div>
 
       <p>
-        Hero Foto auf der Mitglied werden Seite von <a href="https://unsplash.com/de/@erwanhesry?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Erwan Hesry</a> auf <a href="https://unsplash.com/de/fotos/weisse-linie-auf-brauner-oberflache-uJ-OO3aZsSQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+        Startseite Hero Training:
+        Foto von <a href="https://unsplash.com/de/@sunify?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexander Lunyov</a> auf <a href="https://unsplash.com/de/fotos/tennisspieler-auf-einem-sandplatz-mit-langem-schatten-wBLW_19byJY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
       </p>
+
+
+      <p>
+        Startseite Hero Jubiläum:
+        Image by <a href="https://pixabay.com/users/hansmarkutt-6479460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">hansmarkutt</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">Pixabay</a>
+      </p>
+
     </UContainer>
   </div>
 </template>

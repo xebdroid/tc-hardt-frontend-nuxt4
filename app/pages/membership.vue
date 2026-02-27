@@ -29,7 +29,7 @@ const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
     contentPosition: 'bottom-center',
     ctaPrimary: { variant: 'highlight', label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
     ctaSecondary: { variant: 'brand-dark', label: 'Tarife ansehen', to: '#tarife' },
-    overlayClass: 'bg-brand-dark-900/70',
+    overlayClass: 'bg-gradient-to-t from-accent-900/90 via-accent-900/50 to-transparent',
     theme: 'light'
   }
 ])

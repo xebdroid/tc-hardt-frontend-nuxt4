@@ -5,7 +5,7 @@
 type HeadlineSize = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type Align = 'left' | 'center' | 'right' | 'none'
 type Mode = 'dark' | 'light'
-type SpacingSize = 'none' | 'sm' | 'md' | 'lg' | 'xl'
+type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 // Varianten für Tagline (Dachzeile)
 type TaglineVariant = 'default' | 'brand' | 'accent' | 'highlight'
@@ -90,10 +90,10 @@ const alignClasses = computed(() => {
 
 // --- SPACING ---
 const mtMap: Record<SpacingSize, string> = {
-  none: 'mt-0', sm: 'mt-6', md: 'mt-8', lg: 'mt-12', xl: 'mt-16'
+  none: 'mt-0', xs: 'mt-3', sm: 'mt-6', md: 'mt-8', lg: 'mt-12', xl: 'mt-16'
 }
 const mbMap: Record<SpacingSize, string> = {
-  none: 'mb-0', sm: 'mb-6', md: 'mb-8', lg: 'mb-12', xl: 'mb-16'
+  none: 'mb-0', xs: 'mb-3', sm: 'mb-6', md: 'mb-8', lg: 'mb-12', xl: 'mb-16'
 }
 
 const spacingClasses = computed(() => {
