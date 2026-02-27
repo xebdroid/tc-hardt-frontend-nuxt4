@@ -45,15 +45,19 @@ useHead({
 
           <div class="md:col-span-8 lg:col-span-9 space-y-8 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <div>
-              <strong class="block text-brand-dark-900 dark:text-white mb-1">Tennisclub Hardt 1976 e.V.</strong>
+              <strong class="block text-brand-dark-900 dark:text-white mb-1">Clubanlage</strong>
               <address class="not-italic">
+                Tennisclub Hardt 1976 e.V.<br>
                 Birkmannsweg 16<br>
                 41169 Mönchengladbach
               </address>
-              <div class="mt-2 text-sm text-gray-500">
-                <span class="uppercase tracking-wide text-xs font-bold">Postanschrift:</span><br>
-                Postfach 601272, 41162 Mönchengladbach
-              </div>
+            </div>
+            <div class="mt-4">
+              <strong class="block text-brand-dark-900 dark:text-white mb-1">Postanschrift</strong>
+              <address class="not-italic">
+                Postfach 601272<br>
+                41162 Mönchengladbach
+              </address>
             </div>
 
             <div>

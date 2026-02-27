@@ -13,7 +13,7 @@ useHead({
 
 // --- 1. Validierungs-Schema (Zod) ---
 const schema = z.object({
-  name: z.string().min(2, 'Bitte gib deinen Namen ein (mind. 2 Zeichen)'),
+  name: z.string().min(2, 'Bitte gib Deinen Namen ein (mind. 2 Zeichen)'),
   email: z.string().email('Bitte gib eine gültige E-Mail-Adresse ein'),
   message: z.string().min(10, 'Deine Nachricht ist etwas kurz (mind. 10 Zeichen)'),
   // Bot Protection: Matheaufgabe
@@ -88,7 +88,7 @@ function resetForm() {
             Kontakt
           </h1>
           <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-            Fragen? Anregungen? Wir sind für dich da.
+            Fragen? Anregungen? Wir sind für Dich da.
           </p>
         </div>
       </template>
@@ -102,12 +102,18 @@ function resetForm() {
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
             <UIcon name="i-heroicons-map-pin" class="w-6 h-6" />
           </div>
-          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Anschrift</h3>
-          <address class="text-gray-600 dark:text-gray-300 not-italic">
-            TC Hardt 1976 e.V.<br>
-            Birkmannsweg 16<br>
-            41169 Mönchengladbach
-          </address>
+          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Adressen</h3>
+          <div class="text-gray-600 dark:text-gray-300 not-italic">
+              <strong>Clubanlage</strong><br>
+              TC Hardt 1976 e.V.<br>
+              Birkmannsweg 16<br>
+              41169 Mönchengladbach
+          </div>
+          <div class="text-gray-600 dark:text-gray-300 not-italic mt-4">
+              <strong>Postanschrift</strong><br>
+              Postfach 601272<br>
+              41162 Mönchengladbach
+          </div>
         </div>
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
@@ -131,7 +137,7 @@ function resetForm() {
           <div v-if="!isSent">
             <Headline
               title="Schreib uns eine Nachricht"
-              description="Fülle das Formular aus und wir melden uns zeitnah bei dir."
+              description="Fülle das Formular aus und wir melden uns zeitnah bei Dir."
               tag="h2"
               size="h2"
               margin-bottom="md"
@@ -181,7 +187,7 @@ function resetForm() {
               >
                 <UTextarea
                   v-model="state.message"
-                  placeholder="Wie können wir dir helfen?"
+                  placeholder="Wie können wir Dir helfen?"
                   :rows="6"
                   size="lg"
                   class="w-full"
@@ -246,7 +252,7 @@ function resetForm() {
             </div>
             <h3 class="text-4xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank!</h3>
             <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
-              Deine Nachricht wurde erfolgreich an uns übermittelt. <br>Wir werden uns in Kürze bei dir melden.
+              Deine Nachricht wurde erfolgreich an uns übermittelt. <br>Wir werden uns in Kürze bei Dir melden.
             </p>
             <Button
               variant="outline"
@@ -291,7 +297,7 @@ function resetForm() {
 
         <div class="mt-4 text-center">
           <a
-            href="https://maps.app.goo.gl/DEIN_LINK_HIER"
+            href="https://maps.app.goo.gl/wt8zcsPJbvQfiyTM9"
             target="_blank"
             rel="noopener noreferrer"
             class="text-sm text-gray-500 hover:text-accent-600 underline"
