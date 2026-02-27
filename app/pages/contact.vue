@@ -96,24 +96,29 @@ function resetForm() {
 
     <UContainer class="py-16 space-y-16">
 
-      <div class="grid md:grid-cols-2 gap-8 mx-auto w-full">
+      <div class="grid md:grid-cols-3 gap-8 mx-auto w-full">
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
             <UIcon name="i-heroicons-map-pin" class="w-6 h-6" />
           </div>
-          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Adressen</h3>
-          <div class="text-gray-600 dark:text-gray-300 not-italic">
-              <strong>Clubanlage</strong><br>
-              TC Hardt 1976 e.V.<br>
-              Birkmannsweg 16<br>
-              41169 Mönchengladbach
+          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Clubanlage</h3>
+          <address class="text-gray-600 dark:text-gray-300 not-italic">
+            TC Hardt 1976 e.V.<br>
+            Birkmannsweg 16<br>
+            41169 Mönchengladbach
+          </address>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
+            <UIcon name="i-heroicons-inbox-arrow-down" class="w-6 h-6" />
           </div>
-          <div class="text-gray-600 dark:text-gray-300 not-italic mt-4">
-              <strong>Postanschrift</strong><br>
-              Postfach 601272<br>
-              41162 Mönchengladbach
-          </div>
+          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Postanschrift</h3>
+          <address class="text-gray-600 dark:text-gray-300 not-italic">
+            Postfach 601272<br>
+            41162 Mönchengladbach
+          </address>
         </div>
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
