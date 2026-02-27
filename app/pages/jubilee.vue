@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
+import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
 
@@ -121,7 +122,7 @@ const timelineItems = [
             outer-container
           >
             <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
-              <EventDate :date-string="item.date" />
+              <EventDate :date-string="item.date" variant="jubilee" />
               <Headline
                 :title="item.title"
                 :description="item.description"
