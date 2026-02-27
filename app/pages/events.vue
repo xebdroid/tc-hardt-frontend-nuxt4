@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import db from '~/assets/data/db.json'
 import type { Event } from '~/types'
 import Hero from '~/components/base/Hero.vue'
@@ -44,6 +44,12 @@ const eventCountDescription = computed(() => {
   const upcomingCount = upcomingEvents.value.length
   return `Ein Jahr voller Events: Freut euch auf ${upcomingCount} kommende Termine und werft einen Blick auf unsere vergangenen Highlights.`
 })
+
+const openPastEventId = ref<number | null>(null)
+
+const handlePastEventToggle = (id: number) => {
+  openPastEventId.value = openPastEventId.value === id ? null : id
+}
 </script>
 
 <template>
@@ -61,7 +67,8 @@ const eventCountDescription = computed(() => {
       </template>
     </Hero>
 
-    <Section>
+    <Section
+    variant="">
       <div class="max-w-4xl mx-auto">
         <Headline
           :title="`Unsere Events ${currentYear}`"
@@ -104,6 +111,8 @@ const eventCountDescription = computed(() => {
             :key="event.id"
             :event="event"
             :is-past="true"
+            :is-open="openPastEventId === event.id"
+            @toggle="handlePastEventToggle(event.id)"
           />
         </div>
       </div>

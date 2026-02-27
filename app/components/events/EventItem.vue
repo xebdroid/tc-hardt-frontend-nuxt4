@@ -23,7 +23,7 @@ const props = defineProps({
 const { calendarOptions } = useCalendar(props.event)
 
 const hasOptionalContent = computed(() => {
-  return !props.isPast && (props.event.content || props.event.description || props.event.time || props.event.location)
+  return props.event.content || props.event.description || props.event.time || props.event.location
 })
 
 const emit = defineEmits(['toggle'])
@@ -37,10 +37,90 @@ const cardClasses = computed(() => [
   'duration-300',
   'bg-white dark:bg-gray-900',
   'overflow-hidden', // Ensure rounded corners clip children
-  props.isPast
+  props.isPast && !props.isOpen
     ? 'opacity-70'
-    : 'hover:scale-[1.02] hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-600',
+    : '',
+  !props.isPast
+    ? 'hover:scale-[1.02] hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-600'
+    : '',
+  (props.isPast && !props.isOpen) ? 'grayscale' : ''
 ])
+
+const downloadIcs = () => {
+  const e = props.event
+
+  const formatDate = (d: Date) => {
+    return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+  }
+
+  const formatAllDay = (d: Date) => {
+    return d.toISOString().split('T')[0].replace(/-/g, '')
+  }
+
+  let start = ''
+  let end = ''
+  let isAllDay = !e.time
+
+  const startDateObj = new Date(e.date)
+
+  if (isAllDay) {
+    start = `DTSTART;VALUE=DATE:${formatAllDay(startDateObj)}`
+    const endDateObj = e.dateEnd ? new Date(e.dateEnd) : new Date(e.date)
+    endDateObj.setDate(endDateObj.getDate() + 1)
+    end = `DTEND;VALUE=DATE:${formatAllDay(endDateObj)}`
+  } else {
+    const timeRangeMatch = e.time?.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/)
+    const singleTimeMatch = e.time?.match(/(\d{1,2}):(\d{2})/)
+
+    let sHours = 0, sMinutes = 0
+
+    if (timeRangeMatch) {
+        sHours = parseInt(timeRangeMatch[1])
+        sMinutes = parseInt(timeRangeMatch[2])
+    } else if (singleTimeMatch) {
+        sHours = parseInt(singleTimeMatch[1])
+        sMinutes = parseInt(singleTimeMatch[2])
+    }
+
+    startDateObj.setHours(sHours, sMinutes)
+    start = `DTSTART:${formatDate(startDateObj)}`
+
+    let endDateObj = new Date(startDateObj)
+    if (timeRangeMatch) {
+        const eHours = parseInt(timeRangeMatch[3])
+        const eMinutes = parseInt(timeRangeMatch[4])
+        endDateObj = new Date(e.date)
+        endDateObj.setHours(eHours, eMinutes)
+    } else {
+        endDateObj.setHours(startDateObj.getHours() + 2)
+    }
+    end = `DTEND:${formatDate(endDateObj)}`
+  }
+
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//TC Hardt//Website//DE',
+    'BEGIN:VEVENT',
+    `UID:${Date.now()}-${e.id}@tc-hardt.de`,
+    `DTSTAMP:${formatDate(new Date())}`,
+    `SUMMARY:${e.title}`,
+    `DESCRIPTION:${e.description || ''}`,
+    `LOCATION:${e.location || ''}`,
+    start,
+    end,
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n')
+
+  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+  const link = document.createElement('a')
+  link.href = window.URL.createObjectURL(blob)
+  link.setAttribute('download', `${e.title.replace(/[^a-z0-9]/gi, '_')}.ics`)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 </script>
 
 <template>
@@ -109,13 +189,21 @@ const cardClasses = computed(() => [
             </div>
 
             <!-- Action Buttons -->
-            <div v-if="!isPast && calendarOptions?.length" class="flex flex-wrap gap-3 pt-2">
+            <div v-if="!isPast" class="flex flex-wrap gap-3 pt-2">
               <Button
                 v-for="(action, idx) in calendarOptions"
                 :key="idx"
                 v-bind="action"
                 size="md"
                 variant="outline"
+                class="flex-1 sm:flex-none justify-center"
+              />
+              <Button
+                label="Apple Kalender"
+                icon="i-heroicons-calendar"
+                size="md"
+                variant="outline"
+                @click="downloadIcs"
                 class="flex-1 sm:flex-none justify-center"
               />
             </div>
