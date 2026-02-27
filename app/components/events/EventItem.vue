@@ -25,6 +25,7 @@ const hasOptionalContent = computed(() => {
 const cardClasses = computed(() => [
   'w-full',
   'border',
+  'border-gray-200 dark:border-gray-700',
   'rounded-xl',
   'transition-all',
   'duration-300',
@@ -45,7 +46,7 @@ const cardClasses = computed(() => [
       <!-- Date & Image Block (Desktop) -->
       <div class="hidden md:flex items-center gap-6 col-start-1">
         <div class="w-44 flex-shrink-0">
-          <EventDate :date="event.date" :date-end="event.dateEnd" />
+          <EventDate :date="new Date(event.date)" :date-end="event.dateEnd ? new Date(event.dateEnd) : undefined" />
         </div>
         <img
           :src="event.image || 'https://placehold.co/400x300/e2e8f0/1e293b?text=Event'"
@@ -54,16 +55,14 @@ const cardClasses = computed(() => [
         >
       </div>
 
-      <!-- Image (Mobile) -->
-      <img
-        :src="event.image || 'https://placehold.co/400x300/e2e8f0/1e293b?text=Event'"
-        :alt="event.title"
-        class="block md:hidden w-full h-40 object-cover rounded-lg col-span-2"
-      >
-
-      <!-- Date (Mobile) -->
-      <div class="block md:hidden col-span-2">
-        <EventDate :date="event.date" :date-end="event.dateEnd" />
+      <!-- Mobile Header (Image + Date) -->
+      <div class="flex md:hidden items-center gap-4 col-span-2">
+        <img
+          :src="event.image || 'https://placehold.co/400x300/e2e8f0/1e293b?text=Event'"
+          :alt="event.title"
+          class="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+        >
+        <EventDate :date="new Date(event.date)" :date-end="event.dateEnd ? new Date(event.dateEnd) : undefined" />
       </div>
 
       <!-- Title -->
