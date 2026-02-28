@@ -27,7 +27,7 @@ withDefaults(defineProps<Props>(), {
       class="flex flex-col md:flex-row items-center gap-6"
       :class="{ 'md:flex-row-reverse': imagePosition === 'right' }"
     >
-      <div class="relative w-full h-48 md:w-[200px] md:h-[200px] flex-none rounded-lg overflow-hidden">
+      <div class="relative w-full h-48 md:w-[150px] md:h-[150px] flex-none rounded-lg overflow-hidden">
         <NuxtImg
           :src="image"
           :alt="title"
@@ -35,21 +35,23 @@ withDefaults(defineProps<Props>(), {
         />
         <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
       </div>
-      <div class="py-4 flex-grow flex flex-col justify-center">
-        <div
-          v-if="date"
-          class="flex items-center gap-2 mb-3"
-        >
-          <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
-          <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
+      <div class="py-4 flex-grow flex flex-col justify-center w-full">
+        <div class="flex justify-between items-start gap-4 mb-2">
+          <Headline
+            :title="title"
+            tag="h2"
+            size="h4"
+            margin-bottom="none"
+            :title-class="`text-brand-dark-900 dark:text-white group-hover:text-highlight-600 transition-colors line-clamp-2`"
+          />
+          <div
+            v-if="date"
+            class="flex items-center gap-2 shrink-0 mt-1"
+          >
+            <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
+            <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
+          </div>
         </div>
-        <Headline
-          :title="title"
-          tag="h2"
-          size="h4"
-          margin-bottom="sm"
-          :title-class="`text-brand-dark-900 dark:text-white group-hover:text-highlight-600 transition-colors line-clamp-2`"
-        />
         <p
           v-if="description"
           class="text-gray-500 dark:text-gray-400 text-sm line-clamp-3 mb-6"

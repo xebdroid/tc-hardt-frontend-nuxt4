@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NuxtImg } from '#components'
 
-type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 type RoundedSide = boolean | 'top' | 'bottom' | 'both'
 
 interface Props {
@@ -103,14 +103,14 @@ const variantClasses = computed(() => {
 })
 
 // --- PADDING ---
-const ptMap: Record<SpacingSize, string> = { none: 'pt-0', xs: 'pt-3', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32' }
-const pbMap: Record<SpacingSize, string> = { none: 'pb-0', xs: 'pb-3', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32' }
-const mtMap: Record<SpacingSize, string> = { none: 'mt-0', xs: 'mt-3', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32' }
-const mbMap: Record<SpacingSize, string> = { none: 'mb-0', xs: 'mb-3', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32' }
+const ptMap: Record<SpacingSize, string> = { none: 'pt-0', xs: 'pt-3', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' }
+const pbMap: Record<SpacingSize, string> = { none: 'pb-0', xs: 'pb-3', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' }
+const mtMap: Record<SpacingSize, string> = { none: 'mt-0', xs: 'mt-3', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' }
+const mbMap: Record<SpacingSize, string> = { none: 'mb-0', xs: 'mb-3', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' }
 
 // Horizontal padding is only applied on large screens to avoid cramping mobile layouts
-const plMap: Record<SpacingSize, string> = { none: 'lg:pl-0', xs: 'lg:pl-3', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32' }
-const prMap: Record<SpacingSize, string> = { none: 'lg:pr-0', xs: 'lg:pr-3', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32' }
+const plMap: Record<SpacingSize, string> = { none: 'lg:pl-0', xs: 'lg:pl-3', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32', xxl: 'lg:pl-42' }
+const prMap: Record<SpacingSize, string> = { none: 'lg:pr-0', xs: 'lg:pr-3', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32', xxl: 'lg:pr-42' }
 
 const spacingClasses = computed(() => {
   const classes = [ptMap[props.paddingTop], pbMap[props.paddingBottom]]

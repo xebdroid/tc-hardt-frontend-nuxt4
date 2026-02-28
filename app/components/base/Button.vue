@@ -3,7 +3,7 @@
  * AppButton - Zentraler Button
  */
 
-export type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost' | 'gold1' | 'gold2'
+export type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost' | 'gold1' | 'gold2' | 'ghost-white'
 
 interface Props {
   to?: string
@@ -49,12 +49,16 @@ const variantStyles = {
   gold1: 'text-brand-dark-950 font-bold bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate hover:shadow-xl',
 
   // 7. GOLD2
-  gold2: 'text-brand-dark-950 font-bold bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate hover:shadow-xl'
+  gold2: 'text-brand-dark-950 font-bold bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate hover:shadow-xl',
+
+  // 8. GHOST WHITE (White text on dark/image background)
+  'ghost-white': 'bg-transparent text-white hover:text-brand-light-200 hover:bg-white/10'
 }
 
 const uButtonVariant = computed(() => {
   if (props.variant === 'outline') return 'outline'
   if (props.variant === 'ghost') return 'ghost'
+  if (props.variant === 'ghost-white') return 'ghost'
   return 'solid'
 })
 
