@@ -3,7 +3,7 @@
  * AppButton - Zentraler Button
  */
 
-export type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost' | 'jubilee-gold'
+export type ButtonVariant = 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost' | 'gold1' | 'gold2'
 
 interface Props {
   to?: string
@@ -45,8 +45,11 @@ const variantStyles = {
   // 5. GHOST
   ghost: 'bg-transparent text-brand-dark-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800',
 
-  // 6. JUBILEE GOLD
-  'jubilee-gold': 'text-brand-dark-950 font-bold bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate hover:shadow-xl'
+  // 6. GOLD2
+  gold1: 'text-brand-dark-950 font-bold bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate hover:shadow-xl',
+
+  // 7. GOLD2
+  gold2: 'text-brand-dark-950 font-bold bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate hover:shadow-xl'
 }
 
 const uButtonVariant = computed(() => {

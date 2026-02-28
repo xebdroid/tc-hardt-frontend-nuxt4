@@ -169,8 +169,8 @@ const onSlideChange = (swiper: any) => {
           <div
             v-if="slide.type === 'color'"
             class="w-full h-full"
-            :class="slide.colorClass"
-            :style="{ backgroundColor: slide.color }"
+            :class="[slide.colorClass, slide.overlayClass]"
+            :style="{ backgroundColor: slide.overlayClass ? '' : slide.color }"
           />
           <video
             v-else-if="slide.type === 'video'"
@@ -192,7 +192,7 @@ const onSlideChange = (swiper: any) => {
         </div>
 
         <div
-          v-if="slide.overlayClass"
+          v-if="slide.overlayClass && slide.type !== 'color'"
           class="absolute inset-0 z-[5]"
           :class="slide.overlayClass"
         />

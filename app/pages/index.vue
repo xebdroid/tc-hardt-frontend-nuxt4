@@ -16,12 +16,16 @@ const localePath = useLocalePath()
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
-    src: '/img/home/hansmarkutt-tennis-5782695.jpg',
-    title: '50 Jahre Leidenschaft',
+    src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
+    contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
+    contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
+    title: 'TC-Hardt',
+    titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate font-bold',
     subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
-    contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/40 to-transparent',
-    ctaPrimary: { variant:'jubilee-gold', label: 'Unsere Geschichte', to: localePath('jubilee') }
+    subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
+    contentPosition: 'center',
+    overlayClass: 'bg-gradient-to-t from-black/60 via-black/80 to-black/60',
+    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
   },
   {
     type: 'video',
@@ -40,7 +44,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitle: 'Vom ersten Aufschlag bis zum Match-Gewinn. Wir bieten professionelles Training für jedes Alter und jedes Niveau.',
     contentPosition: 'bottom-center',
     overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/10 to-transparent',
-    ctaPrimary: { label: 'Training anfragen', to: localePath('training') }
+    ctaPrimary: { label: 'Unser Trainingsangebot', to: localePath('training') }
   },
   {
     type: 'image',
@@ -49,7 +53,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitle: 'Sechs topgepflegte Plätze, ein modernes Clubhaus und die wohl schönste Sonnenterrasse im Viertel.',
     contentPosition: 'bottom-center',
     overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/40 to-transparent',
-    ctaPrimary: { label: 'Rundgang starten', to: localePath('facility') }
+    ctaPrimary: { label: 'Unsere Heimat', to: localePath('facility') }
   }
 ])
 

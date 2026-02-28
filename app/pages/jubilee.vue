@@ -14,6 +14,17 @@ useHead({
 
 // 1. Hero Data
 const heroSlides: HeroSlide[] = [
+  // {
+  //   type: 'image',
+  //   src: '/img/home/hansmarkutt-tennis-5782695.jpg',
+  //   title: '50 Jahre Leidenschaft',
+  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate font-bold',
+  //   subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
+  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
+  //   contentPosition: 'bottom-center',
+  //   overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/60 to-transparent',
+  //   ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
+  // },
   {
     type: 'image',
     src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
@@ -27,8 +38,36 @@ const heroSlides: HeroSlide[] = [
     descriptionClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
     contentPosition: 'center',
     overlayClass: 'bg-gradient-to-t from-brand-light-900/90 via-brand-light-900/40 to-transparent',
-    ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
-  }
+    ctaPrimary: { variant: 'gold1', label: 'Unsere Jubiläums-Highlights', to: '#events' }
+  },
+  // {
+  //   type: 'image',
+  //   src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
+  //   contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
+  //   contentImageClass: 'w-80 mb-4',
+  //   title: 'TC-Hardt',
+  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate font-bold',
+  //   subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
+  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
+  //   contentPosition: 'bottom-center',
+  //   overlayClass: 'bg-gradient-to-t from-black/60 via-black/80 to-black/60',
+  //   ctaPrimary: { variant: 'gold2', label: 'Unsere Jubiläums-Highlights', to: '#events' }
+  // },
+  // {
+  //   type: 'image',
+  //   src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
+  //   contentImage: '/img/jubilee/50-jahre-emblem.png',
+  //   contentImageClass: 'w-80 mb-4',
+  //   title: 'TC - Hardt',
+  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate font-bold',
+  //   subtitle: 'Tennis op de Hardt',
+  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
+  //   description: 'Leidenschaft, Gemeinschaft und Tennis',
+  //   descriptionClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
+  //   contentPosition: 'center',
+  //   overlayClass: 'bg-gradient-to-t from-brand-light-900/90 via-brand-light-900/40 to-transparent',
+  //   ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
+  // }
 ]
 
 // 2. Timeline Data
@@ -81,7 +120,7 @@ const timelineItems = [
 <template>
   <div class="bg-white dark:bg-gray-900 min-h-screen">
 
-    <Hero :slides="heroSlides" height="full" />
+    <Hero :slides="heroSlides" height="large" />
 
     <div id="events" class="scroll-mt-16">
       <div

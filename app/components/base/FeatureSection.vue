@@ -53,7 +53,7 @@ const contentOrderClass = computed(() => {
 
       <div
         v-if="badgeText"
-        class="absolute top-6 right-6 z-30 bg-highlight-400 text-brand-dark-900 p-4 rounded-xl shadow-lg rotate-3 hidden sm:block"
+        class="absolute top-9 right-6 z-30 bg-highlight-400 text-brand-dark-900 p-4 rounded-xl shadow-lg rotate-16 hidden sm:block"
       >
         <div class="flex items-center gap-2">
           <UIcon :name="badgeIcon" class="w-5 h-5" />
