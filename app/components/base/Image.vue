@@ -4,7 +4,7 @@ import { NuxtImg } from '#components'
 interface Props {
   src?: string | null;
   alt?: string;
-  variant?: 'feature' | 'portrait' | 'round' | 'event';
+  variant?: 'feature' | 'portrait' | 'round' | 'event' | 'news';
   size?: 'small' | 'large';
   objectPosition?: string;
   sizes?: string;
@@ -34,6 +34,8 @@ const variantClasses = computed(() => {
       }
     case 'portrait':
       return 'w-48 h-64 md:w-56 md:h-72 rounded-2xl overflow-hidden border-[12px] border-white shadow-sm shrink-0';
+    case 'news':
+      return 'relative w-full h-48 md:w-[150px] md:h-[150px] flex-none rounded-lg overflow-hidden';
     case 'feature':
     default:
       return 'relative rounded-3xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-800 aspect-[4/3]';
@@ -52,14 +54,16 @@ const imageClasses = computed(() => {
 
 <template>
   <div :class="variantClasses">
-    <NuxtImg
-      v-if="src"
-      :src="src"
-      :alt="alt"
-      :class="imageClasses"
-      :sizes="sizes"
-      loading="lazy"
-    />
+    <template v-if="src">
+      <NuxtImg
+        :src="src"
+        :alt="alt"
+        :class="imageClasses"
+        :sizes="sizes"
+        loading="lazy"
+      />
+      <slot name="overlay" />
+    </template>
     <slot v-else />
   </div>
 </template>

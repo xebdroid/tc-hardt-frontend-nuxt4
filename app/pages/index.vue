@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Navigation } from 'swiper/modules'
+import 'swiper/css'
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Sponsors from '~/components/base/Sponsors.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
-import CardTeaser from '~/components/base/CardTeaser.vue'
+import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import db from '~/assets/data/db.json'
 
@@ -182,11 +185,11 @@ const newsItems = db.news
 
     <Section
       variant="primary"
-      padding-top="xl"
-      padding-bottom="xl"
+      padding-top="md"
+      padding-bottom="md"
       rounded
     >
-      <div class="flex justify-between items-start">
+      <div class="flex justify-between items-start mb-8">
         <div class="flex-1">
           <Headline
             mode="light"
@@ -206,17 +209,44 @@ const newsItems = db.news
         </Button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <CardTeaser
-          v-for="news in newsItems"
-          :key="news.id"
-          :image="news.image"
-          :title="news.title"
-          :date="news.date"
-          :description="news.excerpt"
-          link-text="Weiterlesen"
-          :to="localePath({ name: 'news-id', params: { id: news.id } })"
-        />
+      <div class="flex flex-col items-center gap-4">
+        <button class="news-prev text-white hover:text-highlight-500 transition-colors">
+          <UIcon name="i-heroicons-chevron-up" class="w-8 h-8" />
+        </button>
+
+        <Swiper
+          :modules="[Autoplay, Navigation]"
+          direction="vertical"
+          :slides-per-view="1"
+          :space-between="24"
+          :loop="true"
+          :navigation="{
+            nextEl: '.news-next',
+            prevEl: '.news-prev'
+          }"
+          :autoplay="{
+            delay: 8000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          }"
+          class="w-full h-[450px] md:h-[240px]"
+        >
+          <SwiperSlide v-for="(news, index) in newsItems" :key="news.id">
+            <FeaturedNewsCard
+              :to="localePath({ name: 'news-id', params: { id: news.id } })"
+              :image="news.image ?? ''"
+              :title="news.title"
+              :date="news.date"
+              :description="news.excerpt"
+              link-text="Weiterlesen"
+              class="w-full"
+            />
+          </SwiperSlide>
+        </Swiper>
+
+        <button class="news-next text-white hover:text-highlight-500 transition-colors">
+          <UIcon name="i-heroicons-chevron-down" class="w-8 h-8" />
+        </button>
       </div>
     </Section>
 
