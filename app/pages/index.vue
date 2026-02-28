@@ -24,7 +24,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
     contentPosition: 'center',
-    overlayClass: 'bg-gradient-to-t from-black/60 via-black/80 to-black/60',
+    overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
     ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
   },
   {
