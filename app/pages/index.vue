@@ -19,7 +19,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
     contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
-    title: 'TC-Hardt',
+    title: 'TC Hardt',
     titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate font-bold',
     subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',

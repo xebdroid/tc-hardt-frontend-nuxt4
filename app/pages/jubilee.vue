@@ -30,7 +30,7 @@ const heroSlides: HeroSlide[] = [
     src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem.png',
     contentImageClass: 'w-80 mb-4',
-    title: 'TC - Hardt',
+    title: 'TC Hardt',
     titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate font-bold',
     subtitle: 'Tennis op de Hardt',
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',

@@ -10,7 +10,7 @@ const newsItems = db.news.sort((a, b) => new Date(b.date.split('.').reverse().jo
 </script>
 
 <template>
-  <div class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+  <div>
     <Section>
       <Headline
         title="Aktuelles"
@@ -19,8 +19,9 @@ const newsItems = db.news.sort((a, b) => new Date(b.date.split('.').reverse().jo
         alignment="center"
         subtitle="Neuigkeiten, Spielberichte und Termine."
       />
-
-      <div class="space-y-8">
+    </Section>
+    <Section variant="secondary-light" :outer-container="true">
+      <div class="space-y-8 max-w-5xl mx-auto">
         <FeaturedNewsCard
           v-for="(news, index) in newsItems"
           :key="news.id"

@@ -21,13 +21,13 @@ withDefaults(defineProps<Props>(), {
 <template>
   <NuxtLink
     :to="to"
-    class="group block rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300"
+    class="group block rounded-2xl bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 p-4"
   >
-    <div class="grid grid-cols-1 md:grid-cols-3">
-      <div
-        class="relative h-auto aspect-square"
-        :class="{ 'md:order-last': imagePosition === 'right' }"
-      >
+    <div
+      class="flex flex-col md:flex-row items-center gap-6"
+      :class="{ 'md:flex-row-reverse': imagePosition === 'right' }"
+    >
+      <div class="relative w-full h-48 md:w-[200px] md:h-[200px] flex-none rounded-lg overflow-hidden">
         <NuxtImg
           :src="image"
           :alt="title"
@@ -35,7 +35,7 @@ withDefaults(defineProps<Props>(), {
         />
         <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
       </div>
-      <div class="p-8 md:col-span-2 flex flex-col justify-center">
+      <div class="py-4 flex-grow flex flex-col justify-center">
         <div
           v-if="date"
           class="flex items-center gap-2 mb-3"
@@ -46,7 +46,7 @@ withDefaults(defineProps<Props>(), {
         <Headline
           :title="title"
           tag="h2"
-          size="h3"
+          size="h4"
           margin-bottom="sm"
           :title-class="`text-brand-dark-900 dark:text-white group-hover:text-highlight-600 transition-colors line-clamp-2`"
         />

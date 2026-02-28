@@ -1,93 +1,101 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import Section from '~/components/base/Section.vue'
-import Headline from '~/components/base/Headline.vue'
-import Image from '~/components/base/Image.vue'
+import ArticleInfoBox from '~/components/ArticleInfoBox.vue'
 import db from '~/assets/data/db.json'
+import Hero from '~/components/base/Hero.vue'
 
 const route = useRoute()
-
-// News Item finden
 const newsItem = computed(() => {
-  const item = db.news.find(n => n.id === Number(route.params.id))
-  // Type assertion to help with type inference in the template
-  return item as (typeof db.news)[0] | undefined
+  return db.news.find(n => n.id == Number(route.params.id))
 })
 
-// Wenn ID nicht gefunden, Redirect oder Error
-if (!newsItem.value) {
-  throw createError({ statusCode: 404, statusMessage: 'News nicht gefunden' })
-}
-
-useHead({ title: newsItem.value ? `${newsItem.value.title} | TC Hardt` : 'News' })
+useHead({
+  title: newsItem.value ? `${newsItem.value.title} - TC Hardt` : 'News nicht gefunden',
+})
 
 const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-image')
 </script>
 
 <template>
-  <div v-if="newsItem">
-    <Hero height="small">
-      <template #content>
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-6xl font-heading font-bold text-white mb-6">
-            {{ newsItem.title }}
-          </h1>
-        </div>
-      </template>
-    </Hero>
+  <div v-if="newsItem" class="bg-white dark:bg-gray-900 min-h-screen">
 
-    <Section class="bg-gray-50 dark:bg-gray-900">
-      <div class="max-w-4xl mx-auto">
-        <!-- Large Image Layout -->
-        <template v-if="isLargeImageLayout">
-          <Image
-            :src="newsItem.image"
-            :alt="newsItem.title"
-            variant="feature"
-            class="w-full h-auto mb-8"
-          />
-        </template>
+    <Hero
+      height="small"
+      :slides="
+        [
+          {
+            type: 'color',
+            title: newsItem.title,
 
-        <!-- Small Image Layout (Default) -->
-        <template v-else>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 items-center">
-            <div class="md:col-span-2">
-              <Headline
-                tag="p"
-                :title="newsItem.excerpt"
-                size="h5"
-                :margin-bottom="'sm'"
-              />
-              <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                <UIcon name="i-heroicons-calendar" />
-                <span>{{ newsItem.date }}</span>
-              </div>
-            </div>
-            <Image
+          }
+        ]
+      "
+    />
+
+    <Section
+      variant="secondary-light"
+      outer-container
+      rounded
+      padding-top="sm"
+      padding-bottom="sm"
+      padding-left="sm"
+      padding-right="sm"
+    >
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Variante 2: Großes Bild links, Text darunter. Info rechts. -->
+        <div v-if="isLargeImageLayout" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div class="lg:col-span-2">
+            <img
+              v-if="newsItem.image"
               :src="newsItem.image"
               :alt="newsItem.title"
-              variant="event"
-              class="w-40 h-40"
-            />
+              class="w-full h-auto rounded-xl shadow-lg mb-8"
+            >
+
+            <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed">
+              <div v-html="newsItem.content"/>
+            </div>
           </div>
-        </template>
 
-        <!-- Common Content Area -->
-        <div class="prose dark:prose-invert max-w-none text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-          <!-- eslint-disable-next-line vue/no-v-html -->
-          <div v-html="newsItem.content" />
+          <div class="lg:col-span-1">
+            <ArticleInfoBox :date="newsItem.date" class="sticky top-24" />
+          </div>
         </div>
 
-        <div class="mt-12 pt-8 border-t border-gray-100 dark:border-gray-700">
-          <UButton
-            :to="$localePath('news')"
-            variant="ghost"
-            icon="i-heroicons-arrow-left"
-          >
-            Zurück zur Übersicht
-          </UButton>
+        <!-- Variante 1: Text links + Info Box. Kleines Bild rechts. -->
+        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div class="lg:col-span-2">
+            <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed mb-10">
+              <div v-html="newsItem.content"/>
+            </div>
+
+            <!-- Info Box unter dem Text (aber in der linken Spalte) -->
+            <ArticleInfoBox :date="newsItem.date" />
+          </div>
+
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <img
+                v-if="newsItem.image"
+                :src="newsItem.image"
+                :alt="newsItem.title"
+                class="w-full h-auto rounded-xl shadow-lg"
+              >
+            </div>
+          </div>
         </div>
+
       </div>
     </Section>
+
+  </div>
+  <div v-else class="min-h-screen flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-2xl font-bold mb-4">Artikel nicht gefunden</h1>
+      <NuxtLink to="/news" class="text-primary-600 hover:underline">Zurück zur Übersicht</NuxtLink>
+    </div>
   </div>
 </template>
