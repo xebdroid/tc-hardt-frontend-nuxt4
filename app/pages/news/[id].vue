@@ -1,51 +1,79 @@
 <script setup lang="ts">
 import Hero from '~/components/base/Hero.vue'
+import Section from '~/components/base/Section.vue'
+import Headline from '~/components/base/Headline.vue'
+import Image from '~/components/base/Image.vue'
 import db from '~/assets/data/db.json'
 
 const route = useRoute()
 
-
 // News Item finden
 const newsItem = computed(() => {
-  return db.news.find(n => n.id === Number(route.params.id))
+  const item = db.news.find(n => n.id === Number(route.params.id))
+  // Type assertion to help with type inference in the template
+  return item as (typeof db.news)[0] | undefined
 })
 
-// Wenn ID nicht gefunden, Redirect oder Error (einfacher Fall hier)
+// Wenn ID nicht gefunden, Redirect oder Error
 if (!newsItem.value) {
-  // In einer echten App: throw createError({ statusCode: 404, statusMessage: 'News nicht gefunden' })
+  throw createError({ statusCode: 404, statusMessage: 'News nicht gefunden' })
 }
 
 useHead({ title: newsItem.value ? `${newsItem.value.title} | TC Hardt` : 'News' })
+
+const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-image')
 </script>
 
 <template>
-  <div v-if="newsItem" class="bg-gray-50 dark:bg-gray-900 min-h-screen">
-    <Hero
-      :slides="[]"
-      height="small"
-      fallback-class="bg-gray-900"
-    >
+  <div v-if="newsItem">
+    <Hero height="small">
       <template #content>
-        <h1 class="text-3xl sm:text-5xl font-heading font-bold text-white mb-4 max-w-4xl mx-auto leading-tight">
-          {{ newsItem.title }}
-        </h1>
-        <div class="flex items-center justify-center gap-2 text-tennis-100">
-          <UIcon name="i-heroicons-calendar" />
-          <span>{{ newsItem.date }}</span>
+        <div class="text-center">
+          <h1 class="text-4xl sm:text-6xl font-heading font-bold text-white mb-6">
+            {{ newsItem.title }}
+          </h1>
         </div>
       </template>
     </Hero>
 
-    <UContainer class="py-16">
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-8 md:p-12 max-w-4xl mx-auto -mt-32 relative z-20">
-        <img
-          :src="newsItem.image"
-          class="w-full h-auto rounded-xl mb-8 shadow-md"
-          :alt="newsItem.title"
-        >
+    <Section class="bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-4xl mx-auto">
+        <!-- Large Image Layout -->
+        <template v-if="isLargeImageLayout">
+          <Image
+            :src="newsItem.image"
+            :alt="newsItem.title"
+            variant="feature"
+            class="w-full h-auto mb-8"
+          />
+        </template>
 
+        <!-- Small Image Layout (Default) -->
+        <template v-else>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 items-center">
+            <div class="md:col-span-2">
+              <Headline
+                tag="p"
+                :title="newsItem.excerpt"
+                size="h5"
+                :margin-bottom="'sm'"
+              />
+              <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                <UIcon name="i-heroicons-calendar" />
+                <span>{{ newsItem.date }}</span>
+              </div>
+            </div>
+            <Image
+              :src="newsItem.image"
+              :alt="newsItem.title"
+              variant="event"
+              class="w-40 h-40"
+            />
+          </div>
+        </template>
+
+        <!-- Common Content Area -->
         <div class="prose dark:prose-invert max-w-none text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-          <p class="font-bold text-xl mb-6">{{ newsItem.excerpt }}</p>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="newsItem.content" />
         </div>
@@ -60,6 +88,6 @@ useHead({ title: newsItem.value ? `${newsItem.value.title} | TC Hardt` : 'News' 
           </UButton>
         </div>
       </div>
-    </UContainer>
+    </Section>
   </div>
 </template>

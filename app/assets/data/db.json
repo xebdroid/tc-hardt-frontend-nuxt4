@@ -11,7 +11,8 @@
       "date": "16.02.2026",
       "excerpt": "Auch im Jubiläumsjahr ist der TC Hardt wieder beim Rosenmontagsumzug in Hardt dabei. Unter dem Motto 'Back to the 70ies' feiern wir 50 Jahre Tennis op de Hardt.",
       "content": "<p>Passend zu unserem Jubiläumsmotto 'Back to the 70ies – 50 Jahre Tennis op de Hardt' wird der TC Hardt auch in diesem Jahr wieder mit einer bunten Truppe beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt mitziehen.</p><p>Wer noch Lust hat, mitzugehen und unseren Verein fröhlich zu repräsentieren, kann sich gerne melden. Je mehr wir sind, desto besser – Spaß und gute Laune inklusive!</p>",
-      "image": "https://placehold.co/1200x600/f59e0b/422006?text=Karneval+2026"
+      "image": "/img/events/2026-tc-hardt-karneval.jpg",
+      "layout": "small-image"
     },
     {
       "id": 5,
@@ -178,7 +179,6 @@
       "description": "Themen: Wettspielordnung, Mannschaftsmeldungen, Clubmeisterschaften, Kreis- & Stadtmeisterschaften und weitere Events.",
       "content": "<p>Die 1. Ressortsitzung Sport im Jubiläumsjahr findet am 09.03.2026 um 19:30 Uhr im Clubhaus statt.</p><p>Themen sind u. a. die Wettspielordnung, die Mannschaftsmeldungen der Medenmannschaften, die Clubmeisterschaften 2026, die Kreis- & Stadtmeisterschaften auf unserer Anlage sowie weitere Events (z. B. Sangria Open).</p><p>Alle Mannschaftsspieler, Mannschaftsführer und Interessierten – insbesondere auch neue oder noch nicht gemeldete Spielerinnen und Spieler – sind herzlich eingeladen.</p>",
       "location": "Clubhaus",
-      "image": null,
       "highlightLevel": 0
     },
     {
@@ -189,7 +189,6 @@
       "description": "Die ordentliche Mitgliederversammlung 2026 findet im Clubhaus statt.",
       "content": "<p>Die ordentliche Mitgliederversammlung 2026 findet am 23.03.2026 um 19:00 Uhr im Clubhaus statt.</p><p>Die offiziellen Einladungen mit Tagesordnung folgen in Kürze. Wir freuen uns auf eine rege Teilnahme und den gemeinsamen Austausch.</p>",
       "location": "Clubhaus",
-      "image": "https://placehold.co/600x400/1e293b/94a3b8?text=MV+2026",
       "highlightLevel": 0
     },
     {
@@ -200,7 +199,7 @@
       "description": "Gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.",
       "content": "<p>Bevor es auf die Plätze geht, steht der traditionelle Frühjahrsputz an. Am 11.04.2026 ab 10:00 Uhr möchten wir gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.</p><p>Hierfür benötigen wir wieder viele helfende Hände. Jede Unterstützung zählt – gemeinsam geht es schneller und macht mehr Spaß.</p>",
       "location": "Gesamte Anlage",
-      "image": "https://placehold.co/600x400/a16207/422006?text=Frühjahrsputz",
+      "image": "/img/events/fruehjahrsputz.jpg",
       "highlightLevel": 0
     },
     {
@@ -211,7 +210,7 @@
       "description": "Vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein: Schnuppertraining, Tennis-Olympiade, One-Point-Slam, Cocktailbar & Musik, und vieles mehr.",
       "content": "<p>Vorab: Auch in diesem Jahr benötigen wir eure Hilfe um den Tag der offenen Tür durchzuführen. Bitte meldet euch bei uns, damit wir euch einplanen können! Eine konkrete Liste für anfallende Arbeiten wird noch folgen.</p><p>Am 19.04.2026 ab 11:00 Uhr laden wir euch, eure Freunde und eure Familien herzlich zur Saisoneröffnung und zum Tag der offenen Tür ein.</p><p>Gerade im Jubiläumsjahr erwartet euch ein besonders vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Schnuppertraining</li><li>Tennis-Olympiade</li><li>One-Point-Slam</li><li>Cocktailbar & Musik</li><li>Bügeln & Beachvolleyball</li><li>Hüpfburg für die Kids</li><li>Aufschlagsgeschwindigkeitsmessung</li><li>und vieles mehr</li></ul><p class=\"mt-4\">Ein perfekter Tag, um Tennis zu erleben, Freunde mitzubringen und gemeinsam in die neue Saison zu starten.</p>",
       "location": "Gesamte Anlage",
-      "image": "https://placehold.co/600x400/334155/f1f5f9?text=Saisonstart",
+      "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
       "highlightLevel": 1
     },
     {
@@ -232,7 +231,7 @@
       "title": "Sangria Open",
       "description": null,
       "location": "Clubhaus & Terrasse",
-      "image": "https://placehold.co/600x400/f59e0b/422006?text=Sommerfest",
+      "image": "/img/events/sangria-open.jpg",
       "highlightLevel": 0
     },
     {

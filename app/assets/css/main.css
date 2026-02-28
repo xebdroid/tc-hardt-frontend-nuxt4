@@ -15,6 +15,9 @@
 }
 
 @theme static {
+  --color-white: #FFFDF7;
+  --color-black: #000;
+
   /* 1. BRAND DARK (Navy) */
   /* Basis: #1C3063 (sitzt auf Stufe 800) */
   /* Wirkt sehr technisch und seriös */

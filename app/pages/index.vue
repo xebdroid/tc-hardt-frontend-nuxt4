@@ -142,7 +142,7 @@ const newsItems = db.news
       class="overflow-hidden"
     >
       <FeatureSection
-        image-src="https://images.unsplash.com/photo-1591100463799-a9ef12226ba4?q=80&w=928&auto=format&fit=crop"
+        image-src="/img/home/unsere-werte.jpg"
         image-alt="Tennis Community TC Hardt"
         image-position="left"
         badge-text="Seit 1976"
