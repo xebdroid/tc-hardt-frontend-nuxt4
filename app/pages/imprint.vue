@@ -188,15 +188,33 @@ useHead({
 
       <p>
         Startseite Hero Training:
+        <br>
         Foto von <a href="https://unsplash.com/de/@sunify?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexander Lunyov</a> auf <a href="https://unsplash.com/de/fotos/tennisspieler-auf-einem-sandplatz-mit-langem-schatten-wBLW_19byJY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
       </p>
 
 
       <p>
         Startseite Hero Jubiläum:
+        <br>
         Image by <a href="https://pixabay.com/users/hansmarkutt-6479460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">hansmarkutt</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">Pixabay</a>
       </p>
 
+
+      <p>
+        Events:
+        <br>
+        Stadtmeisterschaften
+        <br>
+        Foto von <a href="https://unsplash.com/de/@naveenketterer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Naveen Ketterer</a> auf <a href="https://unsplash.com/de/fotos/tennisspieler-mit-einer-anzeigetafel-mit-0-0-4-ExLozCZ1RUs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+      </p>
+
+      <p>
+        Events:
+        <br>
+        1. Ressortsitzung Sport
+        <br>
+        Foto von <a href="https://unsplash.com/de/@mainermedia?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Dylan Gillis</a> auf <a href="https://unsplash.com/de/fotos/menschen-die-tagsuber-auf-einem-stuhl-vor-dem-tisch-sitzen-und-stifte-halten-KdeqA3aTnBY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+      </p>
     </UContainer>
   </div>
 </template>

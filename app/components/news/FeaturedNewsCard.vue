@@ -27,15 +27,25 @@ withDefaults(defineProps<Props>(), {
       class="flex flex-col md:flex-row items-center gap-4"
       :class="{ 'md:flex-row-reverse': imagePosition === 'right' }"
     >
-      <Image
-        :src="image"
-        :alt="title"
-        variant="news"
-      >
-        <template #overlay>
-          <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-        </template>
-      </Image>
+      <div class="flex items-center self-start w-full gap-4 md:w-auto md:block">
+        <Image
+          :src="image"
+          :alt="title"
+          class="relative w-24 h-24 md:w-[150px] md:h-[150px] flex-none rounded-lg overflow-hidden"
+          image-class="w-full h-full object-cover"
+        >
+          <template #overlay>
+            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+          </template>
+        </Image>
+        <div
+          v-if="date"
+          class="flex items-center gap-2 shrink-0 md:hidden"
+        >
+          <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
+          <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
+        </div>
+      </div>
       <div class="flex-grow flex flex-col justify-center w-full">
         <div class="flex justify-between items-start gap-4 mb-2">
           <Headline
@@ -47,7 +57,7 @@ withDefaults(defineProps<Props>(), {
           />
           <div
             v-if="date"
-            class="flex items-center gap-2 shrink-0 mt-1"
+            class="hidden md:flex items-center gap-2 shrink-0 mt-1"
           >
             <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
             <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
@@ -55,7 +65,7 @@ withDefaults(defineProps<Props>(), {
         </div>
         <p
           v-if="description"
-          class="text-gray-500 dark:text-gray-400 text-sm line-clamp-3 mb-6"
+          class="text-gray-500 dark:text-gray-400 text-sm line-clamp-1 md:line-clamp-3 mb-4 md:mb-6"
         >
           {{ description }}
         </p>
