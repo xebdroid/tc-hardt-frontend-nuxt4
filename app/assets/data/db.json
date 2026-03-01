@@ -39,7 +39,7 @@
       "date": "19.04.2099",
       "excerpt": "Wir laden alle Mitglieder, Freunde und Tennisinteressierte zur großen Saisoneröffnung im Jubiläumsjahr ein. Es erwartet euch ein buntes Programm!",
       "content": "<p>Am <strong>19.04.2099 ab 11:00 Uhr</strong> laden wir euch, eure Freunde und eure Familien herzlich zur Saisoneröffnung und zum Tag der offenen Tür ein.</p><p>Gerade im Jubiläumsjahr erwartet euch ein besonders vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein:</p><ul><li>Schnuppertraining</li><li>Tennis-Olympiade</li><li>One-Point-Slam</li><li>Cocktailbar & Musik</li><li>Bügeln & Beachvolleyball</li><li>Hüpfburg für die Kids</li><li>Aufschlagsgeschwindigkeitsmessung</li><li>und vieles mehr</li></ul><p>Ein perfekter Tag, um Tennis zu erleben und gemeinsam in die neue Saison zu starten.</p>",
-      "image": "https://placehold.co/1200x600/334155/f1f5f9?text=Saisoneröffnung+2099",
+      "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
       "publishDate": "2099-04-01"
     },
     {
@@ -48,7 +48,7 @@
       "date": "27.06.2026",
       "excerpt": "Ein Highlight des Jubiläumsjahres: Die große Gala zum 50-jährigen Bestehen unseres Vereins. Feiert mit uns im Festzelt auf der Anlage!",
       "content": "<p>Am <strong>27.06.2026</strong> findet das Highlight unseres Jubiläumsjahres statt: Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage.</p><p>Die Hardter Blasmusik wird den offiziellen Teil musikalisch begleiten. Es erwartet euch ein Buffet und ein DJ wird für beste Stimmung und eine ausgelassene Jubiläumsparty sorgen. Die offiziellen Einladungen werden in Kürze versendet.</p>",
-      "image": "https://placehold.co/1200x600/ef4444/7f1d1d?text=50+Jahre+TC+Hardt",
+      "image": "/img/events/50-jahre-emblem.jpg",
       "publishDate": "2020-01-01"
     },
     {
@@ -56,8 +56,7 @@
       "title": "Heimspiel: Kreis- & Stadtmeisterschaften in Hardt",
       "date": "29.08.2026",
       "excerpt": "Zum ersten Mal in der Vereinsgeschichte sind wir Gastgeber der Kreis- & Stadtmeisterschaften. Wir suchen noch Helfer für dieses große Event!",
-      "content": "<p>Ein echtes Highlight im Jubiläumsjahr: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften, die vom <strong>29.08. bis 13.09.2026</strong> stattfinden.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für die Unterstützung der Turnierleitung und für die Mitarbeit im Gastro-Team. Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p>",
-      "image": null
+      "content": "<p>Ein echtes Highlight im Jubiläumsjahr: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften, die vom <strong>29.08. bis 13.09.2026</strong> stattfinden.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für die Unterstützung der Turnierleitung und für die Mitarbeit im Gastro-Team. Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p>"
     }
   ],
   "board": [
@@ -226,7 +225,7 @@
       "description": "Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage. Mit Buffet und DJ.",
       "content": "<p>Am 27.06.2026 findet ein Highlight unseres Jubiläumsjahres statt: Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage.</p><p>Die Hardter Blasmusik wird den offiziellen Teil musikalisch begleiten. Es erwartet euch ein Buffet und ein DJ wird für beste Stimmung und eine ausgelassene Jubiläumsparty sorgen. Die offiziellen Einladungen werden in Kürze versendet.</p>",
       "location": "Festzelt auf der Anlage",
-      "image": "https://placehold.co/600x400/ef4444/7f1d1d?text=50+Jahre",
+      "image": "/img/events/50-jahre-emblem.jpg",
       "highlightLevel": 2
     },
     {
@@ -259,7 +258,7 @@
       "title": "Finaltag der Clubmeisterschaften",
       "description": "Die Finaltage der Clubmeisterschaften der Erwachsenen und Jugend.",
       "location": "Gesamte Anlage",
-      "image": "https://placehold.co/600x400/ef4444/7f1d1d?text=Finale",
+      "image": "/img/events/finale.jpg",
       "highlightLevel": 1
     },
     {

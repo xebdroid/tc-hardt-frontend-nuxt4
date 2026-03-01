@@ -32,6 +32,8 @@
       <Footer />
 
     </div>
+
+    <DevBreakpointHelper />
   </div>
 </template>
 
