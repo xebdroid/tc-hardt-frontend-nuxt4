@@ -1,23 +1,65 @@
 {
-"nav": {
-    "home": "Home",
-    "events": "Events",
-    "club": "The Club",
-    "sport": "Sport & Teams",
-    "about": "About Us",
-    "about_desc": "Our history & values",
-    "board": "The Board",
-    "board_desc": "The leadership team",
-    "teams": "Teams",
-    "teams_desc": "Adults, Youth & Seniors",
-    "training": "Training",
-    "training_desc": "Tennis school & courses",
-    "sponsoring": "Sponsoring",
-    "sponsoring_desc": "Our strong partners",
-    "contact": "Contact",
-    "member": "Become a member",
-    "imprint": "Imprint",
-    "privacy": "Privacy Policy"
+  "nav": {
+    "main": {
+      "home": "Home",
+      "events": "Events",
+      "club": "The Club",
+      "sport": "Sport & Teams",
+      "training": "Training",
+      "contact": "Contact"
+    },
+    "buttons": {
+      "membership": "Become a member",
+      "login": "Login"
+    },
+    "sup": {
+      "facility": "Facility",
+      "facility_desc": "Discover our grounds at Hardter Wald.",
+      "about": "About Us",
+      "about_desc": "Our history & values",
+      "jubilee": "50 Years TC Hardt",
+      "jubilee_desc": "Our big anniversary in 2026",
+      "news": "News",
+      "news_desc": "News and announcements from the club.",
+      "board": "The Board",
+      "board_desc": "The leadership team",
+      "teams": "Teams",
+      "teams_desc": "Adults, Youth & Seniors",
+      "training_desc": "Tennis school & courses",
+      "sponsoring": "Sponsoring",
+      "sponsoring_desc": "Our strong partners",
+      "statutes": "Statutes",
+      "imprint": "Imprint",
+      "privacy": "Privacy Policy"
+    },
+    "topbar": {
+      "address": {
+        "label": "Birkmannsweg 16, 41169 Mönchengladbach, Germany",
+        "href": "https://goo.gl/maps/XYZ"
+      },
+      "email": "info{'@'}tc-hardt.de",
+      "socialmedia": [
+        {
+          "href": "https://www.instagram.com/tc_hardt_1976",
+          "icon": "i-simple-icons-instagram"
+        },
+        {
+          "href": "https://www.facebook.com/TCHardt1976",
+          "icon": "i-simple-icons-facebook"
+        }
+      ]
+    }
+  },
+  "footer": {
+    "cta": {
+      "title": "Join our Community",
+      "button": "Become a member"
+    },
+    "logo": {
+      "name": "TC Hardt",
+      "suffix": "1976 e.V."
+    },
+    "copyright": "© {year} TC Hardt 1976 e.V."
   },
   "home": {
     "hero": {
