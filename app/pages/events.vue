@@ -84,12 +84,12 @@ const handlePastEventToggle = (id: number) => {
       v-if="upcomingEvents.length > 0"
       variant="secondary-light"
       rounded
-      outer-container
       overlap-bottom
       padding-top="xs"
-      padding-bottom="xs"
-      padding-left="md"
-      padding-right="md"
+      padding-bottom="sm"
+      :padding-left="{ base: 'none', md: 'xs' , lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'xs' , lg: 'md'}"
+      :outer-container="{ base: false, md: true}"
       class="relative z-10"
     >
       <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
@@ -112,8 +112,8 @@ const handlePastEventToggle = (id: number) => {
       overlap-top
       padding-top="lg"
       padding-bottom="sm"
-      padding-left="md"
-      padding-right="md"
+      :padding-left="{ base: 'none', md: 'md' }"
+      :padding-right="{ base: 'none', md: 'md'}"
       margin-bottom="xl"
       class="relative z-0"
     >

@@ -107,38 +107,75 @@ const variantClasses = computed(() => {
 
 // --- PADDING & MARGIN ---
 const spacingMaps = {
-  pt: { none: 'pt-0', xs: 'pt-4', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' },
-  pb: { none: 'pb-0', xs: 'pb-4', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' },
-  pl: { none: 'pl-0', xs: 'pl-4', sm: 'pl-12', md: 'pl-16', lg: 'pl-24', xl: 'pl-32', xxl: 'pl-42' },
-  pr: { none: 'pr-0', xs: 'pr-4', sm: 'pr-12', md: 'pr-16', lg: 'pr-24', xl: 'pr-32', xxl: 'pr-42' },
-  mt: { none: 'mt-0', xs: 'mt-4', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' },
-  mb: { none: 'mb-0', xs: 'mb-4', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' }
+  pt: {
+    base: { none: 'pt-0', xs: 'pt-4', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' },
+    sm: { none: 'sm:pt-0', xs: 'sm:pt-4', sm: 'sm:pt-12', md: 'sm:pt-16', lg: 'sm:pt-24', xl: 'sm:pt-32', xxl: 'sm:pt-42' },
+    md: { none: 'md:pt-0', xs: 'md:pt-4', sm: 'md:pt-12', md: 'md:pt-16', lg: 'md:pt-24', xl: 'md:pt-32', xxl: 'md:pt-42' },
+    lg: { none: 'lg:pt-0', xs: 'lg:pt-4', sm: 'lg:pt-12', md: 'lg:pt-16', lg: 'lg:pt-24', xl: 'lg:pt-32', xxl: 'lg:pt-42' },
+    xl: { none: 'xl:pt-0', xs: 'xl:pt-4', sm: 'xl:pt-12', md: 'xl:pt-16', lg: 'xl:pt-24', xl: 'xl:pt-32', xxl: 'xl:pt-42' },
+    '2xl': { none: '2xl:pt-0', xs: '2xl:pt-4', sm: '2xl:pt-12', md: '2xl:pt-16', lg: '2xl:pt-24', xl: '2xl:pt-32', xxl: '2xl:pt-42' }
+  },
+  pb: {
+    base: { none: 'pb-0', xs: 'pb-4', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' },
+    sm: { none: 'sm:pb-0', xs: 'sm:pb-4', sm: 'sm:pb-12', md: 'sm:pb-16', lg: 'sm:pb-24', xl: 'sm:pb-32', xxl: 'sm:pb-42' },
+    md: { none: 'md:pb-0', xs: 'md:pb-4', sm: 'md:pb-12', md: 'md:pb-16', lg: 'md:pb-24', xl: 'md:pb-32', xxl: 'md:pb-42' },
+    lg: { none: 'lg:pb-0', xs: 'lg:pb-4', sm: 'lg:pb-12', md: 'lg:pb-16', lg: 'lg:pb-24', xl: 'lg:pb-32', xxl: 'lg:pb-42' },
+    xl: { none: 'xl:pb-0', xs: 'xl:pb-4', sm: 'xl:pb-12', md: 'xl:pb-16', lg: 'xl:pb-24', xl: 'xl:pb-32', xxl: 'xl:pb-42' },
+    '2xl': { none: '2xl:pb-0', xs: '2xl:pb-4', sm: '2xl:pb-12', md: '2xl:pb-16', lg: '2xl:pb-24', xl: '2xl:pb-32', xxl: '2xl:pb-42' }
+  },
+  pl: {
+    base: { none: 'pl-0', xs: 'pl-4', sm: 'pl-12', md: 'pl-16', lg: 'pl-24', xl: 'pl-32', xxl: 'pl-42' },
+    sm: { none: 'sm:pl-0', xs: 'sm:pl-4', sm: 'sm:pl-12', md: 'sm:pl-16', lg: 'sm:pl-24', xl: 'sm:pl-32', xxl: 'sm:pl-42' },
+    md: { none: 'md:pl-0', xs: 'md:pl-4', sm: 'md:pl-12', md: 'md:pl-16', lg: 'md:pl-24', xl: 'md:pl-32', xxl: 'md:pl-42' },
+    lg: { none: 'lg:pl-0', xs: 'lg:pl-4', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32', xxl: 'lg:pl-42' },
+    xl: { none: 'xl:pl-0', xs: 'xl:pl-4', sm: 'xl:pl-12', md: 'xl:pl-16', lg: 'xl:pl-24', xl: 'xl:pl-32', xxl: 'xl:pl-42' },
+    '2xl': { none: '2xl:pl-0', xs: '2xl:pl-4', sm: '2xl:pl-12', md: '2xl:pl-16', lg: '2xl:pl-24', xl: '2xl:pl-32', xxl: '2xl:pl-42' }
+  },
+  pr: {
+    base: { none: 'pr-0', xs: 'pr-4', sm: 'pr-12', md: 'pr-16', lg: 'pr-24', xl: 'pr-32', xxl: 'pr-42' },
+    sm: { none: 'sm:pr-0', xs: 'sm:pr-4', sm: 'sm:pr-12', md: 'sm:pr-16', lg: 'sm:pr-24', xl: 'sm:pr-32', xxl: 'sm:pr-42' },
+    md: { none: 'md:pr-0', xs: 'md:pr-4', sm: 'md:pr-12', md: 'md:pr-16', lg: 'md:pr-24', xl: 'md:pr-32', xxl: 'md:pr-42' },
+    lg: { none: 'lg:pr-0', xs: 'lg:pr-4', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32', xxl: 'lg:pr-42' },
+    xl: { none: 'xl:pr-0', xs: 'xl:pr-4', sm: 'xl:pr-12', md: 'xl:pr-16', lg: 'xl:pr-24', xl: 'xl:pr-32', xxl: 'xl:pr-42' },
+    '2xl': { none: '2xl:pr-0', xs: '2xl:pr-4', sm: '2xl:pr-12', md: '2xl:pr-16', lg: '2xl:pr-24', xl: '2xl:pr-32', xxl: '2xl:pr-42' }
+  },
+  mt: {
+    base: { none: 'mt-0', xs: 'mt-4', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' },
+    sm: { none: 'sm:mt-0', xs: 'sm:mt-4', sm: 'sm:mt-12', md: 'sm:mt-16', lg: 'sm:mt-24', xl: 'sm:mt-32', xxl: 'sm:mt-42' },
+    md: { none: 'md:mt-0', xs: 'md:mt-4', sm: 'md:mt-12', md: 'md:mt-16', lg: 'md:mt-24', xl: 'md:mt-32', xxl: 'md:mt-42' },
+    lg: { none: 'lg:mt-0', xs: 'lg:mt-4', sm: 'lg:mt-12', md: 'lg:mt-16', lg: 'lg:mt-24', xl: 'lg:mt-32', xxl: 'lg:mt-42' },
+    xl: { none: 'xl:mt-0', xs: 'xl:mt-4', sm: 'xl:mt-12', md: 'xl:mt-16', lg: 'xl:mt-24', xl: 'xl:mt-32', xxl: 'xl:mt-42' },
+    '2xl': { none: '2xl:mt-0', xs: '2xl:mt-4', sm: '2xl:mt-12', md: '2xl:mt-16', lg: '2xl:mt-24', xl: '2xl:mt-32', xxl: '2xl:mt-42' }
+  },
+  mb: {
+    base: { none: 'mb-0', xs: 'mb-4', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' },
+    sm: { none: 'sm:mb-0', xs: 'sm:mb-4', sm: 'sm:mb-12', md: 'sm:mb-16', lg: 'sm:mb-24', xl: 'sm:mb-32', xxl: 'sm:mb-42' },
+    md: { none: 'md:mb-0', xs: 'md:mb-4', sm: 'md:mb-12', md: 'md:mb-16', lg: 'md:mb-24', xl: 'md:mb-32', xxl: 'md:mb-42' },
+    lg: { none: 'lg:mb-0', xs: 'lg:mb-4', sm: 'lg:mb-12', md: 'lg:mb-16', lg: 'lg:mb-24', xl: 'lg:mb-32', xxl: 'lg:mb-42' },
+    xl: { none: 'xl:mb-0', xs: 'xl:mb-4', sm: 'xl:mb-12', md: 'xl:mb-16', lg: 'xl:mb-24', xl: 'xl:mb-32', xxl: 'xl:mb-42' },
+    '2xl': { none: '2xl:mb-0', xs: '2xl:mb-4', sm: '2xl:mb-12', md: '2xl:mb-16', lg: '2xl:mb-24', xl: '2xl:mb-32', xxl: '2xl:mb-42' }
+  }
 }
 
 const getResponsiveClasses = (
   propValue: Responsive<SpacingSize> | undefined,
-  classMap: Record<SpacingSize, string>
+  spacingDict: Record<string, Record<SpacingSize, string>>
 ): string => {
   if (!propValue) { return '' }
 
+  // Falls es nur ein simpler String ist
   if (typeof propValue === 'string') {
-    return classMap[propValue]
+    return spacingDict.base[propValue]
   }
 
   // Handle responsive object
   const classes: string[] = []
-  if (propValue.base) {
-    classes.push(classMap[propValue.base])
-  }
-
-  for (const key in propValue) {
-    if (key === 'base') continue
-    const bp = key as Breakpoint
-    const size = propValue[bp]
-    if (size) {
-      classes.push(`${bp}:${classMap[size]}`)
-    }
-  }
+  if (propValue.base) classes.push(spacingDict.base[propValue.base])
+  if (propValue.sm) classes.push(spacingDict.sm[propValue.sm])
+  if (propValue.md) classes.push(spacingDict.md[propValue.md])
+  if (propValue.lg) classes.push(spacingDict.lg[propValue.lg])
+  if (propValue.xl) classes.push(spacingDict.xl[propValue.xl])
+  if (propValue['2xl']) classes.push(spacingDict['2xl'][propValue['2xl']])
 
   return classes.join(' ')
 }
@@ -203,6 +240,7 @@ const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValu
 
   // SM
   if (state.sm && !state.base) classes.push('sm:mx-auto', 'sm:px-6')
+  else if (!state.sm && state.base) classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
   else if (!state.sm && state.base) classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
   else if (state.sm && state.base) classes.push('sm:px-6')
 

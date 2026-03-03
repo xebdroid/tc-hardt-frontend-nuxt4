@@ -18,6 +18,10 @@ const props = defineProps({
   isOpen: {
     type: Boolean,
     default: false
+  },
+  variant: {
+    type: String as () => 'default' | 'compact',
+    default: 'default'
   }
 })
 
@@ -126,10 +130,10 @@ const downloadIcs = () => {
 
 <template>
   <div :class="cardClasses">
-    <div class="flex flex-col md:flex-row items-stretch h-full">
+    <div class="flex flex-col items-stretch h-full" :class="variant === 'default' ? 'md:flex-row' : ''">
 
       <!-- Sidebar (Desktop) / Header (Mobile) - Gray Background -->
-      <div class="bg-gray-50 dark:bg-white/5 flex-shrink-0 md:w-80 border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700 flex flex-col">
+      <div class="bg-gray-50 dark:bg-white/5 flex-shrink-0 border-b border-gray-100 dark:border-gray-700 flex flex-col" :class="variant === 'default' ? 'md:w-80 md:border-b-0 md:border-r' : ''">
         <div
           class="flex flex-row items-center justify-between p-3 md:p-4 gap-4"
         >

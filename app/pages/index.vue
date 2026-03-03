@@ -10,6 +10,7 @@ import Headline from '~/components/base/Headline.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
+import EventList from '~/components/events/EventList.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
@@ -103,6 +104,7 @@ const values = computed(() => [
 ])
 
 const newsItems = db.news
+
 </script>
 
 <template>
@@ -185,21 +187,22 @@ const newsItems = db.news
 
     <Section
       variant="primary"
-      padding-top="md"
-      padding-bottom="md"
       rounded
+      overlap-bottom
+      :padding-top="{ base: 'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', md: 'md' }"
+      class="relative z-20"
     >
-      <div class="flex justify-between items-start mb-8">
-        <div class="flex-1">
-          <Headline
-            mode="light"
-            alignment="left"
-            tagline="Aktuelles"
-            tagline-variant="highlight"
-            :title="$t('home.news.title')"
-            class="mb-0"
-          />
-        </div>
+      <Headline
+        mode="light"
+        alignment="center"
+        tagline="Aktuelles"
+        tagline-variant="highlight"
+        :title="$t('home.news.title')"
+        class="mb-8"
+      />
+
+      <div class="flex justify-center mb-8">
         <Button
           :to="localePath('news')"
           variant="highlight"
@@ -209,7 +212,7 @@ const newsItems = db.news
         </Button>
       </div>
 
-      <div class="relative px-12">
+      <div class="relative px-0 md:px-12">
         <Swiper
           :modules="[Autoplay, Navigation]"
           direction="horizontal"
@@ -227,7 +230,11 @@ const newsItems = db.news
           }"
           class="w-full"
         >
-          <SwiperSlide v-for="(news, index) in newsItems" :key="news.id" class="h-auto">
+          <SwiperSlide
+            v-for="(news, index) in newsItems"
+            :key="news.id"
+            class="h-auto"
+          >
             <FeaturedNewsCard
               :to="localePath({ name: 'news-id', params: { id: news.id } })"
               :image="news.image ?? ''"
@@ -240,13 +247,47 @@ const newsItems = db.news
           </SwiperSlide>
         </Swiper>
 
-        <button class="news-prev absolute top-1/2 -translate-y-1/2 left-0 z-10 text-white hover:text-highlight-500 transition-colors">
-          <UIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
-        </button>
-        <button class="news-next absolute top-1/2 -translate-y-1/2 right-0 z-10 text-white hover:text-highlight-500 transition-colors">
-          <UIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
-        </button>
+        <div class="flex justify-center gap-8 mt-6 md:mt-0 md:block">
+          <button class="news-prev text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:z-10">
+            <UIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
+          </button>
+          <button class="news-next text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:right-0 md:z-10">
+            <UIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
+          </button>
+        </div>
       </div>
+    </Section>
+
+
+    <Section
+      variant="primary-light"
+      rounded
+      :padding-top="{ base: 'lg', md: 'lg', lg: 'xl' }"
+      :padding-bottom="{ base: 'sm', md: 'md' }"
+      class="relative z-10"
+    >
+      <Headline
+        alignment="center"
+        tagline="Termine"
+        title="Das steht an"
+        description="Die nächsten Highlights in unserem Vereinskalender."
+      />
+
+      <div class="flex justify-center mb-8">
+        <Button
+          :to="localePath('events')"
+          variant="brand-dark"
+          label="Alle Termine ansehen"
+          trailing-icon="i-heroicons-arrow-right"
+        />
+      </div>
+
+      <EventList
+        :events="db.events as any"
+        :upcoming="true"
+        :limit="3"
+        layout="grid"
+      />
     </Section>
 
     <Section
