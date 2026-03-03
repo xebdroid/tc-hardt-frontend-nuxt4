@@ -43,7 +43,7 @@ const newsItems = db.news
 </script>
 
 <template>
-  <div class="space-y-8 max-w-5xl mx-auto">
+  <div class="space-y-8">
     <FeaturedNewsCard
       v-for="(news, index) in newsItems"
       :key="news.id"

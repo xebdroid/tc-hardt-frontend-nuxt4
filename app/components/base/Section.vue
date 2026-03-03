@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { NuxtImg } from '#components'
+import { computed } from 'vue'
 
 type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 type RoundedSide = boolean | 'top' | 'bottom' | 'both'
+type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+type Responsive<T> = T | Partial<Record<Breakpoint | 'base', T>>
 
 interface Props {
   variant?:
@@ -14,12 +17,12 @@ interface Props {
     | 'accent'        | 'accent-light'
 
   rounded?: RoundedSide
-  paddingTop?: SpacingSize
-  paddingBottom?: SpacingSize
-  paddingLeft?: SpacingSize
-  paddingRight?: SpacingSize
-  marginTop?: SpacingSize
-  marginBottom?: SpacingSize
+  paddingTop?: Responsive<SpacingSize>
+  paddingBottom?: Responsive<SpacingSize>
+  paddingLeft?: Responsive<SpacingSize>
+  paddingRight?: Responsive<SpacingSize>
+  marginTop?: Responsive<SpacingSize>
+  marginBottom?: Responsive<SpacingSize>
 
   /**
    * Zieht die Section nach oben über den Vorgänger (-mt)
@@ -34,12 +37,12 @@ interface Props {
   /**
    * Wickelt nur den INHALT in einen Container (Standard: true)
    */
-  useContainer?: boolean
+  useContainer?: Responsive<boolean>
 
   /**
    * Wickelt die GESAMTE Sektion in einen Container
    */
-  outerContainer?: boolean
+  outerContainer?: Responsive<boolean>
 
   /**
    * URL zu einem Hintergrundbild
@@ -102,23 +105,54 @@ const variantClasses = computed(() => {
   }
 })
 
-// --- PADDING ---
-const ptMap: Record<SpacingSize, string> = { none: 'pt-0', xs: 'pt-3', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' }
-const pbMap: Record<SpacingSize, string> = { none: 'pb-0', xs: 'pb-3', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' }
-const mtMap: Record<SpacingSize, string> = { none: 'mt-0', xs: 'mt-3', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' }
-const mbMap: Record<SpacingSize, string> = { none: 'mb-0', xs: 'mb-3', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' }
+// --- PADDING & MARGIN ---
+const spacingMaps = {
+  pt: { none: 'pt-0', xs: 'pt-4', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' },
+  pb: { none: 'pb-0', xs: 'pb-4', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' },
+  pl: { none: 'pl-0', xs: 'pl-4', sm: 'pl-12', md: 'pl-16', lg: 'pl-24', xl: 'pl-32', xxl: 'pl-42' },
+  pr: { none: 'pr-0', xs: 'pr-4', sm: 'pr-12', md: 'pr-16', lg: 'pr-24', xl: 'pr-32', xxl: 'pr-42' },
+  mt: { none: 'mt-0', xs: 'mt-4', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' },
+  mb: { none: 'mb-0', xs: 'mb-4', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' }
+}
 
-// Horizontal padding is only applied on large screens to avoid cramping mobile layouts
-const plMap: Record<SpacingSize, string> = { none: 'lg:pl-0', xs: 'lg:pl-3', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32', xxl: 'lg:pl-42' }
-const prMap: Record<SpacingSize, string> = { none: 'lg:pr-0', xs: 'lg:pr-3', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32', xxl: 'lg:pr-42' }
+const getResponsiveClasses = (
+  propValue: Responsive<SpacingSize> | undefined,
+  classMap: Record<SpacingSize, string>
+): string => {
+  if (!propValue) { return '' }
+
+  if (typeof propValue === 'string') {
+    return classMap[propValue]
+  }
+
+  // Handle responsive object
+  const classes: string[] = []
+  if (propValue.base) {
+    classes.push(classMap[propValue.base])
+  }
+
+  for (const key in propValue) {
+    if (key === 'base') continue
+    const bp = key as Breakpoint
+    const size = propValue[bp]
+    if (size) {
+      classes.push(`${bp}:${classMap[size]}`)
+    }
+  }
+
+  return classes.join(' ')
+}
 
 const spacingClasses = computed(() => {
-  const classes = [ptMap[props.paddingTop], pbMap[props.paddingBottom]]
-  if (props.marginTop) classes.push(mtMap[props.marginTop])
-  if (props.marginBottom) classes.push(mbMap[props.marginBottom])
-  if (props.paddingLeft) classes.push(plMap[props.paddingLeft])
-  if (props.paddingRight) classes.push(prMap[props.paddingRight])
-  return classes.join(' ')
+  const classes = [
+    getResponsiveClasses(props.paddingTop, spacingMaps.pt),
+    getResponsiveClasses(props.paddingBottom, spacingMaps.pb),
+    getResponsiveClasses(props.paddingLeft, spacingMaps.pl),
+    getResponsiveClasses(props.paddingRight, spacingMaps.pr),
+    getResponsiveClasses(props.marginTop, spacingMaps.mt),
+    getResponsiveClasses(props.marginBottom, spacingMaps.mb)
+  ]
+  return classes.filter(c => c).join(' ')
 })
 
 // --- OVERLAP LOGIK ---
@@ -139,12 +173,67 @@ const layoutClasses = computed(() => {
   return classes.join(' ')
 })
 
-// Dynamische Komponente für die äußere Hülle
-const RootElement = computed(() => props.outerContainer ? resolveComponent('UContainer') : 'div')
+// --- CONTAINER LOGIC ---
+const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValue: boolean): string => {
+  const isContainer = value ?? defaultValue
+
+  // 1. Status für jeden Breakpoint ermitteln
+  const state: Record<'base' | Breakpoint, boolean> = {
+    base: false, sm: false, md: false, lg: false, xl: false, '2xl': false
+  }
+
+  if (typeof isContainer === 'boolean') {
+    state.base = state.sm = state.md = state.lg = state.xl = state['2xl'] = isContainer
+  } else {
+    state.base = isContainer.base ?? defaultValue
+    state.sm = isContainer.sm ?? state.base
+    state.md = isContainer.md ?? state.sm
+    state.lg = isContainer.lg ?? state.md
+    state.xl = isContainer.xl ?? state.lg
+    state['2xl'] = isContainer['2xl'] ?? state.xl
+  }
+
+  const classes = ['w-full']
+
+  // 2. Explizite Zuweisung pro Breakpoint (ohne widersprüchliche Doppel-Klassen)
+
+  // BASE
+  if (state.base) classes.push('mx-auto', 'px-4')
+  else classes.push('mx-0', 'px-0', 'max-w-full')
+
+  // SM
+  if (state.sm && !state.base) classes.push('sm:mx-auto', 'sm:px-6')
+  else if (!state.sm && state.base) classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
+  else if (state.sm && state.base) classes.push('sm:px-6')
+
+  // MD
+  if (state.md && !state.sm) classes.push('md:mx-auto')
+  else if (!state.md && state.sm) classes.push('md:mx-0', 'md:px-0', 'md:max-w-full')
+
+  // LG
+  if (state.lg && !state.md) classes.push('lg:mx-auto', 'lg:px-0', 'lg:max-w-4xl')
+  else if (!state.lg && state.md) classes.push('lg:mx-0', 'lg:px-0', 'lg:max-w-full')
+  else if (state.lg && state.md) classes.push('lg:px-0', 'lg:max-w-4xl')
+
+  // XL
+  if (state.xl && !state.lg) classes.push('xl:mx-auto', 'xl:max-w-5xl')
+  else if (!state.xl && state.lg) classes.push('xl:mx-0', 'xl:px-0', 'xl:max-w-full')
+  else if (state.xl && state.lg) classes.push('xl:max-w-5xl')
+
+  // 2XL
+  if (state['2xl'] && !state.xl) classes.push('2xl:mx-auto', '2xl:max-w-6xl')
+  else if (!state['2xl'] && state.xl) classes.push('2xl:mx-0', '2xl:px-0', '2xl:max-w-full')
+  else if (state['2xl'] && state.xl) classes.push('2xl:max-w-6xl')
+
+  return classes.join(' ')
+}
+
+const outerContainerClasses = computed(() => getContainerClasses(props.outerContainer, false))
+const innerContainerClasses = computed(() => getContainerClasses(props.useContainer, true))
 </script>
 
 <template>
-  <component :is="RootElement">
+  <div :class="outerContainerClasses">
     <section
       class="w-full transition-colors duration-300 relative"
       :class="[
@@ -154,7 +243,6 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
       ]"
       :style="backgroundStyles"
     >
-      <!-- Optimiertes Hintergrundbild (nicht-Parallax) -->
       <div
         v-if="backgroundImage && !parallax"
         class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]"
@@ -172,13 +260,9 @@ const RootElement = computed(() => props.outerContainer ? resolveComponent('UCon
         <slot name="background" />
       </div>
 
-      <UContainer v-if="useContainer" class="relative z-10 h-full">
-        <slot />
-      </UContainer>
-
-      <div v-else class="relative z-10 h-full w-full">
+      <div class="relative z-10 h-full" :class="innerContainerClasses">
         <slot />
       </div>
     </section>
-  </component>
+  </div>
 </template>

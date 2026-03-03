@@ -30,11 +30,11 @@ useHead({ title: 'Aktuelles | TC Hardt' })
       variant="secondary-light"
       margin-top="sm"
       margin-bottom="xl"
-      padding-top="md"
+      :padding-top="{ base: 'xs', lg: 'none' }"
+      :padding-left="{ base: 'lg', '2xl': 'none' }"
       padding-bottom="md"
-      padding-left="sm"
-      padding-right="sm"
-      outer-container
+      :outer-container="{ base: true, lg: true, xl: true, '2xl': false }"
+      :use-container="{ base: true, lg: true, xl: true, '2xl': true }"
       rounded
     >
       <NewsList />

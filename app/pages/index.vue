@@ -209,14 +209,10 @@ const newsItems = db.news
         </Button>
       </div>
 
-      <div class="flex flex-col items-center gap-4">
-        <button class="news-prev text-white hover:text-highlight-500 transition-colors">
-          <UIcon name="i-heroicons-chevron-up" class="w-8 h-8" />
-        </button>
-
+      <div class="relative px-12">
         <Swiper
           :modules="[Autoplay, Navigation]"
-          direction="vertical"
+          direction="horizontal"
           :slides-per-view="1"
           :space-between="24"
           :loop="true"
@@ -229,9 +225,9 @@ const newsItems = db.news
             disableOnInteraction: false,
             pauseOnMouseEnter: true
           }"
-          class="w-full h-[450px] md:h-[240px]"
+          class="w-full"
         >
-          <SwiperSlide v-for="(news, index) in newsItems" :key="news.id">
+          <SwiperSlide v-for="(news, index) in newsItems" :key="news.id" class="h-auto">
             <FeaturedNewsCard
               :to="localePath({ name: 'news-id', params: { id: news.id } })"
               :image="news.image ?? ''"
@@ -239,13 +235,16 @@ const newsItems = db.news
               :date="news.date"
               :description="news.excerpt"
               link-text="Weiterlesen"
-              class="w-full"
+              class="w-full h-full"
             />
           </SwiperSlide>
         </Swiper>
 
-        <button class="news-next text-white hover:text-highlight-500 transition-colors">
-          <UIcon name="i-heroicons-chevron-down" class="w-8 h-8" />
+        <button class="news-prev absolute top-1/2 -translate-y-1/2 left-0 z-10 text-white hover:text-highlight-500 transition-colors">
+          <UIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
+        </button>
+        <button class="news-next absolute top-1/2 -translate-y-1/2 right-0 z-10 text-white hover:text-highlight-500 transition-colors">
+          <UIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
         </button>
       </div>
     </Section>

@@ -274,32 +274,6 @@
       "highlightLevel": 0
     }
   ],
-  "sponsors": [
-    {
-      "name": "Volksbank",
-      "image": "https://placehold.co/400x300/e2e8f0/1e293b?text=Volksbank"
-    },
-    {
-      "name": "Sparkasse",
-      "image": "https://placehold.co/400x300/e2e8f0/dc2626?text=Sparkasse"
-    },
-    {
-      "name": "Tennis-Point",
-      "image": "https://placehold.co/400x300/e2e8f0/facc15?text=Tennis-Point"
-    },
-    {
-      "name": "Intersport",
-      "image": "https://placehold.co/400x300/e2e8f0/1e293b?text=INTERSPORT"
-    },
-    {
-      "name": "Autohaus Müller",
-      "image": "https://placehold.co/400x300/e2e8f0/1e293b?text=Autohaus+Müller"
-    },
-    {
-      "name": "Getränke Schmitz",
-      "image": "https://placehold.co/400x300/e2e8f0/1e293b?text=Getränke+Schmitz"
-    }
-  ],
   "tariffs": [
     {
       "id": "adult",

@@ -10,7 +10,8 @@ const items = [
   { src: '/img/sponsors/logo_fuchsbau.jpg', url: 'https://fuchsbau-mg.de/', alt: 'Gaststätte Fuchsbau 54' },
   { src: '/img/sponsors/logo_volksbank_immobilien.jpg', url: 'https://www.vobaimmo.de', alt: 'VOBA Immobilien eG' },
   { src: '/img/sponsors/logo_gs_metallbau_goelden_seewal.png', url: 'https://www.goelden-seewald.de/', alt: 'G+S Metallbau Gölden u. Seewald' },
-  { src: '/img/sponsors/logo_tieves_schreinerei.png', url: 'https://www.schreinerei-tieves.de/', alt: 'Tieves Schreinerei' }
+  { src: '/img/sponsors/logo_tieves_schreinerei.png', url: 'https://www.schreinerei-tieves.de/', alt: 'Tieves Schreinerei' },
+  { src: '/img/sponsors/logo_heister.jpg', url: 'https://www.sport-heister.de/filiale-3193.asp?shoID=3193', alt: 'Sport Heister' }
 ]
 </script>
 
