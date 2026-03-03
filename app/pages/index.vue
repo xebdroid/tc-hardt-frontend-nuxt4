@@ -291,7 +291,6 @@ const newsItems = db.news
     </Section>
 
     <Section
-      :use-container="false"
       padding-top="xl"
       padding-bottom="xl"
     >

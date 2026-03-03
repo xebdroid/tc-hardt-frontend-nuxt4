@@ -163,12 +163,10 @@ const getResponsiveClasses = (
 ): string => {
   if (!propValue) { return '' }
 
-  // Falls es nur ein simpler String ist
   if (typeof propValue === 'string') {
     return spacingDict.base[propValue]
   }
 
-  // Handle responsive object
   const classes: string[] = []
   if (propValue.base) classes.push(spacingDict.base[propValue.base])
   if (propValue.sm) classes.push(spacingDict.sm[propValue.sm])
@@ -230,38 +228,61 @@ const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValu
     state['2xl'] = isContainer['2xl'] ?? state.xl
   }
 
-  const classes = ['w-full']
+  const classes: string[] = ['w-full']
 
-  // 2. Explizite Zuweisung pro Breakpoint (ohne widersprüchliche Doppel-Klassen)
+  // 2. Hilfsfunktion, um Statusänderungen sicher anzuwenden
+  const applyState = (bp: 'base' | Breakpoint, isOn: boolean, isStateChange: boolean) => {
+    if (bp === 'base') {
+      if (isOn) classes.push('mx-auto', 'px-4')
+      else classes.push('mx-0', 'px-0', 'max-w-full')
+    } else if (bp === 'sm') {
+      if (isStateChange) {
+        // sm:max-w-none neutralisiert ein potenzielles max-w-full von base=false
+        if (isOn) classes.push('sm:mx-auto', 'sm:px-6', 'sm:max-w-none')
+        else classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
+      } else if (isOn) {
+        classes.push('sm:px-6')
+      }
+    } else if (bp === 'md') {
+      if (isStateChange) {
+        // HIER BEHOBEN: Keine harte max-w-3xl mehr! Er verhält sich jetzt exakt wie in
+        // deinem Original-Design (flüssig mit Padding).
+        if (isOn) classes.push('md:mx-auto', 'md:px-6', 'md:max-w-none')
+        else classes.push('md:mx-0', 'md:px-0', 'md:max-w-full')
+      } else if (isOn) {
+        classes.push('md:px-6') // Falls sich das Padding ändert, stellen wir es sicher
+      }
+    } else if (bp === 'lg') {
+      if (isStateChange) {
+        if (isOn) classes.push('lg:mx-auto', 'lg:px-0', 'lg:max-w-4xl')
+        else classes.push('lg:mx-0', 'lg:px-0', 'lg:max-w-full')
+      } else if (isOn) {
+        classes.push('lg:px-0', 'lg:max-w-4xl')
+      }
+    } else if (bp === 'xl') {
+      if (isStateChange) {
+        if (isOn) classes.push('xl:mx-auto', 'xl:px-0', 'xl:max-w-5xl')
+        else classes.push('xl:mx-0', 'xl:px-0', 'xl:max-w-full')
+      } else if (isOn) {
+        classes.push('xl:max-w-5xl')
+      }
+    } else if (bp === '2xl') {
+      if (isStateChange) {
+        if (isOn) classes.push('2xl:mx-auto', '2xl:px-0', '2xl:max-w-6xl')
+        else classes.push('2xl:mx-0', '2xl:px-0', '2xl:max-w-full')
+      } else if (isOn) {
+        classes.push('2xl:max-w-6xl')
+      }
+    }
+  }
 
-  // BASE
-  if (state.base) classes.push('mx-auto', 'px-4')
-  else classes.push('mx-0', 'px-0', 'max-w-full')
-
-  // SM
-  if (state.sm && !state.base) classes.push('sm:mx-auto', 'sm:px-6')
-  else if (!state.sm && state.base) classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
-  else if (!state.sm && state.base) classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
-  else if (state.sm && state.base) classes.push('sm:px-6')
-
-  // MD
-  if (state.md && !state.sm) classes.push('md:mx-auto')
-  else if (!state.md && state.sm) classes.push('md:mx-0', 'md:px-0', 'md:max-w-full')
-
-  // LG
-  if (state.lg && !state.md) classes.push('lg:mx-auto', 'lg:px-0', 'lg:max-w-4xl')
-  else if (!state.lg && state.md) classes.push('lg:mx-0', 'lg:px-0', 'lg:max-w-full')
-  else if (state.lg && state.md) classes.push('lg:px-0', 'lg:max-w-4xl')
-
-  // XL
-  if (state.xl && !state.lg) classes.push('xl:mx-auto', 'xl:max-w-5xl')
-  else if (!state.xl && state.lg) classes.push('xl:mx-0', 'xl:px-0', 'xl:max-w-full')
-  else if (state.xl && state.lg) classes.push('xl:max-w-5xl')
-
-  // 2XL
-  if (state['2xl'] && !state.xl) classes.push('2xl:mx-auto', '2xl:max-w-6xl')
-  else if (!state['2xl'] && state.xl) classes.push('2xl:mx-0', '2xl:px-0', '2xl:max-w-full')
-  else if (state['2xl'] && state.xl) classes.push('2xl:max-w-6xl')
+  // 3. Wende die Logik für jeden Breakpoint an
+  applyState('base', state.base, true)
+  applyState('sm', state.sm, state.sm !== state.base)
+  applyState('md', state.md, state.md !== state.sm)
+  applyState('lg', state.lg, state.lg !== state.md)
+  applyState('xl', state.xl, state.xl !== state.lg)
+  applyState('2xl', state['2xl'], state['2xl'] !== state.xl)
 
   return classes.join(' ')
 }
