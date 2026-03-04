@@ -103,7 +103,17 @@ const values = computed(() => [
   { icon: 'i-heroicons-face-smile', title: t('home.values.items.fun.title'), description: t('home.values.items.fun.desc') }
 ])
 
-const newsItems = db.news
+const newsItems = computed(() => {
+  // Helper to parse DD.MM.YYYY
+  const parseDate = (dateString: string) => {
+    const [day, month, year] = dateString.split('.').map(Number)
+    return new Date(year, month - 1, day)
+  }
+
+  return [...db.news].sort((a, b) => {
+    return parseDate(b.date).getTime() - parseDate(a.date).getTime()
+  })
+})
 
 </script>
 
@@ -156,7 +166,11 @@ const newsItems = db.news
 
       <div class="mt-10 flex flex-col lg:flex-row items-stretch gap-12 lg:gap-24">
         <div class="w-full lg:w-1/2">
-          <img src="/img/home/unsere-werte.jpg" alt="Tennis Community TC Hardt" class="w-full h-full object-cover rounded-3xl shadow-xl border-4 border-white dark:border-gray-800">
+          <img
+            src="/img/home/unsere-werte.jpg"
+            alt="Tennis Community TC Hardt"
+            class="w-full h-full object-cover rounded-3xl shadow-xl border-4 border-white dark:border-gray-800"
+          >
         </div>
         <div class="w-full lg:w-1/2">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
