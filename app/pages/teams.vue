@@ -58,7 +58,7 @@ useHead({
         tag="h2"
       />
 
-      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:px-24">
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:px-24">
         <div
           v-for="team in db.teams"
           :key="team.name"

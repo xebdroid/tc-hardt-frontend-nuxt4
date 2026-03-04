@@ -66,8 +66,8 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
         <div v-if="isLargeImageLayout" class="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div class="lg:col-span-2 flex flex-col">
             <Image
-              v-if="newsItem.image"
-              :src="newsItem.image"
+              v-if="(newsItem as any).image_large || newsItem.image"
+              :src="(newsItem as any).image_large || newsItem.image"
               :alt="newsItem.title"
               class="mb-8 order-1 lg:order-2"
             />
@@ -120,6 +120,7 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
               v-if="newsItem.image"
               :src="newsItem.image"
               :alt="newsItem.title"
+              class="aspect-square"
             />
           </div>
         </div>

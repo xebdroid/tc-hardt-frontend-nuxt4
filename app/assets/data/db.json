@@ -24,7 +24,8 @@
       "image": "https://placehold.co/1200x600/1e293b/94a3b8?text=MV+2026",
       "layout": "large-image",
       "published": true,
-      "slug": "zukunft-gestalten-mitgliederversammlung-2026"
+      "slug": "zukunft-gestalten-mitgliederversammlung-2026",
+      "image_large": "https://placehold.co/1200x600/1e293b/94a3b8?text=MV+2026"
     },
     {
       "id": 6,
@@ -286,7 +287,7 @@
       "time": null,
       "title": "Kreis- & Stadtmeisterschaften",
       "description": "Zum ersten Mal in der Vereinsgeschichte sind wir Ausrichter der Kreis- & Stadtmeisterschaften.",
-      "content": "<p>Ein echtes Highlight: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften – und erstmalig findet dieses Turnier direkt bei uns im Dorf statt.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Unterstützung der Turnierleitung</li><li>Mitarbeit im Gastro-Team</li></ul><p class=\"mt-4\">Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p>",
+      "content": "<p>Ein echtes Highlight: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften – und erstmalig findet dieses Turnier direkt bei uns im Dorf statt.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Unterstützung der Turnierleitung</li><li>Mitarbeit im Gastro-Team</li></ul><p class=\"mt-4\">Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p><p>Weitere Informationen und ein Link zur Anmeldung zu den Kreis- und Stadtmeisterschaften werden bald folgen.</p>",
       "location": "TC Hardt",
       "image": "/img/events/naveen-ketterer-ExLozCZ1RUs-unsplash.jpg",
       "highlightLevel": 1,

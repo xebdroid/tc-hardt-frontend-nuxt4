@@ -5,7 +5,6 @@ import Headline from '~/components/base/Headline.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
-import Image from '~/components/base/Image.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 
 useHead({
