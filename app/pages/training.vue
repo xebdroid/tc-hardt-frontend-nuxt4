@@ -41,6 +41,11 @@ const trainingTypes = [
     title: 'Mannschafts- & Leistungstraining',
     desc: 'Intensives Technik-, Taktik- und Konditionstraining für Punktspiele und Turniere.',
     icon: 'i-heroicons-trophy'
+  },
+  {
+    title: 'Schul-Kooperationen',
+    desc: 'Seit über 12 Jahren begeistern wir Kinder in der Tennis-AG der Grundschule Hardt. Ab Sommer 2026 bringen wir den Spaß am Tennis auch in die Gesamtschule Hardt.',
+    icon: 'i-heroicons-academic-cap'
   }
 ]
 </script>
@@ -56,8 +61,8 @@ const trainingTypes = [
       <div class="max-w-4xl mx-auto text-center">
         <Headline
           tagline="Unser Partner für dein Spiel"
-          title="Qualifiziertes Training mit DTB/VDT-Lizenz"
-          description="Seit der Sommersaison 2014 arbeiten wir erfolgreich mit der Tennisschule Rot-Weiss zusammen. Als „Deutsche Tennisschule“, anerkannt vom DTB und VDT, garantiert sie ein qualifiziertes Training nach modernsten Methoden und festgelegten Qualitätsstandards."
+          title="Qualifiziertes Training"
+          description="Seit der Sommersaison 2014 ist die Tennisschule Rot-Weiss unser starker Partner auf dem Platz. Mit Erfahrung seit 2011 und Expertise aus verschiedenen Vereinen steht sie für modernes, professionelles Training mit klaren Qualitätsstandards. Egal ob Anfänger, Fortgeschrittener oder ambitionierter Mannschaftsspieler – hier wird jeder mit Leidenschaft gefördert."
           alignment="center"
           :margin-bottom="'sm'"
         />
@@ -83,7 +88,7 @@ const trainingTypes = [
         tagline="Für jedes Ziel der richtige Weg"
         alignment="center"
       />
-      <div class="grid md:grid-cols-3 gap-8 mt-12">
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
         <FeatureCard
           v-for="training in trainingTypes"
           :key="training.title"
