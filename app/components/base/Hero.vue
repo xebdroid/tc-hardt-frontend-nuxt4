@@ -183,12 +183,16 @@ const onSlideChange = (swiper: any) => {
             @loadeddata="handleVideoLoaded"
             @ended="handleVideoEnded"
           />
-          <img
+          <NuxtImg
             v-else-if="slide.type === 'image'"
             :src="slide.src"
-            :alt="slide.alt"
+            :alt="slide.alt || 'Hero Image'"
             class="w-full h-full object-cover"
-          >
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'auto'"
+            :preload="index === 0"
+          />
         </div>
 
         <div
@@ -202,13 +206,16 @@ const onSlideChange = (swiper: any) => {
           :class="[getContentClass(slide.contentPosition), { 'pt-[70px] lg:pt-[100px]': !removeTopPadding && slides.length >= 1 }]"
         >
           <slot :name="slide.slotName || 'content'" :slide="slide">
-            <img
+
+            <NuxtImg
               v-if="slide.contentImage"
               :src="slide.contentImage"
               class="mb-6 h-auto"
               :class="slide.contentImageClass || 'w-24 sm:w-32'"
               alt="Content Icon"
-            >
+              sizes="sm:150px md:200px"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+            />
 
             <h2
               v-if="slide.title"
