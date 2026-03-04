@@ -34,7 +34,7 @@ export interface HeroSlide {
     'center-left' | 'center' | 'center-right' |
     'bottom-left' | 'bottom-center' | 'bottom-right'
 
-  // NEU: Eigener Slot-Name für komplett freies HTML
+  // Eigener Slot-Name für komplett freies HTML
   slotName?: string
 
   // Theme for text color
@@ -218,7 +218,7 @@ const onSlideChange = (swiper: any) => {
             <NuxtImg
               v-if="slide.contentImage"
               :src="slide.contentImage"
-              class="mb-6 h-auto"
+              class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh] mb-[2vh] lg:mb-[4vh]"
               :class="slide.contentImageClass || 'w-24 sm:w-32'"
               alt="Content Icon"
               sizes="sm:300px md:400px lg:600px"
@@ -229,7 +229,7 @@ const onSlideChange = (swiper: any) => {
 
             <h2
               v-if="slide.title"
-              class="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 font-heading drop-shadow-lg"
+              class="text-3xl sm:text-5xl md:text-6xl font-bold mb-[2vh] font-heading drop-shadow-lg"
               :class="[slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')]"
             >
               {{ slide.title }}
@@ -237,7 +237,7 @@ const onSlideChange = (swiper: any) => {
 
             <p
               v-if="slide.subtitle"
-              class="text-xl sm:text-2xl font-bold mb-4 max-w-2xl drop-shadow-md"
+              class="text-xl sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
               :class="[slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200')]"
             >
               {{ slide.subtitle }}
@@ -245,7 +245,7 @@ const onSlideChange = (swiper: any) => {
 
             <p
               v-if="slide.description"
-              class="text-base sm:text-lg mb-8 max-w-2xl leading-relaxed drop-shadow-md"
+              class="text-base sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
               :class="[slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300')]"
             >
               {{ slide.description }}
