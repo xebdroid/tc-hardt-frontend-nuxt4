@@ -105,7 +105,10 @@ const handleVideoLoaded = (e: Event) => {
 const handleVideoEnded = () => {
   if (swiperInstance.value && !props.loopVideo) {
     swiperInstance.value.slideNext()
-    swiperInstance.value.autoplay.start()
+    // Autoplay nur starten, wenn es in den Props NICHT false ist
+    if (props.autoplay !== false) {
+      swiperInstance.value.autoplay.start()
+    }
   }
 }
 
@@ -126,10 +129,12 @@ const onSlideChange = (swiper: any) => {
   const videoElement = activeSlideEl ? activeSlideEl.querySelector('video') : null
 
   if (currentSlide?.type === 'video' && videoElement) {
-    swiper.autoplay.stop()
+    if (swiper.autoplay.running) swiper.autoplay.stop()
     videoElement.currentTime = 0
     videoElement.play()
-  } else {
+  } else if (props.autoplay !== false) {
+    // Autoplay nach Video oder manuellem Wischen nur reaktivieren,
+    // wenn es grundsätzlich erlaubt ist
     swiper.autoplay.start()
   }
 }
@@ -151,7 +156,7 @@ const onSlideChange = (swiper: any) => {
       :slides-per-view="1"
       effect="fade"
       :loop="true"
-      :autoplay="slides.length > 1 ? { delay: typeof autoplay === 'number' ? autoplay : 5000, disableOnInteraction: false } : false"
+      :autoplay="(slides.length > 1 && autoplay !== false) ? { delay: typeof autoplay === 'number' ? autoplay : 5000, disableOnInteraction: false } : false"
       :pagination="{ clickable: true, el: '.custom-pagination' }"
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
       class="h-full w-full group"
@@ -183,12 +188,15 @@ const onSlideChange = (swiper: any) => {
             @loadeddata="handleVideoLoaded"
             @ended="handleVideoEnded"
           />
+
           <NuxtImg
             v-else-if="slide.type === 'image'"
             :src="slide.src"
             :alt="slide.alt || 'Hero Image'"
             class="w-full h-full object-cover"
-            sizes="sm:100vw md:100vw lg:100vw xl:100vw"
+            sizes="sm:100vw md:100vw lg:100vw xl:100vw xxl:1536px"
+            quality="90"
+            format="webp"
             :loading="index === 0 ? 'eager' : 'lazy'"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
             :preload="index === 0"
@@ -213,7 +221,9 @@ const onSlideChange = (swiper: any) => {
               class="mb-6 h-auto"
               :class="slide.contentImageClass || 'w-24 sm:w-32'"
               alt="Content Icon"
-              sizes="sm:150px md:200px"
+              sizes="sm:300px md:400px lg:600px"
+              quality="90"
+              format="webp"
               :loading="index === 0 ? 'eager' : 'lazy'"
             />
 
