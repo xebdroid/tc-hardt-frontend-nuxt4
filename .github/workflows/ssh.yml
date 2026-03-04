@@ -1,14 +1,13 @@
-name: Deploy Nuxt (Hybrid: Sync & Atomic)
+name: Deploy Nuxt
 
 on:
   push:
     branches:
       - main
-  # Ermöglicht den manuellen Start über das GitHub UI
   workflow_dispatch:
     inputs:
       method:
-        description: 'Welche Methode soll genutzt werden?'
+        description: 'Wähle die Deploy-Methode'
         required: true
         default: 'rsync'
         type: choice
@@ -18,27 +17,24 @@ on:
 
 jobs:
   web-deploy:
-    name: 🚀 Deploy (${{ github.event.inputs.method || 'rsync' }})
+    name: 🚀 Deploy
     runs-on: ubuntu-latest
     steps:
-      # 1. Code holen
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      # 2. Node.js Setup
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 3. Bauen
       - name: 🔨 Install & Build
         run: |
           npm install
           npm run generate
 
-      # --- METHODE A: RSYNC (Standard bei Push) ---
+      # Methode 1: Schneller rsync (Standard bei Push)
       - name: 🔄 Sync with rsync
         if: github.event_name == 'push' || github.event.inputs.method == 'rsync'
         uses: Burnett01/rsync-deployments@7.0.1
@@ -50,13 +46,13 @@ jobs:
           remote_user: ${{ secrets.SSH_USER }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # --- METHODE B: ATOMIC (Nur bei manuellem Start wählbar) ---
+      # Methode 2: Atomic Deployment via TAR (Nur manuell)
       - name: 📦 Compress files (Atomic)
-        if: github.event.inputs.method == 'atomic_tar'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
         run: tar -czf site.tar.gz -C .output/public .
 
       - name: 📤 Upload Artifact (Atomic)
-        if: github.event.inputs.method == 'atomic_tar'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_SERVER }}
@@ -67,7 +63,7 @@ jobs:
           target: "/tc-hardt-nuxt4.v0id.de/httpdocs/"
 
       - name: 🚀 Extract & Clean (Atomic)
-        if: github.event.inputs.method == 'atomic_tar'
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_SERVER }}
