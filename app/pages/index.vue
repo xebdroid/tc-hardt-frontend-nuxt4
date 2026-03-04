@@ -144,45 +144,42 @@ const newsItems = db.news
       variant="default"
       padding-top="xl"
       padding-bottom="xl"
-      class="overflow-hidden"
     >
-      <FeatureSection
-        image-src="/img/home/unsere-werte.jpg"
-        image-alt="Tennis Community TC Hardt"
-        image-position="left"
-        badge-text="Seit 1976"
-        button-label="Mehr über uns"
-        :button-to="$localePath('about')"
-      >
-        <Headline
-          alignment="left"
-          tagline="TC Hardt Philosophie"
-          tagline-variant="accent"
-          :title="$t('home.values.title')"
-          title-class="text-3xl sm:text-4xl lg:text-5xl"
-          :description="$t('home.values.description')"
-        />
+      <Headline
+        alignment="center"
+        tagline="TC Hardt Philosophie"
+        tagline-variant="accent"
+        :title="$t('home.values.title')"
+        title-class="text-3xl sm:text-4xl lg:text-5xl"
+        :description="$t('home.values.description')"
+      />
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div
-            v-for="(val, i) in values"
-            :key="i"
-            class="flex items-start gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-brand-light-200 transition-colors"
-          >
-            <div class="mt-1 flex-shrink-0">
-              <UIcon :name="val.icon" class="w-6 h-6 text-highlight-500" />
-            </div>
-            <div>
-              <h4 class="font-bold text-brand-dark-900 dark:text-white text-lg">
-                {{ val.title }}
-              </h4>
-              <p class="text-base text-gray-600 dark:text-gray-400 mt-1 leading-snug">
-                {{ val.description }}
-              </p>
+      <div class="mt-10 flex flex-col lg:flex-row items-stretch gap-12 lg:gap-24">
+        <div class="w-full lg:w-1/2">
+          <img src="/img/home/unsere-werte.jpg" alt="Tennis Community TC Hardt" class="w-full h-full object-cover rounded-3xl shadow-xl border-4 border-white dark:border-gray-800">
+        </div>
+        <div class="w-full lg:w-1/2">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+            <div
+              v-for="(val, i) in values"
+              :key="i"
+              class="flex flex-col items-center text-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-brand-light-200 transition-colors"
+            >
+              <div class="flex-shrink-0">
+                <UIcon :name="val.icon" class="w-8 h-8 text-highlight-500" />
+              </div>
+              <div>
+                <h4 class="font-bold text-brand-dark-900 dark:text-white text-lg">
+                  {{ val.title }}
+                </h4>
+                <p class="text-base text-gray-600 dark:text-gray-400 mt-1 leading-snug">
+                  {{ val.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </FeatureSection>
+      </div>
     </Section>
 
     <Section
