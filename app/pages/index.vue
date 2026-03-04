@@ -113,7 +113,7 @@ const newsItems = db.news
       :slides="heroSlides"
       height="full"
       fallback-class="bg-brand-dark-900"
-      :autoplay="100000"
+      :autoplay="10000"
     />
 
     <Section
@@ -232,11 +232,11 @@ const newsItems = db.news
         >
           <SwiperSlide
             v-for="(news, index) in newsItems"
-            :key="news.id"
+            :key="(news as any).slug"
             class="h-auto"
           >
             <FeaturedNewsCard
-              :to="localePath({ name: 'news-id', params: { id: news.id } })"
+              :to="localePath({ name: 'news-slug', params: { slug: (news as any).slug } })"
               :image="news.image ?? ''"
               :title="news.title"
               :date="news.date"
@@ -308,8 +308,8 @@ const newsItems = db.news
           label="Partner werden"
           trailing-icon="i-heroicons-arrow-right"
         />
-      </div>     
-        
+      </div>
+
       <Sponsors />
     </Section>
   </div>

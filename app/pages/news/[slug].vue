@@ -11,7 +11,8 @@ import Button from '~/components/base/Button.vue'
 
 const route = useRoute()
 const newsItem = computed(() => {
-  return db.news.find(n => n.id == Number(route.params.id))
+  // Find by slug instead of id
+  return (db.news as any).find(n => n.slug === route.params.slug)
 })
 
 useHead({
