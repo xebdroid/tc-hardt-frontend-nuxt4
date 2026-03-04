@@ -48,20 +48,6 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
       </template>
     </Hero>
 
-    <!-- <Section
-      variant="gray-light"
-      outer-container
-      rounded="top"
-      padding-top="xs"
-      padding-bottom="xs"
-      padding-left="sm"
-      padding-right="sm"
-      margin-top="xl"
-      class="relative z-10"
-    >
-
-    </Section> -->
-
     <Section
       variant="secondary-light"
       outer-container

@@ -260,7 +260,7 @@ const newsItems = db.news
 
 
     <Section
-      variant="primary-light"
+      variant="secondary"
       rounded
       :padding-top="{ base: 'lg', md: 'lg', lg: 'xl' }"
       :padding-bottom="{ base: 'sm', md: 'md' }"
@@ -291,27 +291,25 @@ const newsItems = db.news
     </Section>
 
     <Section
-      padding-top="xl"
-      padding-bottom="xl"
+      padding-bottom="lg"
+      :use-container="false"
     >
-      <UContainer>
-        <Headline
-          alignment="center"
-          tagline="Unterstützt von"
-          :title="t('sponsors.title')"
-          :description="t('sponsors.subtitle')"
+      <Headline
+        alignment="center"
+        tagline="Unterstützt von"
+        :title="t('sponsors.title')"
+        :description="t('sponsors.subtitle')"
+      />
+
+      <div class="flex justify-center mt-6 mb-12">
+        <Button
+          :to="localePath('sponsoring')"
+          variant="outline"
+          label="Partner werden"
+          trailing-icon="i-heroicons-arrow-right"
         />
-
-        <div class="flex justify-center mt-6 mb-12">
-          <Button
-            :to="localePath('sponsoring')"
-            variant="outline"
-            label="Partner werden"
-            trailing-icon="i-heroicons-arrow-right"
-          />
-        </div>
-      </UContainer>
-
+      </div>     
+        
       <Sponsors />
     </Section>
   </div>

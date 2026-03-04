@@ -29,11 +29,11 @@ useHead({ title: 'Aktuelles | TC Hardt' })
     <Section
       variant="secondary-light"
       margin-top="sm"
-      margin-bottom="xl"
-      :padding-top="{ base: 'xs', lg: 'none' }"
-      :padding-left="{ base: 'none' }"
-      :padding-right="{ base: 'none' }"
-      padding-bottom="md"
+      margin-bottom="md"
+      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       :outer-container="{ base: false, md: true}"
       rounded
     >
