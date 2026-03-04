@@ -2,7 +2,8 @@
 import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
-import type { ButtonVariant } from './Button.vue'
+import Button from '~/components/base/Button.vue'
+import type { ButtonVariant } from '~/components/base/Button.vue'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -143,7 +144,7 @@ const onSlideChange = (swiper: any) => {
 <template>
   <div
     class="relative w-full overflow-hidden lg:rounded-3xl"
-    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[70px] lg:pt-[100px]': !removeTopPadding && slides.length < 1 }]"
+    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[70px] lg:pt-[120px]': !removeTopPadding && slides.length < 1 }]"
   >
     <div v-if="!slides.length" class="relative h-full w-full flex flex-col justify-center items-center p-8 sm:p-16 text-center">
       <slot name="content" :slide="null" />
@@ -211,76 +212,102 @@ const onSlideChange = (swiper: any) => {
 
         <div
           class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
-          :class="[getContentClass(slide.contentPosition), { 'pt-[70px] lg:pt-[100px]': !removeTopPadding && slides.length >= 1 }]"
+          :class="[
+            { 'pt-[70px] lg:pt-[120px] pb-12': !removeTopPadding && slides.length >= 1 },
+            slide.contentPosition?.includes('left') ? 'items-start text-left' :
+            slide.contentPosition?.includes('right') ? 'items-end text-right' :
+            'items-center text-center'
+          ]"
         >
-          <slot :name="slide.slotName || 'content'" :slide="slide">
+          <div
+            class="w-full max-w-7xl flex flex-col shrink-0"
+            :class="[
+              slide.contentPosition?.includes('top') ? 'mb-auto' :
+              slide.contentPosition?.includes('bottom') ? 'mt-auto' :
+              'my-auto'
+            ]"
+          >
+            <slot :name="slide.slotName || 'content'" :slide="slide">
 
-            <NuxtImg
-              v-if="slide.contentImage"
-              :src="slide.contentImage"
-              class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh] mb-[2vh] lg:mb-[4vh]"
-              :class="slide.contentImageClass || 'w-24 sm:w-32'"
-              alt="Content Icon"
-              sizes="sm:300px md:400px lg:600px"
-              quality="90"
-              format="webp"
-              :loading="index === 0 ? 'eager' : 'lazy'"
-            />
-
-            <h2
-              v-if="slide.title"
-              class="text-3xl sm:text-5xl md:text-6xl font-bold mb-[2vh] font-heading drop-shadow-lg"
-              :class="[slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')]"
-            >
-              {{ slide.title }}
-            </h2>
-
-            <p
-              v-if="slide.subtitle"
-              class="text-xl sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
-              :class="[slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200')]"
-            >
-              {{ slide.subtitle }}
-            </p>
-
-            <p
-              v-if="slide.description"
-              class="text-base sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
-              :class="[slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300')]"
-            >
-              {{ slide.description }}
-            </p>
-
-            <div
-              v-if="slide.ctaPrimary || slide.ctaSecondary"
-              class="flex flex-wrap gap-4"
-              :class="{
-                'justify-start': slide.contentPosition?.includes('left'),
-                'justify-end': slide.contentPosition?.includes('right'),
-                'justify-center': !slide.contentPosition || slide.contentPosition.includes('center')
-              }"
-            >
-              <BaseButton
-                v-if="slide.ctaPrimary"
-                :to="slide.ctaPrimary.to"
-                :label="slide.ctaPrimary.label"
-                size="xl"
-                :variant="slide.ctaPrimary.variant || 'primary'"
-                cta
-                :class="slide.ctaPrimary.class"
+              <NuxtImg
+                v-if="slide.contentImage"
+                :src="slide.contentImage"
+                class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh] mb-[2vh] lg:mb-[4vh]"
+                :class="[slide.contentImageClass || 'w-24 sm:w-32',
+                         slide.contentPosition?.includes('left') ? 'mr-auto' :
+                         slide.contentPosition?.includes('right') ? 'ml-auto' :
+                         'mx-auto'
+                ]"
+                alt="Content Icon"
+                sizes="sm:300px md:400px lg:600px"
+                quality="90"
+                format="webp"
+                :loading="index === 0 ? 'eager' : 'lazy'"
               />
-              <BaseButton
-                v-if="slide.ctaSecondary"
-                :to="slide.ctaSecondary.to"
-                :label="slide.ctaSecondary.label"
-                size="xl"
-                :variant="slide.ctaSecondary.variant || 'ghost'"
-                cta
-                class="backdrop-blur-sm"
-                :class="slide.ctaSecondary.class"
-              />
-            </div>
-          </slot>
+
+              <h2
+                v-if="slide.title"
+                class="text-3xl sm:text-5xl md:text-6xl font-bold mb-[2vh] font-heading drop-shadow-lg"
+                :class="[slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')]"
+              >
+                {{ slide.title }}
+              </h2>
+
+              <p
+                v-if="slide.subtitle"
+                class="text-xl sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
+                :class="[slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200'),
+                         slide.contentPosition?.includes('left') ? 'mr-auto' :
+                         slide.contentPosition?.includes('right') ? 'ml-auto' :
+                         'mx-auto'
+                ]"
+              >
+                {{ slide.subtitle }}
+              </p>
+
+              <p
+                v-if="slide.description"
+                class="text-base sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
+                :class="[slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300'),
+                         slide.contentPosition?.includes('left') ? 'mr-auto' :
+                         slide.contentPosition?.includes('right') ? 'ml-auto' :
+                         'mx-auto'
+                ]"
+              >
+                {{ slide.description }}
+              </p>
+
+              <div
+                v-if="slide.ctaPrimary || slide.ctaSecondary"
+                class="flex flex-wrap gap-4"
+                :class="{
+                  'justify-start': slide.contentPosition?.includes('left'),
+                  'justify-end': slide.contentPosition?.includes('right'),
+                  'justify-center': !slide.contentPosition || slide.contentPosition.includes('center')
+                }"
+              >
+                <Button
+                  v-if="slide.ctaPrimary"
+                  :to="slide.ctaPrimary.to"
+                  :label="slide.ctaPrimary.label"
+                  size="xl"
+                  :variant="slide.ctaPrimary.variant || 'primary'"
+                  cta
+                  :class="slide.ctaPrimary.class"
+                />
+                <Button
+                  v-if="slide.ctaSecondary"
+                  :to="slide.ctaSecondary.to"
+                  :label="slide.ctaSecondary.label"
+                  size="xl"
+                  :variant="slide.ctaSecondary.variant || 'ghost'"
+                  cta
+                  class="backdrop-blur-sm"
+                  :class="slide.ctaSecondary.class"
+                />
+              </div>
+            </slot>
+          </div>
         </div>
       </component>
 
