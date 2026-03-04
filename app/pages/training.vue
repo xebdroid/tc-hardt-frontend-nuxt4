@@ -81,6 +81,7 @@ const trainingTypes = [
     <Section
       variant="secondary-light"
       rounded="top"
+      padding-top="md"
       padding-bottom="xl"
     >
       <Headline
@@ -103,7 +104,8 @@ const trainingTypes = [
       variant="highlight-light"
       rounded
       overlap-top
-      padding-bottom="xl"
+      padding-top="md"
+      padding-bottom="md"
       margin-bottom="xl"
     >
       <Headline
@@ -111,7 +113,7 @@ const trainingTypes = [
         tagline="Kompetenz und Erfahrung für deinen Erfolg"
         alignment="center"
       />
-      <div class="mt-12 max-w-5xl mx-auto space-y-16">
+      <div class="mt-12 mx-auto space-y-16">
         <FeatureSection
           image-src="/img/training/trainer-nicole-gafert.jpg"
           image-alt="Trainerin Nicole Gafert"
