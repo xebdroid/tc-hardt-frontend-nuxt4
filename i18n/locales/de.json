@@ -191,5 +191,9 @@
   },
   "pricing": {
     "afterwards": "danach"
+  },
+  "calendar": {
+    "google": "Google Kalender",
+    "download_ics": ".ics-Datei herunterladen"
   }
 }
