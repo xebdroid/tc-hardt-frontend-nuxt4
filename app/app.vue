@@ -130,7 +130,7 @@ nuxtApp.hook('page:start', () => {
 nuxtApp.hook('page:finish', async () => {
   await nextTick()
   await waitForAssets()
-  appIsLoading.value = true
+  appIsLoading.value = false
 })
 </script>
 
