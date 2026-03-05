@@ -5,8 +5,8 @@
 
       <div class="h-4 w-full bg-white dark:bg-gray-900 absolute top-0 left-0"></div>
 
-      <InverseCorner class="fixed top-4 left-4 pointer-events-auto" :angle="90" />
-      <InverseCorner class="fixed top-4 right-4 pointer-events-auto" :angle="180" />
+      <InverseCorner class="fixed top-4 left-4 pointer-events-auto" :angle="-90" />
+      <InverseCorner class="fixed top-4 right-4 pointer-events-auto" :angle="0" />
 
     </div>
 
@@ -15,8 +15,8 @@
 
       <div class="h-4 w-full bg-white dark:bg-gray-900 absolute bottom-0 left-0"></div>
 
-      <InverseCorner class="fixed bottom-4 left-4 pointer-events-auto" :angle="0" />
-      <InverseCorner class="fixed bottom-4 right-4 pointer-events-auto" :angle="-90" />
+      <InverseCorner class="fixed bottom-4 left-4 pointer-events-auto" :angle="180" />
+      <InverseCorner class="fixed bottom-4 right-4 pointer-events-auto" :angle="90" />
 
     </div>
 
