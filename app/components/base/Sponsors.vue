@@ -39,7 +39,7 @@ const items = [
       <div
         class="
           aspect-[4/3] flex items-center justify-center p-6
-          bg-white rounded-xl
+          bg-[#fff] rounded-xl
           border border-gray-300 dark:border-gray-800
           transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:border-brand-dark-300
         "
