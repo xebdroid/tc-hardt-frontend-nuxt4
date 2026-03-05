@@ -1,58 +1,38 @@
-name: Deploy Nuxt
+name: Deploy Nuxt (Atomic SSH/SCP)
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      method:
-        description: 'Wähle die Deploy-Methode'
-        required: true
-        default: 'rsync'
-        type: choice
-        options:
-          - rsync
-          - atomic_tar
 
 jobs:
   web-deploy:
-    name: 🚀 Deploy
+    name: 🚀 Atomic Deploy
     runs-on: ubuntu-latest
     steps:
+      # 1. Code holen
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
+      # 2. Node.js Setup
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
+      # 3. Bauen
       - name: 🔨 Install & Build
         run: |
           npm install
           npm run generate
 
-      # Methode 1: Schneller rsync (Standard bei Push)
-      - name: 🔄 Sync with rsync
-        if: github.event_name == 'push' || github.event.inputs.method == 'rsync'
-        uses: Burnett01/rsync-deployments@7.0.1
-        with:
-          switches: -avzr --delete
-          path: .output/public/
-          remote_path: /tc-hardt-nuxt4.v0id.de/httpdocs/
-          remote_host: ${{ secrets.SSH_SERVER }}
-          remote_user: ${{ secrets.SSH_USER }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # Methode 2: Atomic Deployment via TAR (Nur manuell)
-      - name: 📦 Compress files (Atomic)
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
+      # 4. Packen (Wir packen den INHALT von public direkt in das Archiv)
+      - name: 📦 Compress files
         run: tar -czf site.tar.gz -C .output/public .
 
-      - name: 📤 Upload Artifact (Atomic)
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
+      # 5. Hochladen (nutzt jetzt SSH_* Secrets)
+      - name: 📤 Upload Artifact
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_SERVER }}
@@ -60,10 +40,11 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           source: "site.tar.gz"
+          # Zielpfad auf dem Server
           target: "/tc-hardt-nuxt4.v0id.de/httpdocs/"
 
-      - name: 🚀 Extract & Clean (Atomic)
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.method == 'atomic_tar'
+      # 6. Entpacken auf dem Server
+      - name: 🚀 Extract & Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_SERVER }}
@@ -71,6 +52,11 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
+            # Gehe in den Ordner (bricht ab, falls er nicht existiert)
             cd /tc-hardt-nuxt4.v0id.de/httpdocs/ || exit 1
+
+            # Entpacken (überschreibt existierende Dateien)
             tar -xzf site.tar.gz
+
+            # Aufräumen
             rm site.tar.gz
