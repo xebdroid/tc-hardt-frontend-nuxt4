@@ -68,7 +68,9 @@ watch(() => props.isLoading, (isLoading) => {
     // Wenn das Laden startet, zeige sofort einen ersten Text an
     // und starte dann das Intervall, um ihn regelmäßig zu ändern.
     setRandomText()
-    intervalId = setInterval(setRandomText, props.textDuration)
+    if (import.meta.client) {
+      intervalId = setInterval(setRandomText, props.textDuration)
+    }
   } else {
     // Wenn das Laden stoppt, räume das Intervall auf.
     if (intervalId) {
