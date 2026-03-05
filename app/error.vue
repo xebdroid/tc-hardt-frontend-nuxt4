@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import { UApp } from '#components'
 
 const props = defineProps({
   error: Object as () => NuxtError
@@ -25,16 +24,12 @@ const handleError = () => clearError({ redirect: '/' })
 
 useHead({
   title: computed(() => `${props.error?.statusCode} - ${title.value} | TC Hardt`),
-  htmlAttrs: { lang: 'de' },
-  // Temporär alle anderen Body-Klassen entfernen, um Konflikte zu vermeiden
-  bodyAttrs: {
-    class: 'error-page-active'
-  }
+  htmlAttrs: { lang: 'de' }
 })
 </script>
 
 <template>
-  <UApp>
+  <div class="error-page-wrapper-fixed">
     <div class="net-background" />
     <div class="bg-number">
       {{ bgNumber }}
@@ -48,43 +43,42 @@ useHead({
       <p>
         {{ description }}
       </p>
-
+      
       <a href="#" class="btn" @click.prevent="handleError">Zurück zur Startseite</a>
     </div>
-  </UApp>
+  </div>
 </template>
 
 <style>
-/*
-  Diese Styles sind GLOBAL (nicht 'scoped'), um das Body-Element zu stylen,
-  wie es in der HTML-Vorlage des Users vorgesehen war.
+/* 
+  Diese Styles sind GLOBAL, aber durch den Wrapper .error-page-wrapper-fixed
+  sehr spezifisch, um Konflikte zu vermeiden. Dieser Ansatz hat sich
+  bei der Nuxt-Fehlerseite als am zuverlässigsten erwiesen.
 */
-:root {
-    --error-white: #FFFDF7;
-    --error-brand-dark: #1C3063;
-    --error-brand-light: #7AC7EA;
-    --error-highlight: #A3E635;
+.error-page-wrapper-fixed {
+  --white: #FFFDF7;
+  --brand-dark: #1C3063;
+  --brand-light: #7AC7EA;
+  --highlight: #A3E635;
+
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--white);
+  color: var(--brand-dark);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }
 
-body.error-page-active {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--error-white);
-    color: var(--error-brand-dark);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-}
-
-/*
-  Wir müssen die Selektoren spezifischer machen, damit sie nur auf dieser
-  Seite gelten und nicht mit globalen App-Styles kollidieren.
-*/
-.error-page-active .net-background {
+.error-page-wrapper-fixed .net-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -92,13 +86,13 @@ body.error-page-active {
     height: 100%;
     z-index: 1;
     opacity: 0.15;
-    background-image:
-        linear-gradient(var(--error-brand-light) 1px, transparent 1px),
-        linear-gradient(90deg, var(--error-brand-light) 1px, transparent 1px);
+    background-image: 
+        linear-gradient(var(--brand-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--brand-light) 1px, transparent 1px);
     background-size: 50px 50px;
 }
 
-.error-page-active .container {
+.error-page-wrapper-fixed .container {
     position: relative;
     z-index: 10;
     text-align: center;
@@ -108,10 +102,10 @@ body.error-page-active {
     border-radius: 12px;
 }
 
-.error-page-active .error-label {
+.error-page-wrapper-fixed .error-label {
     display: inline-block;
-    background-color: var(--error-highlight);
-    color: var(--error-brand-dark);
+    background-color: var(--highlight);
+    color: var(--brand-dark);
     padding: 4px 12px;
     font-weight: 800;
     font-size: 0.9rem;
@@ -121,26 +115,26 @@ body.error-page-active {
     border-radius: 2px;
 }
 
-.error-page-active h1 {
+.error-page-wrapper-fixed h1 {
     font-size: 3.5rem;
     margin: 0 0 1rem 0;
     font-weight: 800;
     letter-spacing: -1.5px;
 }
 
-.error-page-active p {
+.error-page-wrapper-fixed p {
     font-size: 1.25rem;
-    color: var(--error-brand-dark);
+    color: var(--brand-dark);
     opacity: 0.7;
     max-width: 450px;
     margin: 0 auto 2.5rem auto;
     line-height: 1.5;
 }
 
-.error-page-active .btn {
+.error-page-wrapper-fixed .btn {
     display: inline-block;
-    background-color: var(--error-brand-dark);
-    color: var(--error-white);
+    background-color: var(--brand-dark);
+    color: var(--white);
     padding: 18px 40px;
     text-decoration: none;
     font-weight: 700;
@@ -149,16 +143,16 @@ body.error-page-active {
     box-shadow: 0 10px 20px rgba(28, 48, 99, 0.2);
 }
 
-.error-page-active .btn:hover {
+.error-page-wrapper-fixed .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 30px rgba(28, 48, 99, 0.3);
 }
 
-.error-page-active .bg-number {
+.error-page-wrapper-fixed .bg-number {
     position: absolute;
     font-size: 25vw;
     font-weight: 900;
-    color: var(--error-brand-dark);
+    color: var(--brand-dark);
     opacity: 0.03;
     z-index: 0;
     bottom: -5%;
