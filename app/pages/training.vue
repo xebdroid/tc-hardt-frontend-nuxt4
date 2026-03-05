@@ -120,7 +120,7 @@ const trainingTypes = [
         >
           <Headline
             title="Nicole Gafert"
-            description="Staatlich geprüfte Tennislehrerin und DTB B-Trainerin. Sie begeistert mit ihrer positiven Art und modernen Trainingsmethoden."
+            description="Staatlich geprüfte Tennislehrerin und DTB B-Trainerin. Sie begeistert mit ihrer positiven Art und modernen Trainingsmethoden nach den aktuellen Trainingsrichtlinien des DTB."
             alignment="none"
             class="items-start text-left"
             :margin-bottom="'none'"
