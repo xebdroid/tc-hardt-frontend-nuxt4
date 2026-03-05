@@ -2,6 +2,7 @@
 import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
+import ImageCredits from '~/components/content/ImageCredits.vue'
 
 useHead({
   title: 'Impressum | TC Hardt',
@@ -158,6 +159,30 @@ useHead({
 
         <USeparator />
 
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
+          <div class="md:col-span-4 lg:col-span-3">
+            <Headline
+              title="Bildnachweise"
+              tag="h3"
+              size="h5"
+              margin-bottom="none"
+            />
+          </div>
+          <div class="md:col-span-8 lg:col-span-9 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+            <ClientOnly>
+              <details class="group">
+                <summary class="font-semibold cursor-pointer text-brand-dark-900 dark:text-white group-open:mb-4 flex items-center justify-between">
+                  <span>Vollständige Liste anzeigen</span>
+                  <UIcon name="i-heroicons-chevron-down" class="w-5 h-5 transition-transform transform group-open:rotate-180" />
+                </summary>
+                <ImageCredits />
+              </details>
+            </ClientOnly>
+          </div>
+        </div>
+
+        <USeparator />
+
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12 items-center">
           <div class="md:col-span-4 lg:col-span-3">
             <Headline
@@ -185,36 +210,6 @@ useHead({
         </div>
 
       </div>
-
-      <p>
-        Startseite Hero Training:
-        <br>
-        Foto von <a href="https://unsplash.com/de/@sunify?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alexander Lunyov</a> auf <a href="https://unsplash.com/de/fotos/tennisspieler-auf-einem-sandplatz-mit-langem-schatten-wBLW_19byJY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-      </p>
-
-
-      <p>
-        Startseite Hero Jubiläum:
-        <br>
-        Image by <a href="https://pixabay.com/users/hansmarkutt-6479460/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">hansmarkutt</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5782695">Pixabay</a>
-      </p>
-
-
-      <p>
-        Events:
-        <br>
-        Stadtmeisterschaften
-        <br>
-        Foto von <a href="https://unsplash.com/de/@naveenketterer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Naveen Ketterer</a> auf <a href="https://unsplash.com/de/fotos/tennisspieler-mit-einer-anzeigetafel-mit-0-0-4-ExLozCZ1RUs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-      </p>
-
-      <p>
-        Events:
-        <br>
-        1. Ressortsitzung Sport
-        <br>
-        Foto von <a href="https://unsplash.com/de/@mainermedia?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Dylan Gillis</a> auf <a href="https://unsplash.com/de/fotos/menschen-die-tagsuber-auf-einem-stuhl-vor-dem-tisch-sitzen-und-stifte-halten-KdeqA3aTnBY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-      </p>
     </UContainer>
   </div>
 </template>

@@ -29,8 +29,6 @@ const nuxtApp = useNuxtApp()
 const MAX_LOADING_TIME = 45000
 
 const waitForAssets = async () => {
-  console.log('[Debug] waitForAssets started. Waiting for fonts and critical images.');
-
   const monitoredAssets: Record<string, any> = {};
 
   const addAssetToMonitor = (name: string, promise: Promise<any>) => {
@@ -38,11 +36,9 @@ const waitForAssets = async () => {
     promise.then(
       () => {
         monitoredAssets[name].status = 'fulfilled';
-        console.log(`[Debug] Asset '${name}' loaded.`);
       },
       (reason) => {
         monitoredAssets[name].status = 'rejected';
-        console.warn(`[Debug] Asset '${name}' failed:`, reason);
       }
     );
     return promise;
@@ -60,8 +56,6 @@ const waitForAssets = async () => {
     const isLazy = img.loading === 'lazy' || img.hasAttribute('data-src');
     return hasSrc && !isLazy;
   });
-
-  console.log(`[Debug] Found ${criticalImages.length} critical images to wait for.`);
 
   criticalImages.forEach((img, index) => {
     // Einen sauberen Namen fürs Log extrahieren
@@ -86,30 +80,18 @@ const waitForAssets = async () => {
 
   // 3. Das reguläre Promise: Wartet auf alles
   const allAssetsLoaded = Promise.all(assetLoadPromises).then(() => {
-    console.log('[Debug] All critical assets loaded successfully before timeout.');
     return 'loaded';
   });
 
   // 4. Das Notfall-Promise: Läuft nach Zeit X ab
   const timeoutFallback = new Promise((resolve) => {
     setTimeout(() => {
-      console.warn(`[Debug] Loading timeout of ${MAX_LOADING_TIME / 1000}s reached.`);
       resolve('timeout');
     }, MAX_LOADING_TIME);
   });
 
   // 5. Der Wettlauf!
-  console.log('[Debug] Starting Promise.race between asset loading and timeout.');
-  const winner = await Promise.race([allAssetsLoaded, timeoutFallback]);
-
-  if (winner === 'timeout') {
-    console.error('[Debug] The timeout was reached. The following assets were still pending:');
-    for (const name in monitoredAssets) {
-      if (monitoredAssets[name].status === 'pending') {
-        console.log(`- ${name}`);
-      }
-    }
-  }
+  await Promise.race([allAssetsLoaded, timeoutFallback]);
 }
 
 onMounted(async () => {
