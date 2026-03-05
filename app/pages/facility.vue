@@ -63,6 +63,7 @@ useHead({
         image-src="/img/facility/buegeln.jpg"
         image-alt="Bügelbahn am Niederrhein"
         image-position="left"
+        image-object-position="object-bottom"
       >
         <Headline
           tagline="Niederrheinische Tradition"

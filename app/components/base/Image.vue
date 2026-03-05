@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
   alt: '',
   variant: 'feature',
   size: 'large',
-  objectPosition: 'object-top',
+  objectPosition: 'object-center',
   sizes: 'sm:100vw md:50vw lg:800px',
 });
 

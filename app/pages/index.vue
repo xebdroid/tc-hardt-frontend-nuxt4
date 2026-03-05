@@ -33,8 +33,9 @@ const heroSlides = computed<HeroSlide[]>(() => [
   },
   {
     type: 'video',
-    src: '/videos/anlage-von-oben-large.mp4',
-    poster: '/img/home/anlage-von-oben-large-preview.png',
+    src: '/videos/anlage-von-oben-small.mp4',
+    // src: '/videos/anlage-von-oben-large.mp4',
+    poster: '/img/home/anlage-von-oben-large-preview.jpg',
     title: 'Mehr als nur ein Tennisplatz',
     subtitle: 'Finde dein sportliches Zuhause. Genieße erstklassige Plätze, echte Gemeinschaft und die beste Zeit des Tages.',
     contentPosition: 'bottom-center',
