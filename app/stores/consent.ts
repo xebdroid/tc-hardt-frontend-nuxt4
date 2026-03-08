@@ -3,13 +3,14 @@ import { defineStore } from 'pinia'
 interface ConsentState {
   necessary: boolean
   maps: boolean
+  analytics: boolean // NEU: Feld für Statistik-Tracking
 }
 
 export const useConsentStore = defineStore('consent', () => {
 
   // 1. Das Einstellungs-Cookie (Speichert WAS erlaubt ist)
   const cookie = useCookie<ConsentState>('cookie-consent', {
-    default: () => ({ necessary: true, maps: false }),
+    default: () => ({ necessary: true, maps: false, analytics: false }), // NEU: Default auf false
     maxAge: 60 * 60 * 24 * 365, // 1 Jahr
     sameSite: 'lax',
     path: '/',
@@ -26,20 +27,24 @@ export const useConsentStore = defineStore('consent', () => {
 
   // 4. Getter
   const isMapsAllowed = computed(() => cookie.value.maps)
+  const isAnalyticsAllowed = computed(() => cookie.value.analytics) // NEU: Getter
 
   // 5. Actions
   function acceptAll() {
     cookie.value.maps = true
+    cookie.value.analytics = true // NEU
     _finalize()
   }
 
-  function saveSettings(settings: { maps: boolean }) {
+  function saveSettings(settings: { maps: boolean, analytics: boolean }) { // NEU: Parameter erweitert
     cookie.value.maps = settings.maps
+    cookie.value.analytics = settings.analytics // NEU
     _finalize()
   }
 
   function declineAll() {
     cookie.value.maps = false
+    cookie.value.analytics = false // NEU
     _finalize()
   }
 
@@ -60,6 +65,7 @@ export const useConsentStore = defineStore('consent', () => {
   return {
     isModalOpen,
     isMapsAllowed,
+    isAnalyticsAllowed, // NEU: Exportiert
     hasDecided,
     acceptAll,
     saveSettings,
