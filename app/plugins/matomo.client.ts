@@ -34,17 +34,19 @@ export default defineNuxtPlugin((nuxtApp) => {
     }
   })();
 
-  // Optimiertes SPA-Tracking
+// Optimiertes SPA-Tracking
   router.afterEach((to, from) => {
-    // Verhindere doppelte Pings, wenn sich nur der Hash (#) ändert
     if (to.path === from.path && to.hash !== from.hash) return;
 
-    // nextTick wartet, bis Vue das DOM geupdatet hat, danach geben wir noch 100ms Puffer
     nextTick(() => {
       setTimeout(() => {
         _paq.push(['setCustomUrl', window.location.origin + to.fullPath]);
         _paq.push(['setDocumentTitle', document.title]);
         _paq.push(['trackPageView']);
+
+        // NEU: Matomo anweisen, die neu geladene Seite nach PDF-Links abzusuchen!
+        _paq.push(['enableLinkTracking']);
+
       }, 100)
     })
   })
