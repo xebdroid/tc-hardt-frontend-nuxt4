@@ -1,8 +1,11 @@
 // app/composables/useCalendar.ts
 import { computed } from 'vue'
 import type { Event } from '~/types'
+import { useI18n } from 'vue-i18n'
+import db from '~/assets/data/db.json'
 
 export function useCalendar(event: Event) {
+  const { t } = useI18n()
   // Helper to format dates for calendar links (YYYYMMDDTHHMMSSZ)
   // We'll assume a default time if not provided, e.g., 9am for start, 10am for end.
   // Timezone is assumed to be Europe/Berlin.
@@ -28,12 +31,17 @@ export function useCalendar(event: Event) {
     const startDate = toUTC(event.date, startTime)
     const endDate = toUTC(event.dateEnd || event.date, endTime)
 
+    const atHomeKeywords = ['clubhaus', 'anlage', 'tc hardt']
+    const locationString = event.location?.toLowerCase() || ''
+    const isAtHome = atHomeKeywords.some(keyword => locationString.includes(keyword))
+    const location = isAtHome ? db.clubInfo.address : event.location
+
     const url = new URL('https://www.google.com/calendar/render')
     url.searchParams.append('action', 'TEMPLATE')
     url.searchParams.append('text', event.title)
     url.searchParams.append('dates', `${startDate}/${endDate}`)
     url.searchParams.append('details', event.description || '')
-    url.searchParams.append('location', event.location || '')
+    url.searchParams.append('location', location || '')
     return url.toString()
   })
 
@@ -49,7 +57,7 @@ export function useCalendar(event: Event) {
 
     const startDate = toUTC(event.date, startTime)
     const endDate = toUTC(event.dateEnd || event.date, endTime)
-    
+
     const content = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
@@ -69,16 +77,16 @@ export function useCalendar(event: Event) {
 
   const calendarOptions = computed(() => [
     {
-      label: 'Google Calendar',
+      label: t('calendar.google'),
       icon: 'i-simple-icons-googlecalendar',
       to: googleLink.value,
       target: '_blank'
     },
     {
-      label: 'Download .ics',
+      label: t('calendar.download_ics'),
       icon: 'i-heroicons-arrow-down-tray',
       to: icsContent.value,
-      download: `event-${event.id}.ics`
+      download: `${(event as any).slug}.ics`
     }
   ])
 

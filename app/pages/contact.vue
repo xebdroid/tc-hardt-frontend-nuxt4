@@ -56,6 +56,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
     isSent.value = true
 
+    // --- NEU: Tracking des erfolgreichen Formularversands ---
+    if (import.meta.client && (window as any)._paq) {
+      (window as any)._paq.push(['trackEvent', 'Formulare', 'Erfolgreich gesendet', 'Kontaktformular'])
+    }
+
     // Scroll zum Anfang des Formular-Containers
     const formContainer = document.getElementById('contact-form-container')
     if (formContainer) {

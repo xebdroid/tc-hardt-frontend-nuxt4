@@ -60,6 +60,10 @@ export default defineNuxtConfig({
     }
   },
 
+  routeRules: {
+    '/index.php/50-jahre-tc-hardt.html': { redirect: { to: '/50-jahre-tc-hardt', statusCode: 301 } }
+  },
+
   i18n: {
     strategy: "prefix_except_default",
     defaultLocale: "de",

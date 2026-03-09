@@ -33,6 +33,23 @@ const hasOptionalContent = computed(() => {
 
 const emit = defineEmits(['toggle'])
 
+// --- NEU: Tracking für Aufklappen ---
+function handleToggle() {
+  emit('toggle')
+  // Wir tracken nur das aktive Aufklappen, nicht das Zuklappen
+  if (import.meta.client && !props.isOpen && (window as any)._paq) {
+    (window as any)._paq.push(['trackEvent', 'Termine', 'Details Aufgeklappt', props.event.title])
+  }
+}
+
+// --- NEU: Tracking für Kalender Button Klicks ---
+function trackCalendarClick(actionLabel?: string) {
+  if (import.meta.client && (window as any)._paq) {
+    const label = actionLabel || 'Unbekannt'
+    (window as any)._paq.push(['trackEvent', 'Termine', 'Kalender Export', `${props.event.title} (${label})`])
+  }
+}
+
 const cardClasses = computed(() => [
   'w-full',
   'border',
@@ -52,6 +69,11 @@ const cardClasses = computed(() => [
 ])
 
 const downloadIcs = () => {
+  // --- NEU: Tracking falls die direkte ICS Funktion aufgerufen wird ---
+  if (import.meta.client && (window as any)._paq) {
+    (window as any)._paq.push(['trackEvent', 'Termine', 'ICS Download', props.event.title])
+  }
+
   const e = props.event
 
   const formatDate = (d: Date) => {
@@ -64,7 +86,7 @@ const downloadIcs = () => {
 
   let start = ''
   let end = ''
-  let isAllDay = !e.time
+  const isAllDay = !e.time
 
   const startDateObj = new Date(e.date)
 
@@ -132,17 +154,14 @@ const downloadIcs = () => {
   <div :class="cardClasses">
     <div class="flex flex-col items-stretch h-full" :class="variant === 'default' ? 'md:flex-row' : ''">
 
-      <!-- Sidebar (Desktop) / Header (Mobile) - Gray Background -->
       <div class="bg-gray-50 dark:bg-white/5 flex-shrink-0 border-b border-gray-100 dark:border-gray-700 flex flex-col" :class="variant === 'default' ? 'md:w-80 md:border-b-0 md:border-r' : ''">
         <div
           class="flex flex-row items-center justify-between p-3 md:p-4 gap-4"
         >
-          <!-- Date -->
           <div :class="[!event.dateEnd ? 'md:flex-1 md:flex md:justify-center' : '']">
             <EventDate :date="new Date(event.date)" :date-end="event.dateEnd ? new Date(event.dateEnd) : undefined" />
           </div>
 
-          <!-- Image -->
           <Image
             :src="event.image"
             :alt="event.title"
@@ -153,14 +172,12 @@ const downloadIcs = () => {
         </div>
       </div>
 
-      <!-- Content Side (Collapsible) -->
       <UCollapsible
         class="flex-1 flex flex-col group min-w-0 justify-center group-data-[state=open]:justify-start"
         :disabled="!hasOptionalContent"
         :open="isOpen"
       >
-        <!-- Header Row (Title + Toggle) -->
-        <div class="p-3 md:p-4 flex justify-between items-center gap-4 cursor-pointer min-h-[5.5rem] md:min-h-24" @click="emit('toggle')">
+        <div class="p-3 md:p-4 flex justify-between items-center gap-4 cursor-pointer min-h-[5.5rem] md:min-h-24" @click="handleToggle">
           <h3 class="text-xl font-bold text-brand-dark-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
             {{ event.title }}
           </h3>
@@ -173,17 +190,17 @@ const downloadIcs = () => {
           </div>
         </div>
 
-        <!-- Collapsible Content -->
         <template #content>
           <div class="px-3 pb-3 md:px-4 md:pb-4 text-gray-600 dark:text-gray-300 space-y-4">
-            <!-- Rich Text Content -->
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <div v-if="event.content" class="prose dark:prose-invert max-w-none text-sm" v-html="event.content" />
+            <div
+              v-if="event.content"
+              class="prose dark:prose-invert max-w-none text-sm"
+              v-html="event.content"
+            />
             <p v-else-if="event.description" class="text-sm">
               {{ event.description }}
             </p>
 
-            <!-- Meta Info -->
             <div class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
               <div v-if="event.time" class="flex items-center">
                 <UIcon name="i-heroicons-clock" class="w-4 h-4 mr-2 text-accent-500" />
@@ -195,7 +212,6 @@ const downloadIcs = () => {
               </div>
             </div>
 
-            <!-- Action Buttons -->
             <div v-if="!isPast" class="flex flex-wrap gap-3 pt-2">
               <Button
                 v-for="(action, idx) in calendarOptions"
@@ -204,6 +220,7 @@ const downloadIcs = () => {
                 size="md"
                 variant="outline"
                 class="flex-1 sm:flex-none justify-center"
+                @click="trackCalendarClick(action.label)"
               />
             </div>
           </div>

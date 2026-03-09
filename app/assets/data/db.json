@@ -6,57 +6,38 @@
   },
   "news": [
     {
-      "id": 4,
-      "title": "Back to the 70ies: TC Hardt im Karneval",
-      "date": "16.02.2026",
-      "excerpt": "Auch im Jubiläumsjahr ist der TC Hardt wieder beim Rosenmontagsumzug in Hardt dabei. Unter dem Motto 'Back to the 70ies' feiern wir 50 Jahre Tennis op de Hardt.",
-      "content": "<p>Passend zu unserem Jubiläumsmotto 'Back to the 70ies – 50 Jahre Tennis op de Hardt' wird der TC Hardt auch in diesem Jahr wieder mit einer bunten Truppe beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt mitziehen.</p><p>Wer noch Lust hat, mitzugehen und unseren Verein fröhlich zu repräsentieren, kann sich gerne melden. Je mehr wir sind, desto besser – Spaß und gute Laune inklusive!</p>",
-      "image": "/img/events/2026-tc-hardt-karneval.jpg",
-      "published": true
+      "id": 1,
+      "title": "Ein ganzes Jahr voller Highlights – 50 Jahre TC Hardt",
+      "date": "04.03.2026",
+      "excerpt": "Das Jubiläumsjahr 2026 ist vollgepackt mit unvergesslichen Events. Von sportlichen Wettkämpfen über gesellige Feste bis hin zur großen Jubiläums-Gala – hier ist für jeden etwas dabei.",
+      "content": "<p class=\"mb-4\">Das Jubiläumsjahr 2026 steht vor der Tür und wir haben allen Grund zu feiern! Seit 50 Jahren ist der TC Hardt ein Ort der sportlichen Begegnungen und der Gemeinschaft. Dieses besondere Jahr möchten wir mit euch gebührend zelebrieren.</p><p class=\"mb-4\">Es erwartet euch ein Kalender voller spannender Events, sportlicher Herausforderungen und geselliger Zusammenkünfte. Ob bei den traditionellen Medenspielen, dem Tag der offenen Tür oder der großen Jubiläums-Gala – wir freuen uns darauf, mit euch unvergessliche Momente zu teilen.</p>",
+      "image": "/img/news/50-jahre-wappen.jpg",
+      "published": true,
+      "slug": "ein-jahr-voller-events",
+      "cta": {
+        "to": "/50-jahre-tc-hardt",
+        "label": "Alle Highlights im Überblick"
+      }
     },
     {
-      "id": 5,
-      "title": "Zukunft gestalten: Mitgliederversammlung 2026",
-      "date": "23.03.2026",
-      "excerpt": "Die jährliche Mitgliederversammlung findet am 23.03.2026 um 19:00 Uhr im Clubhaus statt. Der Vorstand lädt alle Mitglieder herzlich ein.",
-      "content": "<p>Die ordentliche Mitgliederversammlung 2026 findet am 23.03.2026 um 19:00 Uhr im Clubhaus statt.</p><p>Die offiziellen Einladungen mit der detaillierten Tagesordnung werden in Kürze versendet. Wir freuen uns auf eine rege Teilnahme und einen konstruktiven Austausch über die Zukunft unseres Vereins.</p>",
-      "image": "https://placehold.co/1200x600/1e293b/94a3b8?text=MV+2026",
-      "layout": "large-image",
-      "published": true
+      "id": 2,
+      "title": "Erfolgreicher Start in die Winter-Medensaison",
+      "date": "01.03.2026",
+      "excerpt": "Die Wintersaison neigt sich dem Ende zu und unsere Teams sind auf Erfolgskurs. Die Herren 30 sind sogar ungeschlagen und auf Aufstiegskurs!",
+      "content": "<p class=\"mb-4\">Die Wintermedenspielsaison neigt sich langsam dem Ende entgegen. Der TC Hardt stellt in dieser Saison 2 Mannschaften in den Altersklassen Herren Offen und Herren 30 und für beide Mannschaften läuft die Saison positiv.</p><p class=\"mb-4\">Die Herren Offen stehen derzeit auf einem souveränen 2. Platz und mussten sich bislang nur dem derzeitigen Tabellenführer Odenkirchen geschlagen geben.</p><p class=\"mb-4\">Die Herren 30 gehen derzeit weiterhin ungeschlagen durch die Saison und sind auf Aufstiegskurs! Das wäre eine tolle Leistung!</p>",
+      "image": "/img/news/winter-medenspiele.jpg",
+      "published": true,
+      "slug": "winter-medenspiele-2026"
     },
     {
-      "id": 6,
-      "title": "Anpacken für den Saisonstart: Frühjahrsputz!",
-      "date": "11.04.2026",
-      "excerpt": "Bevor die Saison startet, rufen wir alle Mitglieder zum traditionellen Frühjahrsputz auf. Gemeinsam bereiten wir die Plätze für den Sommer vor.",
-      "content": "<p>Bevor es wieder auf die Plätze geht, steht der traditionelle Frühjahrsputz an. Am <strong>11.04.2026 ab 10:00 Uhr</strong> möchten wir gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.</p><p>Hierfür benötigen wir wieder viele helfende Hände. Jede Unterstützung zählt – gemeinsam geht es schneller und macht mehr Spaß.</p>",
-      "image": "/img/events/fruehjahrsputz.jpg",
-      "published": true
-    },
-    {
-      "id": 7,
-      "title": "Tag der offenen Tür",
-      "date": "19.04.2099",
-      "excerpt": "Wir laden alle Mitglieder, Freunde und Tennisinteressierte zur großen Saisoneröffnung im Jubiläumsjahr ein. Es erwartet euch ein buntes Programm!",
-      "content": "<p>Am <strong>19.04.2099 ab 11:00 Uhr</strong> laden wir euch, eure Freunde und eure Familien herzlich zur Saisoneröffnung und zum Tag der offenen Tür ein.</p><p>Gerade im Jubiläumsjahr erwartet euch ein besonders vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein:</p><ul><li>Schnuppertraining</li><li>Tennis-Olympiade</li><li>One-Point-Slam</li><li>Cocktailbar & Musik</li><li>Bügeln & Beachvolleyball</li><li>Hüpfburg für die Kids</li><li>Aufschlagsgeschwindigkeitsmessung</li><li>und vieles mehr</li></ul><p>Ein perfekter Tag, um Tennis zu erleben und gemeinsam in die neue Saison zu starten.</p>",
-      "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
-      "publishDate": "2099-04-01"
-    },
-    {
-      "id": 8,
-      "title": "50 Jahre TC Hardt: Die große Jubiläumsgala",
-      "date": "27.06.2026",
-      "excerpt": "Ein Highlight des Jubiläumsjahres: Die große Gala zum 50-jährigen Bestehen unseres Vereins. Feiert mit uns im Festzelt auf der Anlage!",
-      "content": "<p>Am <strong>27.06.2026</strong> findet das Highlight unseres Jubiläumsjahres statt: Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage.</p><p>Die Hardter Blasmusik wird den offiziellen Teil musikalisch begleiten. Es erwartet euch ein Buffet und ein DJ wird für beste Stimmung und eine ausgelassene Jubiläumsparty sorgen. Die offiziellen Einladungen werden in Kürze versendet.</p>",
-      "image": "/img/events/50-jahre-emblem.jpg",
-      "publishDate": "2020-01-01"
-    },
-    {
-      "id": 9,
-      "title": "Heimspiel: Kreis- & Stadtmeisterschaften in Hardt",
-      "date": "29.08.2026",
-      "excerpt": "Zum ersten Mal in der Vereinsgeschichte sind wir Gastgeber der Kreis- & Stadtmeisterschaften. Wir suchen noch Helfer für dieses große Event!",
-      "content": "<p>Ein echtes Highlight im Jubiläumsjahr: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften, die vom <strong>29.08. bis 13.09.2026</strong> stattfinden.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für die Unterstützung der Turnierleitung und für die Mitarbeit im Gastro-Team. Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p>"
+      "id": 3,
+      "title": "Helau & Alaaf: TC Hardt beim Rosenmontagsumzug",
+      "date": "14.01.2026",
+      "excerpt": "Wir sind wieder dabei! Auch im Jubiläumsjahr zieht der TC Hardt beim Rosenmontagsumzug mit. Sei dabei und feier mit uns!",
+      "content": "<p class=\"mb-4\">Auch im Jubiläumsjahr darf der Karneval natürlich nicht fehlen. Der TC Hardt wird beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt mitziehen – und zwar passend zu unserem Jubiläumsmotto: <strong>„Back to the 70ies – 50 Jahre Tennis op de Hardt“</strong></p><p class=\"mb-4\">Wer noch Lust hat, beim Umzug mitzugehen und unseren Verein bunt und fröhlich zu repräsentieren, kann sich gerne melden. Je mehr wir sind, desto besser – Spaß und gute Laune inklusive!</p>",
+      "image": "/img/news/2026-rosenmontag.jpg",
+      "published": true,
+      "slug": "karneval-2026"
     }
   ],
   "board": [
@@ -152,16 +133,42 @@
     }
   ],
   "teams": [
-    { "name": "Damen offen", "category": "Erwachsene" },
-    { "name": "Damen 50", "category": "Senioren" },
-    { "name": "Damen 55", "category": "Senioren" },
-    { "name": "Herren offen", "category": "Erwachsene" },
-    { "name": "Herren 30", "category": "Senioren" },
-    { "name": "Herren 50", "category": "Senioren" },
-    { "name": "U15", "category": "Jugend" },
-    { "name": "U12", "category": "Jugend" },
-    { "name": "U8", "category": "Jugend" },
-    { "name": "Mixed-Team", "category": "Erwachsene" }
+    {
+      "name": "Damen offen",
+      "category": "Erwachsene"
+    },
+    {
+      "name": "Damen 55",
+      "category": "Senioren"
+    },
+    {
+      "name": "Herren offen",
+      "category": "Erwachsene"
+    },
+    {
+      "name": "Herren 30",
+      "category": "Senioren"
+    },
+    {
+      "name": "Herren 50",
+      "category": "Senioren"
+    },
+    {
+      "name": "U15",
+      "category": "Jugend"
+    },
+    {
+      "name": "U12",
+      "category": "Jugend"
+    },
+    {
+      "name": "U8",
+      "category": "Jugend"
+    },
+    {
+      "name": "Mixed-Team",
+      "category": "Erwachsene"
+    }
   ],
   "events": [
     {
@@ -169,11 +176,12 @@
       "date": "2026-02-16",
       "time": null,
       "title": "Rosenmontagsumzug",
-      "description": "TC Hardt beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt unter dem Motto 'Back to the 70ies'.",
-      "content": "<p>Auch im Jubiläumsjahr darf der Karneval natürlich nicht fehlen. Der TC Hardt wird beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt mitziehen – und zwar passend zu unserem Jubiläumsmotto: <strong>„Back to the 70ies – 50 Jahre Tennis op de Hardt“</strong></p><p>Wer noch Lust hat, beim Umzug mitzugehen und unseren Verein bunt und fröhlich zu repräsentieren, kann sich gerne melden. Je mehr wir sind, desto besser – Spaß und gute Laune inklusive!</p>",
+      "description": "TC Hardt beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt unter dem Motto \u0027Back to the 70ies\u0027.",
+      "content": "<p class=\"mb-4\">Auch im Jubiläumsjahr darf der Karneval natürlich nicht fehlen. Der TC Hardt wird beim Rosenmontagsumzug der GKG Spönnradsbeen in Hardt mitziehen – und zwar passend zu unserem Jubiläumsmotto: <strong>„Back to the 70ies – 50 Jahre Tennis op de Hardt“</strong></p><p class=\"mb-4\">Wer noch Lust hat, beim Umzug mitzugehen und unseren Verein bunt und fröhlich zu repräsentieren, kann sich gerne melden. Je mehr wir sind, desto besser – Spaß und gute Laune inklusive!</p>",
       "location": "Hardt",
-      "image": "/img/events/2026-tc-hardt-karneval.jpg",
-      "highlightLevel": 0
+      "image": "/img/events/2026-rosenmontag.jpg",
+      "highlightLevel": 0,
+      "slug": "rosenmontagsumzug"
     },
     {
       "id": 2,
@@ -181,10 +189,11 @@
       "time": "19:30 Uhr",
       "title": "1. Ressortsitzung Sport",
       "description": "Themen: Wettspielordnung, Mannschaftsmeldungen, Clubmeisterschaften, Kreis- & Stadtmeisterschaften und weitere Events.",
-      "content": "<p>Die 1. Ressortsitzung Sport im Jubiläumsjahr findet am 09.03.2026 um 19:30 Uhr im Clubhaus statt.</p><p>Themen sind u. a. die Wettspielordnung, die Mannschaftsmeldungen der Medenmannschaften, die Clubmeisterschaften 2026, die Kreis- & Stadtmeisterschaften auf unserer Anlage sowie weitere Events (z. B. Sangria Open).</p><p>Alle Mannschaftsspieler, Mannschaftsführer und Interessierten – insbesondere auch neue oder noch nicht gemeldete Spielerinnen und Spieler – sind herzlich eingeladen.</p>",
+      "content": "<p class=\"mb-4\">Die 1. Ressortsitzung Sport im Jubiläumsjahr findet am 09.03.2026 um 19:30 Uhr im Clubhaus statt.</p><p class=\"mb-4\">Themen sind u. a. die Wettspielordnung, die Mannschaftsmeldungen der Medenmannschaften, die Clubmeisterschaften 2026, die Kreis- & Stadtmeisterschaften auf unserer Anlage sowie weitere Events (z. B. Sangria Open).</p><p class=\"mb-4\">Alle Mannschaftsspieler, Mannschaftsführer und Interessierten – insbesondere auch neue oder noch nicht gemeldete Spielerinnen und Spieler – sind herzlich eingeladen.</p>",
       "location": "Clubhaus",
       "image": "/img/events/dylan-gillis-KdeqA3aTnBY-unsplash.jpg",
-      "highlightLevel": 0
+      "highlightLevel": 0,
+      "slug": "1-ressortsitzung-sport"
     },
     {
       "id": 3,
@@ -192,10 +201,11 @@
       "time": "19:00 Uhr",
       "title": "Ordentliche Mitgliederversammlung",
       "description": "Die ordentliche Mitgliederversammlung 2026 findet im Clubhaus statt.",
-      "content": "<p>Die ordentliche Mitgliederversammlung 2026 findet am 23.03.2026 um 19:00 Uhr im Clubhaus statt.</p><p>Die offiziellen Einladungen mit Tagesordnung folgen in Kürze. Wir freuen uns auf eine rege Teilnahme und den gemeinsamen Austausch.</p>",
+      "content": "<p class=\"mb-4\">Die ordentliche Mitgliederversammlung 2026 findet am 23.03.2026 um 19:00 Uhr im Clubhaus statt.</p><p class=\"mb-4\">Die offiziellen Einladungen mit Tagesordnung folgen in Kürze. Wir freuen uns auf eine rege Teilnahme und den gemeinsamen Austausch.</p>",
       "location": "Clubhaus",
       "image": "/img/events/clubhaus-sonnenterrasse-klein.jpg",
-      "highlightLevel": 0
+      "highlightLevel": 0,
+      "slug": "ordentliche-mitgliederversammlung"
     },
     {
       "id": 4,
@@ -203,10 +213,11 @@
       "time": "10:00 Uhr",
       "title": "Frühjahrsputz",
       "description": "Gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.",
-      "content": "<p>Bevor es auf die Plätze geht, steht der traditionelle Frühjahrsputz an. Am 11.04.2026 ab 10:00 Uhr möchten wir gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.</p><p>Hierfür benötigen wir wieder viele helfende Hände. Jede Unterstützung zählt – gemeinsam geht es schneller und macht mehr Spaß.</p>",
+      "content": "<p class=\"mb-4\">Bevor es wieder auf die Plätze geht, steht der traditionelle Frühjahrsputz an. Am 11.04.2026 ab 10:00 Uhr möchten wir gemeinsam die Anlage vorbereiten, die Windfänge und Netze aufhängen und alles startklar für die Sommersaison machen.</p><p class=\"mb-4\">Hierfür benötigen wir wieder viele helfende Hände. Jede Unterstützung zählt – gemeinsam geht es schneller und macht mehr Spaß.</p><p class=\"mb-4\">Ein guter Nebeneffekt: Ihr könnt bereits zu Saisonbeginn euer Arbeitsstundenkonto füllen!</p>",
       "location": "Gesamte Anlage",
       "image": "/img/events/fruehjahrsputz.jpg",
-      "highlightLevel": 0
+      "highlightLevel": 0,
+      "slug": "frahjahrsputz"
     },
     {
       "id": 5,
@@ -214,21 +225,23 @@
       "time": "11:00 – 17:00 Uhr",
       "title": "Tag der offenen Tür & Saisoneröffnung",
       "description": "Vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein: Schnuppertraining, Tennis-Olympiade, One-Point-Slam, Cocktailbar & Musik, und vieles mehr.",
-      "content": "<p>Vorab: Auch in diesem Jahr benötigen wir eure Hilfe um den Tag der offenen Tür durchzuführen. Bitte meldet euch bei uns, damit wir euch einplanen können! Eine konkrete Liste für anfallende Arbeiten wird noch folgen.</p><p>Am 19.04.2026 ab 11:00 Uhr laden wir euch, eure Freunde und eure Familien herzlich zur Saisoneröffnung und zum Tag der offenen Tür ein.</p><p>Gerade im Jubiläumsjahr erwartet euch ein besonders vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Schnuppertraining</li><li>Tennis-Olympiade</li><li>One-Point-Slam</li><li>Cocktailbar & Musik</li><li>Bügeln & Beachvolleyball</li><li>Hüpfburg für die Kids</li><li>Aufschlagsgeschwindigkeitsmessung</li><li>und vieles mehr</li></ul><p class=\"mt-4\">Ein perfekter Tag, um Tennis zu erleben, Freunde mitzubringen und gemeinsam in die neue Saison zu starten.</p>",
+      "content": "<p class=\"mb-4\">Vorab: Auch in diesem Jahr benötigen wir eure Hilfe um den Tag der offenen Tür durchzuführen. Bitte meldet euch bei uns, damit wir euch einplanen können! Eine konkrete Liste für anfallende Arbeiten wird noch folgen.</p><p class=\"mb-4\">Am 19.04.2026 ab 11:00 Uhr laden wir euch, eure Freunde und eure Familien herzlich zur Saisoneröffnung und zum Tag der offenen Tür ein.</p><p class=\"mb-4\">Gerade im Jubiläumsjahr erwartet euch ein besonders vielseitiges Rahmenprogramm mit Angeboten für Groß und Klein:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Schnuppertraining</li><li>Tennis-Olympiade</li><li>One-Point-Slam</li><li>Cocktailbar & Musik</li><li>Bügeln & Beachvolleyball</li><li>Hüpfburg für die Kids</li><li>Aufschlagsgeschwindigkeitsmessung</li><li>und vieles mehr</li></ul><p class=\"mt-4 mb-4\">Ein perfekter Tag, um Tennis zu erleben, Freunde mitzubringen und gemeinsam in die neue Saison zu starten.</p>",
       "location": "Gesamte Anlage",
       "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
-      "highlightLevel": 1
+      "highlightLevel": 1,
+      "slug": "tag-der-offenen-tar-saisoneraffnung"
     },
     {
       "id": 6,
       "date": "2026-06-27",
-      "time": null,
-      "title": "Jubiläumsfeier: 50 Jahre TC Hardt",
-      "description": "Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage. Mit Buffet und DJ.",
-      "content": "<p>Am 27.06.2026 findet ein Highlight unseres Jubiläumsjahres statt: Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage.</p><p>Die Hardter Blasmusik wird den offiziellen Teil musikalisch begleiten. Es erwartet euch ein Buffet und ein DJ wird für beste Stimmung und eine ausgelassene Jubiläumsparty sorgen. Die offiziellen Einladungen werden in Kürze versendet.</p>",
+      "time": "18:30 Uhr",
+      "title": "50 Jahre TC Hardt: Die große Jubiläumsfeier",
+      "description": "Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage. Mit Buffet, Live-Musik und DJ.",
+      "content": "<p class=\"mb-4\">Am 27.06.2026 findet ein Highlight unseres Jubiläumsjahres statt: Der feierliche Festakt zum 50-jährigen Bestehen unseres Vereins im Festzelt auf unserer Anlage.</p><p class=\"mb-4\">Die Hardter Blasmusik wird den offiziellen Festakt musikalisch begleiten. Freut euch auf ein reichhaltiges Buffet, leckere Getränke und einen DJ, der für beste Stimmung und eine ausgelassene Jubiläumsparty sorgen wird.</p><p class=\"mb-4\">Eine Rückmeldung, ob ihr an der Jubiläumsfeier teilnehmt, ist für unsere Planungen erforderlich. Bitte kauft dementsprechend eine Eintrittskarte für euch und eure Liebsten entweder bei der Saisoneröffnung am 19.04.26, sprecht das Team Vereinsjubiläum an oder kontaktiert uns per E-Mail unter <a href=\"mailto:jubilaeum@tc-hardt.de\">jubilaeum@tc-hardt.de</a>.</p><p class=\"mb-4\">Die Eintrittskarten kosten 38€. Darin enthalten sind das Buffet, die Live-Musik, der DJ und das gesamte Setting und Rahmenprogramm.</p><p class=\"mb-4\"><strong>Das Wichtigste in Kürze:</strong></p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Datum: 27.06.2026</li><li>Beginn: 18:30 Uhr</li><li>Eintritt: 38€</li><li>Dresscode: feierlich</li></ul>",
       "location": "Festzelt auf der Anlage",
       "image": "/img/events/50-jahre-emblem.jpg",
-      "highlightLevel": 2
+      "highlightLevel": 2,
+      "slug": "jubilaumsfeier-50-jahre-tc-hardt"
     },
     {
       "id": 7,
@@ -238,7 +251,8 @@
       "description": null,
       "location": "Clubhaus & Terrasse",
       "image": "/img/events/sangria-open.jpg",
-      "highlightLevel": 0
+      "highlightLevel": 0,
+      "slug": "sangria-open"
     },
     {
       "id": 8,
@@ -247,10 +261,11 @@
       "time": null,
       "title": "Kreis- & Stadtmeisterschaften",
       "description": "Zum ersten Mal in der Vereinsgeschichte sind wir Ausrichter der Kreis- & Stadtmeisterschaften.",
-      "content": "<p>Ein echtes Highlight: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften – und erstmalig findet dieses Turnier direkt bei uns im Dorf statt.</p><p>Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Unterstützung der Turnierleitung</li><li>Mitarbeit im Gastro-Team</li></ul><p class=\"mt-4\">Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p>",
+      "content": "<p class=\"mb-4\">Ein echtes Highlight: Wir sind erstmalig in der Vereinsgeschichte Ausrichter der Kreis- & Stadtmeisterschaften – und erstmalig findet dieses Turnier direkt bei uns im Dorf statt.</p><p class=\"mb-4\">Damit dieses Event sportlich und organisatorisch ein voller Erfolg wird, suchen wir noch Helferinnen und Helfer für:</p><ul class=\"list-disc list-inside ml-4 space-y-1\"><li>Unterstützung der Turnierleitung</li><li>Mitarbeit im Gastro-Team</li></ul><p class=\"mt-4 mb-4\">Mit eurer Hilfe können wir nicht nur ein tolles Turnier auf die Beine stellen, sondern auch wichtige Einnahmen für unseren Verein generieren.</p><p class=\"mb-4\">Weitere Informationen und ein Link zur Anmeldung zu den Kreis- und Stadtmeisterschaften werden bald folgen.</p>",
       "location": "TC Hardt",
       "image": "/img/events/naveen-ketterer-ExLozCZ1RUs-unsplash.jpg",
-      "highlightLevel": 1
+      "highlightLevel": 1,
+      "slug": "kreis-stadtmeisterschaften"
     },
     {
       "id": 9,
@@ -261,7 +276,8 @@
       "description": "Die Finaltage der Clubmeisterschaften der Erwachsenen und Jugend.",
       "location": "Gesamte Anlage",
       "image": "/img/events/finale.jpg",
-      "highlightLevel": 1
+      "highlightLevel": 1,
+      "slug": "finaltag-der-clubmeisterschaften"
     },
     {
       "id": 10,
@@ -271,7 +287,8 @@
       "description": "Gemütlicher Saisonabschluss mit den traditionellen Glühwein Open.",
       "location": "Clubhaus",
       "image": "/img/events/gluehwein-open.jpg",
-      "highlightLevel": 0
+      "highlightLevel": 0,
+      "slug": "glahwein-open-saisonabschluss"
     }
   ],
   "tariffs": [

@@ -33,7 +33,7 @@ useHead({
 
     <Section>
       <FeatureSection
-        image-src="/img/about/tc-hardt-facility-06.jpg"
+        image-src="/img/about/tc-hardt-anlage.jpg"
         image-alt="Luftaufnahme der Tennisanlage des TC Hardt"
       >
         <Headline

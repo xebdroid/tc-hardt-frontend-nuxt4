@@ -46,10 +46,10 @@ onUnmounted(() => {
       before:shadow-[0_25px_15px_-10px_rgba(0,0,0,0.15)]"
     >
 
-      <InverseCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="180" />
-      <InverseCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block scale-x-[-1]" :angle="180" />
-      <InverseCorner class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="180" />
-      <InverseCorner class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="90" />
+      <InverseCorner class="absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="0" />
+      <InverseCorner class="absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900 block" :angle="-90" />
+      <InverseCorner class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="0" />
+      <InverseCorner class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="-90" />
 
       <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out shadow-xl">
 

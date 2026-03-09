@@ -7,11 +7,15 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import EventList from '~/components/events/EventList.vue'
 import EventItem from '~/components/events/EventItem.vue'
+import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
+import Button from '~/components/base/Button.vue'
 
 useHead({ title: 'Events | TC Hardt' })
 
 const now = new Date()
 const currentYear = now.getFullYear()
+
+const { downloadAllIcs } = useAllEventsCalendar()
 
 const upcomingEvents = computed(() => {
   return [...db.events]
@@ -75,8 +79,16 @@ const handlePastEventToggle = (id: number) => {
         tag="h2"
         size="h2"
         alignment="center"
-        margin-bottom="none"
+        margin-bottom="sm"
       />
+      <div class="flex justify-center">
+        <Button
+          label="Alle Termine herunterladen"
+          icon="i-heroicons-arrow-down-tray"
+          variant="outline"
+          @click="downloadAllIcs"
+        />
+      </div>
     </Section>
 
 

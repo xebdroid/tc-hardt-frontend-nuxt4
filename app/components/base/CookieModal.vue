@@ -6,6 +6,7 @@ const route = useRoute()
 
 // Lokaler State
 const mapsSelected = ref(store.isMapsAllowed)
+const analyticsSelected = ref(store.isAnalyticsAllowed) // NEU
 
 // --- LOGIK: Modal-Steuerung ---
 const legalPages = ['impressum', 'datenschutz', 'imprint', 'privacy']
@@ -35,13 +36,19 @@ watch(() => route.path, () => {
   }
 })
 
-// State synchronisieren
+// State synchronisieren, wenn Modal geöffnet wird
 watch(() => store.isModalOpen, (isOpen) => {
-  if (isOpen) mapsSelected.value = store.isMapsAllowed
+  if (isOpen) {
+    mapsSelected.value = store.isMapsAllowed
+    analyticsSelected.value = store.isAnalyticsAllowed // NEU
+  }
 })
 
 function handleSave() {
-  store.saveSettings({ maps: mapsSelected.value })
+  store.saveSettings({
+    maps: mapsSelected.value,
+    analytics: analyticsSelected.value // NEU
+  })
 }
 
 // Helper für Links im Modal
@@ -53,7 +60,7 @@ function openLegalPage() {
 <template>
   <UModal
     v-model:open="store.isModalOpen"
-    :dismissible="store.isMapsAllowed"
+    :dismissible="store.isMapsAllowed && store.isAnalyticsAllowed"
     :transition="false"
     :ui="{
       overlay: 'z-[9999] bg-gray-950/80 backdrop-blur-sm transition-none duration-0',
@@ -99,6 +106,17 @@ function openLegalPage() {
               disabled
               size="lg"
             />
+          </div>
+
+          <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
+            <div class="flex items-center gap-3">
+              <UIcon name="i-heroicons-chart-bar" class="text-brand-dark-900 dark:text-white w-6 h-6" />
+              <div class="text-left">
+                <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Statistiken</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400">Anonymes Tracking zur Verbesserung</span>
+              </div>
+            </div>
+            <USwitch v-model="analyticsSelected" size="lg" />
           </div>
 
           <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">

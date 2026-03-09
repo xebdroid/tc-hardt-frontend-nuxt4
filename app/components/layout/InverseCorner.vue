@@ -1,37 +1,50 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   angle?: number
   // Standardmäßig deine "Inhalt-Farbe". Kann aber überschrieben werden.
   colorClass?: string
+  size?: number
 }>(), {
   angle: 0,
-  colorClass: 'text-white dark:text-gray-900'
+  colorClass: 'text-white dark:text-gray-900',
+  size: 26
+})
+
+const positionMap: Record<number, string> = {
+  0: 'bottom left',
+  90: 'top left',
+  180: 'top right',
+  270: 'bottom right',
+  '-90': 'bottom right'
+}
+
+const maskStyle = computed(() => {
+  const position = positionMap[props.angle] || 'bottom left'
+  const radius = props.size
+  const style = `radial-gradient(circle ${radius}px at ${position}, transparent 98%, black 100%)`
+  return {
+    '-webkit-mask': style,
+    'mask': style
+  }
+})
+
+// Quick and dirty way to convert text-color to bg-color
+const bgColorClass = computed(() => {
+  return props.colorClass.replace('text-', 'bg-')
 })
 </script>
 
 <template>
-  <svg
-    class="absolute w-[26px] h-[26px] z-50 pointer-events-none block transition-colors duration-300"
-    :class="colorClass"
-    :style="{ transform: `rotate(${angle}deg)` }"
-    viewBox="0 0 26 26"
-    xmlns="http://www.w3.org/2000/svg"
+  <div
+    class="pointer-events-none"
+    :class="bgColorClass"
+    :style="{
+      width: `${size}px`,
+      height: `${size}px`,
+      ...maskStyle,
+      '-webkit-mask-composite': 'destination-out',
+      'mask-composite': 'exclude'
+    }"
     aria-hidden="true"
-  >
-    <mask :id="`corner-mask-${angle}`">
-      <rect
-        width="26"
-        height="26"
-        fill="white"
-      />
-      <path d="M 0 0 C 0 14.359 11.641 26 26 26 L 26 0 Z" fill="black" />
-    </mask>
-
-    <rect
-      width="26"
-      height="26"
-      fill="currentColor"
-      :mask="`url(#corner-mask-${angle})`"
-    />
-  </svg>
+  />
 </template>

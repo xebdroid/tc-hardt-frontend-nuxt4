@@ -133,10 +133,14 @@ html {
 
 body {
   font-family: var(--font-sans);
+}
+
+.break-word-hyphens {
   -webkit-hyphens: auto;
   hyphens: auto;
   word-wrap: break-word;
 }
+
 
 
 @keyframes gold-shine-rotate {

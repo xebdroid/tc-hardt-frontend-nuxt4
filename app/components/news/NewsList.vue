@@ -47,7 +47,7 @@ const newsItems = db.news
     <FeaturedNewsCard
       v-for="(news, index) in newsItems"
       :key="news.id"
-      :to="$localePath(`/news/${news.id}`)"
+      :to="$localePath(`/news/${(news as any).slug}`)"
       :image="news.image || 'https://placehold.co/200x200/e2e8f0/94a3b8?text=TC+Hardt'"
       :title="news.title"
       :date="news.date"

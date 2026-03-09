@@ -13,6 +13,13 @@ useHead({
   meta: [{ name: 'description', content: 'Werden Sie Partner des TC Hardt. Gemeinsam mehr bewegen für Sport und Jugend.' }]
 })
 
+// --- NEU: Tracking für Sponsoring-Kontakt ---
+function trackSponsoringContact(method: string) {
+  if (import.meta.client && (window as any)._paq) {
+    (window as any)._paq.push(['trackEvent', 'Sponsoring', 'Kontakt aufgenommen', method])
+  }
+}
+
 const pricing = [
   {
     name: 'Homepage Banner',
@@ -184,6 +191,7 @@ const impressions = [
           label="Individuelle Anfrage"
           variant="highlight"
           to="mailto:boris.ruetten@tc-hardt.de"
+          @click="trackSponsoringContact('Individuelle Anfrage (Info-Box)')"
         />
       </div>
     </Section>
@@ -260,12 +268,14 @@ const impressions = [
               variant="primary"
               icon="i-heroicons-envelope"
               label="E-Mail senden"
+              @click="trackSponsoringContact('E-Mail (Boris Rütten)')"
             />
             <Button
               to="tel:+491632374893"
               variant="outline"
               icon="i-heroicons-phone"
               label="+49 163 237 48 93"
+              @click="trackSponsoringContact('Telefon (Boris Rütten)')"
             />
           </div>
         </div>

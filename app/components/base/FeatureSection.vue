@@ -10,6 +10,7 @@ interface Props {
   imageSrc: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
+  imageObjectPosition?: string
 
   // Badge/Sticker-Optionen
   badgeText?: string
@@ -24,6 +25,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   imageAlt: '',
   imagePosition: 'left',
+  imageObjectPosition: 'object-center',
   badgeIcon: 'i-heroicons-star',
   buttonVariant: 'brand-dark'
 })
@@ -48,6 +50,7 @@ const contentOrderClass = computed(() => {
       <Image
         :src="imageSrc"
         :alt="imageAlt"
+        :object-position="imageObjectPosition"
         class="z-10"
       />
 
