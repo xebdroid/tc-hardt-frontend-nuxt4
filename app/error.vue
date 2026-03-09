@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
 
+// Das Prop 'error' wird von Nuxt automatisch übergeben, wenn ein Fehler auftritt
 const props = defineProps({
   error: Object as () => NuxtError
 })
 
-// Loggt die Fehlerdetails in der Konsole
+// Loggt die Fehlerdetails in der Konsole für das Debugging
 if (import.meta.client) {
   console.error('Ein Fehler ist aufgetreten:', props.error)
 }
 
-const statusCode = computed(() => props.error?.statusCode || 500)
+// Sicherstellen, dass wir immer einen Statuscode haben
+const statusCode = computed(() => props.error?.statusCode || 404)
 const is404 = computed(() => statusCode.value === 404)
 const is403 = computed(() => statusCode.value === 403)
 
 const bgNumber = computed(() => statusCode.value)
 const errorLabel = computed(() => `Fehler ${statusCode.value}`)
 
-// Dynamische Texte basierend auf dem Fehlercode
+// Tennis-Metaphern für die verschiedenen Fehlerzustände
 const title = computed(() => {
   if (is404.value) return 'Satzball vergeben.'
   if (is403.value) return 'Zutritt verweigert.'
@@ -29,13 +31,15 @@ const description = computed(() => {
     return 'Die gesuchte Seite ist leider knapp im Seitenaus gelandet. Kehren wir zurück zum Spiel.'
   }
   if (is403.value) {
-    return 'Dieser Bereich ist nur für Platzwarte oder befugte Spieler. Dein Ausweis wurde nicht erkannt.'
+    return 'Dieser Bereich ist nur für Platzwarte oder befugte Spieler reserviert.'
   }
-  return 'Unser Aufschlag war ungültig. Ein unerwarteter technischer Fehler ist aufgetreten. Zeit für den zweiten Versuch.'
+  return 'Unser Aufschlag war ungültig. Ein unerwarteter Fehler ist aufgetreten. Zeit für den zweiten Versuch.'
 })
 
+// Funktion zum Zurücksetzen des Fehlers und Umleiten auf die Startseite
 const handleError = () => clearError({ redirect: '/' })
 
+// Head-Tags für SEO und Browsertitel
 useHead({
   title: computed(() => `${statusCode.value} - ${title.value} | TC Hardt`),
   htmlAttrs: { lang: 'de' }
@@ -51,28 +55,10 @@ useHead({
 
     <svg style="width: 0; height: 0; position: absolute;">
       <defs>
-        <filter
-          id="felt-texture"
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="140%"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.7"
-            numOctaves="3"
-            result="noise"
-          />
-          <feColorMatrix
-            type="matrix"
-            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0"
-            in="noise"
-          />
-          <feBlend
-            in="SourceGraphic"
-            mode="multiply"
-          />
+        <filter id="felt-texture" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="noise" />
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" in="noise" />
+          <feBlend in="SourceGraphic" mode="multiply" />
         </filter>
       </defs>
     </svg>
@@ -101,13 +87,16 @@ useHead({
         href="#"
         class="btn"
         @click.prevent="handleError"
-      >Zurück zum Clubhaus</a>
+      >
+        Zurück zum Clubhaus
+      </a>
     </div>
   </div>
 </template>
 
 <style>
-/* Styles sind GLOBAL, aber durch .error-page-animated spezifisch gehalten.
+/* Styles für die animierte Fehlerseite.
+  Die Variablen basieren auf dem CD des TC Hardt.
 */
 .error-page-animated {
   --color-white: #FFFDF7;
@@ -169,6 +158,7 @@ useHead({
   pointer-events: none;
 }
 
+/* Physik-Animationen des Tennisballs */
 .error-page-animated .ball-x {
   position: absolute;
   bottom: 0;
@@ -205,12 +195,7 @@ useHead({
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    var(--ball-start) 0%,
-    var(--ball-mid) 45%,
-    var(--ball-end) 100%
-  );
+  background: radial-gradient(circle at 50% 50%, var(--ball-start) 0%, var(--ball-mid) 45%, var(--ball-end) 100%);
   filter: url(#felt-texture);
 }
 
@@ -230,8 +215,7 @@ useHead({
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  box-shadow: inset -8px -8px 15px rgba(0, 0, 0, 0.2),
-  inset 5px 5px 15px rgba(255, 255, 255, 0.4);
+  box-shadow: inset -8px -8px 15px rgba(0, 0, 0, 0.2), inset 5px 5px 15px rgba(255, 255, 255, 0.4);
   z-index: 2;
 }
 
