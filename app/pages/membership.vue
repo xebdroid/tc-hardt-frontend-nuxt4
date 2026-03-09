@@ -177,14 +177,14 @@ const simplifiedRegularPlans = computed(() => {
     </Section>
 
     <Section
-      id="schnupperangebote"
+      id="tarife"
       variant="highlight-light"
       outer-container
       rounded
-      padding-top="sm"
-      padding-bottom="xl"
-      padding-left="sm"
-      padding-right="sm"
+      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm:'lg', md: 'xl' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
     >
       <Headline
         alignment="center"
@@ -207,11 +207,11 @@ const simplifiedRegularPlans = computed(() => {
       overlap-top
       rounded
       outer-container
-      padding-top="sm"
-      padding-bottom="sm"
+      :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
+      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="sm"
-      padding-left="sm"
-      padding-right="sm"
     >
       <Headline
         alignment="center"
@@ -233,11 +233,11 @@ const simplifiedRegularPlans = computed(() => {
       variant="secondary-light"
       outer-container
       rounded
-      padding-top="sm"
-      padding-bottom="sm"
+      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="xl"
-      padding-left="sm"
-      padding-right="sm"
     >
       <div class="mb-12 text-center md:text-left">
         <Headline
