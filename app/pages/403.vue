@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Error } from '~/components/base/Error.vue';
+import ErrorScreen from '~/components/base/ErrorScreen.vue';
 </script>
 
 <template>
-  <Error :status-code="403" />
+  <ErrorScreen :status-code="403" />
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import Error from '~/components/base/Error.vue'
+import ErrorScreen from '~/components/base/ErrorScreen.vue'
 
 const props = defineProps({
   error: Object as () => NuxtError
@@ -13,5 +13,5 @@ if (import.meta.client) {
 </script>
 
 <template>
-  <Error :status-code="error?.statusCode || 404" />
+  <ErrorScreen :status-code="error?.statusCode || 404" />
 </template>
