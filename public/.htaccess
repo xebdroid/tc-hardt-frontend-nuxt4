@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Standard SPA-Rewrite: Leitet alles an die index.html,
+  # damit Nuxt das Routing (auch für 404 innerhalb der App) übernimmt.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Server-seitige Fallbacks: Wenn der Server einen Fehler erkennt,
+# nutzt er die vorgerenderte Fehlerseite von Nuxt.
+ErrorDocument 404 /404.html
+ErrorDocument 500 /404.html
+ErrorDocument 403 /404.html

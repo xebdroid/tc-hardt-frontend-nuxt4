@@ -43,7 +43,6 @@ export default defineNuxtConfig({
     storesDirs: ['./stores/**'],
   },
 
-  // Konfiguration für die Schriften
   googleFonts: {
     families: {
       Inter: [400, 500, 600],
@@ -57,6 +56,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       failOnError: false,
+      // Generiert die physische Datei für den Webserver
+      routes: ['/404.html']
     }
   },
 
@@ -75,46 +76,16 @@ export default defineNuxtConfig({
     ],
 
     pages: {
-      events: {
-        de: '/termine',
-        en: '/events'
-      },
-      membership: {
-        de: '/mitglied-werden',
-        en: '/membership'
-      },
-      jubilee: {
-        de: '/50-jahre-tc-hardt',
-        en: '/50-years-tc-hardt'
-      },
-      facility: {
-        de: '/anlage',
-        en: '/facility'
-      },
-      about: {
-        de: "/ueber-uns",
-        en: "/about-us",
-      },
-      board: {
-        de: "/vorstand",
-        en: "/board",
-      },
-      teams: {
-        de: "/mannschaften",
-        en: "/teams",
-      },
-      contact: {
-        de: "/kontakt",
-        en: "/contact",
-      },
-      imprint: {
-        de: "/impressum",
-        en: "/imprint",
-      },
-      privacy: {
-        de: "/datenschutz",
-        en: "/privacy-policy",
-      },
+      events: { de: '/termine', en: '/events' },
+      membership: { de: '/mitglied-werden', en: '/membership' },
+      jubilee: { de: '/50-jahre-tc-hardt', en: '/50-years-tc-hardt' },
+      facility: { de: '/anlage', en: '/facility' },
+      about: { de: "/ueber-uns", en: "/about-us" },
+      board: { de: "/vorstand", en: "/board" },
+      teams: { de: "/mannschaften", en: "/teams" },
+      contact: { de: "/kontakt", en: "/contact" },
+      imprint: { de: "/impressum", en: "/imprint" },
+      privacy: { de: "/datenschutz", en: "/privacy-policy" },
     },
 
     detectBrowserLanguage: {

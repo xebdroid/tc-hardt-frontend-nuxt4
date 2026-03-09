@@ -5,25 +5,39 @@ const props = defineProps({
   error: Object as () => NuxtError
 })
 
-// Loggt die Fehlerdetails immer in der Konsole, nicht auf der UI
+// Loggt die Fehlerdetails in der Konsole
 if (import.meta.client) {
   console.error('Ein Fehler ist aufgetreten:', props.error)
 }
 
-const is404 = computed(() => props.error?.statusCode === 404)
+const statusCode = computed(() => props.error?.statusCode || 500)
+const is404 = computed(() => statusCode.value === 404)
+const is403 = computed(() => statusCode.value === 403)
 
-const bgNumber = computed(() => props.error?.statusCode)
-const errorLabel = computed(() => `Fehler ${props.error?.statusCode}`)
+const bgNumber = computed(() => statusCode.value)
+const errorLabel = computed(() => `Fehler ${statusCode.value}`)
 
-const title = computed(() => is404.value ? 'Satzball vergeben.' : 'Doppelfehler.')
-const description = computed(() => is404.value
-  ? 'Die gesuchte Seite ist leider knapp im Seitenaus gelandet. Kehren wir zurück zum Spiel.'
-  : 'Unser Aufschlag war ungültig. Ein unerwarteter Fehler ist aufgetreten. Zeit für den zweiten Versuch.')
+// Dynamische Texte basierend auf dem Fehlercode
+const title = computed(() => {
+  if (is404.value) return 'Satzball vergeben.'
+  if (is403.value) return 'Zutritt verweigert.'
+  return 'Doppelfehler.'
+})
+
+const description = computed(() => {
+  if (is404.value) {
+    return 'Die gesuchte Seite ist leider knapp im Seitenaus gelandet. Kehren wir zurück zum Spiel.'
+  }
+  if (is403.value) {
+    return 'Dieser Bereich ist nur für Platzwarte oder befugte Spieler. Dein Ausweis wurde nicht erkannt.'
+  }
+  return 'Unser Aufschlag war ungültig. Ein unerwarteter technischer Fehler ist aufgetreten. Zeit für den zweiten Versuch.'
+})
 
 const handleError = () => clearError({ redirect: '/' })
 
 useHead({
-  title: computed(() => `${props.error?.statusCode} - ${title.value} | TC Hardt`),
+  title: computed(() => `${statusCode.value} - ${title.value} | TC Hardt`),
   htmlAttrs: { lang: 'de' }
 })
 </script>
@@ -93,8 +107,7 @@ useHead({
 </template>
 
 <style>
-/* 
-  Styles sind GLOBAL, aber durch .error-page-animated spezifisch gehalten.
+/* Styles sind GLOBAL, aber durch .error-page-animated spezifisch gehalten.
 */
 .error-page-animated {
   --color-white: #FFFDF7;
@@ -123,14 +136,13 @@ useHead({
   z-index: 9999;
 }
 
-/* 1. HINTERGRUND & 404 */
 .error-page-animated .net-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   opacity: 0.1;
   background-image: linear-gradient(var(--brand-light) 1px, transparent 1px),
-    linear-gradient(90deg, var(--brand-light) 1px, transparent 1px);
+  linear-gradient(90deg, var(--brand-light) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -148,7 +160,6 @@ useHead({
   z-index: 0;
 }
 
-/* 2. DIE BÜHNE FÜR DEN BALL */
 .error-page-animated .ball-stage {
   position: relative;
   width: 100vw;
@@ -212,21 +223,15 @@ useHead({
   width: 55px;
   height: 55px;
 }
-.error-page-animated .spinning-texture-layer::before {
-  top: -15px;
-  left: -20px;
-}
-.error-page-animated .spinning-texture-layer::after {
-  bottom: -15px;
-  right: -20px;
-}
+.error-page-animated .spinning-texture-layer::before { top: -15px; left: -20px; }
+.error-page-animated .spinning-texture-layer::after { bottom: -15px; right: -20px; }
 
 .error-page-animated .static-lighting-layer {
   position: absolute;
   inset: 0;
   border-radius: 50%;
   box-shadow: inset -8px -8px 15px rgba(0, 0, 0, 0.2),
-    inset 5px 5px 15px rgba(255, 255, 255, 0.4);
+  inset 5px 5px 15px rgba(255, 255, 255, 0.4);
   z-index: 2;
 }
 
@@ -243,157 +248,54 @@ useHead({
   animation: shadowBounce 5s linear 1s both;
 }
 
-/* --- PHYSIK-KEYFRAMES --- */
-
 @keyframes moveX {
-  0% {
-    transform: translateX(-20vw);
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(110vw);
-    opacity: 0;
-  }
+  0% { transform: translateX(-20vw); opacity: 0; }
+  5% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(110vw); opacity: 0; }
 }
 
 @keyframes bounceY {
-  0% {
-    transform: translateY(-25vh);
-    animation-timing-function: ease-in;
-  }
-  15% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  28% {
-    transform: translateY(-12vh);
-    animation-timing-function: ease-in;
-  }
-  41% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  51% {
-    transform: translateY(-6vh);
-    animation-timing-function: ease-in;
-  }
-  61% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  68% {
-    transform: translateY(-3vh);
-    animation-timing-function: ease-in;
-  }
-  75% {
-    transform: translateY(0);
-    animation-timing-function: ease-out;
-  }
-  80% {
-    transform: translateY(-1vh);
-    animation-timing-function: ease-in;
-  }
-  85% {
-    transform: translateY(0);
-    animation-timing-function: linear;
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(-25vh); animation-timing-function: ease-in; }
+  15% { transform: translateY(0); animation-timing-function: ease-out; }
+  28% { transform: translateY(-12vh); animation-timing-function: ease-in; }
+  41% { transform: translateY(0); animation-timing-function: ease-out; }
+  51% { transform: translateY(-6vh); animation-timing-function: ease-in; }
+  61% { transform: translateY(0); animation-timing-function: ease-out; }
+  68% { transform: translateY(-3vh); animation-timing-function: ease-in; }
+  75% { transform: translateY(0); animation-timing-function: ease-out; }
+  80% { transform: translateY(-1vh); animation-timing-function: ease-in; }
+  85% { transform: translateY(0); animation-timing-function: linear; }
+  100% { transform: translateY(0); }
 }
 
 @keyframes squash {
-  0%,
-  13%,
-  17%,
-  39%,
-  43%,
-  59%,
-  63%,
-  73%,
-  77%,
-  83%,
-  87%,
-  100% {
-    transform: scale(1, 1);
-  }
-  15% {
-    transform: scale(1.2, 0.8);
-  }
-  41% {
-    transform: scale(1.1, 0.9);
-  }
-  61% {
-    transform: scale(1.05, 0.95);
-  }
-  75% {
-    transform: scale(1.02, 0.98);
-  }
-  85% {
-    transform: scale(1.01, 0.99);
-  }
+  0%, 13%, 17%, 39%, 43%, 59%, 63%, 73%, 77%, 83%, 87%, 100% { transform: scale(1, 1); }
+  15% { transform: scale(1.2, 0.8); }
+  41% { transform: scale(1.1, 0.9); }
+  61% { transform: scale(1.05, 0.95); }
+  75% { transform: scale(1.02, 0.98); }
+  85% { transform: scale(1.01, 0.99); }
 }
 
 @keyframes roll {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(1080deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1080deg); }
 }
 
 @keyframes shadowBounce {
-  0% {
-    transform: translateX(-50%) scale(0.2);
-    opacity: 0;
-  }
-  15% {
-    transform: translateX(-50%) scale(1.2);
-    opacity: 0.4;
-  }
-  28% {
-    transform: translateX(-50%) scale(0.4);
-    opacity: 0.1;
-  }
-  41% {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.3;
-  }
-  51% {
-    transform: translateX(-50%) scale(0.5);
-    opacity: 0.1;
-  }
-  61% {
-    transform: translateX(-50%) scale(0.9);
-    opacity: 0.25;
-  }
-  68% {
-    transform: translateX(-50%) scale(0.6);
-    opacity: 0.15;
-  }
-  75% {
-    transform: translateX(-50%) scale(0.8);
-    opacity: 0.2;
-  }
-  80% {
-    transform: translateX(-50%) scale(0.7);
-    opacity: 0.15;
-  }
-  85%,
-  100% {
-    transform: translateX(-50%) scale(0.8);
-    opacity: 0.2;
-  }
+  0% { transform: translateX(-50%) scale(0.2); opacity: 0; }
+  15% { transform: translateX(-50%) scale(1.2); opacity: 0.4; }
+  28% { transform: translateX(-50%) scale(0.4); opacity: 0.1; }
+  41% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+  51% { transform: translateX(-50%) scale(0.5); opacity: 0.1; }
+  61% { transform: translateX(-50%) scale(0.9); opacity: 0.25; }
+  68% { transform: translateX(-50%) scale(0.6); opacity: 0.15; }
+  75% { transform: translateX(-50%) scale(0.8); opacity: 0.2; }
+  80% { transform: translateX(-50%) scale(0.7); opacity: 0.15; }
+  85%, 100% { transform: translateX(-50%) scale(0.8); opacity: 0.2; }
 }
 
-/* --- 3. TEXT CONTENT --- */
 .error-page-animated .container {
   position: relative;
   z-index: 30;
@@ -401,16 +303,16 @@ useHead({
 }
 
 .error-page-animated .error-label {
-    display: inline-block;
-    background-color: var(--highlight);
-    color: var(--brand-dark);
-    padding: 4px 12px;
-    font-weight: 800;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
-    border-radius: 2px;
+  display: inline-block;
+  background-color: var(--highlight);
+  color: var(--brand-dark);
+  padding: 4px 12px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
 }
 
 .error-page-animated h1 {
