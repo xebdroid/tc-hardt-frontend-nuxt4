@@ -1,18 +1,27 @@
+# Standard-Fehlerdokumente für den Apache-Server festlegen
+ErrorDocument 400 /404.html
+ErrorDocument 401 /404.html
+ErrorDocument 403 /403/index.html
 ErrorDocument 404 /404.html
+ErrorDocument 500 /500/index.html
+ErrorDocument 502 /500/index.html
+ErrorDocument 503 /500/index.html
+ErrorDocument 504 /500/index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Verhindere Endlosschleifen für die Fehlerseite
-  RewriteCond %{REQUEST_URI} ^/404.html$
+  # Endlosschleifen verhindern (Pfade an Nuxt-Struktur angepasst)
+  RewriteCond %{REQUEST_URI} ^/404\.html$ [OR]
+  RewriteCond %{REQUEST_URI} ^/(403|500)/index\.html$
   RewriteRule ^ - [L]
 
-  # Wenn die Datei existiert (Bild, PDF, etc.), liefere sie direkt aus
+  # Echte Dateien oder Ordner direkt ausliefern
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Alles andere an Nuxt übergeben
-  RewriteRule . /index.html [L]
+  # Alles andere wirft einen 404 Fehler
+  RewriteRule ^ - [R=404,L]
 </IfModule>
