@@ -134,8 +134,6 @@ const onSlideChange = (swiper: any) => {
     videoElement.currentTime = 0
     videoElement.play()
   } else if (props.autoplay !== false) {
-    // Autoplay nach Video oder manuellem Wischen nur reaktivieren,
-    // wenn es grundsätzlich erlaubt ist
     swiper.autoplay.start()
   }
 }
@@ -229,21 +227,26 @@ const onSlideChange = (swiper: any) => {
           >
             <slot :name="slide.slotName || 'content'" :slide="slide">
 
-              <NuxtImg
+              <div
                 v-if="slide.contentImage"
-                :src="slide.contentImage"
-                class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh] mb-[2vh] lg:mb-[4vh]"
-                :class="[slide.contentImageClass || 'w-24 sm:w-32',
-                         slide.contentPosition?.includes('left') ? 'mr-auto' :
-                         slide.contentPosition?.includes('right') ? 'ml-auto' :
-                         'mx-auto'
+                class="min-h-[100px] lg:min-h-[150px] flex flex-col mb-[2vh] lg:mb-[4vh]"
+                :class="[
+                  slide.contentPosition?.includes('left') ? 'items-start' :
+                  slide.contentPosition?.includes('right') ? 'items-end' :
+                  'items-center'
                 ]"
-                alt="Content Icon"
-                sizes="sm:300px md:400px lg:600px"
-                quality="90"
-                format="webp"
-                :loading="index === 0 ? 'eager' : 'lazy'"
-              />
+              >
+                <NuxtImg
+                  :src="slide.contentImage"
+                  class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh]"
+                  :class="[slide.contentImageClass || 'w-24 sm:w-32']"
+                  alt="Content Icon"
+                  sizes="sm:300px md:400px lg:600px"
+                  quality="90"
+                  format="webp"
+                  :loading="index === 0 ? 'eager' : 'lazy'"
+                />
+              </div>
 
               <h2
                 v-if="slide.title"
