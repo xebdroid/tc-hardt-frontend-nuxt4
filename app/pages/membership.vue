@@ -22,7 +22,7 @@ const rawTariffs = db.tariffs
 const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
   {
     type: 'image',
-    src: '/img/membership/tennis-platz-leere-bank.jpg',
+    src: '/img/membership/tennis-platz-bank.jpg',
     title: 'Dein Platz ist bei uns.',
     subtitle: 'Tennis, Gemeinschaft & Leidenschaft.',
     description: 'Egal ob Anfänger oder Profi – beim TC Hardt findest du ideale Bedingungen und ein lebendiges Vereinsleben.',
