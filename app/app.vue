@@ -26,7 +26,7 @@ useHead({
 const appIsLoading = ref(true)
 const nuxtApp = useNuxtApp()
 
-const MAX_LOADING_TIME = 45000
+const MAX_LOADING_TIME = 4000
 
 const waitForAssets = async () => {
   const monitoredAssets: Record<string, any> = {};
