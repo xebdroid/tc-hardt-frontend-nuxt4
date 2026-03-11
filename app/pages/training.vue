@@ -47,7 +47,7 @@ const trainingTypes = [
   },
   {
     title: 'Schul-Kooperationen',
-    desc: 'Seit über 12 Jahren begeistern wir Kinder in der Tennis-AG der Grundschule Hardt. Ab Sommer 2026 bringen wir den Spaß am Tennis auch in die Gesamtschule Hardt.',
+    desc: 'Seit über 12 Jahren begeistern wir Kinder in der Tennis-AG der Gemeinschafts-Grundschule Hardt. Ab Sommer 2026 bringen wir den Spaß am Tennis auch in die Gesamtschule Hardt.',
     icon: 'i-heroicons-academic-cap'
   }
 ]
@@ -65,7 +65,7 @@ const trainingTypes = [
         <Headline
           tagline="Unser Partner für dein Spiel"
           title="Qualifiziertes Training"
-          description="Seit der Sommersaison 2014 ist die Tennisschule Rot-Weiss unser starker Partner auf dem Platz. Mit Erfahrung seit 2011 und Expertise aus verschiedenen Vereinen steht sie für modernes, professionelles Training mit klaren Qualitätsstandards. Egal ob Anfänger, Fortgeschrittener oder ambitionierter Mannschaftsspieler – hier wird jeder mit Leidenschaft gefördert."
+          description="Seit der Sommersaison 2014 ist die Tennisschule Rot-Weiss unser starker Partner auf dem Platz. Mit Erfahrung seit 2011 und Expertise aus verschiedenen Vereinen steht sie für modernes, professionelles Training mit klaren Qualitätsstandards. Egal auf welchem Level Du spielst – Du hast gerade erst angefangen, oder hast bereits einige Erfahrung oder Du spielst sogar ambitioniert in einer Mannschaft – hier wird jeder mit Leidenschaft gefördert."
           alignment="center"
           :margin-bottom="'sm'"
         />

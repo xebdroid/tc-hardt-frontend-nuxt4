@@ -40,7 +40,7 @@ const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
 
 const benefits = [
   { icon: 'i-heroicons-sparkles', title: '6 Top-Plätze', description: 'Hervorragend gepflegte Ascheplätze.' },
-  { icon: 'i-heroicons-user-group', title: 'Tolle Community', description: 'Von den Stadtmeisterschaften bis zum Glühwein Open.' },
+  { icon: 'i-heroicons-user-group', title: 'Tolle Community', description: 'Von den Stadtmeisterschaften bis zu den Glühwein Open.' },
   { icon: 'i-heroicons-academic-cap', title: 'Training für Alle', description: 'Gefördertes Training für Kinder & Jugendliche.' },
   { icon: 'i-heroicons-home-modern', title: 'Moderne Anlage', description: 'Clubhaus mit Sonnenterrasse, Geselligkeit & kühle Getränke nach dem Match.' }
 ]
@@ -268,7 +268,7 @@ const simplifiedRegularPlans = computed(() => {
             </div>
             <div class="ml-6">
               <h3 class="text-lg font-bold mb-1">Ausfüllen</h3>
-              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus.</p>
+              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus und unterschreibe ihn.</p>
             </div>
           </li>
           <li class="flex items-start">

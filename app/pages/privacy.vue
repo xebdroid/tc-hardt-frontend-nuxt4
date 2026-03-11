@@ -259,7 +259,7 @@ useSeoMeta({
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <p><strong>Einsatz von Verlinkungen zu Webseiten anderer Anbieter und Social-Media-Diensten:</strong></p>
             <p>
-              Unsere Webseite enthält Verlinkungen zu anderen Anbietern sowie folgender Social-MediaWebseiten: Facebook und Twitter. Wenn Sie unsere Seite besuchen, werden grundsätzlich keine personenbezogenen Daten an die Betreiber. Die Verlinkung zu der Social-MediaWebseite erkennen Sie an der Markierung oder das Logo. Wir eröffnen Ihnen die Möglichkeit, über diese Verlinkung direkt auf die entsprechende Social-Media-Webseite zu gelangen. Wir empfehlen Ihnen, sich nach Nutzung eines sozialen Netzwerks regelmäßig auszuloggen, insbesondere jedoch vor Aktivierung der Verlinkung, da Sie so eine Zuordnung zu Ihrem Profil bei der Social-Media-Website vermeiden können.
+              Unsere Webseite enthält Verlinkungen zu anderen Anbietern sowie folgenden Social-Media Webseiten: Facebook und Instagram. Wenn Sie unsere Seite besuchen, werden grundsätzlich keine personenbezogenen Daten an die Betreiber. Die Verlinkung zu der Social-MediaWebseite erkennen Sie an der Markierung oder das Logo. Wir eröffnen Ihnen die Möglichkeit, über diese Verlinkung direkt auf die entsprechende Social-Media-Webseite zu gelangen. Wir empfehlen Ihnen, sich nach Nutzung eines sozialen Netzwerks regelmäßig auszuloggen, insbesondere jedoch vor Aktivierung der Verlinkung, da Sie so eine Zuordnung zu Ihrem Profil bei der Social-Media-Website vermeiden können.
             </p>
             <p>
               Sollten Sie eine der verlinkten Webseiten besuchen, haben wir weder Einfluss auf die erhobenen Daten und Datenverarbeitungsvorgänge, noch sind uns der volle Umfang der Datenerhebung, die Zwecke der Verarbeitung, die Speicherfristen bekannt. Auch zur Löschung der erhobenen Daten durch den Social-Media-Anbieter liegen uns keine Informationen vor.
@@ -292,17 +292,6 @@ useSeoMeta({
                   target="_blank"
                   class="text-accent-600 dark:text-accent-400 hover:underline"
                 >https://www.privacyshield.gov/EU-USFramework</a>.
-              </li>
-              <li>
-                <strong>b) Twitter, Inc.</strong>, 1355 Market St, Suite 900, San Francisco, California 94103, USA; <a
-                  href="https://twitter.com/privacy"
-                  target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
-                >https://twitter.com/privacy</a>. Twitter hat sich dem EU-US-Privacy-Shield unterworfen, <a
-                  href="https://www.privacyshield.gov/EU-US-Framework"
-                  target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
-                >https://www.privacyshield.gov/EU-US-Framework</a>.
               </li>
             </ul>
           </div>

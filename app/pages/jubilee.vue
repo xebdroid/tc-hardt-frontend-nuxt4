@@ -62,9 +62,9 @@ const timelineItems = [
     image: '/img/jubilee/tennis-plaetze-von-oben.jpg'
   },
   {
-    date: '26.09. – 27.09.2026',
+    date: '26.09.2026',
     title: 'Finaltag der Clubmeisterschaften',
-    description: 'Wer wird Clubmeister 2026? Beim großen Finalwochenende unserer Clubmeisterschaften entscheidet sich, wer die Titel mit nach Hause nimmt. Ein sportlicher Vereins-Höhepunkt zum Ende der Sommersaison.',
+    description: 'Wer wird Clubmeister 2026? Beim großen Finalwochenende unserer Clubmeisterschaften entscheidet sich, wer die Titel mit nach Hause nimmt. Ein sportlicher Vereins-Höhepunkt zum Ende der Sommersaison, der beim Grillen und Getränken seinen Ausklang finden wird.',
     icon: 'i-heroicons-star',
   },
   {
