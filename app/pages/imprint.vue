@@ -4,11 +4,12 @@ import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
 import ImageCredits from '~/components/content/ImageCredits.vue'
 
-useHead({
+useSeoMeta({
   title: 'Impressum | TC Hardt',
-  meta: [
-    { name: 'description', content: 'Impressum des Tennisclub Hardt 1976 e.V. – Angaben gemäß § 5 TMG.' }
-  ]
+  ogTitle: 'Impressum | TC Hardt',
+  description: 'Impressum des Tennisclub Hardt 1976 e.V. – Angaben gemäß § 5 TMG.',
+  ogDescription: 'Impressum des Tennisclub Hardt 1976 e.V. – Angaben gemäß § 5 TMG.',
+  robots: 'noindex, nofollow', // Impressum muss nicht unbedingt indexiert werden
 })
 </script>
 

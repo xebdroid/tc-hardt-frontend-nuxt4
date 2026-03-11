@@ -6,9 +6,13 @@ import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
 
-useHead({
+useSeoMeta({
   title: 'Kontakt | TC Hardt',
-  meta: [{ name: 'description', content: 'Kontaktieren Sie den TC Hardt 1976 e.V. – Wir freuen uns auf Ihre Nachricht.' }]
+  ogTitle: 'Kontakt | TC Hardt',
+  description: 'Kontaktieren Sie den TC Hardt 1976 e.V. – Wir freuen uns auf Ihre Nachricht.',
+  ogDescription: 'Kontaktieren Sie den TC Hardt 1976 e.V. – Wir freuen uns auf Ihre Nachricht.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
 })
 
 // --- 1. Validierungs-Schema (Zod) ---

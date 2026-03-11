@@ -10,7 +10,14 @@ import EventItem from '~/components/events/EventItem.vue'
 import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
 import Button from '~/components/base/Button.vue'
 
-useHead({ title: 'Events | TC Hardt' })
+useSeoMeta({
+  title: 'Events | TC Hardt',
+  ogTitle: 'Events | TC Hardt',
+  description: 'Verpasse keine Veranstaltung beim TC Hardt! Hier findest du alle aktuellen Termine, Turniere und Feiern im Überblick.',
+  ogDescription: 'Verpasse keine Veranstaltung beim TC Hardt! Hier findest du alle aktuellen Termine, Turniere und Feiern im Überblick.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
+})
 
 const now = new Date()
 const currentYear = now.getFullYear()

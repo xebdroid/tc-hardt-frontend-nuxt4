@@ -4,7 +4,14 @@ import NewsList from '~/components/news/NewsList.vue'
 import Headline from '~/components/base/Headline.vue'
 import Hero from '~/components/base/Hero.vue'
 
-useHead({ title: 'Aktuelles | TC Hardt' })
+useSeoMeta({
+  title: 'Aktuelles & News | TC Hardt',
+  ogTitle: 'Aktuelles & News | TC Hardt',
+  description: 'Bleib auf dem Laufenden! Aktuelle Nachrichten, Spielberichte und Ankündigungen rund um den TC Hardt.',
+  ogDescription: 'Bleib auf dem Laufenden! Aktuelle Nachrichten, Spielberichte und Ankündigungen rund um den TC Hardt.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <template>

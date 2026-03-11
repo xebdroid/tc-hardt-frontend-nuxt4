@@ -7,9 +7,13 @@ import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 
-useHead({
+useSeoMeta({
   title: 'Training & Tennisschule | TC Hardt',
-  meta: [{ name: 'description', content: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß.' }]
+  ogTitle: 'Training & Tennisschule | TC Hardt',
+  description: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß. Kinder, Erwachsene & Mannschaften.',
+  ogDescription: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß. Kinder, Erwachsene & Mannschaften.',
+  ogImage: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
+  twitterCard: 'summary_large_image',
 })
 
 const slides: HeroSlide[] = [

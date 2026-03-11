@@ -16,6 +16,15 @@ import db from '~/assets/data/db.json'
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+useSeoMeta({
+  title: 'TC Hardt - Tennis in Mönchengladbach',
+  ogTitle: 'TC Hardt - Tennis in Mönchengladbach',
+  description: 'Willkommen beim TC Hardt! Dein Tennisclub im Herzen von Mönchengladbach mit 6 Ascheplätzen, Tennishalle und familiärer Atmosphäre.',
+  ogDescription: 'Willkommen beim TC Hardt! Dein Tennisclub im Herzen von Mönchengladbach mit 6 Ascheplätzen, Tennishalle und familiärer Atmosphäre.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
+})
+
 // --- DATA ---
 const heroSlides = computed<HeroSlide[]>(() => [
   {

@@ -15,9 +15,21 @@ const newsItem = computed(() => {
   return (db.news as any).find(n => n.slug === route.params.slug)
 })
 
-useHead({
-  title: newsItem.value ? `${newsItem.value.title} - TC Hardt` : 'News nicht gefunden',
-})
+if (newsItem.value) {
+  useSeoMeta({
+    title: () => `${newsItem.value.title} | TC Hardt`,
+    ogTitle: () => `${newsItem.value.title} | TC Hardt`,
+    description: () => newsItem.value.excerpt,
+    ogDescription: () => newsItem.value.excerpt,
+    ogImage: () => newsItem.value.image || '/img/logo.png',
+    twitterCard: 'summary_large_image',
+  })
+} else {
+  useSeoMeta({
+    title: 'News nicht gefunden | TC Hardt',
+    robots: 'noindex, nofollow'
+  })
+}
 
 const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-image')
 </script>

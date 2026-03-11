@@ -5,11 +5,13 @@ import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
 
-useHead({
-  title: '50 Jahre Tennis op de Hardt - Jubiläum 2026',
-  meta: [
-    { name: 'description', content: 'Der TC Hardt 1976 e.V. feiert sein 50-jähriges Vereinsjubiläum.' }
-  ]
+useSeoMeta({
+  title: '50 Jahre TC Hardt | Jubiläumsjahr 2026',
+  ogTitle: '50 Jahre TC Hardt | Jubiläumsjahr 2026',
+  description: 'Wir feiern 50 Jahre Tennis op de Hardt! Entdecke unsere Highlights im Jubiläumsjahr 2026 und feiere mit uns.',
+  ogDescription: 'Wir feiern 50 Jahre Tennis op de Hardt! Entdecke unsere Highlights im Jubiläumsjahr 2026 und feiere mit uns.',
+  ogImage: '/img/jubilee/50-jahre-emblem-gold.png',
+  twitterCard: 'summary_large_image',
 })
 
 // 1. Hero Data

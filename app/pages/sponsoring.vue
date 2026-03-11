@@ -8,9 +8,13 @@ import Button from '~/components/base/Button.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-useHead({
-  title: 'Sponsoring | TC Hardt',
-  meta: [{ name: 'description', content: 'Werden Sie Partner des TC Hardt. Gemeinsam mehr bewegen für Sport und Jugend.' }]
+useSeoMeta({
+  title: 'Sponsoring & Partner | TC Hardt',
+  ogTitle: 'Sponsoring & Partner | TC Hardt',
+  description: 'Werden Sie Partner des TC Hardt! Unterstützen Sie den Tennissport in Mönchengladbach und profitieren Sie von unserer Reichweite.',
+  ogDescription: 'Werden Sie Partner des TC Hardt! Unterstützen Sie den Tennissport in Mönchengladbach und profitieren Sie von unserer Reichweite.',
+  ogImage: '/img/sponsoring/sponsoring-bandenwerbung.jpg',
+  twitterCard: 'summary_large_image',
 })
 
 // --- NEU: Tracking für Sponsoring-Kontakt ---

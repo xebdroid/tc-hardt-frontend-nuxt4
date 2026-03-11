@@ -7,9 +7,13 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import db from '~/assets/data/db.json'
 
-useHead({
-  title: 'Mitglied werden | TC Hardt',
-  meta: [{ name: 'description', content: 'Werde Teil unserer Tennis-Gemeinschaft. Tarife und Aufnahmeantrag.' }]
+useSeoMeta({
+  title: 'Mitgliedschaft & Preise | TC Hardt',
+  ogTitle: 'Mitgliedschaft & Preise | TC Hardt',
+  description: 'Werde Teil unserer Tennis-Gemeinschaft! Hier findest du alle Infos zu Mitgliedsbeiträgen, Schnupperangeboten und den Aufnahmeantrag.',
+  ogDescription: 'Werde Teil unserer Tennis-Gemeinschaft! Hier findest du alle Infos zu Mitgliedsbeiträgen, Schnupperangeboten und den Aufnahmeantrag.',
+  ogImage: '/img/membership/tennis-platz-bank.jpg',
+  twitterCard: 'summary_large_image',
 })
 
 definePageMeta({
@@ -17,7 +21,7 @@ definePageMeta({
 })
 
 const PDF_PATH = '/downloads/aufnahmeantrag-tc-hardt.pdf'
-const rawTariffs = db.tariffs
+const rawTariffs = db.tariffs as any[]
 
 const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
   {

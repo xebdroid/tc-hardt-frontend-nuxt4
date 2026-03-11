@@ -3,11 +3,12 @@ import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
 
-useHead({
+useSeoMeta({
   title: 'Datenschutzerklärung | TC Hardt',
-  meta: [
-    { name: 'description', content: 'Datenschutzerklärung des Tennisclub Hardt e.V. – Stand: Mai 2021' }
-  ]
+  ogTitle: 'Datenschutzerklärung | TC Hardt',
+  description: 'Datenschutzerklärung des Tennisclub Hardt e.V. – Informationen zur Erhebung und Verarbeitung Ihrer personenbezogenen Daten.',
+  ogDescription: 'Datenschutzerklärung des Tennisclub Hardt e.V. – Informationen zur Erhebung und Verarbeitung Ihrer personenbezogenen Daten.',
+  robots: 'noindex, nofollow', // Datenschutz muss nicht unbedingt indexiert werden
 })
 </script>
 

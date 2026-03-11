@@ -6,7 +6,14 @@ import Section from '~/components/base/Section.vue'
 import Button from '~/components/base/Button.vue'
 import Image from '~/components/base/Image.vue'
 
-useHead({ title: 'Vorstand | TC Hardt' })
+useSeoMeta({
+  title: 'Vorstand | TC Hardt',
+  ogTitle: 'Vorstand | TC Hardt',
+  description: 'Lerne den Vorstand des TC Hardt kennen. Hier findest du deine Ansprechpartner für alle Belange rund um unseren Tennisverein.',
+  ogDescription: 'Lerne den Vorstand des TC Hardt kennen. Hier findest du deine Ansprechpartner für alle Belange rund um unseren Tennisverein.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <template>

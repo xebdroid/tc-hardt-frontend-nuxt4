@@ -5,10 +5,14 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 
-useHead({
+useSeoMeta({
   title: 'Mannschaften | TC Hardt',
-  meta: [{ name: 'description', content: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren.' }]
-})
+  ogTitle: 'Mannschaften | TC Hardt',
+  description: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren. Erfahre mehr über unsere Teams und Ergebnisse.',
+  ogDescription: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren. Erfahre mehr über unsere Teams und Ergebnisse.',
+  ogImage: '/img/logo.png',
+  twitterCard: 'summary_large_image',
+});
 
 </script>
 

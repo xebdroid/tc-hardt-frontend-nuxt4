@@ -5,9 +5,13 @@ import FeatureSection from '~/components/base/FeatureSection.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 
-useHead({
+useSeoMeta({
   title: 'Anlage & Freizeit | TC Hardt',
-  meta: [{ name: 'description', content: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: Tennis, Beach-Volleyball, Bügeln, Boule und Spielplatz.' }]
+  ogTitle: 'Anlage & Freizeit | TC Hardt',
+  description: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
+  ogDescription: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
+  ogImage: '/img/facility/tc-hardt-facility-01.jpg',
+  twitterCard: 'summary_large_image',
 })
 </script>
 
