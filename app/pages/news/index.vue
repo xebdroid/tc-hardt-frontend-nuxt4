@@ -5,8 +5,8 @@ import Headline from '~/components/base/Headline.vue'
 import Hero from '~/components/base/Hero.vue'
 
 useSeoMeta({
-  title: 'Aktuelles & News | TC Hardt',
-  ogTitle: 'Aktuelles & News | TC Hardt',
+  title: 'Aktuelles & News',
+  ogTitle: 'Aktuelles & News',
   description: 'Bleib auf dem Laufenden! Aktuelle Nachrichten, Spielberichte und Ankündigungen rund um den TC Hardt.',
   ogDescription: 'Bleib auf dem Laufenden! Aktuelle Nachrichten, Spielberichte und Ankündigungen rund um den TC Hardt.',
   ogImage: '/img/logo.png',

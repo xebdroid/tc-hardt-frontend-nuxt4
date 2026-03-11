@@ -6,8 +6,8 @@ import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 
 useSeoMeta({
-  title: 'Mannschaften | TC Hardt',
-  ogTitle: 'Mannschaften | TC Hardt',
+  title: 'Mannschaften',
+  ogTitle: 'Mannschaften',
   description: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren. Erfahre mehr über unsere Teams und Ergebnisse.',
   ogDescription: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren. Erfahre mehr über unsere Teams und Ergebnisse.',
   ogImage: '/img/logo.png',

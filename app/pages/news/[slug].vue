@@ -17,8 +17,8 @@ const newsItem = computed(() => {
 
 if (newsItem.value) {
   useSeoMeta({
-    title: () => `${newsItem.value.title} | TC Hardt`,
-    ogTitle: () => `${newsItem.value.title} | TC Hardt`,
+    title: () => newsItem.value.title,
+    ogTitle: () => newsItem.value.title,
     description: () => newsItem.value.excerpt,
     ogDescription: () => newsItem.value.excerpt,
     ogImage: () => newsItem.value.image || '/img/logo.png',
@@ -26,7 +26,7 @@ if (newsItem.value) {
   })
 } else {
   useSeoMeta({
-    title: 'News nicht gefunden | TC Hardt',
+    title: 'News nicht gefunden',
     robots: 'noindex, nofollow'
   })
 }

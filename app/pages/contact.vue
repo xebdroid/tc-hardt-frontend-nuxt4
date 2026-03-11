@@ -7,8 +7,8 @@ import Headline from '~/components/base/Headline.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
 
 useSeoMeta({
-  title: 'Kontakt | TC Hardt',
-  ogTitle: 'Kontakt | TC Hardt',
+  title: 'Kontakt',
+  ogTitle: 'Kontakt',
   description: 'Kontaktieren Sie den TC Hardt 1976 e.V. – Wir freuen uns auf Ihre Nachricht.',
   ogDescription: 'Kontaktieren Sie den TC Hardt 1976 e.V. – Wir freuen uns auf Ihre Nachricht.',
   ogImage: '/img/logo.png',

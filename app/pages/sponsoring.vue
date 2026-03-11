@@ -9,8 +9,8 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 useSeoMeta({
-  title: 'Sponsoring & Partner | TC Hardt',
-  ogTitle: 'Sponsoring & Partner | TC Hardt',
+  title: 'Sponsoring & Partner',
+  ogTitle: 'Sponsoring & Partner',
   description: 'Werden Sie Partner des TC Hardt! Unterstützen Sie den Tennissport in Mönchengladbach und profitieren Sie von unserer Reichweite.',
   ogDescription: 'Werden Sie Partner des TC Hardt! Unterstützen Sie den Tennissport in Mönchengladbach und profitieren Sie von unserer Reichweite.',
   ogImage: '/img/sponsoring/sponsoring-bandenwerbung.jpg',

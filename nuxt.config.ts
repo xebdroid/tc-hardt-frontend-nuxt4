@@ -16,7 +16,19 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@pinia/nuxt',
     '@nuxt/image',
+    '@nuxtjs/seo'
   ],
+
+  site: {
+    url: 'https://tc-hardt.de',
+    name: 'TC Hardt e.V.',
+    description: 'Tennisclub am Birkmannsweg in Mönchengladbach-Hardt',
+    defaultLocale: 'de',
+  },
+
+  seo: {
+    titleTemplate: '%s | TC Hardt e.V.',
+  },
 
   image: {
     quality: 80,

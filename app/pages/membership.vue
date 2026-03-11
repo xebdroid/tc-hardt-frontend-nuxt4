@@ -8,8 +8,8 @@ import Headline from '~/components/base/Headline.vue'
 import db from '~/assets/data/db.json'
 
 useSeoMeta({
-  title: 'Mitgliedschaft & Preise | TC Hardt',
-  ogTitle: 'Mitgliedschaft & Preise | TC Hardt',
+  title: 'Mitgliedschaft & Preise',
+  ogTitle: 'Mitgliedschaft & Preise',
   description: 'Werde Teil unserer Tennis-Gemeinschaft! Hier findest du alle Infos zu Mitgliedsbeiträgen, Schnupperangeboten und den Aufnahmeantrag.',
   ogDescription: 'Werde Teil unserer Tennis-Gemeinschaft! Hier findest du alle Infos zu Mitgliedsbeiträgen, Schnupperangeboten und den Aufnahmeantrag.',
   ogImage: '/img/membership/tennis-platz-bank.jpg',

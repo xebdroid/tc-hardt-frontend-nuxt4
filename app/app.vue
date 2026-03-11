@@ -5,14 +5,43 @@ import CookieModal from '~/components/base/CookieModal.vue'
 
 const store = useConsentStore()
 
-const title = 'TC Hardt - Tennis in Mönchengladbach'
-const description = 'Dein Tennisclub im Herzen von Mönchengladbach.'
+const title = 'Tennis in Mönchengladbach'
+const description = 'Dein Tennisclub im Herzen von Mönchengladbach. Erlebe Tennis, Gemeinschaft und Familienspaß am Birkmannsweg.'
 
-useSeoMeta({ title, description })
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogImage: '/img/logo.png',
+  ogSiteName: 'TC Hardt e.V.',
+  twitterCard: 'summary_large_image',
+  twitterTitle: title,
+  twitterDescription: description,
+  twitterImage: '/img/logo.png',
+})
 
 const { locale } = useI18n()
 const lang = computed(() => locales[locale.value]?.code || 'de')
 const dir = computed(() => locales[locale.value]?.dir || 'ltr')
+
+// Strukturierte Daten für Schema.org
+defineOrganization({
+  name: 'Tennisclub Hardt e.V.',
+  url: 'https://tc-hardt.de',
+  logo: 'https://tc-hardt.de/img/logo.png',
+  address: {
+    streetAddress: 'Birkmannsweg 16',
+    addressLocality: 'Mönchengladbach',
+    postalCode: '41169',
+    addressCountry: 'DE'
+  },
+  email: 'info@tc-hardt.de',
+  sameAs: [
+    'https://www.facebook.com/TCHardt',
+    'https://www.instagram.com/tc_hardt_ev/'
+  ]
+})
 
 useHead({
   htmlAttrs: { lang, dir },

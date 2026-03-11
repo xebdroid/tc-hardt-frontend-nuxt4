@@ -6,8 +6,8 @@ import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 
 useSeoMeta({
-  title: 'Anlage & Freizeit | TC Hardt',
-  ogTitle: 'Anlage & Freizeit | TC Hardt',
+  title: 'Anlage & Freizeit',
+  ogTitle: 'Anlage & Freizeit',
   description: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
   ogDescription: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
   ogImage: '/img/facility/tc-hardt-facility-01.jpg',

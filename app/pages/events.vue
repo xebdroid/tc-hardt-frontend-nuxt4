@@ -11,8 +11,8 @@ import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
 import Button from '~/components/base/Button.vue'
 
 useSeoMeta({
-  title: 'Events | TC Hardt',
-  ogTitle: 'Events | TC Hardt',
+  title: 'Events & Termine',
+  ogTitle: 'Events & Termine',
   description: 'Verpasse keine Veranstaltung beim TC Hardt! Hier findest du alle aktuellen Termine, Turniere und Feiern im Überblick.',
   ogDescription: 'Verpasse keine Veranstaltung beim TC Hardt! Hier findest du alle aktuellen Termine, Turniere und Feiern im Überblick.',
   ogImage: '/img/logo.png',
@@ -29,6 +29,34 @@ const upcomingEvents = computed(() => {
     .filter(event => new Date(event.date) >= now)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 })
+
+// --- SCHEMA.ORG: RICH SNIPPETS FOR EVENTS ---
+const upcomingEventsForSchema = computed(() => {
+  return upcomingEvents.value.slice(0, 10).map(event => {
+    const atHomeKeywords = ['clubhaus', 'anlage', 'tc hardt']
+    const locationString = event.location?.toLowerCase() || ''
+    const isAtHome = atHomeKeywords.some(keyword => locationString.includes(keyword))
+    const address = isAtHome ? (db as any).clubInfo?.address : event.location
+
+    return {
+      name: event.title,
+      startDate: event.date,
+      endDate: event.dateEnd || event.date,
+      description: event.description || 'Vereinsveranstaltung des TC Hardt e.V.',
+      location: {
+        name: isAtHome ? 'TC Hardt e.V. Clubanlage' : (event.location || 'TC Hardt e.V.'),
+        address: address || 'Birkmannsweg 16, 41169 Mönchengladbach'
+      },
+      image: event.image || '/img/logo.png',
+      url: 'https://www.tc-hardt.de/termine'
+    }
+  })
+})
+
+// Übermittelt die Termine an das SEO-Modul
+useSchemaOrg([
+  ...upcomingEventsForSchema.value.map(evt => defineEvent(evt))
+])
 
 const upcomingEventsByMonth = computed(() => {
   const grouped: { [key: string]: Event[] } = {}

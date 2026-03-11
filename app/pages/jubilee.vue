@@ -6,8 +6,8 @@ import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
 
 useSeoMeta({
-  title: '50 Jahre TC Hardt | Jubiläumsjahr 2026',
-  ogTitle: '50 Jahre TC Hardt | Jubiläumsjahr 2026',
+  title: '50 Jahre TC Hardt',
+  ogTitle: '50 Jahre TC Hardt',
   description: 'Wir feiern 50 Jahre Tennis op de Hardt! Entdecke unsere Highlights im Jubiläumsjahr 2026 und feiere mit uns.',
   ogDescription: 'Wir feiern 50 Jahre Tennis op de Hardt! Entdecke unsere Highlights im Jubiläumsjahr 2026 und feiere mit uns.',
   ogImage: '/img/jubilee/50-jahre-emblem-gold.png',

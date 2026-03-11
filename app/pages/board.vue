@@ -7,8 +7,8 @@ import Button from '~/components/base/Button.vue'
 import Image from '~/components/base/Image.vue'
 
 useSeoMeta({
-  title: 'Vorstand | TC Hardt',
-  ogTitle: 'Vorstand | TC Hardt',
+  title: 'Vorstand',
+  ogTitle: 'Vorstand',
   description: 'Lerne den Vorstand des TC Hardt kennen. Hier findest du deine Ansprechpartner für alle Belange rund um unseren Tennisverein.',
   ogDescription: 'Lerne den Vorstand des TC Hardt kennen. Hier findest du deine Ansprechpartner für alle Belange rund um unseren Tennisverein.',
   ogImage: '/img/logo.png',

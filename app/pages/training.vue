@@ -8,8 +8,8 @@ import Button from '~/components/base/Button.vue'
 import type { HeroSlide } from '~/components/base/Hero.vue'
 
 useSeoMeta({
-  title: 'Training & Tennisschule | TC Hardt',
-  ogTitle: 'Training & Tennisschule | TC Hardt',
+  title: 'Training & Tennisschule',
+  ogTitle: 'Training & Tennisschule',
   description: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß. Kinder, Erwachsene & Mannschaften.',
   ogDescription: 'Professionelles Training für jedes Niveau beim TC Hardt durch die Tennisschule Rot-Weiß. Kinder, Erwachsene & Mannschaften.',
   ogImage: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',

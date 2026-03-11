@@ -7,8 +7,8 @@ import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
 
 useSeoMeta({
-  title: 'Über uns | TC Hardt',
-  ogTitle: 'Über uns | TC Hardt',
+  title: 'Über uns',
+  ogTitle: 'Über uns',
   description: 'Der Tennisclub Hardt 1976 e.V. – Tennis mit Herz und Seele am Hardter Wald. Erfahre mehr über unsere Anlage, unsere Werte und unsere Geschichte.',
   ogDescription: 'Der Tennisclub Hardt 1976 e.V. – Tennis mit Herz und Seele am Hardter Wald. Erfahre mehr über unsere Anlage, unsere Werte und unsere Geschichte.',
   ogImage: '/img/about/tc-hardt-anlage.jpg',

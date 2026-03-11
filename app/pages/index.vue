@@ -17,8 +17,8 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 useSeoMeta({
-  title: 'TC Hardt - Tennis in Mönchengladbach',
-  ogTitle: 'TC Hardt - Tennis in Mönchengladbach',
+  title: 'Tennis in Mönchengladbach',
+  ogTitle: 'Tennis in Mönchengladbach',
   description: 'Willkommen beim TC Hardt! Dein Tennisclub im Herzen von Mönchengladbach mit 6 Ascheplätzen, Tennishalle und familiärer Atmosphäre.',
   ogDescription: 'Willkommen beim TC Hardt! Dein Tennisclub im Herzen von Mönchengladbach mit 6 Ascheplätzen, Tennishalle und familiärer Atmosphäre.',
   ogImage: '/img/logo.png',
