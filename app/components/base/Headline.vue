@@ -28,6 +28,7 @@ interface Props {
   size?: HeadlineSize
   alignment?: Align // Umbenannt von align zu alignment
   mode?: Mode
+  hyphens?: boolean
 
   // --- VARIANTEN ---
   taglineVariant?: TaglineVariant
@@ -52,6 +53,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'h2',
   alignment: 'left',
   mode: 'dark',
+  hyphens: false,
 
   taglineVariant: 'default',
   descriptionVariant: 'default',
@@ -159,7 +161,7 @@ const colors = computed(() => {
       :is="tag"
       v-if="title || $slots.title"
       class="font-heading font-bold leading-tight"
-      :class="[sizeClasses, colors.title]"
+      :class="[sizeClasses, colors.title, { 'break-word-hyphens': hyphens }]"
     >
       <slot name="title">
         {{ title }}

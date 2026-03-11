@@ -239,7 +239,7 @@ const impressions = [
       <div class="grid md:grid-cols-[auto_1fr] gap-12 md:gap-0 items-center">
         <div class="flex justify-center md:px-24">
           <Image
-            src="/img/boris_ruetten.jpg"
+            src="/img/board/vorstand-boris-ruetten.jpg"
             alt="Boris Rütten"
             variant="portrait"
           />

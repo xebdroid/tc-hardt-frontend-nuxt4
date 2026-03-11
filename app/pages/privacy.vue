@@ -27,7 +27,7 @@ useSeoMeta({
             des Tennisclub Hardt e.V.
           </p>
           <div class="mt-4 inline-block px-3 py-1 rounded-full bg-white/10 text-sm text-gray-200 backdrop-blur-sm border border-white/10">
-            Stand: Mai 2021
+            Stand: März 2026
           </div>
         </div>
       </template>
@@ -259,7 +259,7 @@ useSeoMeta({
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
             <p><strong>Einsatz von Verlinkungen zu Webseiten anderer Anbieter und Social-Media-Diensten:</strong></p>
             <p>
-              Unsere Webseite enthält Verlinkungen zu anderen Anbietern sowie folgenden Social-Media Webseiten: Facebook und Instagram. Wenn Sie unsere Seite besuchen, werden grundsätzlich keine personenbezogenen Daten an die Betreiber. Die Verlinkung zu der Social-MediaWebseite erkennen Sie an der Markierung oder das Logo. Wir eröffnen Ihnen die Möglichkeit, über diese Verlinkung direkt auf die entsprechende Social-Media-Webseite zu gelangen. Wir empfehlen Ihnen, sich nach Nutzung eines sozialen Netzwerks regelmäßig auszuloggen, insbesondere jedoch vor Aktivierung der Verlinkung, da Sie so eine Zuordnung zu Ihrem Profil bei der Social-Media-Website vermeiden können.
+              Unsere Webseite enthält Verlinkungen zu anderen Anbietern sowie folgenden Social-Media Webseiten: Facebook und Instagram. Wenn Sie unsere Seite besuchen, werden grundsätzlich keine personenbezogenen Daten an die Betreiber übermittelt. Die Verlinkung zu der Social-Media-Webseite erkennen Sie an der Markierung oder das Logo. Wir eröffnen Ihnen die Möglichkeit, über diese Verlinkung direkt auf die entsprechende Social-Media-Webseite zu gelangen. Wir empfehlen Ihnen, sich nach Nutzung eines sozialen Netzwerks regelmäßig auszuloggen, insbesondere jedoch vor Aktivierung der Verlinkung, da Sie so eine Zuordnung zu Ihrem Profil bei der Social-Media-Website vermeiden können.
             </p>
             <p>
               Sollten Sie eine der verlinkten Webseiten besuchen, haben wir weder Einfluss auf die erhobenen Daten und Datenverarbeitungsvorgänge, noch sind uns der volle Umfang der Datenerhebung, die Zwecke der Verarbeitung, die Speicherfristen bekannt. Auch zur Löschung der erhobenen Daten durch den Social-Media-Anbieter liegen uns keine Informationen vor.
@@ -268,30 +268,18 @@ useSeoMeta({
               Weitere Informationen zu Zweck und Umfang der Datenerhebung und ihrer Verarbeitung durch den Social-Media-Anbieter erhalten Sie in den im Folgenden mitgeteilten Datenschutzerklärungen dieser Anbieter. Dort erhalten Sie auch weitere Informationen zu Ihren diesbezüglichen Rechten und Einstellungsmöglichkeiten zum Schutze Ihrer Privatsphäre.
             </p>
 
-            <p class="font-bold mt-4">Adressen der jeweiligen Plug-in-Anbieter und URL mit deren Datenschutzhinweisen:</p>
-            <ul class="space-y-2 text-sm break-all">
+            <p class="font-bold mt-4">Adressen der jeweiligen Anbieter und URL mit deren Datenschutzhinweisen:</p>
+            <ul class="space-y-4 text-sm break-all">
               <li>
-                <strong>a) Facebook Inc.</strong>, 1601 S California Ave, Palo Alto, California 94304, USA; <a
-                  href="http://www.facebook.com/policy.php"
+                <strong>a) Meta Platforms Ireland Limited</strong> (Facebook, Instagram), 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland; <a
+                  href="https://www.facebook.com/about/privacy"
                   target="_blank"
                   class="text-accent-600 dark:text-accent-400 hover:underline"
-                >http://www.facebook.com/policy.php</a>; weitere Informationen zur Datenerhebung: <a
-                  href="http://www.facebook.com/help/186325668085084"
+                >https://www.facebook.com/about/privacy</a> sowie <a
+                  href="https://help.instagram.com/519522125107875"
                   target="_blank"
                   class="text-accent-600 dark:text-accent-400 hover:underline"
-                >http://www.facebook.com/help/186325668085084</a>, <a
-                  href="http://www.facebook.com/about/privacy/your-info-on-other#applications"
-                  target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
-                >http://www.facebook.com/about/privacy/your-info-on-other#applications</a> sowie <a
-                  href="http://www.facebook.com/about/privacy/your-info#everyoneinfo"
-                  target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
-                >http://www.facebook.com/about/privacy/your-info#everyoneinfo</a>. Facebook hat sich dem EU-US-Privacy-Shield unterworfen, <a
-                  href="https://www.privacyshield.gov/EU-USFramework"
-                  target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
-                >https://www.privacyshield.gov/EU-USFramework</a>.
+                >https://help.instagram.com/519522125107875</a>. Meta hat sich dem EU-US Data Privacy Framework unterworfen.
               </li>
             </ul>
           </div>
@@ -302,7 +290,7 @@ useSeoMeta({
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
             <Headline
-              title="Google Analytics"
+              title="Analyse-Tools"
               tag="h2"
               size="h4"
               margin-bottom="none"
@@ -310,53 +298,25 @@ useSeoMeta({
           </div>
 
           <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
-            <p><strong>Einsatz von Google Analytics:</strong></p>
+            <p><strong>Einsatz von Matomo:</strong></p>
             <p>
-              Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. („Google“). Google Analytics verwendet sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im Falle der Aktivierung der IP-Anonymisierung auf dieser Website, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Im Auftrag des Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die Website-Aktivitäten zusammenzustellen und um weitere mit der Website-Nutzung und der Internetnutzung verbundene Dienstleistungen gegenüber dem Website-Betreiber zu erbringen.
+              Diese Website nutzt den Webanalysedienst Matomo, um die Nutzung unserer Website analysieren und regelmäßig verbessern zu können. Über die gewonnenen Statistiken können wir unser Angebot verbessern und für Sie als Nutzer interessanter ausgestalten.
             </p>
             <p>
-              Die im Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt.
+              Für diese Auswertung werden Cookies auf Ihrem Computer gespeichert. Die so erhobenen Informationen speichern wir ausschließlich auf unserem Server. Sie können die Auswertung einstellen, indem Sie vorhandene Cookies löschen und die Speicherung von Cookies verhindern. Wenn Sie die Speicherung von Cookies verhindern, weisen wir darauf hin, dass Sie gegebenenfalls diese Website nicht vollumfänglich nutzen können.
             </p>
             <p>
-              Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plug-in herunterladen und installieren:
-
-              <AppButton
-                to="http://tools.google.com/dlpage/gaoptout?hl=de"
-                target="_blank"
-                label="Browser-Add-on"
-                size="xs"
-                variant="outline"
-                icon="i-heroicons-arrow-top-right-on-square"
-                class="inline-flex ml-2"
-              />
+              Diese Website verwendet Matomo mit der Erweiterung „AnonymizeIP“. Dadurch werden IP-Adressen gekürzt weiterverarbeitet, eine direkte Personenbeziehbarkeit kann damit ausgeschlossen werden. Die mittels Matomo von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen von uns erhobenen Daten zusammengeführt.
             </p>
             <p>
-              Diese Website verwendet Google Analytics mit der Erweiterung „_anonymizeIp()“. Dadurch werden IP-Adressen gekürzt weiterverarbeitet, eine Personenbeziehbarkeit kann damit ausgeschlossen werden. Soweit den über Sie erhobenen Daten ein Personenbezug zukommt, wird dieser also sofort ausgeschlossen und die personenbezogenen Daten damit umgehend gelöscht.
+              Die Nutzung von Matomo erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 S. 1 lit. a DS-GVO, die wir über unser Cookie-Banner abfragen. Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem Sie die Cookie-Einstellungen auf unserer Website anpassen.
             </p>
             <p>
-              Wir nutzen Google Analytics, um die Nutzung unserer Website analysieren und regelmäßig verbessern zu können. Über die gewonnenen Statistiken können wir unser Angebot verbessern und für Sie als Nutzer interessanter ausgestalten. Für die Ausnahmefälle, in denen personenbezogene Daten in die USA übertragen werden, hat sich Google dem EU-US Privacy Shield unterworfen, <a
-                href="https://www.privacyshield.gov/EU-US-Framework"
+              Das Programm Matomo ist ein Open-Source-Projekt. Informationen des Drittanbieters zum Datenschutz erhalten Sie unter <a
+                href="https://matomo.org/privacy-policy/"
                 target="_blank"
                 class="text-accent-600 dark:text-accent-400 hover:underline"
-              >https://www.privacyshield.gov/EU-US-Framework</a>. Rechtsgrundlage für die Nutzung von Google Analytics ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO.
-            </p>
-            <p class="text-sm">
-              Informationen des Drittanbieters: Google Dublin, Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Ireland, Fax: +353 (1) 436 1001. Nutzerbedingungen: <a
-                href="http://www.google.com/analytics/terms/de.html"
-                target="_blank"
-                class="text-accent-600 dark:text-accent-400 hover:underline"
-              >http://www.google.com/analytics/terms/de.html</a>, Übersicht zum Datenschutz: <a
-                href="http://www.google.com/intl/de/analytics/learn/privacy.html"
-                target="_blank"
-                class="text-accent-600 dark:text-accent-400 hover:underline"
-              >http://www.google.com/intl/de/analytics/learn/privacy.html</a>, sowie die Datenschutzerklärung: <a
-                href="http://www.google.de/intl/de/policies/privacy"
-                target="_blank"
-                class="text-accent-600 dark:text-accent-400 hover:underline"
-              >http://www.google.de/intl/de/policies/privacy</a>.
-            </p>
-            <p>
-              Diese Website verwendet Google Analytics zudem für eine geräteübergreifende Analyse von Besucherströmen, die über eine User-ID durchgeführt wird. Sie können in Ihrem Kundenkonto unter „Meine Daten“, „persönliche Daten“ die geräteübergreifende Analyse Ihrer Nutzung deaktivieren.
+              >https://matomo.org/privacy-policy/</a>.
             </p>
           </div>
         </div>
@@ -384,7 +344,7 @@ useSeoMeta({
             <p>
               Weitere Informationen zu Zweck und Umfang der Datenerhebung und ihrer Verarbeitung durch den Plug-in-Anbieter erhalten Sie in den Datenschutzerklärungen des Anbieters. Dort erhalten Sie auch weitere Informationen zu Ihren diesbezüglichen Rechten und Einstellungsmöglichkeiten zum Schutze Ihrer Privatsphäre:
               <AppButton
-                to="http://www.google.de/intl/de/policies/privacy"
+                to="https://policies.google.com/privacy"
                 target="_blank"
                 label="Google Datenschutz"
                 size="xs"
@@ -394,11 +354,7 @@ useSeoMeta({
               />
             </p>
             <p>
-              Google verarbeitet Ihre personenbezogenen Daten auch in den USA und hat sich dem EU-US Privacy Shield unterworfen, <a
-                href="https://www.privacyshield.gov/EU-US-Framework"
-                target="_blank"
-                class="text-accent-600 dark:text-accent-400 hover:underline"
-              >https://www.privacyshield.gov/EU-US-Framework</a>.
+              Google verarbeitet Ihre personenbezogenen Daten auch in den USA und hat sich dem EU-US Data Privacy Framework unterworfen. Rechtsgrundlage für die Nutzung von Google Maps ist Art. 6 Abs. 1 S. 1 lit. a DS-GVO (Einwilligung).
             </p>
           </div>
         </div>
@@ -406,7 +362,7 @@ useSeoMeta({
       </div>
 
       <div class="mt-16 text-center text-xs text-gray-400">
-        Stand: Mai 2021
+        Stand: März 2026
       </div>
 
     </UContainer>

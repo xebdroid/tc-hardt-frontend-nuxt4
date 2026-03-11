@@ -186,7 +186,7 @@ const simplifiedRegularPlans = computed(() => {
       outer-container
       rounded
       :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', sm:'lg', md: 'xl' }"
+      :padding-bottom="{ base: 'lg', sm:'lg', md: 'xl' }"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
     >
@@ -213,7 +213,7 @@ const simplifiedRegularPlans = computed(() => {
       outer-container
       :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
       :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"C:\www\_private\tc-hardt-frontend-nuxt4\public
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="sm"
     >
@@ -221,6 +221,7 @@ const simplifiedRegularPlans = computed(() => {
         alignment="center"
         title="Jahresmitgliedschaften"
         description="Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt."
+        hyphens
       />
       <div class="grid sm:grid-cols-2 gap-8 mx-auto">
         <PricingCard
