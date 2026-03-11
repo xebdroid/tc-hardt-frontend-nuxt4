@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import * as locales from '@nuxt/ui/locale'
 import CookieModal from '~/components/base/CookieModal.vue'
+import ScrollToTop from '~/components/base/ScrollToTop.vue'
 
 const store = useConsentStore()
 
@@ -69,6 +70,7 @@ useHead({
       </div>
 
       <CookieModal />
+      <ScrollToTop />
     </UApp>
   </div>
 </template>

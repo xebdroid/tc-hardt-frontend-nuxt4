@@ -19,9 +19,12 @@ if (newsItem.value) {
   useSeoMeta({
     title: () => newsItem.value.title,
     ogTitle: () => newsItem.value.title,
+    twitterTitle: () => newsItem.value.title,
     description: () => newsItem.value.excerpt,
     ogDescription: () => newsItem.value.excerpt,
+    twitterDescription: () => newsItem.value.excerpt,
     ogImage: () => newsItem.value.image || '/img/logo.png',
+    twitterImage: () => newsItem.value.image || '/img/logo.png',
     twitterCard: 'summary_large_image',
   })
 } else {

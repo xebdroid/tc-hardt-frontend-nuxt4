@@ -234,39 +234,45 @@ const newsItems = computed(() => {
       </div>
 
       <div class="relative px-0 md:px-12">
-        <Swiper
-          :modules="[Autoplay, Navigation]"
-          direction="horizontal"
-          :slides-per-view="1"
-          :space-between="24"
-          :loop="true"
-          :navigation="{
-            nextEl: '.news-next',
-            prevEl: '.news-prev'
-          }"
-          :autoplay="{
-            delay: 8000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-          }"
-          class="w-full"
-        >
-          <SwiperSlide
-            v-for="(news, index) in newsItems"
-            :key="(news as any).slug"
-            class="h-auto"
+        <ClientOnly>
+          <Swiper
+            :modules="[Autoplay, Navigation]"
+            direction="horizontal"
+            :slides-per-view="1"
+            :space-between="24"
+            :loop="true"
+            :navigation="{
+              nextEl: '.news-next',
+              prevEl: '.news-prev'
+            }"
+            :autoplay="{
+              delay: 8000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            }"
+            class="w-full"
           >
-            <FeaturedNewsCard
-              :to="localePath({ name: 'news-slug', params: { slug: (news as any).slug } })"
-              :image="news.image ?? ''"
-              :title="news.title"
-              :date="news.date"
-              :description="news.excerpt"
-              link-text="Weiterlesen"
-              class="w-full h-full"
-            />
-          </SwiperSlide>
-        </Swiper>
+            <SwiperSlide
+              v-for="(news, index) in newsItems"
+              :key="(news as any).slug"
+              class="h-auto"
+            >
+              <FeaturedNewsCard
+                :to="localePath({ name: 'news-slug', params: { slug: (news as any).slug } })"
+                :image="news.image ?? ''"
+                :title="news.title"
+                :date="news.date"
+                :description="news.excerpt"
+                link-text="Weiterlesen"
+                class="w-full h-full"
+              />
+            </SwiperSlide>
+          </Swiper>
+
+          <template #fallback>
+            <div class="w-full h-64 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-2xl" />
+          </template>
+        </ClientOnly>
 
         <div class="flex justify-center gap-8 mt-6 md:mt-0 md:block">
           <button class="news-prev text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:z-10">

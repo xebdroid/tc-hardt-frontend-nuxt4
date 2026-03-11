@@ -34,21 +34,13 @@ $data = json_decode($json, true);
 // A. Honeypot (Bot-Schutz)
 // Wenn das unsichtbare Feld "website" gefüllt ist, ist es ein Bot.
 if (!empty($data['website'])) {
-    // Wir täuschen Erfolg vor
-    echo json_encode(["success" => true, "message" => "Gesendet"]);
+    // Wir täuschen Erfolg vor, damit der Bot nicht weitersucht
+    header("Content-Type: application/json; charset=UTF-8");
+    echo json_encode(["success" => true, "message" => "Nachricht erfolgreich gesendet!"]);
     exit;
 }
 
-// B. Mathe-Aufgabe (Bot-Schutz)
-// Im Frontend fragen wir 3 + 4. Das Ergebnis muss 7 sein.
-$challenge = isset($data['challenge']) ? (int)$data['challenge'] : 0;
-if ($challenge !== 7) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Sicherheitsfrage falsch beantwortet."]);
-    exit;
-}
-
-// C. Pflichtfelder prüfen
+// B. Pflichtfelder prüfen
 $name = isset($data['name']) ? strip_tags(trim($data['name'])) : '';
 $email = isset($data['email']) ? filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL) : '';
 $messageText = isset($data['message']) ? strip_tags(trim($data['message'])) : '';

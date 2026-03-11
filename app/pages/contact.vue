@@ -2,6 +2,7 @@
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 import Hero from '~/components/base/Hero.vue'
+import Section from '~/components/base/Section.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
@@ -20,8 +21,6 @@ const schema = z.object({
   name: z.string().min(2, 'Bitte gib Deinen Namen ein (mind. 2 Zeichen)'),
   email: z.string().email('Bitte gib eine gültige E-Mail-Adresse ein'),
   message: z.string().min(10, 'Deine Nachricht ist etwas kurz (mind. 10 Zeichen)'),
-  // Bot Protection: Matheaufgabe
-  challenge: z.number().refine(val => val === 7, { message: 'Falsches Ergebnis' }),
   // Honeypot: Muss leer sein
   website: z.string().optional()
 })
@@ -29,11 +28,11 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 // --- 2. State ---
+// Wir nutzen hier undefined für die Initialisierung, da Nuxt UI / Zod dies beim Server-Rendering besser handhabt
 const state = reactive<Partial<Schema>>({
   name: undefined,
   email: undefined,
   message: undefined,
-  challenge: undefined,
   website: undefined
 })
 
@@ -60,7 +59,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
     isSent.value = true
 
-    // --- NEU: Tracking des erfolgreichen Formularversands ---
+    // --- Tracking des erfolgreichen Formularversands ---
     if (import.meta.client && (window as any)._paq) {
       (window as any)._paq.push(['trackEvent', 'Formulare', 'Erfolgreich gesendet', 'Kontaktformular'])
     }
@@ -80,7 +79,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 }
 
 function resetForm() {
-  Object.assign(state, { name: undefined, email: undefined, message: undefined, challenge: undefined, website: undefined })
+  state.name = ''
+  state.email = ''
+  state.message = ''
+  state.website = ''
   isSent.value = false
 }
 </script>
@@ -208,43 +210,15 @@ function resetForm() {
                 />
               </UFormField>
 
-              <div class="rounded-xl bg-gray-100 dark:bg-gray-900 p-6">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-6">
-
-                  <div class="flex items-center gap-4">
-                    <div class="shrink-0 w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                      <UIcon name="i-heroicons-shield-check" class="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span class="block font-bold text-gray-900 dark:text-white text-sm">Sicherheitsfrage</span>
-                      <p class="text-gray-500 dark:text-gray-400 text-sm">Was ist <strong class="text-gray-900 dark:text-white">3 + 4</strong>?</p>
-                    </div>
-                  </div>
-
-                  <div class="w-full sm:w-auto">
-                    <UFormField name="challenge">
-                      <UInput
-                        v-model.number="state.challenge"
-                        type="number"
-                        placeholder="?"
-                        size="lg"
-                        class="w-full sm:w-24"
-                        input-class="text-center font-bold"
-                      />
-                    </UFormField>
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="hidden">
-                <UInput
-                  v-model="state.website"
-                  name="website"
-                  tabindex="-1"
-                  autocomplete="off"
-                />
-              </div>
+              <!-- Honeypot: Verstecktes Feld für Bots -->
+              <input
+                v-model="state.website"
+                type="text"
+                name="website"
+                class="hidden"
+                tabindex="-1"
+                autocomplete="off"
+              >
 
               <div class="pt-2">
                 <Button
