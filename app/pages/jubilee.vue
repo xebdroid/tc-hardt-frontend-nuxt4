@@ -14,17 +14,6 @@ useHead({
 
 // 1. Hero Data
 const heroSlides: HeroSlide[] = [
-  // {
-  //   type: 'image',
-  //   src: '/img/home/hansmarkutt-tennis-5782695.jpg',
-  //   title: '50 Jahre Leidenschaft',
-  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate font-bold',
-  //   subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
-  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
-  //   contentPosition: 'bottom-center',
-  //   overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/60 to-transparent',
-  //   ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
-  // },
   {
     type: 'image',
     src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
@@ -40,34 +29,6 @@ const heroSlides: HeroSlide[] = [
     overlayClass: 'bg-gradient-to-t from-brand-light-900/90 via-brand-light-900/40 to-transparent',
     ctaPrimary: { variant: 'gold1', label: 'Unsere Jubiläums-Highlights', to: '#events' }
   },
-  // {
-  //   type: 'image',
-  //   src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
-  //   contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
-  //   contentImageClass: 'w-80 mb-4',
-  //   title: 'TC-Hardt',
-  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate font-bold',
-  //   subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
-  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
-  //   contentPosition: 'bottom-center',
-  //   overlayClass: 'bg-gradient-to-t from-black/60 via-black/80 to-black/60',
-  //   ctaPrimary: { variant: 'gold2', label: 'Unsere Jubiläums-Highlights', to: '#events' }
-  // },
-  // {
-  //   type: 'image',
-  //   src: '/img/jubilee/tennis-plaetze-von-oben.jpg',
-  //   contentImage: '/img/jubilee/50-jahre-emblem.png',
-  //   contentImageClass: 'w-80 mb-4',
-  //   title: 'TC - Hardt',
-  //   titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate font-bold',
-  //   subtitle: 'Tennis op de Hardt',
-  //   subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
-  //   description: 'Leidenschaft, Gemeinschaft und Tennis',
-  //   descriptionClass: 'bg-clip-text text-transparent bg-gradient-to-br from-amber-400 via-yellow-100 to-amber-400 animate-gold-rotate',
-  //   contentPosition: 'center',
-  //   overlayClass: 'bg-gradient-to-t from-brand-light-900/90 via-brand-light-900/40 to-transparent',
-  //   ctaPrimary: { variant: 'jubilee-gold', label: 'Unsere Jubiläums-Highlights', to: '#events' }
-  // }
 ]
 
 // 2. Timeline Data
@@ -77,21 +38,19 @@ const timelineItems = [
     title: 'Tag der offenen Tür / Saisoneröffnung',
     description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt. Alle Tennisinteressierten sind herzlich eingeladen, den TC Hardt kennenzulernen, den Schläger selbst in die Hand zu nehmen und gemeinsam mit unseren Mitgliedern und dem Verein in die neue Saison zu starten.',
     icon: 'i-heroicons-home-modern',
-    image: 'https://images.unsplash.com/photo-1683691357603-7538f78a6c83'
   },
   {
     date: '27.06.2026',
     title: 'Jubiläumsfeier',
     description: 'Das Highlight unseres Festjahres für unsere Mitglieder! Freut euch auf eine Jubiläums-Gala mit Musik, leckerem Essen, Getränken und einigen weiteren Highlights. Ein Abend, an dem Sport, Geselligkeit und Erinnerungen an 50 Jahre TC Hardt im Mittelpunkt stehen.',
     icon: 'i-heroicons-cake',
-    image: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1740'
+    image: '/img/jubilee/konfetti.jpg'
   },
   {
     date: '25.07.2026',
     title: 'Sangria Open',
     description: 'Sommer, Sonne, Sangria – unser Kultturnier verbindet lockeren Tennisspaß mit geselligem Beisammensein. Ein Event für Jung und Alt, für Vereinsmitglieder und Freunde, für Anfänger und Profis, das längst zum festen Bestandteil des Clublebens gehört.',
     icon: 'i-heroicons-sun',
-    image: 'https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=774'
   },
   {
     date: '29.08. – 13.09.2026',
@@ -105,14 +64,13 @@ const timelineItems = [
     title: 'Finaltag der Clubmeisterschaften',
     description: 'Wer wird Clubmeister 2026? Beim großen Finalwochenende unserer Clubmeisterschaften entscheidet sich, wer die Titel mit nach Hause nimmt. Ein sportlicher Vereins-Höhepunkt zum Ende der Sommersaison.',
     icon: 'i-heroicons-star',
-    image: 'https://images.unsplash.com/photo-1614713509225-720e74941913'
   },
   {
     date: '10.10.2026',
     title: 'Glühwein Open & Saisonabschluss',
     description: 'Zum Ausklang unseres Jubiläumsjahres laden wir traditionellerweise gemeinsam mit unserer Tennisschule Rot-Weiss zu den Glühwein Open ein. Freut euch auf ein gemütliches Herbstturnier mit Glühwein und geselligem Beisammensein. Der Tag mündet in einem gemeinsamen Saisonabschluss in unserem Clubhaus mit leckerem Essen und guter Musik. Der perfekte Abschluss für ein Jahr voller unvergesslicher Momente.',
     icon: 'i-heroicons-fire',
-    image: 'https://images.unsplash.com/photo-1669847171248-8f12c8160d57?q=80&w=774'
+    image: '/img/jubilee/gluehwein.jpg'
   }
 ]
 </script>

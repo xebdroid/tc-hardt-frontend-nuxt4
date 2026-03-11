@@ -229,7 +229,7 @@ const onSlideChange = (swiper: any) => {
 
               <div
                 v-if="slide.contentImage"
-                class="min-h-[100px] lg:min-h-[150px] flex flex-col mb-[2vh] lg:mb-[4vh]"
+                class="min-h-[100px] flex flex-col mb-[2vh]"
                 :class="[
                   slide.contentPosition?.includes('left') ? 'items-start' :
                   slide.contentPosition?.includes('right') ? 'items-end' :

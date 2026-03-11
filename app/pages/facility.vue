@@ -89,7 +89,7 @@ useHead({
 
     <Section padding-bottom="lg">
       <FeatureSection
-        image-src="https://images.unsplash.com/photo-1597091361793-3149a9777210?q=80&w=1750&auto=format&fit=crop"
+        image-src="/img/facility/maedchen-auf-schaukel.jpg"
         image-alt="Kinderspielplatz Schaukel"
         image-position="left"
       >

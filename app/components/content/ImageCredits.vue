@@ -44,7 +44,7 @@ const imageCredits: ImageCredit[] = [
   },
   {
     location: 'Anlage, Familien-Ecke',
-    src: 'https://images.unsplash.com/photo-1597091361793-3149a9777210',
+    src: '/img/facility/maedchen-auf-schaukel.jpg',
     author: { name: 'Nick Monica', url: 'https://unsplash.com/de/@nickmonica' },
     source: {
       name: 'Unsplash',
@@ -57,6 +57,30 @@ const imageCredits: ImageCredit[] = [
     source: {
       name: 'Unsplash',
       url: 'https://unsplash.com/de/fotos/eine-weisse-bank-die-auf-einem-feldweg-sitzt-a8iiRTy70_M',
+    },
+  },
+  {
+    location: 'Training', src: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
+    author: { name: 'Gonzalo Facello', url: 'https://unsplash.com/de/@gonchifacello' },
+    source: {
+      name: 'Unsplash',
+      url: 'https://unsplash.com/de/fotos/eine-person-die-einen-tennisschlager-auf-einem-tennisplatz-halt-RjCo6j0BkU8',
+    },
+  },
+  {
+    location: 'Jubiläum', src: '/img/jubilee/konfetti.jpg',
+    author: { name: 'Jason Leung', url: 'https://unsplash.com/de/@ninjason' },
+    source: {
+      name: 'Unsplash',
+      url: 'https://unsplash.com/de/fotos/selektive-fokusfotografie-von-mehrfarbigem-konfetti-Xaanw0s0pMk',
+    },
+  },
+  {
+    location: 'Jubiläum', src: '/img/jubilee/gluehwein.jpg',
+    author: { name: 'Svitlana', url: 'https://unsplash.com/de/@kekse_und_ich' },
+    source: {
+      name: 'Unsplash',
+      url: 'https://unsplash.com/de/fotos/ein-holzloffel-mit-zitronen-und-eine-schussel-mit-geschnittenen-zitronen-8ts6P7yv-nE',
     },
   },
   // Internal Images

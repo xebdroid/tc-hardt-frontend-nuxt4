@@ -15,9 +15,9 @@ useHead({
 const slides: HeroSlide[] = [
   {
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1646343253545-9171464ce425?q=80&w=1740&auto=format&fit=crop',
+    src: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
     contentImage: '/img/training/tennisschule-rot-weiss.jpg',
-    contentImageClass: 'w-full max-w-[250px] lg:w-[300px] mb-4 drop-shadow-lg rounded-full bg-white p-3',
+    contentImageClass: 'w-full max-w-[250px] lg:w-[300px] drop-shadow-lg rounded-full bg-white p-3',
     title: 'Training',
     subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
     contentPosition: 'bottom-center',
