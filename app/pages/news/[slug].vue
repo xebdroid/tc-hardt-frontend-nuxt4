@@ -68,10 +68,10 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
       variant="secondary-light"
       outer-container
       rounded
-      padding-top="sm"
-      padding-bottom="sm"
-      padding-left="sm"
-      padding-right="sm"
+      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="xl"
       margin-top="sm"
     >
