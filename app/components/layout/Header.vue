@@ -21,18 +21,29 @@ const toggleMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value }
 
 watch(() => route.fullPath, closeMenu)
 
-const handleScrollOrResize = () => {
-  if (isMobileMenuOpen.value) closeMenu()
+// Body Scroll Lock, wenn das mobile Menü offen ist
+watch(isMobileMenuOpen, (isOpen) => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
+
+const handleResize = () => {
+  if (window.innerWidth >= 1024 && isMobileMenuOpen.value) {
+    closeMenu()
+  }
 }
 
 onMounted(() => {
-  window.addEventListener('resize', handleScrollOrResize)
-  window.addEventListener('scroll', handleScrollOrResize, { passive: true })
+  window.addEventListener('resize', handleResize)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleScrollOrResize)
-  window.removeEventListener('scroll', handleScrollOrResize)
+  window.removeEventListener('resize', handleResize)
+  // Sicherstellen, dass der Scroll-Lock aufgehoben wird, wenn die Komponente unmountet
+  document.body.style.overflow = ''
 })
 </script>
 
@@ -147,5 +158,21 @@ onUnmounted(() => {
 
       </div>
     </div>
+
+    <!-- Backdrop / Overlay für Mobile Menu -->
+    <Transition
+      enter-active-class="transition-opacity duration-300 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition-opacity duration-200 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="isMobileMenuOpen"
+        class="fixed inset-0 bg-brand-dark-950/80 dark:bg-black/80 backdrop-blur-sm z-[-1] pointer-events-auto lg:hidden"
+        @click="closeMenu"
+      />
+    </Transition>
   </header>
 </template>
