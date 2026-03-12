@@ -49,31 +49,31 @@ useSeoMeta({
           :margin-bottom="'none'"
         />
         <ul class="mt-8 grid gap-4 text-gray-700">
-          <li class="flex items-center gap-3">
+          <li class="flex items-start gap-3">
             <UIcon
               name="i-heroicons-check-circle"
-              class="text-xl text-brand-light-600"
+              class="text-3xl text-brand-light-600 shrink-0"
             />
             <span><b>6 frisch sanierte Sandplätze</b> für optimale Spielbedingungen.</span>
           </li>
-          <li class="flex items-center gap-3">
+          <li class="flex items-start gap-3">
             <UIcon
               name="i-heroicons-check-circle"
-              class="text-xl text-brand-light-600"
+              class="text-3xl text-brand-light-600 shrink-0"
             />
             <span><b>Einladendes Clubhaus</b> mit Sonnenterrasse für gesellige Stunden.</span>
           </li>
-          <li class="flex items-center gap-3">
+          <li class="flex items-start gap-3">
             <UIcon
               name="i-heroicons-check-circle"
-              class="text-xl text-brand-light-600"
+              class="text-3xl text-brand-light-600 shrink-0"
             />
             <span>Professionelles Training für alle Alters- und Spielklassen.</span>
           </li>
-          <li class="flex items-center gap-3">
+          <li class="flex items-start gap-3">
             <UIcon
               name="i-heroicons-check-circle"
-              class="text-xl text-brand-light-600"
+              class="text-3xl text-brand-light-600 shrink-0"
             />
             <span>Eine einzigartige <b>Bügelbahn</b> für Spaß abseits des Tennisplatzes.</span>
           </li>
