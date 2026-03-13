@@ -42,7 +42,7 @@ const isBlacklisted = computed(() => {
 // Soll der Mitglied-CTA generell sichtbar sein?
 const showCta = computed(() => {
   if (props.isMenuOpen || isBlacklisted.value) return false
-  if (route.name?.toString().includes('index')) return scrollY.value > 100
+  if (route.name?.toString().includes('index')) return scrollY.value > 200
   return true
 })
 
@@ -58,12 +58,12 @@ const showBackToTop = computed(() => {
     <!-- Stabiler Container ohne eigene Transition -->
     <div class="fixed bottom-6 left-0 right-0 z-40 px-4 pointer-events-none">
       <div class="flex items-center justify-end max-w-md mx-auto pointer-events-auto overflow-visible">
-
-        <!-- Haupt CTA: Mitglied werden -->
-        <div
-          class="relative flex-1 group transition-all cubic-bezier(0.34, 1.56, 0.64, 1)"
+        
+        <!-- Haupt CTA: Mitglied werden (Rein mechanisches Rausgleiten) -->
+        <div 
+          class="relative flex-1 group transition-transform duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
           :class="[
-            showCta ? 'translate-x-0 opacity-100 duration-700' : '-translate-x-full opacity-0 duration-1000 pointer-events-none'
+            showCta ? 'translate-x-0' : '-translate-x-[120%] pointer-events-none'
           ]"
         >
           <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-400 rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
@@ -81,16 +81,16 @@ const showBackToTop = computed(() => {
         </div>
 
         <!-- Dynamischer Spacer: Hält Back-to-Top rechts, wenn CTA ausgeblendet ist -->
-        <div
+        <div 
           class="transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
           :class="[ (!showCta && !isMenuOpen) ? 'flex-1' : 'w-0' ]"
         />
 
-        <!-- Back to Top Wrapper: Einflug von RECHTS + Drehung -->
-        <div
-          class="transition-all cubic-bezier(0.34, 1.56, 0.64, 1) flex items-center justify-end overflow-visible"
+        <!-- Back to Top Wrapper: Rein mechanisches Rausgleiten + Drehung -->
+        <div 
+          class="transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) flex items-center justify-end overflow-visible"
           :class="[
-            showBackToTop ? 'w-12 ml-3 opacity-100 rotate-0 translate-x-0 duration-700' : 'w-0 ml-0 opacity-0 translate-x-20 rotate-180 duration-1000 pointer-events-none'
+            showBackToTop ? 'w-12 ml-3 rotate-0 translate-x-0' : 'w-0 ml-0 rotate-180 translate-x-32 pointer-events-none'
           ]"
         >
           <div class="relative group shrink-0">
