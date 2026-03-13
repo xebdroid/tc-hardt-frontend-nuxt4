@@ -16,7 +16,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     _paq.push(['setCookieConsentGiven']);
   }
 
-  _paq.push(['setTrackerUrl', '//tc-hardt.de/matomo/matomo.php']);
+  _paq.push(['setTrackerUrl', '//matomo.tc-hardt.de/matomo.php']);
   _paq.push(['setSiteId', '1']);
   _paq.push(['enableLinkTracking']);
 
@@ -24,7 +24,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   _paq.push(['trackPageView']);
 
   ;(function() {
-    const u = "//tc-hardt.de/matomo/";
+    const u = "//matomo.tc-hardt.de/";
     const d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
     g.async = true; g.src = u + 'matomo.js';
     if (s && s.parentNode) {

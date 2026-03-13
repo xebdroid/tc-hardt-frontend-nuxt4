@@ -41,7 +41,7 @@ jobs:
           port: 22
           source: "site.tar.gz"
           # Zielpfad auf dem Server
-          target: "/tc-hardt.de/httpdocs/frontend/"
+          target: "/tc-hardt.de/httpdocs/"
 
       # 6. Entpacken auf dem Server
       - name: 🚀 Extract & Deploy
@@ -53,7 +53,7 @@ jobs:
           port: 22
           script: |
             # Gehe in den Ordner (bricht ab, falls er nicht existiert)
-            cd /tc-hardt.de/httpdocs/frontend/ || exit 1
+            cd /tc-hardt.de/httpdocs/ || exit 1
 
             # Entpacken (überschreibt existierende Dateien)
             tar -xzf site.tar.gz
