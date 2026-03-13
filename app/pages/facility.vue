@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
-import Section from '~/components/base/Section.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
-import Headline from '~/components/base/Headline.vue'
-import Button from '~/components/base/Button.vue'
+import Hero from '~/components/base/Hero.vue';
+import Section from '~/components/base/Section.vue';
+import FeatureSection from '~/components/base/FeatureSection.vue';
+import Headline from '~/components/base/Headline.vue';
+import Button from '~/components/base/Button.vue';
+import type { SpacingSize, Responsive } from '~/types';
 
 useSeoMeta({
   title: 'Anlage & Freizeit',
@@ -12,7 +13,13 @@ useSeoMeta({
   ogDescription: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
   ogImage: '/img/facility/tc-hardt-facility-01.jpg',
   twitterCard: 'summary_large_image',
-})
+});
+
+// Definieren der Standard-Paddings für alle Sektionen
+const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<SpacingSize> } = {
+  top: { base: 'xs', sm: 'sm', md: 'lg' },
+  bottom: { base: 'xs', sm: 'sm', md: 'lg' }
+}
 </script>
 
 <template>
@@ -34,7 +41,12 @@ useSeoMeta({
       </template>
     </Hero>
 
-    <Section variant="default" padding-top="xl">
+    <!-- 1. Sektion -->
+    <Section
+      variant="default"
+      :padding-top="{ base: 'sm', sm: 'sm', md: 'lg' }"
+      :padding-bottom="sectionPaddings.bottom"
+    >
       <FeatureSection
         image-src="/img/facility/tc-hardt-facility-01.jpg"
         image-alt="Tennisplätze des TC Hardt"
@@ -48,7 +60,12 @@ useSeoMeta({
       </FeatureSection>
     </Section>
 
-    <Section variant="gray-light">
+    <!-- 2. Sektion -->
+    <Section
+      variant="gray-light"
+      :padding-top="sectionPaddings.top"
+      :padding-bottom="sectionPaddings.bottom"
+    >
       <FeatureSection
         image-src="/img/facility/clubhaus-sonnenterrasse.jpg"
         image-alt="Clubhaus Terrasse"
@@ -62,7 +79,12 @@ useSeoMeta({
       </FeatureSection>
     </Section>
 
-    <Section variant="default">
+    <!-- 3. Sektion -->
+    <Section
+      variant="default"
+      :padding-top="sectionPaddings.top"
+      :padding-bottom="sectionPaddings.bottom"
+    >
       <FeatureSection
         image-src="/img/facility/buegeln.jpg"
         image-alt="Bügelbahn am Niederrhein"
@@ -77,7 +99,12 @@ useSeoMeta({
       </FeatureSection>
     </Section>
 
-    <Section variant="gray-light">
+    <!-- 4. Sektion -->
+    <Section
+      variant="gray-light"
+      :padding-top="sectionPaddings.top"
+      :padding-bottom="sectionPaddings.bottom"
+    >
       <FeatureSection
         image-src="/img/facility/beachvolleyball.jpg"
         image-alt="Beach-Volleyball Feld"
@@ -91,7 +118,11 @@ useSeoMeta({
       </FeatureSection>
     </Section>
 
-    <Section padding-bottom="lg">
+    <!-- 5. Sektion -->
+    <Section
+      :padding-top="sectionPaddings.top"
+      :padding-bottom="sectionPaddings.bottom"
+    >
       <FeatureSection
         image-src="/img/facility/maedchen-auf-schaukel.jpg"
         image-alt="Kinderspielplatz Schaukel"

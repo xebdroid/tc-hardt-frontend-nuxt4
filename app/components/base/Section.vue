@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { NuxtImg } from '#components'
 import { computed } from 'vue'
-
-type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-type RoundedSide = boolean | 'top' | 'bottom' | 'both'
-type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-type Responsive<T> = T | Partial<Record<Breakpoint | 'base', T>>
+import type { SpacingSize, RoundedSide, Responsive } from '~/types'
 
 interface Props {
   variant?:

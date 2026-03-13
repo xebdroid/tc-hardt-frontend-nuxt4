@@ -32,19 +32,19 @@ const props = withDefaults(defineProps<Props>(), {
 
 // Logik für die Grid-Reihenfolge auf Desktop
 const imageOrderClass = computed(() => {
-  return props.imagePosition === 'right' ? 'lg:order-2' : 'lg:order-1'
+  return props.imagePosition === 'right' ? 'md:order-2' : 'md:order-1'
 })
 
 const contentOrderClass = computed(() => {
-  return props.imagePosition === 'right' ? 'lg:order-1' : 'lg:order-2'
+  return props.imagePosition === 'right' ? 'md:order-1' : 'md:order-2'
 })
 </script>
 
 <template>
-  <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+  <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
 
     <div
-      class="w-full lg:w-1/2 relative lg:px-0"
+      class="w-full md:w-1/2 relative md:px-0"
       :class="imageOrderClass"
     >
       <Image
@@ -66,7 +66,7 @@ const contentOrderClass = computed(() => {
     </div>
 
     <div
-      class="w-full lg:w-1/2"
+      class="w-full md:w-1/2"
       :class="contentOrderClass"
     >
       <slot />
