@@ -42,6 +42,8 @@ export interface HeroSlide {
   theme?: 'light' | 'dark'
 }
 
+import { useUIStore } from '~/stores/ui'
+
 const props = withDefaults(defineProps<{
   slides?: HeroSlide[]
   height?: 'full' | 'large' | 'medium' | 'small'
@@ -61,6 +63,20 @@ const props = withDefaults(defineProps<{
 })
 
 const swiperInstance = ref<any>(null);
+const uiStore = useUIStore()
+
+// Melden, ob wir einen Fullscreen Hero haben (für den Sticky CTA)
+onMounted(() => {
+  if (props.height === 'full' || props.height === 'large') {
+    uiStore.setFullScreenHero(true)
+  }
+})
+
+onUnmounted(() => {
+  if (props.height === 'full' || props.height === 'large') {
+    uiStore.setFullScreenHero(false)
+  }
+})
 
 // --- HÖHEN BERECHNUNG ---
 const containerHeightClass = computed(() => {

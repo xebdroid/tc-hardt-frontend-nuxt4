@@ -13,6 +13,7 @@ const uiStore = useUIStore()
 
 // Scroll-State
 const scrollY = ref(0)
+const isMounted = ref(false)
 const isScrollVisible = computed(() => scrollY.value > 400)
 
 function handleScroll() {
@@ -23,12 +24,27 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+// Sofortiger Reset bei Navigation
+watch(() => route.fullPath, () => {
+  scrollY.value = 0
+}, { immediate: true })
+
 onMounted(() => {
+  isMounted.value = true
   window.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+})
+
+// Konfiguration: Welche Seiten haben einen großen Hero?
+// (Nutzt die Namen aus der nuxt.config / i18n)
+const pagesWithLargeHero = ['index', 'jubilee']
+
+const hasHero = computed(() => {
+  const currentName = route.name?.toString() || ''
+  return pagesWithLargeHero.some(p => currentName.includes(p))
 })
 
 // Blacklist Logik
@@ -38,60 +54,68 @@ const isBlacklisted = computed(() => {
   return blacklistedPages.some(page => currentName.includes(page))
 })
 
-// Sichtbarkeits-Logik
+/**
+ * SICHTBARKEITS-LOGIK
+ */
+
+// 1. Soll der Mitglied-CTA angezeigt werden?
 const showCta = computed(() => {
-  if (props.isMenuOpen || isBlacklisted.value) return false
-  if (route.name?.toString().includes('index')) return scrollY.value > 200
+  if (!isMounted.value || props.isMenuOpen || isBlacklisted.value) return false
+  
+  // Wenn die Seite einen großen Hero hat, erst nach 200px zeigen
+  if (hasHero.value && scrollY.value <= 200) return false
+  
   return true
 })
 
+// 2. Soll der Back-to-Top angezeigt werden?
 const showBackToTop = computed(() => {
-  if (props.isMenuOpen) return false
+  if (!isMounted.value || props.isMenuOpen) return false
   return isScrollVisible.value
 })
 </script>
 
 <template>
   <div class="sm:hidden">
-    <!-- Äußerer fixierter Bereich (Immer da, aber klickt durch) -->
     <div class="fixed bottom-6 left-0 right-0 z-40 px-4 pointer-events-none">
       <div class="flex items-center justify-end max-w-md mx-auto overflow-visible">
         
         <!-- 1. Haupt CTA: Mitglied werden -->
-        <div 
-          class="relative flex-1 group transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
-          :class="[
-            showCta ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 pointer-events-none'
-          ]"
-        >
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-400 rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-          <div class="relative bg-white/90 dark:bg-gray-900/90 border border-white dark:border-gray-800 rounded-full p-1 shadow-xl backdrop-blur-md pointer-events-auto">
-            <Button
-              :to="localePath('membership')"
-              :label="$t('nav.buttons.membership')"
-              variant="primary"
-              block
-              size="lg"
-              class="rounded-full py-3"
-              icon="i-heroicons-user-plus"
-            />
+        <div class="relative flex-1">
+          <div 
+            class="relative group transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
+            :class="[
+              showCta ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 pointer-events-none'
+            ]"
+          >
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-400 rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+            <div class="relative bg-white/90 dark:bg-gray-900/90 border border-white dark:border-gray-800 rounded-full p-1 shadow-xl backdrop-blur-md pointer-events-auto">
+              <Button
+                :to="localePath('membership')"
+                :label="$t('nav.buttons.membership')"
+                variant="primary"
+                block
+                size="lg"
+                class="rounded-full py-3"
+                icon="i-heroicons-user-plus"
+              />
+            </div>
           </div>
         </div>
 
-        <!-- 2. Dynamischer Spacer: Hält Back-to-Top rechts, wenn CTA ausgeblendet ist -->
+        <!-- 2. Dynamischer Spacer -->
         <div 
           class="transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
           :class="[ (!showCta && !props.isMenuOpen) ? 'flex-1' : 'w-0' ]"
         />
 
-        <!-- 3. Back to Top Wrapper: Animiert Layout-Platz (Breite & Margin) -->
+        <!-- 3. Back to Top Wrapper -->
         <div 
           class="transition-all duration-700 cubic-bezier(0.34, 1.56, 0.64, 1) flex items-center justify-end overflow-visible"
           :class="[
             showBackToTop ? 'w-12 ml-3 opacity-100' : 'w-0 ml-0 opacity-0 pointer-events-none'
           ]"
         >
-          <!-- Innere Animation (Drehung & Slide) -->
           <div 
             class="shrink-0 transition-transform duration-700 cubic-bezier(0.34, 1.56, 0.64, 1)"
             :class="showBackToTop ? 'translate-x-0 rotate-0' : 'translate-x-20 rotate-180'"
