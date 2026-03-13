@@ -1,0 +1,24 @@
+import { defineStore } from 'pinia'
+
+export const useUIStore = defineStore('ui', () => {
+  const isMobileMenuOpen = ref(false)
+
+  function toggleMobileMenu() {
+    isMobileMenuOpen.value = !isMobileMenuOpen.value
+  }
+
+  function closeMobileMenu() {
+    isMobileMenuOpen.value = false
+  }
+
+  function openMobileMenu() {
+    isMobileMenuOpen.value = true
+  }
+
+  return {
+    isMobileMenuOpen,
+    toggleMobileMenu,
+    closeMobileMenu,
+    openMobileMenu
+  }
+})

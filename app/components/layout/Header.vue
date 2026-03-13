@@ -5,6 +5,7 @@ import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
 import Button from '~/components/base/Button.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
+import { useUIStore } from '~/stores/ui'
 
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -13,11 +14,11 @@ const showLanguageSwitch = ref(false);
 
 const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
+const uiStore = useUIStore()
 
-
-const isMobileMenuOpen = ref(false)
-const closeMenu = () => { isMobileMenuOpen.value = false }
-const toggleMenu = () => { isMobileMenuOpen.value = !isMobileMenuOpen.value }
+const isMobileMenuOpen = computed(() => uiStore.isMobileMenuOpen)
+const closeMenu = () => { uiStore.closeMobileMenu() }
+const toggleMenu = () => { uiStore.toggleMobileMenu() }
 
 watch(() => route.fullPath, closeMenu)
 

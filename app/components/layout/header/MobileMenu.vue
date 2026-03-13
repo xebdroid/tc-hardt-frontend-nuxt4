@@ -29,7 +29,7 @@ const isItemActive = (item: any) => {
 // Hilfsfunktion: Hat ein Kind-Element spezielle Highlight-Klassen? (z.B. Jubiläum)
 const getChildStyles = (child: any) => {
   const isActive = route.path === child.to
-  
+
   if (isActive) {
     return {
       link: 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400',
@@ -40,7 +40,7 @@ const getChildStyles = (child: any) => {
 
   // Prüfen auf "Jubiläum" Highlight (anhand der Klasse oder des Pfads)
   const isJubilee = child.to?.includes('jubilee') || (child.class && child.class.includes('accent'))
-  
+
   if (isJubilee) {
     return {
       link: 'text-accent-600 dark:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-950/20',
@@ -110,8 +110,8 @@ const formatLabel = (label: string) => {
             <div v-else class="flex flex-col gap-1">
               <button
                 class="flex items-center justify-between py-2 px-3 rounded-xl transition-colors w-full text-left"
-                :class="isItemActive(item) 
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' 
+                :class="isItemActive(item)
+                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
                   : 'text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800'"
                 @click="toggleSection(item.label)"
               >
@@ -156,7 +156,7 @@ const formatLabel = (label: string) => {
                         :class="getChildStyles(child).icon"
                       />
                       <span
-                        class="text-sm font-bold leading-tight break-word-hyphens"
+                        class="text-md font-bold leading-tight break-word-hyphens"
                         :class="getChildStyles(child).label"
                         v-html="formatLabel(child.label)"
                       />

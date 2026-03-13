@@ -3,8 +3,12 @@ import { computed } from 'vue'
 import * as locales from '@nuxt/ui/locale'
 import CookieModal from '~/components/base/CookieModal.vue'
 import ScrollToTop from '~/components/base/ScrollToTop.vue'
+import MobileStickyCTA from '~/components/base/MobileStickyCTA.vue'
+import { useConsentStore } from '~/stores/consent'
+import { useUIStore } from '~/stores/ui'
 
 const store = useConsentStore()
+const uiStore = useUIStore()
 
 const title = 'Tennis in Mönchengladbach'
 const description = 'Dein Tennisclub im Herzen von Mönchengladbach. Erlebe Tennis, Gemeinschaft und Familienspaß am Birkmannsweg.'
@@ -71,6 +75,7 @@ useHead({
 
       <CookieModal />
       <ScrollToTop />
+      <MobileStickyCTA :is-menu-open="uiStore.isMobileMenuOpen" />
     </UApp>
   </div>
 </template>
