@@ -12,9 +12,49 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['close'])
+const route = useRoute()
 
 // Tracken, welches Submenü offen ist (Akkordeon-Logik manuell)
 const openSection = ref<string | null>(null)
+
+// Hilfsfunktion: Ist ein Menüpunkt oder eines seiner Kinder aktiv?
+const isItemActive = (item: any) => {
+  if (item.to && route.path === item.to) return true
+  if (item.children) {
+    return item.children.some((child: any) => route.path === child.to)
+  }
+  return false
+}
+
+// Hilfsfunktion: Hat ein Kind-Element spezielle Highlight-Klassen? (z.B. Jubiläum)
+const getChildStyles = (child: any) => {
+  const isActive = route.path === child.to
+  
+  if (isActive) {
+    return {
+      link: 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400',
+      icon: 'text-primary-500',
+      label: 'text-primary-600 dark:text-primary-400'
+    }
+  }
+
+  // Prüfen auf "Jubiläum" Highlight (anhand der Klasse oder des Pfads)
+  const isJubilee = child.to?.includes('jubilee') || (child.class && child.class.includes('accent'))
+  
+  if (isJubilee) {
+    return {
+      link: 'text-accent-600 dark:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-950/20',
+      icon: 'text-accent-500',
+      label: 'text-accent-600 dark:text-accent-400'
+    }
+  }
+
+  return {
+    link: 'text-brand-dark-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800',
+    icon: 'text-gray-400',
+    label: 'text-brand-dark-800 dark:text-gray-200'
+  }
+}
 
 const toggleSection = (label: string) => {
   if (openSection.value === label) {
@@ -54,12 +94,14 @@ const formatLabel = (label: string) => {
             <NuxtLink
               v-if="!item.children || item.children.length === 0"
               :to="item.to"
-              class="group flex items-center gap-2 py-1 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              class="group flex items-center gap-2 py-2 px-3 rounded-xl transition-colors"
+              active-class="bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
+              inactive-class="text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800"
               @click="emit('close')"
             >
-              <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5 text-brand-dark-700 dark:text-gray-400 group-hover:text-primary-500" />
+              <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5 shrink-0" />
               <span
-                class="text-lg font-medium text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 break-word-hyphens"
+                class="text-lg font-medium break-word-hyphens"
                 v-html="formatLabel(item.label)"
               />
             </NuxtLink>
@@ -67,61 +109,57 @@ const formatLabel = (label: string) => {
             <!-- Kategorie mit Unterpunkten -->
             <div v-else class="flex flex-col gap-1">
               <button
-                class="flex items-center justify-between py-1 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors w-full text-left"
+                class="flex items-center justify-between py-2 px-3 rounded-xl transition-colors w-full text-left"
+                :class="isItemActive(item) 
+                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' 
+                  : 'text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800'"
                 @click="toggleSection(item.label)"
               >
                 <div class="flex items-center gap-2">
                   <UIcon
                     v-if="item.icon"
                     :name="item.icon"
-                    class="w-5 h-5 transition-colors"
-                    :class="openSection === item.label ? 'text-primary-500' : 'text-brand-dark-700 dark:text-gray-400'"
+                    class="w-5 h-5 shrink-0"
                   />
                   <span
-                    class="text-lg font-medium transition-colors break-word-hyphens"
-                    :class="openSection === item.label ? 'text-primary-500' : 'text-brand-dark-800 dark:text-brand-dark-100'"
+                    class="text-lg font-medium break-word-hyphens"
                     v-html="formatLabel(item.label)"
-                  >
-                  </span>
+                  />
                 </div>
                 <UIcon
                   name="i-heroicons-chevron-right-20-solid"
-                  class="w-5 h-5 transition-transform duration-300 text-gray-400"
-                  :class="{ 'rotate-90 text-primary-500': openSection === item.label }"
+                  class="w-5 h-5 transition-transform duration-300"
+                  :class="{ 'rotate-90': openSection === item.label }"
                 />
               </button>
 
               <!-- Untermenü mit weicher Animation -->
               <div
                 class="grid transition-[grid-template-rows] duration-300 ease-in-out"
-                :class="openSection === item.label ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
+                :class="openSection === item.label ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
               >
                 <div class="overflow-hidden">
-                  <!-- Untermenü als kompaktes 2-spaltiges Grid -->
-                  <div
-                    class="grid grid-cols-2 gap-2 py-2 transition-all duration-500 delay-100"
-                    :class="openSection === item.label ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'"
-                  >
+                  <!-- Untermenü mit Einrückung und vertikaler Linie -->
+                  <div class="flex flex-col gap-1 py-2 ml-4 pl-4 border-l-2 border-gray-100 dark:border-gray-800">
                     <NuxtLink
                       v-for="child in item.children"
                       :key="child.label"
                       :to="child.to"
-                      class="flex items-center gap-2.5 p-3 rounded-xl bg-primary-50/50 dark:bg-primary-900/10 border border-primary-100/50 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-700 transition-all shadow-sm group/child"
-                      :class="child.class"
+                      class="flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all"
+                      :class="getChildStyles(child).link"
                       @click="emit('close')"
                     >
                       <UIcon
                         v-if="child.icon"
                         :name="child.icon"
-                        class="w-5 h-5 shrink-0 transition-colors"
-                        :class="child.class ? 'text-current' : 'text-primary-500 group-hover/child:text-primary-600'"
+                        class="w-4 h-4 shrink-0"
+                        :class="getChildStyles(child).icon"
                       />
                       <span
-                        class="text-sm font-bold leading-tight transition-colors break-word-hyphens"
-                        :class="child.class ? 'text-current' : 'text-brand-dark-800 dark:text-gray-200 group-hover/child:text-primary-600'"
+                        class="text-sm font-bold leading-tight break-word-hyphens"
+                        :class="getChildStyles(child).label"
                         v-html="formatLabel(child.label)"
-                      >
-                      </span>
+                      />
                     </NuxtLink>
                   </div>
                 </div>
