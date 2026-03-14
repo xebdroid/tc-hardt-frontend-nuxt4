@@ -35,6 +35,8 @@ if (!file_exists($envFile)) {
 }
 $env = require $envFile;
 $smtpPassword = isset($env['smtp_pass']) ? $env['smtp_pass'] : '';
+$smtpUser = isset($env['smtp_user']) ? $env['smtp_user'] : 'kontakt@tc-hardt.de';
+$smtpHost = isset($env['smtp_host']) ? $env['smtp_host'] : 'mx2fcf.netcup.net';
 
 if (empty($smtpPassword)) {
     http_response_code(500);
@@ -75,9 +77,9 @@ $mail = new PHPMailer(true);
 try {
     // Servereinstellungen (Netcup)
     $mail->isSMTP();
-    $mail->Host       = 'mx2fcf.netcup.net';
+    $mail->Host       = $smtpHost;
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'kontakt@tc-hardt.de';
+    $mail->Username   = $smtpUser;
     $mail->Password   = $smtpPassword; // Passwort aus den Environment Variables (env.php)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL (Port 465)
     $mail->Port       = 465;
