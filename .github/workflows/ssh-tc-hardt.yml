@@ -27,6 +27,17 @@ jobs:
           npm install
           npm run generate
 
+      # 3.5 Umgebungsvariablen für PHP vorbereiten
+      # Erstellt eine Datei in .output/public, die später auf dem Server von PHP gelesen wird
+      - name: 🔐 Prepare PHP Env
+        run: |
+          cat << 'EOF' > .output/public/env.php
+          <?php
+          return [
+              'smtp_pass' => '${{ secrets.SMTP_PASSWORD }}'
+          ];
+          EOF
+
       # 4. Packen (Wir packen den INHALT von public direkt in das Archiv)
       - name: 📦 Compress files
         run: tar -czf site.tar.gz -C .output/public .

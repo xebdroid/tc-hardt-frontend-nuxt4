@@ -25,6 +25,23 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
+// --- ENVIRONMENT VARIABLEN LADEN ---
+// Das Passwort wird via GitHub Actions in diese Datei geschrieben
+$envFile = __DIR__ . '/env.php';
+if (!file_exists($envFile)) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Server-Konfiguration fehlt (env.php)."]);
+    exit;
+}
+$env = require $envFile;
+$smtpPassword = isset($env['smtp_pass']) ? $env['smtp_pass'] : '';
+
+if (empty($smtpPassword)) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "SMTP Passwort ist nicht konfiguriert."]);
+    exit;
+}
+
 // 2. Daten einlesen
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
@@ -60,8 +77,8 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mx2fcf.netcup.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'kontakt@tc-hardt.de'; // Dein Login
-    $mail->Password   = 'Court-hero-rettet-jeden-unmoeglichen-ball-2026!'; // <--- !!! PASSWORT HIER !!!
+    $mail->Username   = 'kontakt@tc-hardt.de';
+    $mail->Password   = $smtpPassword; // Passwort aus den Environment Variables (env.php)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL (Port 465)
     $mail->Port       = 465;
     $mail->CharSet    = 'UTF-8';
@@ -71,7 +88,6 @@ try {
     $mail->setFrom('kontakt@tc-hardt.de', 'TC Hardt Website');
 
     // Empfänger (Der Verein)
-    // $mail->addAddress('info@tc-hardt.de');
     $mail->addAddress('info@tc-hardt.de');
 
     // Antwort an: Wenn du auf "Antworten" klickst, geht es an den Besucher
@@ -96,6 +112,7 @@ try {
     // Bei Fehler: Sende HTTP 500
     http_response_code(500);
     // Optional: $mail->ErrorInfo loggen, aber nicht dem User zeigen
+    error_log("Mailer Error: " . $mail->ErrorInfo);
     echo json_encode(["success" => false, "message" => "Es gab einen Fehler beim Versand. Bitte später versuchen."]);
 }
 ?>
