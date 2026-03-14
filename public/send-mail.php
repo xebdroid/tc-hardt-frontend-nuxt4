@@ -60,19 +60,19 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mx2fcf.netcup.net';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'tc-hardt-contact@v0id.de'; // Dein Login
-    $mail->Password   = '8m9wKUcH5t2]ldOhW3'; // <--- !!! PASSWORT HIER !!!
+    $mail->Username   = 'kontakt@tc-hardt.de'; // Dein Login
+    $mail->Password   = 'Court-hero-rettet-jeden-unmoeglichen-ball-2026!'; // <--- !!! PASSWORT HIER !!!
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL (Port 465)
     $mail->Port       = 465;
     $mail->CharSet    = 'UTF-8';
 
     // Absender & Empfänger
     // Absender muss zwingend die Netcup-Adresse sein!
-    $mail->setFrom('tc-hardt-contact@v0id.de', 'TC Hardt Website');
+    $mail->setFrom('kontakt@tc-hardt.de', 'TC Hardt Website');
 
     // Empfänger (Der Verein)
     // $mail->addAddress('info@tc-hardt.de');
-    $mail->addAddress('info@v0id.de');
+    $mail->addAddress('info@tc-hardt.de');
 
     // Antwort an: Wenn du auf "Antworten" klickst, geht es an den Besucher
     $mail->addReplyTo($email, $name);
