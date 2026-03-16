@@ -12,6 +12,20 @@ ErrorDocument 504 /500/index.html
   RewriteEngine On
   RewriteBase /
 
+  # --- 301 Weiterleitungen von alten URLs ---
+
+  # Spezifische Weiterleitungen
+  RewriteRule ^index\.php/vorstand\.html$ /vorstand [R=301,L]
+  RewriteRule ^index\.php/tennisschule\.html$ /training [R=301,L]
+  RewriteRule ^index\.php/kontakt\.html$ /kontakt [R=301,L]
+  RewriteRule ^index\.php/50-jahre-tc-hardt\.html$ /50-jahre-tc-hardt [R=301,L]
+
+  # Genereller Fallback für alles andere, was mit index.php beginnt
+  RewriteRule ^index\.php/?(.*)$ / [R=301,L]
+
+
+  # --- Nuxt Routing & Fallbacks ---
+
   # Endlosschleifen verhindern (Pfade an Nuxt-Struktur angepasst)
   RewriteCond %{REQUEST_URI} ^/404\.html$ [OR]
   RewriteCond %{REQUEST_URI} ^/(403|500)/index\.html$

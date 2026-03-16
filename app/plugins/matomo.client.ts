@@ -3,7 +3,8 @@ import { defineNuxtPlugin } from '#app'
 import { watch, nextTick } from 'vue'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  if (!import.meta.client) return
+  // Breche ab, wenn auf dem Server oder in der lokalen Entwicklung (Dev Mode)
+  if (!import.meta.client || import.meta.dev) return
 
   const consentStore = useConsentStore()
   const router = useRouter()
