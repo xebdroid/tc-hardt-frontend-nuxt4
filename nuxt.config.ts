@@ -78,32 +78,27 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    strategy: "prefix_except_default",
+    strategy: "no_prefix",
     defaultLocale: "de",
     customRoutes: "config",
 
     locales: [
-      { code: "de", name: "Deutsch", iso: "de-DE", file: "de.json" },
-      { code: "en", name: "English", iso: "en-US", file: "en.json" },
+      { code: "de", name: "Deutsch", iso: "de-DE", file: "de.json" }
     ],
 
     pages: {
-      events: { de: '/termine', en: '/events' },
-      membership: { de: '/mitglied-werden', en: '/membership' },
-      jubilee: { de: '/50-jahre-tc-hardt', en: '/50-years-tc-hardt' },
-      facility: { de: '/anlage', en: '/facility' },
-      about: { de: "/ueber-uns", en: "/about-us" },
-      board: { de: "/vorstand", en: "/board" },
-      teams: { de: "/mannschaften", en: "/teams" },
-      contact: { de: "/kontakt", en: "/contact" },
-      imprint: { de: "/impressum", en: "/imprint" },
-      privacy: { de: "/datenschutz", en: "/privacy-policy" },
+      events: { de: '/termine' },
+      membership: { de: '/mitglied-werden' },
+      jubilee: { de: '/50-jahre-tc-hardt' },
+      facility: { de: '/anlage' },
+      about: { de: "/ueber-uns" },
+      board: { de: "/vorstand" },
+      teams: { de: "/mannschaften" },
+      contact: { de: "/kontakt" },
+      imprint: { de: "/impressum" },
+      privacy: { de: "/datenschutz" },
     },
 
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      redirectOn: "root",
-    },
+    detectBrowserLanguage: false,
   },
 });
