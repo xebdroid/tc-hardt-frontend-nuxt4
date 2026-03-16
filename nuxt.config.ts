@@ -74,7 +74,11 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/index.php/50-jahre-tc-hardt.html': { redirect: { to: '/50-jahre-tc-hardt', statusCode: 301 } }
+    // Spezifische Umleitung
+    '/index.php/50-jahre-tc-hardt.html': { redirect: { to: '/50-jahre-tc-hardt', statusCode: 301 } },
+    // Catch-all für alles andere, was mit /index.php anfängt
+    '/index.php/**': { redirect: { to: '/', statusCode: 301 } },
+    '/index.php': { redirect: { to: '/', statusCode: 301 } }
   },
 
   i18n: {

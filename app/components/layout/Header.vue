@@ -99,14 +99,14 @@ onUnmounted(() => {
 
           <div class="flex-1 flex items-center justify-end gap-3 lg:pl-20 self-center">
 
-            <div class="hidden lg:flex items-center gap-1 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
+            <div class="hidden lg:flex items-center gap-2 border-r border-gray-200 dark:border-gray-700 pr-4 mr-2">
               <template v-for="(social, index) in socialLinks" :key="index">
                 <UButton
                   v-if="social.icon"
                   :to="social.href"
                   target="_blank"
                   variant="ghost"
-                  size="xs"
+                  size="xl"
                   :icon="social.icon"
                   class="text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors"
                 />
@@ -114,7 +114,7 @@ onUnmounted(() => {
 
               <UColorModeButton
                 v-if="showColorModeButton"
-                size="xs"
+                size="xl"
                 variant="ghost"
                 :ui="{
                   leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors'
@@ -123,7 +123,7 @@ onUnmounted(() => {
 
               <LanguageSwitcher
                 v-if="showLanguageSwitch"
-                size="xs"
+                size="xl"
                 variant="ghost"
                 class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
               />

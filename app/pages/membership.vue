@@ -213,7 +213,7 @@ const simplifiedRegularPlans = computed(() => {
       outer-container
       :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
       :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"C:\www\_private\tc-hardt-frontend-nuxt4\public
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="sm"
     >
