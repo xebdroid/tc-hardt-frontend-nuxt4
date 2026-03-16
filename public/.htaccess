@@ -14,11 +14,29 @@ ErrorDocument 504 /500/index.html
 
   # --- 301 Weiterleitungen von alten URLs ---
 
-  # Spezifische Weiterleitungen
-  RewriteRule ^index\.php/vorstand\.html$ /vorstand [R=301,L]
-  RewriteRule ^index\.php/tennisschule\.html$ /training [R=301,L]
+  # Sonderfall: PDF Download (muss VOR dem allgemeinen Anmeldung.html stehen wegen Query-String)
+  RewriteCond %{QUERY_STRING} file=tl_files/tc-hardt/Downloads/Aufnahmeantrag_TC%20Hardt\.pdf [NC]
+  RewriteRule ^index\.php/Anmeldung\.html$ /downloads/aufnahmeantrag-tc-hardt.pdf? [R=301,L]
+
+  # Spezifische Weiterleitungen (A-Z)
+  RewriteRule ^index\.php/Anmeldung\.html$ /mitglied-werden [R=301,L]
+  RewriteRule ^index\.php/Damen_55\.html$ /mannschaften [R=301,L]
+  RewriteRule ^index\.php/datenschutz\.html$ /datenschutz [R=301,L]
+  RewriteRule ^index\.php/erwachsene\.html$ /mannschaften [R=301,L]
+  RewriteRule ^index\.php/Herren\.html$ /mannschaften [R=301,L]
+  RewriteRule ^index\.php/Herren_50\.html$ /mannschaften [R=301,L]
+  RewriteRule ^index\.php/impressum\.html$ /impressum [R=301,L]
   RewriteRule ^index\.php/kontakt\.html$ /kontakt [R=301,L]
+  RewriteRule ^index\.php/Oster_und_Sommer_Tennis_Camps\.html$ /training [R=301,L]
+  RewriteRule ^index\.php/Schnupperangebot\.html$ /mitglied-werden#tarife [R=301,NE,L]
+  RewriteRule ^index\.php/Tennis_AG\.html$ /training [R=301,L]
+  RewriteRule ^index\.php/tennisschule\.html$ /training [R=301,L]
+  RewriteRule ^index\.php/terminuebersicht\.html$ /termine [R=301,L]
+  RewriteRule ^index\.php/vorstand\.html$ /vorstand [R=301,L]
   RewriteRule ^index\.php/50-jahre-tc-hardt\.html$ /50-jahre-tc-hardt [R=301,L]
+
+  # URL ohne index.php
+  RewriteRule ^damen-offene-klasse\.html$ /mannschaften [R=301,L]
 
   # Genereller Fallback für alles andere, was mit index.php beginnt
   RewriteRule ^index\.php/?(.*)$ / [R=301,L]
