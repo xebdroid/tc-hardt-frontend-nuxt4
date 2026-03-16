@@ -6,6 +6,16 @@
   },
   "news": [
     {
+      "id": 4,
+      "title": "Herren 30: Ungeschlagen zum Aufstieg",
+      "date": "16.03.2026",
+      "excerpt": "Unsere Herren 30 haben in der diesjährigen Winterhallenrunde eine beeindruckende Saison gespielt und sich souverän den Aufstieg gesichert. Mit einer makellosen Bilanz und insgesamt 20:4 Matchpunkten blieb das Team während der gesamten Runde ungeschlagen.",
+      "content": "<p class=\"mb-4\">Unsere Herren 30 haben in der diesjährigen Winterhallenrunde eine beeindruckende Saison gespielt und sich souverän den Aufstieg gesichert. Mit einer makellosen Bilanz und insgesamt 20:4 Matchpunkten blieb das Team während der gesamten Runde ungeschlagen.</p><p class=\"mb-4\">Von Beginn an zeigte die Mannschaft eine starke und geschlossene Teamleistung. Sowohl in den Einzeln als auch in den Doppeln konnten wichtige Punkte eingefahren werden, sodass sich die Herren 30 Spieltag für Spieltag an der Tabellenspitze festsetzten. Besonders hervorzuheben ist dabei der große Kampfgeist und die mannschaftliche Geschlossenheit, mit der auch enge Matches erfolgreich gestaltet wurden.</p><p class=\"mb-4\">Der ungeschlagene Aufstieg ist der verdiente Lohn für eine konstant starke Leistung über die gesamte Winterrunde hinweg. Die Mannschaft hat damit eindrucksvoll gezeigt, welches Potenzial in ihr steckt.</p><p class=\"mb-4\">Der Verein gratuliert den Herren 30 herzlich zu diesem tollen Erfolg und freut sich bereits auf spannende Begegnungen in der höheren Spielklasse. 🎾💪</p>",
+      "image": "/img/news/2026-herren-30-winterrunde-aufstieg.jpg",
+      "published": true,
+      "slug": "2026-herren-30-winterrunde-aufstieg"
+    },
+    {
       "id": 1,
       "title": "Ein ganzes Jahr voller Highlights – 50 Jahre TC Hardt",
       "date": "04.03.2026",
@@ -45,7 +55,7 @@
       "role": "Vorsitzender",
       "name": "Kaspar Fuchs",
       "area": "Vereinsleben, Organisation & Beschwerdemanagement",
-      "email": "kaspar.fuchs@tc-hardt.de",
+      "email": "vorsitzender@tc-hardt.de",
       "image": "/img/board/vorstand-kaspar-fuchs.jpg",
       "phone": "01737071994"
     },
@@ -53,7 +63,7 @@
       "role": "Stv. Vorsitzender",
       "name": "Boris Rütten",
       "area": "Infrastruktur, Platzanlage und Sponsoring",
-      "email": "boris.ruetten@tc-hardt.de",
+      "email": "stv.vorsitzender@tc-hardt.de",
       "image": "/img/board/vorstand-boris-ruetten.jpg",
       "phone": "01632374893"
     },
@@ -61,7 +71,7 @@
       "role": "Schatzmeister",
       "name": "Witold Bialy",
       "area": "Finanzen",
-      "email": "witold.bialy@tc-hardt.de",
+      "email": "schatzmeister@tc-hardt.de",
       "image": "/img/board/vorstand-witold-bialy.jpg",
       "phone": "015116570062"
     },
@@ -69,7 +79,7 @@
       "role": "Stv. Schatzmeister",
       "name": "Manni Schröer",
       "area": "Finanzen und Schlüsselverwaltung",
-      "email": "",
+      "email": "stv.schatzmeister@tc-hardt.de",
       "image": "/img/board/vorstand-manfred-schroeer.jpg",
       "phone": "01702963150"
     },
