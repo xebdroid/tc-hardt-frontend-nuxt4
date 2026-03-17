@@ -8,6 +8,22 @@ ErrorDocument 502 /500/index.html
 ErrorDocument 503 /500/index.html
 ErrorDocument 504 /500/index.html
 
+<IfModule mod_headers.c>
+  # 1. HTML- und JSON-Dateien nicht cachen
+  # WICHTIG: Das sorgt dafür, dass Besucher immer die neusten Daten (wie db.json) sehen
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # 2. Assets (CSS, JS, Bilder) dürfen lange gecacht werden
+  # Da Nuxt bei jedem Build neue Dateinamen mit Hashes generiert, ist das sicher.
+  <FilesMatch "\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
