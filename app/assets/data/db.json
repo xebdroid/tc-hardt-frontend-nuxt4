@@ -143,42 +143,17 @@
     }
   ],
   "teams": [
-    {
-      "name": "Damen offen",
-      "category": "Erwachsene"
-    },
-    {
-      "name": "Damen 55",
-      "category": "Senioren"
-    },
-    {
-      "name": "Herren offen",
-      "category": "Erwachsene"
-    },
-    {
-      "name": "Herren 30",
-      "category": "Senioren"
-    },
-    {
-      "name": "Herren 50",
-      "category": "Senioren"
-    },
-    {
-      "name": "U15",
-      "category": "Jugend"
-    },
-    {
-      "name": "U12",
-      "category": "Jugend"
-    },
-    {
-      "name": "U8",
-      "category": "Jugend"
-    },
-    {
-      "name": "Mixed-Team",
-      "category": "Erwachsene"
-    }
+    { "name": "Damen Offen", "category": "Erwachsene" },
+    { "name": "Damen 55", "category": "Senioren" },
+    { "name": "Herren Offen", "category": "Erwachsene" },
+    { "name": "Herren 30", "category": "Senioren" },
+    { "name": "Herren 50", "category": "Senioren" },
+    { "name": "Herren 65", "category": "Senioren" },
+    { "name": "Mixed", "category": "Erwachsene" },
+    { "name": "U15", "category": "Jugend" },
+    { "name": "U12", "category": "Jugend" },
+    { "name": "Midcourt", "category": "Jugend" },
+    { "name": "U8", "category": "Jugend" }
   ],
   "events": [
     {
@@ -239,7 +214,117 @@
       "location": "Gesamte Anlage",
       "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
       "highlightLevel": 1,
-      "slug": "tag-der-offenen-tar-saisoneraffnung"
+      "slug": "tag-der-offenen-tuer-saisoneroeffnung"
+    },
+    {
+      "id": 100,
+      "date": "2026-05-02",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. Glehner TC 1",
+      "description": "Mannschaft: Herren 30 (Bezirksliga)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/1c3063/white?text=Herren%0A30",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-02"
+    },
+    {
+      "id": 101,
+      "date": "2026-05-14",
+      "time": "10:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. TC BW Wickrath 1",
+      "description": "Mannschaft: Herren 50 (Bezirksklasse A)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/ee964b/white?text=Herren%0A50",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-14"
+    },
+    {
+      "id": 102,
+      "date": "2026-05-16",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. TC Rheindahlen 1",
+      "description": "Mannschaft: Herren 30 (Bezirksliga)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/1c3063/white?text=Herren%0A30",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-16"
+    },
+    {
+      "id": 103,
+      "date": "2026-05-17",
+      "time": "09:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. TC Neuwerk 1",
+      "description": "Mannschaft: Damen 1 (Bezirksklasse A)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/7ac7ea/000?text=Damen%0A1",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-17"
+    },
+    {
+      "id": 104,
+      "date": "2026-05-21",
+      "time": "10:00 Uhr",
+      "title": "Medenspiel (Auswärts): DJK Kaarst 1 vs. TC Hardt 1",
+      "description": "Mannschaft: Herren 50 (Bezirksklasse A)",
+      "location": "DJK Kaarst",
+      "image": "https://placehold.co/600x400/ee964b/white?text=Herren%0A50",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-21"
+    },
+    {
+      "id": 105,
+      "date": "2026-05-30",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Auswärts): TC Giesenkirchen 1 vs. TC Hardt 1",
+      "description": "Mannschaft: Herren 30 (Bezirksliga)",
+      "location": "TC Giesenkirchen",
+      "image": "https://placehold.co/600x400/1c3063/white?text=Herren%0A30",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-30"
+    },
+    {
+      "id": 106,
+      "date": "2026-05-31",
+      "time": "09:00 Uhr",
+      "title": "Medenspiel (Auswärts): TV Kleinenbroich 2 vs. TC Hardt 1",
+      "description": "Mannschaft: Damen 1 (Bezirksklasse A)",
+      "location": "TV Kleinenbroich",
+      "image": "https://placehold.co/600x400/7ac7ea/000?text=Damen%0A1",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-05-31"
+    },
+    {
+      "id": 107,
+      "date": "2026-06-06",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. TK am Stadtwald 2",
+      "description": "Mannschaft: Herren 30 (Bezirksliga)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/1c3063/white?text=Herren%0A30",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-06-06"
+    },
+    {
+      "id": 108,
+      "date": "2026-06-07",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Heim): TC Hardt 1 vs. VfL Gladbach 1",
+      "description": "Mannschaft: Damen 55 (Bezirksliga)",
+      "location": "TC Hardt",
+      "image": "https://placehold.co/600x400/a3e635/000?text=Damen%0A55",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-06-07"
+    },
+    {
+      "id": 109,
+      "date": "2026-06-13",
+      "time": "14:00 Uhr",
+      "title": "Medenspiel (Auswärts): TC Korschenbroich 1 vs. TC Hardt 1",
+      "description": "Mannschaft: Herren Offen (Bezirksklasse B)",
+      "location": "TC Korschenbroich",
+      "image": "https://placehold.co/600x400/3b529d/white?text=Herren%0AOffen",
+      "highlightLevel": 0,
+      "slug": "medenspiel-2026-06-13"
     },
     {
       "id": 6,
