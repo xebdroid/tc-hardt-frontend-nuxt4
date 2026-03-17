@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import db from '~/assets/data/db.json'
 import type { Event } from '~/types'
 import Hero from '~/components/base/Hero.vue'
@@ -19,14 +19,19 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-const now = new Date()
-const currentYear = now.getFullYear()
+// Sicherer SSR-Umgang mit Datum (verhindert Hydration Mismatches)
+const now = ref(new Date())
+const currentYear = computed(() => now.value.getFullYear())
+
+onMounted(() => {
+  now.value = new Date()
+})
 
 const { downloadAllIcs } = useAllEventsCalendar()
 
 const upcomingEvents = computed(() => {
   return [...db.events]
-    .filter(event => new Date(event.date) >= now)
+    .filter(event => new Date(event.date) >= now.value)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 })
 
@@ -75,7 +80,7 @@ const upcomingEventsByMonth = computed(() => {
 
 const pastEvents = computed(() => {
   return [...db.events]
-    .filter(event => new Date(event.date) < now)
+    .filter(event => new Date(event.date) < now.value)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 })
 

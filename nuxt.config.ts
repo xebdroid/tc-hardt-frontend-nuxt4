@@ -69,7 +69,8 @@ export default defineNuxtConfig({
     prerender: {
       failOnError: false,
       // Generiert die physische Datei für den Webserver
-      routes: ['/404.html']
+      routes: ['/404.html'],
+      ignore: ['/en']
     }
   },
 
