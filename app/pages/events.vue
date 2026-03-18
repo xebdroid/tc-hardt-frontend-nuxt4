@@ -7,6 +7,7 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import EventList from '~/components/events/EventList.vue'
 import EventItem from '~/components/events/EventItem.vue'
+import EventCalendarView from '~/components/events/EventCalendarView.vue'
 import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
 import Button from '~/components/base/Button.vue'
 
@@ -34,34 +35,6 @@ const upcomingEvents = computed(() => {
     .filter(event => new Date(event.date) >= now.value)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 })
-
-// --- SCHEMA.ORG: RICH SNIPPETS FOR EVENTS ---
-const upcomingEventsForSchema = computed(() => {
-  return upcomingEvents.value.slice(0, 10).map(event => {
-    const atHomeKeywords = ['clubhaus', 'anlage', 'tc hardt']
-    const locationString = event.location?.toLowerCase() || ''
-    const isAtHome = atHomeKeywords.some(keyword => locationString.includes(keyword))
-    const address = isAtHome ? (db as any).clubInfo?.address : event.location
-
-    return {
-      name: event.title,
-      startDate: event.date,
-      endDate: event.dateEnd || event.date,
-      description: event.description || 'Vereinsveranstaltung des TC Hardt e.V.',
-      location: {
-        name: isAtHome ? 'TC Hardt e.V. Clubanlage' : (event.location || 'TC Hardt e.V.'),
-        address: address || 'Birkmannsweg 16, 41169 Mönchengladbach'
-      },
-      image: event.image || '/img/logo.png',
-      url: 'https://www.tc-hardt.de/termine'
-    }
-  })
-})
-
-// Übermittelt die Termine an das SEO-Modul
-useSchemaOrg([
-  ...upcomingEventsForSchema.value.map(evt => defineEvent(evt))
-])
 
 const upcomingEventsByMonth = computed(() => {
   const grouped: { [key: string]: Event[] } = {}
@@ -94,6 +67,8 @@ const openPastEventId = ref<number | null>(null)
 const handlePastEventToggle = (id: number) => {
   openPastEventId.value = openPastEventId.value === id ? null : id
 }
+
+const currentView = ref<'list' | 'calendar'>('list')
 </script>
 
 <template>
@@ -112,7 +87,7 @@ const handlePastEventToggle = (id: number) => {
       </template>
     </Hero>
 
-    <Section margin-bottom="none">
+    <Section margin-bottom="sm">
       <Headline
         :title="`Unsere Events ${currentYear}`"
         :description="eventCountDescription"
@@ -121,41 +96,84 @@ const handlePastEventToggle = (id: number) => {
         alignment="center"
         margin-bottom="sm"
       />
-      <div class="flex justify-center">
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-6">
+
+        <!-- View Switcher -->
+        <div class="bg-gray-100 dark:bg-gray-800 p-1.5 rounded-xl inline-flex shadow-inner">
+          <button
+            @click="currentView = 'list'"
+            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 flex items-center gap-2"
+            :class="currentView === 'list' ? 'bg-white dark:bg-gray-700 shadow text-brand-dark-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'"
+          >
+            <UIcon name="i-heroicons-list-bullet" class="w-5 h-5" />
+            Liste
+          </button>
+          <button
+            @click="currentView = 'calendar'"
+            class="px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 flex items-center gap-2"
+            :class="currentView === 'calendar' ? 'bg-white dark:bg-gray-700 shadow text-brand-dark-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'"
+          >
+            <UIcon name="i-heroicons-calendar" class="w-5 h-5" />
+            Kalender
+          </button>
+        </div>
+
         <Button
           label="Alle Termine herunterladen"
           icon="i-heroicons-arrow-down-tray"
           variant="outline"
+          size="lg"
           @click="downloadAllIcs"
         />
       </div>
     </Section>
 
+    <!-- LIST VIEW -->
+    <div v-show="currentView === 'list'" class="animate-in fade-in duration-300">
+      <Section
+        v-if="upcomingEvents.length > 0"
+        variant="secondary-light"
+        rounded
+        overlap-bottom
+        padding-top="xs"
+        padding-bottom="sm"
+        :padding-left="{ base: 'none', md: 'xs' , lg: 'md' }"
+        :padding-right="{ base: 'none', md: 'xs' , lg: 'md'}"
+        :outer-container="{ base: false, md: true}"
+        class="relative z-10"
+      >
+        <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
+          <EventList
+            v-for="(monthlyEvents, month) in upcomingEventsByMonth"
+            :key="month"
+            :month="month"
+            :events="monthlyEvents"
+          />
+        </template>
+        <div v-else class="text-center text-gray-500 py-8">
+          <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
+        </div>
+      </Section>
+    </div>
 
-    <Section
-      v-if="upcomingEvents.length > 0"
-      variant="secondary-light"
-      rounded
-      overlap-bottom
-      padding-top="xs"
-      padding-bottom="sm"
-      :padding-left="{ base: 'none', md: 'xs' , lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'xs' , lg: 'md'}"
-      :outer-container="{ base: false, md: true}"
-      class="relative z-10"
-    >
-      <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
-        <EventList
-          v-for="(monthlyEvents, month) in upcomingEventsByMonth"
-          :key="month"
-          :month="month"
-          :events="monthlyEvents"
-        />
-      </template>
-      <div v-else class="text-center text-gray-500 py-8">
-        <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
-      </div>
-    </Section>
+    <!-- CALENDAR VIEW -->
+    <div v-if="currentView === 'calendar'" class="animate-in fade-in zoom-in-95 duration-300">
+      <Section
+        variant="secondary-light"
+        rounded
+        overlap-bottom
+        padding-top="md"
+        padding-bottom="xl"
+        :padding-left="{ base: 'xs', md: 'sm' , lg: 'md' }"
+        :padding-right="{ base: 'xs', md: 'sm' , lg: 'md'}"
+        :outer-container="{ base: false, md: true}"
+        class="relative z-10"
+      >
+        <EventCalendarView :events="(db.events as any)" />
+      </Section>
+    </div>
+
     <Section
       v-if="pastEvents.length > 0"
       variant="gray-light"
