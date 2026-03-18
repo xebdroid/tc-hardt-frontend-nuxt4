@@ -1,4 +1,4 @@
-name: Deploy Nuxt (Atomic SSH/SCP)
+name: Deploy Preview
 
 on:
   push:
