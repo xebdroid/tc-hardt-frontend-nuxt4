@@ -6,6 +6,16 @@
   },
   "news": [
     {
+      "id": 5,
+      "title": "Mitgliederversammlung des TCH am 23.03.2026",
+      "date": "24.03.2026",
+      "excerpt": "Die diesjährige Mitgliederversammlung bestätigte den positiven Jahresabschluss 2025, den Haushaltsplan für 2026 und zentrale Positionen im Vorstand. Ein besonderer Fokus liegt auf dem 50-jährigen Jubiläum des Vereins.",
+      "content": "<p class=\"mb-4\">Am 23. März 2026 fand die ordentliche Mitgliederversammlung des TCH statt. Im Mittelpunkt stand neben dem Rückblick auf ein erfolgreiches Jahr 2025 insbesondere der Ausblick auf das Jubiläumsjahr 2026, in dem der Verein sein 50-jähriges Bestehen feiert.</p><p class=\"mb-4\">Der Vorstand berichtete über zahlreiche positive Entwicklungen: Die finanzielle Lage des Vereins ist stabil, die Mitgliederzahlen – insbesondere im Jugendbereich – entwickeln sich erfreulich und auch die Vereinsanlage wurde weiter modernisiert. Zudem konnten durch neue Kommunikationswege wie Instagram und eine WhatsApp-Community die Vereinskommunikation deutlich verbessert werden und die Webseite des Vereins erstrahlt im neuen Glanz.</p><p class=\"mb-4\">Sportlich blickt der TCH ebenfalls auf ein erfolgreiches Jahr zurück. Hervorzuheben sind unter anderem der Aufstieg der Herrenmannschaft sowie gute Platzierungen weiterer Teams und Vereinsspieler sowohl bei Medenspielen als auch bei Kreis- und Stadtmeisterschaften. Auch die steigende Beteiligung an den Clubmeisterschaften zeigt die hohe Aktivität im Verein.</p><p class=\"mb-4\">Die Mitgliederversammlung bestätigte den positiven Jahresabschluss 2025 und verabschiedete einstimmig den Haushaltsplan für 2026. Vorstand sowie Kassenprüfer wurden entlastet. Zudem wurden turnusgemäß Wahlen durchgeführt und zentrale Positionen im Vorstand bestätigt. Boris Rütten und Steffi Henckel-Wollny wurden in ihren Ämtern als stellvertretender Vorsitzender bzw. Geschäftsführerin erneut wiedergewählt. Leon Kilb wurde zum Kassenprüfer gewählt. Gratulation an alle Gewählten und Danke für euer Engagement!</p><p class=\"mb-4\">Ein besonderer Fokus liegt in diesem Jahr auf dem 50-jährigen Jubiläum des Vereins. Geplant sind verschiedene Veranstaltungen, darunter ein Tag der offenen Tür am 19.04.26, eine große Jubiläumsfeier für Mitglieder und Freunde am 27.06.26 sowie sportliche Highlights wie die Ausrichtung der Kreis- und Stadtmeisterschaften vom 29.08.26 bis zum 13.09.26.</p><p class=\"mb-4\">Der Vorstand bedankte sich bei allen Mitgliedern für ihr Engagement und rief dazu auf, sich auch im Jubiläumsjahr aktiv am Vereinsleben zu beteiligen.</p>",
+      "image": "/img/news/meeting.jpg",
+      "published": true,
+      "slug": "2026-mitgliederversammlung-bericht"
+    },
+    {
       "id": 4,
       "title": "Herren 30: Ungeschlagen zum Aufstieg",
       "date": "16.03.2026",
