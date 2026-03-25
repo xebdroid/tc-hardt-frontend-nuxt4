@@ -17,46 +17,48 @@ const items = [
 </script>
 
 <template>
-  <UCarousel
-    v-slot="{ item }"
-    loop
-    arrows
-    dots
-    :autoplay="{ delay: 3000 }"
-    :items="items"
-    :ui="{
-      viewport: 'md:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]',
-      container: 'md:overflow-visible -ms-4 px-8 sm:px-0 md:pb-12',
-      item: 'basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 xl:basis-1/7 py-2 snap-center ps-4',
-      arrows: 'flex md:hidden',
-      dots: 'hidden md:flex',
-    }"
-  >
-    <NuxtLink
-      :to="item.url"
-      target="_blank"
-      class="block group h-full"
+  <div class="overflow-x-hidden pb-12">
+    <UCarousel
+      v-slot="{ item }"
+      loop
+      arrows
+      dots
+      :autoplay="{ delay: 3000 }"
+      :items="items"
+      :ui="{
+        viewport: 'md:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] md:[webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]',
+        container: 'md:overflow-visible -ms-4 px-8 sm:px-0',
+        item: 'basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/5 xl:basis-1/7 py-2 snap-center ps-4',
+        arrows: 'flex md:hidden',
+        dots: 'hidden sm:flex',
+      }"
     >
-      <div
-        class="
-          aspect-[4/3] flex items-center justify-center p-6
-          bg-[#fff] rounded-xl
-          border border-gray-300 dark:border-gray-800
-          transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:border-brand-dark-300
-        "
+      <NuxtLink
+        :to="item.url"
+        target="_blank"
+        class="block group h-full"
       >
-        <img
-          :src="item.src"
-          :alt="item.alt"
+        <div
           class="
-            max-w-full max-h-full w-auto h-auto object-contain
-            grayscale-0 opacity-100
-            lg:grayscale lg:opacity-90 lg:contrast-125 lg:brightness-95
-            lg:group-hover:grayscale-0 lg:group-hover:opacity-100 lg:group-hover:contrast-100 lg:group-hover:brightness-100
-            transition-all duration-300
+            aspect-[4/3] flex items-center justify-center p-6
+            bg-[#fff] rounded-xl
+            border border-gray-300 dark:border-gray-800
+            transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:border-brand-dark-300
           "
         >
-      </div>
-    </NuxtLink>
-  </UCarousel>
+          <img
+            :src="item.src"
+            :alt="item.alt"
+            class="
+              max-w-full max-h-full w-auto h-auto object-contain
+              grayscale-0 opacity-100
+              lg:grayscale lg:opacity-90 lg:contrast-125 lg:brightness-95
+              lg:group-hover:grayscale-0 lg:group-hover:opacity-100 lg:group-hover:contrast-100 lg:group-hover:brightness-100
+              transition-all duration-300
+            "
+          >
+        </div>
+      </NuxtLink>
+    </UCarousel>
+  </div>
 </template>
