@@ -88,64 +88,93 @@ const selectEvent = (event: Event) => {
 
     <div>
       <div class="flex justify-between items-center mb-6 md:mb-8">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark-900 dark:text-white capitalize">{{ monthName }}</h2>
+        <h2 class="text-xl sm:text-3xl md:text-4xl font-bold text-brand-dark-900 dark:text-white capitalize">{{ monthName }}</h2>
         <div class="flex items-center gap-2 sm:gap-4 bg-gray-50 dark:bg-gray-800 p-1 rounded-full">
           <UButton icon="i-heroicons-chevron-left" variant="ghost" color="gray" class="rounded-full" @click="prevMonth" />
           <UButton icon="i-heroicons-chevron-right" variant="ghost" color="gray" class="rounded-full" @click="nextMonth" />
         </div>
       </div>
 
-      <!-- Horizontal Scroll Container für Mobile -->
-      <div class="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 pb-4 no-scrollbar custom-scrollbar">
-        <div class="min-w-[700px] md:min-w-0">
-
-          <!-- Wochentage -->
-          <div class="grid grid-cols-7 gap-2 sm:gap-3 text-center mb-3">
-            <div v-for="day in weekDays" :key="day" class="font-bold text-gray-400 dark:text-gray-500 text-sm tracking-wider uppercase">
-              {{ day }}
-            </div>
-          </div>
-
-          <!-- Kalender Matrix -->
-          <div class="grid grid-cols-7 gap-2 sm:gap-3">
-            <div
-              v-for="(day, idx) in calendarDays"
-              :key="idx"
-              class="min-h-[120px] sm:min-h-[140px] border rounded-2xl p-2 flex flex-col transition-all duration-200"
-              :class="[
-                day.empty ? 'bg-transparent border-transparent' : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50 hover:border-brand-light-300 dark:hover:border-brand-light-700',
-                !day.empty && isToday(day.date) ? 'ring-2 ring-brand-light-500 bg-brand-light-50 dark:bg-brand-light-900/20 border-brand-light-200 dark:border-brand-light-800' : ''
-              ]"
-            >
-              <template v-if="!day.empty">
-                <div class="flex justify-between items-start mb-2">
-                  <span
-                    class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-semibold"
-                    :class="[
-                      isToday(day.date) ? 'bg-brand-light-500 text-white' : 'text-gray-600 dark:text-gray-300',
-                      day.events.length > 0 && !isToday(day.date) ? 'text-brand-dark-900 dark:text-white' : ''
-                    ]"
-                  >
-                    {{ day.date }}
-                  </span>
+      <!-- Mobile: List View for Current Month, Desktop: Calendar Grid -->
+      <div class="block md:hidden">
+        <div class="space-y-4">
+          <template v-for="(day, idx) in calendarDays" :key="'mobile-' + idx">
+            <div v-if="!day.empty && day.events && day.events.length > 0" class="border rounded-2xl p-4 bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50" :class="[isToday(day.date as number) ? 'ring-2 ring-brand-light-500 bg-brand-light-50 dark:bg-brand-light-900/20 border-brand-light-200 dark:border-brand-light-800' : '']">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-semibold" :class="[isToday(day.date as number) ? 'bg-brand-light-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200']">
+                  {{ day.date }}
+                </span>
+                <span class="font-medium text-gray-500 dark:text-gray-400 text-sm uppercase tracking-wider">
+                  {{ weekDays[(new Date(currentYear, currentMonth, day.date as number).getDay() + 6) % 7] }}
+                </span>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div
+                  v-for="event in day.events"
+                  :key="event.id"
+                  class="flex flex-col text-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 p-3 rounded-xl cursor-pointer hover:border-brand-light-400 active:scale-[0.98] transition-all shadow-sm"
+                  @click.stop="selectEvent(event)"
+                >
+                  <span v-if="event.time" class="font-bold text-brand-light-600 dark:text-brand-light-400 mb-1">{{ event.time.split(' ')[0] }}</span>
+                  <span class="font-medium text-gray-900 dark:text-white">{{ event.title }}</span>
                 </div>
-
-                <div class="flex flex-col gap-1.5 flex-1 overflow-y-auto no-scrollbar">
-                  <div
-                    v-for="event in day.events"
-                    :key="event.id"
-                    class="group flex flex-col text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 p-2 rounded-lg text-left leading-snug cursor-pointer hover:border-brand-light-400 hover:shadow-md transition-all active:scale-95"
-                    :title="event.title"
-                    @click.stop="selectEvent(event)"
-                  >
-                    <span v-if="event.time" class="font-bold text-brand-light-600 dark:text-brand-light-400 mb-0.5">{{ event.time.split(' ')[0] }}</span>
-                    <span class="font-medium truncate group-hover:text-brand-dark-900 dark:group-hover:text-white transition-colors">{{ event.title }}</span>
-                  </div>
-                </div>
-              </template>
+              </div>
             </div>
-          </div>
+          </template>
 
+          <div v-if="calendarDays.filter(d => !d.empty && d.events && d.events.length > 0).length === 0" class="text-center py-8 text-gray-500 dark:text-gray-400">
+            Keine Termine in diesem Monat.
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Calendar Grid -->
+      <div class="hidden md:block">
+        <!-- Wochentage -->
+        <div class="grid grid-cols-7 gap-3 text-center mb-3">
+          <div v-for="day in weekDays" :key="day" class="font-bold text-gray-400 dark:text-gray-500 text-sm tracking-wider uppercase">
+            {{ day }}
+          </div>
+        </div>
+
+        <!-- Kalender Matrix -->
+        <div class="grid grid-cols-7 gap-3">
+          <div
+            v-for="(day, idx) in calendarDays"
+            :key="idx"
+            class="min-h-[140px] border rounded-2xl p-2 flex flex-col transition-all duration-200"
+            :class="[
+              day.empty ? 'bg-transparent border-transparent' : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50 hover:border-brand-light-300 dark:hover:border-brand-light-700',
+              !day.empty && isToday(day.date as number) ? 'ring-2 ring-brand-light-500 bg-brand-light-50 dark:bg-brand-light-900/20 border-brand-light-200 dark:border-brand-light-800' : ''
+            ]"
+          >
+            <template v-if="!day.empty">
+              <div class="flex justify-between items-start mb-2">
+                <span
+                  class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-semibold"
+                  :class="[
+                    isToday(day.date as number) ? 'bg-brand-light-500 text-white' : 'text-gray-600 dark:text-gray-300',
+                    day.events && day.events.length > 0 && !isToday(day.date as number) ? 'text-brand-dark-900 dark:text-white' : ''
+                  ]"
+                >
+                  {{ day.date }}
+                </span>
+              </div>
+
+              <div class="flex flex-col gap-1.5 flex-1 overflow-y-auto no-scrollbar custom-scrollbar">
+                <div
+                  v-for="event in day.events"
+                  :key="event.id"
+                  class="group flex flex-col text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 p-2 rounded-lg text-left leading-snug cursor-pointer hover:border-brand-light-400 hover:shadow-md transition-all active:scale-95"
+                  :title="event.title"
+                  @click.stop="selectEvent(event)"
+                >
+                  <span v-if="event.time" class="font-bold text-brand-light-600 dark:text-brand-light-400 mb-0.5">{{ event.time.split(' ')[0] }}</span>
+                  <span class="font-medium truncate group-hover:text-brand-dark-900 dark:group-hover:text-white transition-colors">{{ event.title }}</span>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
