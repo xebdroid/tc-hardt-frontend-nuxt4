@@ -26,6 +26,8 @@
       "teams": "Teams",
       "teams_desc": "Adults, Youth & Seniors",
       "training_desc": "Tennis school & courses",
+      "tournaments": "Tournaments",
+      "tournaments_desc": "District Championships & more",
       "sponsoring": "Sponsoring",
       "sponsoring_desc": "Our strong partners",
       "statutes": "Statutes",
@@ -195,5 +197,32 @@
   "calendar": {
     "google": "Google Calendar",
     "download_ics": "Download .ics file"
+  },
+  "tournaments": {
+    "title": "District Championships 2026",
+    "hero": {
+      "title": "District Championships 2026",
+      "description": "Welcome to the District Championships at the TC Hardt facility! Experience exciting matches, fair sports and our great community.",
+      "cta": "To the tournament platform"
+    },
+    "facts": {
+      "date": "Date",
+      "deadline": "Entry deadline",
+      "location": "Location",
+      "location_address": "Birkmannsweg 16"
+    },
+    "schedule": {
+      "title": "Schedule & Draw",
+      "info": "The draw takes place on the Thursday before the tournament. From Friday morning you will find all match times here."
+    },
+    "catering": {
+      "title": "Gastronomy",
+      "description": "Enjoy our tournament catering on our beautiful sun terrace.",
+      "placeholder": "Look forward to our tournament catering. The special menu will be published here shortly before the tournament starts."
+    },
+    "contact": {
+      "title": "Tournament Management",
+      "email": "turnierleitung{'@'}tc-hardt.de"
+    }
   }
 }

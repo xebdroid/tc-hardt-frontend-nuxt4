@@ -26,6 +26,8 @@
       "teams": "Mannschaften",
       "teams_desc": "Erwachsene, Jugend & Senioren",
       "training_desc": "Tennisschule & Kurse",
+      "tournaments": "Turniere",
+      "tournaments_desc": "Kreismeisterschaften & mehr",
       "sponsoring": "Sponsoring",
       "sponsoring_desc": "Unsere starken Partner",
       "statutes": "Satzung",
@@ -195,5 +197,32 @@
   "calendar": {
     "google": "Google Kalender",
     "download_ics": ".ics-Datei herunterladen"
+  },
+  "tournaments": {
+    "title": "Kreismeisterschaften 2026",
+    "hero": {
+      "title": "Kreismeisterschaften 2026",
+      "description": "Willkommen zu den Kreismeisterschaften auf der Anlage des TC Hardt! Erleben Sie spannende Matches, fairen Sport und unsere großartige Gemeinschaft.",
+      "cta": "Zur Turnierplattform"
+    },
+    "facts": {
+      "date": "Datum",
+      "deadline": "Meldeschluss",
+      "location": "Austragungsort",
+      "location_address": "Birkmannsweg 16"
+    },
+    "schedule": {
+      "title": "Zeitplan & Auslosung",
+      "info": "Die Auslosung findet am Donnerstag vor dem Turnier statt. Ab Freitagmorgen findest du hier alle Spielzeiten."
+    },
+    "catering": {
+      "title": "Gastronomie",
+      "description": "Genießen Sie unser Turnier-Catering auf unserer schönen Sonnenterrasse.",
+      "placeholder": "Freuen Sie sich auf unser Turnier-Catering. Die spezielle Speisekarte wird kurz vor Turnierbeginn hier veröffentlicht."
+    },
+    "contact": {
+      "title": "Turnierleitung",
+      "email": "turnierleitung{'@'}tc-hardt.de"
+    }
   }
 }

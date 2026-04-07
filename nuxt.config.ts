@@ -102,6 +102,7 @@ export default defineNuxtConfig({
       contact: { de: "/kontakt" },
       imprint: { de: "/impressum" },
       privacy: { de: "/datenschutz" },
+      tournaments: { de: "/turniere" }
     },
 
     detectBrowserLanguage: false,
