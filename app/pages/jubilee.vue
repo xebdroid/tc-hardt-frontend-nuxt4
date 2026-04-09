@@ -4,6 +4,7 @@ import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
+import AppButton from '~/components/base/Button.vue'
 
 useSeoMeta({
   title: '50 Jahre TC Hardt',
@@ -37,6 +38,7 @@ const heroSlides: HeroSlide[] = [
 const timelineItems = [
   {
     date: '19.04.2026',
+    time: '11:00 – 17:00 Uhr',
     title: 'Tag der offenen Tür / Saisoneröffnung',
     description: 'Wir starten unser Jubiläumsjahr mit einem bunten Saisonauftakt. Alle Tennisinteressierten sind herzlich eingeladen, den TC Hardt kennenzulernen, den Schläger selbst in die Hand zu nehmen und gemeinsam mit unseren Mitgliedern und dem Verein in die neue Saison zu starten.',
     icon: 'i-heroicons-home-modern',
@@ -97,6 +99,24 @@ const timelineItems = [
               alignment="center"
               title-class="tracking-tight"
             />
+            <div class="mt-8 flex flex-col items-center gap-6">
+              <p class="text-gray-600 dark:text-gray-300 text-center text-lg max-w-2xl">
+                Bei Fragen rund um unser Jubiläumsjahr oder zur Ticketbestellung für die Gala stehen wir Ihnen gerne zur Verfügung.
+              </p>
+              <div class="flex flex-wrap justify-center gap-4">
+                <AppButton
+                  to="mailto:jubilaeum@tc-hardt.de"
+                  label="E-Mail schreiben"
+                  icon="i-heroicons-envelope"
+                />
+                <AppButton
+                  to="/events"
+                  label="Alle Termine ansehen"
+                  icon="i-heroicons-calendar"
+                  variant="outline"
+                />
+              </div>
+            </div>
           </div>
         </Section>
       </div>
@@ -122,6 +142,9 @@ const timelineItems = [
           >
             <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-3xl mx-auto">
               <EventDate :date-string="item.date" variant="jubilee" />
+              <div v-if="item.time" class="mt-3 mb-1 text-sm font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wide">
+                {{ item.time }}
+              </div>
               <Headline
                 :title="item.title"
                 :description="item.description"
