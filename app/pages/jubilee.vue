@@ -110,7 +110,7 @@ const timelineItems = [
                   icon="i-heroicons-envelope"
                 />
                 <AppButton
-                  to="/events"
+                  :to="$localePath('events')"
                   label="Alle Termine ansehen"
                   icon="i-heroicons-calendar"
                   variant="outline"
