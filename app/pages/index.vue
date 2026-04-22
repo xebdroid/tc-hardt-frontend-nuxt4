@@ -120,9 +120,12 @@ const newsItems = computed(() => {
     return new Date(year, month - 1, day)
   }
 
-  return [...db.news].sort((a, b) => {
+  const sortedNews = [...db.news].sort((a, b) => {
     return parseDate(b.date).getTime() - parseDate(a.date).getTime()
   })
+
+  // Return only the 4 most recent news items
+  return sortedNews.slice(0, 4)
 })
 
 </script>
