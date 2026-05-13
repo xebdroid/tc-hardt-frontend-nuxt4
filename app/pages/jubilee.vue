@@ -166,7 +166,7 @@ const timelineItems = [
       class="scroll-mt-16"
       variant="secondary-light"
       :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
-      :padding-bottom="{ base: 'xs', sm:'sm', md: 'xl' }"
+      padding-bottom="xl"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       overlap-bottom
