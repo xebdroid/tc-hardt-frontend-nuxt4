@@ -7,7 +7,6 @@ import Section from '~/components/base/Section.vue'
 import Sponsors from '~/components/base/Sponsors.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
 import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import EventList from '~/components/events/EventList.vue'
@@ -38,7 +37,8 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
     contentPosition: 'center',
     overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
-    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
+    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') },
+    ctaSecondary: { variant:'gold2', label: 'Jetzt Tickets bestellen', to: localePath('jubilee') + '#ticketbestellung' }
   },
   {
     type: 'video',

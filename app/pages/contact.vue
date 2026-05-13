@@ -45,8 +45,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   isLoading.value = true
 
   try {
-    const endpoint = '/send-mail.php'
-    // const endpoint = 'http://localhost:8000/send-mail.php' // Lokal aktivieren
+    // --- LOKALES TESTEN DES PHP-SKRIPTS ---
+    // 1. Öffne ein neues Terminal im Ordner: tc-hardt-frontend-nuxt4/public
+    // 2. Führe folgenden Befehl aus: php -S localhost:8000
+    // 3. Kommentiere den Live-Endpoint aus und den lokalen ein:
+    const endpoint = '/send-mail.php' // Live-Endpoint
+    // const endpoint = 'http://localhost:8000/send-mail.php' // Lokaler Endpoint
 
     const response: any = await $fetch(endpoint, {
       method: 'POST',

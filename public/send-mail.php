@@ -59,15 +59,69 @@ if (!empty($data['website'])) {
     exit;
 }
 
-// B. Pflichtfelder prüfen
+// Form-Typ ermitteln (Standard ist Kontakt)
+$formType = isset($data['formType']) ? $data['formType'] : 'contact';
+
+// B. Pflichtfelder prüfen & Variablen vorbereiten
 $name = isset($data['name']) ? strip_tags(trim($data['name'])) : '';
-$email = isset($data['email']) ? filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL) : '';
 $messageText = isset($data['message']) ? strip_tags(trim($data['message'])) : '';
 
-if (empty($name) || empty($messageText) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "Bitte füllen Sie alle Felder korrekt aus."]);
-    exit;
+$mailSubject = "";
+$mailBody = "";
+$recipient = "info@tc-hardt.de";
+$replyToEmail = "info@tc-hardt.de"; // Standard-Reply-To
+$replyToName = "Website Besucher";
+
+if ($formType === 'jubilaeum') {
+    // Validierung Jubiläum
+    $ticketCount = isset($data['ticketCount']) ? (int)$data['ticketCount'] : 0;
+    $ticketType = isset($data['ticketType']) ? strip_tags(trim($data['ticketType'])) : '';
+    $paymentMethod = isset($data['paymentMethod']) ? strip_tags(trim($data['paymentMethod'])) : '';
+
+    if (empty($name) || $ticketCount <= 0 || empty($ticketType) || empty($paymentMethod)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Bitte füllen Sie alle erforderlichen Felder aus."]);
+        exit;
+    }
+
+    $recipient = isset($data['to']) ? strip_tags(trim($data['to'])) : 'jubilaeum@tc-hardt.de';
+    $mailSubject = "Neue Anmeldung zum Jubilaeum: $name";
+
+    $ticketTypeLabel = $ticketType === 'student' ? 'Student / Schüler' : 'Normalzahler';
+    $paymentLabel = $paymentMethod === 'invoice' ? 'Auf TC Hardt Rechnung setzen' : 'Barbezahlung';
+
+    $mailBody = "Neue Anmeldung zur Jubilaeumsfeier:\n\n" .
+                "Name: $name\n" .
+                "Anzahl der Tickets: $ticketCount\n" .
+                "Ticketart: $ticketTypeLabel\n" .
+                "Zahlungsart: $paymentLabel\n\n" .
+                "Persönliche Nachricht:\n" .
+                (!empty($messageText) ? $messageText : "- keine -") . "\n\n" .
+                "--------------------------------------------------\n" .
+                "Gesendet am: " . date("d.m.Y H:i");
+
+    $replyToName = $name;
+} else {
+    // Validierung Kontakt
+    $email = isset($data['email']) ? filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL) : '';
+
+    if (empty($name) || empty($messageText) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "Bitte füllen Sie alle Felder korrekt aus."]);
+        exit;
+    }
+
+    $mailSubject = "Neue Kontaktanfrage: $name";
+    $replyToEmail = $email;
+    $replyToName = $name;
+
+    $mailBody = "Neue Nachricht über das Kontaktformular:\n\n" .
+                "Name: $name\n" .
+                "E-Mail: $email\n\n" .
+                "--------------------------------------------------\n\n" .
+                $messageText . "\n\n" .
+                "--------------------------------------------------\n" .
+                "Gesendet am: " . date("d.m.Y H:i");
 }
 
 // --- E-MAIL VERSAND ---
@@ -89,22 +143,16 @@ try {
     // Absender muss zwingend die Netcup-Adresse sein!
     $mail->setFrom('kontakt@tc-hardt.de', 'TC Hardt Website');
 
-    // Empfänger (Der Verein)
-    $mail->addAddress('info@tc-hardt.de');
+    // Empfänger
+    $mail->addAddress($recipient);
 
-    // Antwort an: Wenn du auf "Antworten" klickst, geht es an den Besucher
-    $mail->addReplyTo($email, $name);
+    // Antwort an
+    $mail->addReplyTo($replyToEmail, $replyToName);
 
     // Inhalt
     $mail->isHTML(false); // Reintext ist sicherer gegen Spamfilter
-    $mail->Subject = "Neue Kontaktanfrage: $name";
-    $mail->Body    = "Neue Nachricht über das Kontaktformular:\n\n" .
-                     "Name: $name\n" .
-                     "E-Mail: $email\n\n" .
-                     "--------------------------------------------------\n\n" .
-                     $messageText . "\n\n" .
-                     "--------------------------------------------------\n" .
-                     "Gesendet am: " . date("d.m.Y H:i");
+    $mail->Subject = $mailSubject;
+    $mail->Body    = $mailBody;
 
     $mail->send();
 

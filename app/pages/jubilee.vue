@@ -5,6 +5,7 @@ import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
 import AppButton from '~/components/base/Button.vue'
+import AnniversaryForm from '~/components/jubilee/AnniversaryForm.vue'
 
 useSeoMeta({
   title: '50 Jahre TC Hardt',
@@ -105,9 +106,9 @@ const timelineItems = [
               </p>
               <div class="flex flex-wrap justify-center gap-4">
                 <AppButton
-                  to="mailto:jubilaeum@tc-hardt.de"
-                  label="E-Mail schreiben"
-                  icon="i-heroicons-envelope"
+                  to="#ticketbestellung"
+                  label="Zur Ticketbestellung"
+                  icon="i-heroicons-ticket"
                 />
                 <AppButton
                   :to="$localePath('events')"
@@ -160,5 +161,19 @@ const timelineItems = [
       </template>
     </div>
 
+    <Section
+      id="ticketbestellung"
+      class="scroll-mt-16"
+      variant="secondary-light"
+      :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
+      :padding-bottom="{ base: 'xs', sm:'sm', md: 'xl' }"
+      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
+      overlap-bottom
+      rounded="top"
+      outer-container
+    >
+      <AnniversaryForm />
+    </Section>
   </div>
 </template>
