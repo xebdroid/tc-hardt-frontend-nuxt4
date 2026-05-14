@@ -42,8 +42,8 @@ const isSent = ref(false)
 const toast = useToast()
 
 const ticketTypeOptions = [
-  { value: 'normal', label: 'Normalzahler' },
-  { value: 'student', label: 'Student / Schüler' }
+  { value: 'normal', label: 'Normalzahler (38€)' },
+  { value: 'student', label: 'Student / Schüler (29€)' }
 ]
 
 const paymentMethodOptions = [
