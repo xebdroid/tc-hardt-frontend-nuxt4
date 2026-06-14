@@ -13,10 +13,14 @@ import 'swiper/css/effect-fade'
 export interface HeroSlide {
   type: 'image' | 'video' | 'color'
   src?: string
+  srcMobile?: string
+  srcTablet?: string
   color?: string
   colorClass?: string
   poster?: string
   alt?: string
+  imageClass?: string
+  imageWrapperClass?: string
 
   // Content & Layout
   overlayClass?: string
@@ -30,10 +34,11 @@ export interface HeroSlide {
   descriptionClass?: string
   ctaPrimary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
   ctaSecondary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
-  contentPosition?:
-    'top-left' | 'top-center' | 'top-right' |
-    'center-left' | 'center' | 'center-right' |
-    'bottom-left' | 'bottom-center' | 'bottom-right'
+
+  // Responsive positions
+  contentPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+  contentPositionMobile?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+  contentPositionTablet?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
 
   // Eigener Slot-Name für komplett freies HTML
   slotName?: string
@@ -90,23 +95,36 @@ const containerHeightClass = computed(() => {
 })
 
 // --- POSITIONIERUNGS-HELFER ---
-const getContentClass = (position?: string) => {
-  switch (position) {
-    case 'top-left':      return 'justify-start items-start text-left'
-    case 'top-center':    return 'justify-start items-center text-center'
-    case 'top-right':     return 'justify-start items-end text-right'
-
-    case 'center-left':   return 'justify-center items-start text-left'
-    case 'center':        return 'justify-center items-center text-center'
-    case 'center-right':  return 'justify-center items-end text-right'
-
-    case 'bottom-left':   return 'justify-end items-start text-left'
-    case 'bottom-center': return 'justify-end items-center text-center'
-    case 'bottom-right':  return 'justify-end items-end text-right'
-
-    default:              return 'justify-center items-center text-center'
-  }
+const getAlignItemsClass = (position?: string, breakpointPrefix: string = '') => {
+  if (!position) return ''
+  const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
+  if (position.includes('left')) return `${p}items-start ${p}text-left`
+  if (position.includes('right')) return `${p}items-end ${p}text-right`
+  return `${p}items-center ${p}text-center`
 }
+
+const getMarginClass = (position?: string, breakpointPrefix: string = '') => {
+  if (!position) return ''
+  const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
+  if (position.includes('top')) return `${p}mb-auto`
+  if (position.includes('bottom')) return `${p}mt-auto`
+  return `${p}my-auto`
+}
+
+const getAlignmentClasses = (slide: HeroSlide) => {
+  const baseAlign = getAlignItemsClass(slide.contentPositionMobile || slide.contentPosition || 'center')
+  const mdAlign = slide.contentPositionTablet ? getAlignItemsClass(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getAlignItemsClass(slide.contentPosition, 'md') : '')
+  const lgAlign = slide.contentPosition ? getAlignItemsClass(slide.contentPosition, 'lg') : ''
+  return `${baseAlign} ${mdAlign} ${lgAlign}`
+}
+
+const getMarginClasses = (slide: HeroSlide) => {
+  const baseMargin = getMarginClass(slide.contentPositionMobile || slide.contentPosition || 'center')
+  const mdMargin = slide.contentPositionTablet ? getMarginClass(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getMarginClass(slide.contentPosition, 'md') : '')
+  const lgMargin = slide.contentPosition ? getMarginClass(slide.contentPosition, 'lg') : ''
+  return `${baseMargin} ${mdMargin} ${lgMargin}`
+}
+
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
@@ -204,18 +222,53 @@ const onSlideChange = (swiper: any) => {
             @ended="handleVideoEnded"
           />
 
-          <NuxtImg
+          <div
             v-else-if="slide.type === 'image'"
-            :src="slide.src"
-            :alt="slide.alt || 'Hero Image'"
-            class="w-full h-full object-cover"
-            sizes="sm:100vw md:100vw lg:100vw xl:100vw xxl:1536px"
-            quality="90"
-            format="webp"
-            :loading="index === 0 ? 'eager' : 'lazy'"
-            :fetchpriority="index === 0 ? 'high' : 'auto'"
-            :preload="index === 0"
-          />
+            class="w-full h-full"
+            :class="slide.imageWrapperClass"
+          >
+            <!-- Responsive Images via Tailwind hidden/block -->
+            <NuxtImg
+              v-if="slide.srcMobile"
+              :src="slide.srcMobile"
+              :alt="slide.alt || 'Hero Image Mobile'"
+              class="w-full h-full object-cover block"
+              :class="[(slide.srcTablet || slide.src) ? 'md:hidden' : '', slide.imageClass]"
+              sizes="100vw"
+              quality="90"
+              format="webp"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
+              :preload="index === 0"
+            />
+
+            <NuxtImg
+              v-if="slide.srcTablet"
+              :src="slide.srcTablet"
+              :alt="slide.alt || 'Hero Image Tablet'"
+              class="w-full h-full object-cover hidden md:block"
+              :class="[slide.src ? 'lg:hidden' : '', slide.imageClass]"
+              sizes="100vw"
+              quality="90"
+              format="webp"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
+            />
+
+            <NuxtImg
+              v-if="slide.src"
+              :src="slide.src"
+              :alt="slide.alt || 'Hero Image'"
+              class="w-full h-full object-cover"
+              :class="[(slide.srcMobile || slide.srcTablet) ? 'hidden lg:block' : 'block', slide.imageClass]"
+              sizes="sm:100vw md:100vw lg:100vw xl:100vw xxl:1536px"
+              quality="90"
+              format="webp"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
+              :preload="index === 0 && !slide.srcMobile && !slide.srcTablet"
+            />
+          </div>
         </div>
 
         <div
@@ -228,18 +281,12 @@ const onSlideChange = (swiper: any) => {
           class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
           :class="[
             { 'pt-[70px] lg:pt-[120px] pb-12': !removeTopPadding && slides.length >= 1 },
-            slide.contentPosition?.includes('left') ? 'items-start text-left' :
-            slide.contentPosition?.includes('right') ? 'items-end text-right' :
-            'items-center text-center'
+            getAlignmentClasses(slide)
           ]"
         >
           <div
             class="w-full max-w-7xl flex flex-col shrink-0"
-            :class="[
-              slide.contentPosition?.includes('top') ? 'mb-auto' :
-              slide.contentPosition?.includes('bottom') ? 'mt-auto' :
-              'my-auto'
-            ]"
+            :class="getMarginClasses(slide)"
           >
             <slot :name="slide.slotName || 'content'" :slide="slide">
 

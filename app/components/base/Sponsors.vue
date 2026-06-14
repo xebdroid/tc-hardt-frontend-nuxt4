@@ -13,6 +13,7 @@ const items = [
   { src: '/img/sponsors/logo_tieves_schreinerei.png', url: 'https://www.schreinerei-tieves.de/', alt: 'Tieves Schreinerei' },
   { src: '/img/sponsors/logo_heister.jpg', url: 'https://www.sport-heister.de/filiale-3193.asp?shoID=3193', alt: 'Sport Heister' },
   { src: '/img/sponsors/logo_sparkasse_moenchengladbach.jpg', url: 'https://www.sparkasse-moenchengladbach.de/', alt: 'Sparkasse Mönchengladbach' },
+  { src: '/img/sponsors/immobilien-kellers.png', url: 'https://kellers-immobilien.de/', alt: 'Immobilien Kellers' }
 ]
 </script>
 
