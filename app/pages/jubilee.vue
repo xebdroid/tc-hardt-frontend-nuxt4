@@ -5,7 +5,6 @@ import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import EventDate from '~/components/base/EventDate.vue'
 import AppButton from '~/components/base/Button.vue'
-import AnniversaryForm from '~/components/jubilee/AnniversaryForm.vue'
 
 useSeoMeta({
   title: '50 Jahre TC Hardt',
@@ -102,19 +101,13 @@ const timelineItems = [
             />
             <div class="mt-8 flex flex-col items-center gap-6">
               <p class="text-gray-600 dark:text-gray-300 text-center text-lg max-w-2xl">
-                Bei Fragen rund um unser Jubiläumsjahr oder zur Ticketbestellung für die Gala stehen wir Ihnen gerne zur Verfügung.
+                Bei Fragen rund um unser Jubiläumsjahr stehen wir Ihnen gerne zur Verfügung.
               </p>
               <div class="flex flex-wrap justify-center gap-4">
-                <AppButton
-                  to="#ticketbestellung"
-                  label="Zur Ticketbestellung"
-                  icon="i-heroicons-ticket"
-                />
                 <AppButton
                   :to="$localePath('events')"
                   label="Alle Termine ansehen"
                   icon="i-heroicons-calendar"
-                  variant="outline"
                 />
               </div>
             </div>
@@ -160,20 +153,5 @@ const timelineItems = [
         </div>
       </template>
     </div>
-
-    <Section
-      id="ticketbestellung"
-      class="scroll-mt-16"
-      variant="secondary-light"
-      :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
-      padding-bottom="xl"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      overlap-bottom
-      rounded="top"
-      outer-container
-    >
-      <AnniversaryForm />
-    </Section>
   </div>
 </template>

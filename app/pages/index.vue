@@ -28,21 +28,6 @@ useSeoMeta({
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
-    src: '/img/home/stage-sangria-open.jpg', // Standard Bild (Desktop)
-    // srcTablet: '/img/home/stage-sangria-open-tablet.jpg', // Bild für Tablet
-    // srcMobile: '/img/home/stage-sangria-open-mobile.jpg', // Bild für Mobile
-    title: 'Sangria Open 2026',
-    titleClass: 'text-accent-500 mt-20',
-    subtitle: 'Unser beliebtes Spaß-Turnier geht in die nächste Runde – sei dabei!',
-    contentPosition: 'bottom-center', // Position Desktop
-    // contentPositionTablet: 'top-center', // Position Tablet
-    contentPositionMobile: 'top-center', // Position Mobile
-    overlayClass: 'bg-gradient-to-b from-black/60 via-black/30 to-transparent',
-    imageClass: 'object-bottom',
-    ctaPrimary: { label: 'Gib mir mehr Infos', to: localePath({ name: 'news-slug', params: { slug: '2026-sangria-open-anmeldung' } }) }
-  },
-  {
-    type: 'image',
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
     contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
@@ -52,8 +37,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
     contentPosition: 'center',
     overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
-    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') },
-    ctaSecondary: { variant:'gold2', label: 'Jetzt Tickets bestellen', to: localePath('jubilee') + '#ticketbestellung' }
+    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
   },
   {
     type: 'video',
