@@ -32,8 +32,8 @@ export interface HeroSlide {
   subtitleClass?: string
   description?: string
   descriptionClass?: string
-  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
-  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant, class?: string }
+  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant, class?: string, target?: string }
+  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant, class?: string, target?: string }
 
   // Responsive positions
   contentPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
@@ -356,6 +356,7 @@ const onSlideChange = (swiper: any) => {
                   v-if="slide.ctaPrimary"
                   :to="slide.ctaPrimary.to"
                   :label="slide.ctaPrimary.label"
+                  :target="slide.ctaPrimary.target"
                   size="xl"
                   :variant="slide.ctaPrimary.variant || 'primary'"
                   cta
@@ -365,6 +366,7 @@ const onSlideChange = (swiper: any) => {
                   v-if="slide.ctaSecondary"
                   :to="slide.ctaSecondary.to"
                   :label="slide.ctaSecondary.label"
+                  :target="slide.ctaSecondary.target"
                   size="xl"
                   :variant="slide.ctaSecondary.variant || 'ghost'"
                   cta

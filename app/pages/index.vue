@@ -28,6 +28,20 @@ useSeoMeta({
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
+    src: '/img/events/naveen-ketterer-ExLozCZ1RUs-unsplash.jpg',
+    title: 'Kreis- und Stadtmeisterschaften 2026',
+    titleClass: 'text-white font-bold tracking-tight',
+    subtitle: 'Der Erwachsenen • 29.08. – 13.09.2026',
+    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider',
+    description: 'TC Hardt 1976 e.V. • Birkmannsweg 16, 41169 Mönchengladbach',
+    descriptionClass: 'text-brand-light-200 font-medium',
+    contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
+    ctaPrimary: { variant: 'brand-dark', label: 'Alle Events ansehen', to: localePath('events') },
+    ctaSecondary: { variant: 'highlight', label: 'Zur Anmeldung (tennis.de)', to: 'https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899', target: '_blank' }
+  },
+  {
+    type: 'image',
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
     contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
