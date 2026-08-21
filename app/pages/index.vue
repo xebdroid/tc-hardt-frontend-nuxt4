@@ -10,6 +10,7 @@ import Headline from '~/components/base/Headline.vue'
 import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import EventList from '~/components/events/EventList.vue'
+import MemorialSection from '~/components/memorial/MemorialSection.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
@@ -28,15 +29,18 @@ useSeoMeta({
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
-    src: '/img/events/naveen-ketterer-ExLozCZ1RUs-unsplash.jpg',
+    src: '/img/home/stage-ksm-2026.jpg',
+    srcMobile: '/img/home/stage-ksm-2026-mobile.jpg',
+    imageClassMobile: 'object-[center_top]',
     title: 'Kreis- und Stadtmeisterschaften 2026',
-    titleClass: 'text-white font-bold tracking-tight',
+    titleClass: 'text-white font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[42px] xl:text-5xl leading-tight max-w-md md:max-w-lg lg:max-w-xl',
     subtitle: 'Der Erwachsenen • 29.08. – 13.09.2026',
-    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider',
+    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider text-sm sm:text-lg md:text-xl',
     description: 'TC Hardt 1976 e.V. • Birkmannsweg 16, 41169 Mönchengladbach',
-    descriptionClass: 'text-brand-light-200 font-medium',
-    contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
+    descriptionClass: 'text-brand-light-200 font-medium text-xs sm:text-sm md:text-base',
+    contentPosition: 'bottom-right',
+    contentPositionMobile: 'bottom-center',
+    contentPositionTablet: 'bottom-right',
     ctaPrimary: { variant: 'brand-dark', label: 'Alle Events ansehen', to: localePath('events') },
     ctaSecondary: { variant: 'highlight', label: 'Zur Anmeldung (tennis.de)', to: 'https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899', target: '_blank' }
   },
@@ -221,6 +225,8 @@ const newsItems = computed(() => {
         </div>
       </div>
     </Section>
+ 
+    <MemorialSection />
 
     <Section
       variant="primary"

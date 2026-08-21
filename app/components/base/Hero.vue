@@ -10,6 +10,14 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
+export interface HeroSlideCTA {
+  label: string
+  to: string
+  variant?: ButtonVariant
+  class?: string
+  target?: string
+}
+
 export interface HeroSlide {
   type: 'image' | 'video' | 'color'
   src?: string
@@ -20,20 +28,45 @@ export interface HeroSlide {
   poster?: string
   alt?: string
   imageClass?: string
+  imageClassMobile?: string
+  imageClassTablet?: string
   imageWrapperClass?: string
+  contentWrapperClass?: string
 
-  // Content & Layout
+  // Overlays (responsive)
   overlayClass?: string
+  overlayClassMobile?: string
+  overlayClassTablet?: string
+
+  // Content Image / Logo / Badge
   contentImage?: string
+  contentImageMobile?: string
   contentImageClass?: string
+  contentImageClassMobile?: string
+
+  // Title (responsive)
   title?: string
+  titleMobile?: string
   titleClass?: string
+  titleClassMobile?: string
+
+  // Subtitle (responsive)
   subtitle?: string
+  subtitleMobile?: string
   subtitleClass?: string
+  subtitleClassMobile?: string
+
+  // Description (responsive)
   description?: string
+  descriptionMobile?: string
   descriptionClass?: string
-  ctaPrimary?: { label: string; to: string, variant?: ButtonVariant, class?: string, target?: string }
-  ctaSecondary?: { label: string; to: string, variant?: ButtonVariant, class?: string, target?: string }
+  descriptionClassMobile?: string
+
+  // CTAs (responsive)
+  ctaPrimary?: HeroSlideCTA
+  ctaPrimaryMobile?: HeroSlideCTA
+  ctaSecondary?: HeroSlideCTA
+  ctaSecondaryMobile?: HeroSlideCTA
 
   // Responsive positions
   contentPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
@@ -45,6 +78,7 @@ export interface HeroSlide {
 
   // Theme for text color
   theme?: 'light' | 'dark'
+  themeMobile?: 'light' | 'dark'
 }
 
 import { useUIStore } from '~/stores/ui'
@@ -55,7 +89,7 @@ const props = withDefaults(defineProps<{
   fallbackClass?: string
   autoplay?: boolean | number
   loopVideo?: boolean
-  theme?: 'light' | 'dark',
+  theme?: 'light' | 'dark'
   removeTopPadding?: boolean
 }>(), {
   slides: () => [],
@@ -67,7 +101,7 @@ const props = withDefaults(defineProps<{
   removeTopPadding: false
 })
 
-const swiperInstance = ref<any>(null);
+const swiperInstance = ref<any>(null)
 const uiStore = useUIStore()
 
 // Melden, ob wir einen Fullscreen Hero haben (für den Sticky CTA)
@@ -95,7 +129,7 @@ const containerHeightClass = computed(() => {
 })
 
 // --- POSITIONIERUNGS-HELFER ---
-const getAlignItemsClass = (position?: string, breakpointPrefix: string = '') => {
+const getAlignItemsClass = (position?: string, breakpointPrefix = '') => {
   if (!position) return ''
   const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
   if (position.includes('left')) return `${p}items-start ${p}text-left`
@@ -103,11 +137,11 @@ const getAlignItemsClass = (position?: string, breakpointPrefix: string = '') =>
   return `${p}items-center ${p}text-center`
 }
 
-const getMarginClass = (position?: string, breakpointPrefix: string = '') => {
+const getMarginClass = (position?: string, breakpointPrefix = '') => {
   if (!position) return ''
   const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
-  if (position.includes('top')) return `${p}mb-auto`
-  if (position.includes('bottom')) return `${p}mt-auto`
+  if (position.includes('top')) return `${p}mb-auto ${p}mt-0`
+  if (position.includes('bottom')) return `${p}mt-auto ${p}mb-0`
   return `${p}my-auto`
 }
 
@@ -125,6 +159,35 @@ const getMarginClasses = (slide: HeroSlide) => {
   return `${baseMargin} ${mdMargin} ${lgMargin}`
 }
 
+// Responsiver horizontaler Textblock-Rand (für subtitle / description)
+const getTextMarginClasses = (slide: HeroSlide) => {
+  const getHMargin = (pos?: string, prefix = '') => {
+    if (!pos) return ''
+    const p = prefix ? `${prefix}:` : ''
+    if (pos.includes('left')) return `${p}mr-auto ${p}ml-0`
+    if (pos.includes('right')) return `${p}ml-auto ${p}mr-0`
+    return `${p}mx-auto`
+  }
+  const baseHMargin = getHMargin(slide.contentPositionMobile || slide.contentPosition || 'center')
+  const mdHMargin = slide.contentPositionTablet ? getHMargin(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getHMargin(slide.contentPosition, 'md') : '')
+  const lgHMargin = slide.contentPosition ? getHMargin(slide.contentPosition, 'lg') : ''
+  return `${baseHMargin} ${mdHMargin} ${lgHMargin}`
+}
+
+// Responsive Ausrichtung der CTA-Buttons
+const getCtaJustifyClasses = (slide: HeroSlide) => {
+  const getJustify = (pos?: string, prefix = '') => {
+    if (!pos) return ''
+    const p = prefix ? `${prefix}:` : ''
+    if (pos.includes('left')) return `${p}justify-start`
+    if (pos.includes('right')) return `${p}justify-end`
+    return `${p}justify-center`
+  }
+  const baseJustify = getJustify(slide.contentPositionMobile || slide.contentPosition || 'center')
+  const mdJustify = slide.contentPositionTablet ? getJustify(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getJustify(slide.contentPosition, 'md') : '')
+  const lgJustify = slide.contentPosition ? getJustify(slide.contentPosition, 'lg') : ''
+  return `${baseJustify} ${mdJustify} ${lgJustify}`
+}
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
@@ -140,7 +203,6 @@ const handleVideoLoaded = (e: Event) => {
 const handleVideoEnded = () => {
   if (swiperInstance.value && !props.loopVideo) {
     swiperInstance.value.slideNext()
-    // Autoplay nur starten, wenn es in den Props NICHT false ist
     if (props.autoplay !== false) {
       swiperInstance.value.autoplay.start()
     }
@@ -233,8 +295,8 @@ const onSlideChange = (swiper: any) => {
               :src="slide.srcMobile"
               :alt="slide.alt || 'Hero Image Mobile'"
               class="w-full h-full object-cover block"
-              :class="[(slide.srcTablet || slide.src) ? 'md:hidden' : '', slide.imageClass]"
-              sizes="100vw"
+              :class="[(slide.srcTablet || slide.src) ? 'md:hidden' : '', slide.imageClassMobile || slide.imageClass || 'object-top']"
+              sizes="360px sm:640px md:768px"
               quality="90"
               format="webp"
               :loading="index === 0 ? 'eager' : 'lazy'"
@@ -248,7 +310,7 @@ const onSlideChange = (swiper: any) => {
               :alt="slide.alt || 'Hero Image Tablet'"
               class="w-full h-full object-cover hidden md:block"
               :class="[slide.src ? 'lg:hidden' : '', slide.imageClass]"
-              sizes="100vw"
+              sizes="768px lg:1024px"
               quality="90"
               format="webp"
               :loading="index === 0 ? 'eager' : 'lazy'"
@@ -260,7 +322,7 @@ const onSlideChange = (swiper: any) => {
               :src="slide.src"
               :alt="slide.alt || 'Hero Image'"
               class="w-full h-full object-cover"
-              :class="[(slide.srcMobile || slide.srcTablet) ? 'hidden lg:block' : 'block', slide.imageClass]"
+              :class="[(slide.srcMobile || slide.srcTablet) ? (slide.srcTablet ? 'hidden lg:block' : 'hidden md:block') : 'block', slide.imageClass]"
               sizes="sm:100vw md:100vw lg:100vw xl:100vw xxl:1536px"
               quality="90"
               format="webp"
@@ -271,14 +333,25 @@ const onSlideChange = (swiper: any) => {
           </div>
         </div>
 
+        <!-- Overlays (unterstützt mobile & desktop getrennt oder kombiniert) -->
+        <div
+          v-if="slide.overlayClassMobile && slide.type !== 'color'"
+          class="absolute inset-0 z-[5] md:hidden"
+          :class="slide.overlayClassMobile"
+        />
+        <div
+          v-if="slide.overlayClassTablet && slide.type !== 'color'"
+          class="absolute inset-0 z-[5] hidden md:block lg:hidden"
+          :class="slide.overlayClassTablet"
+        />
         <div
           v-if="slide.overlayClass && slide.type !== 'color'"
           class="absolute inset-0 z-[5]"
-          :class="slide.overlayClass"
+          :class="[slide.overlayClassMobile ? 'hidden md:block' : 'block', slide.overlayClass]"
         />
 
         <div
-          class="relative z-10 h-full w-full flex flex-col p-8 sm:p-16 lg:px-24 transition-all duration-500"
+          class="relative z-10 h-full w-full flex flex-col p-6 sm:p-12 lg:px-24 transition-all duration-500"
           :class="[
             { 'pt-[70px] lg:pt-[120px] pb-12': !removeTopPadding && slides.length >= 1 },
             getAlignmentClasses(slide)
@@ -286,23 +359,41 @@ const onSlideChange = (swiper: any) => {
         >
           <div
             class="w-full max-w-7xl flex flex-col shrink-0"
-            :class="getMarginClasses(slide)"
+            :class="[getMarginClasses(slide), getAlignmentClasses(slide), slide.contentWrapperClass]"
           >
             <slot :name="slide.slotName || 'content'" :slide="slide">
 
+              <!-- Content Image (z. B. Jubiläums-Logo / Badge) -->
               <div
-                v-if="slide.contentImage"
-                class="min-h-[100px] flex flex-col mb-[2vh]"
+                v-if="slide.contentImage || slide.contentImageMobile"
+                class="min-h-[60px] sm:min-h-[100px] flex flex-col mb-[2vh]"
                 :class="[
                   slide.contentPosition?.includes('left') ? 'items-start' :
                   slide.contentPosition?.includes('right') ? 'items-end' :
                   'items-center'
                 ]"
               >
+                <!-- Mobile Content Image (optional) -->
                 <NuxtImg
+                  v-if="slide.contentImageMobile"
+                  :src="slide.contentImageMobile"
+                  class="h-auto object-contain max-h-[25vh] md:hidden"
+                  :class="[slide.contentImageClassMobile || slide.contentImageClass || 'w-24 sm:w-32']"
+                  alt="Content Icon Mobile"
+                  sizes="300px"
+                  quality="90"
+                  format="webp"
+                  :loading="index === 0 ? 'eager' : 'lazy'"
+                />
+                <!-- Desktop / Default Content Image -->
+                <NuxtImg
+                  v-if="slide.contentImage"
                   :src="slide.contentImage"
                   class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh]"
-                  :class="[slide.contentImageClass || 'w-24 sm:w-32']"
+                  :class="[
+                    slide.contentImageMobile ? 'hidden md:block' : 'block',
+                    slide.contentImageClass || 'w-24 sm:w-32'
+                  ]"
                   alt="Content Icon"
                   sizes="sm:300px md:400px lg:600px"
                   quality="90"
@@ -311,47 +402,69 @@ const onSlideChange = (swiper: any) => {
                 />
               </div>
 
+              <!-- Title -->
               <h2
-                v-if="slide.title"
+                v-if="slide.title || slide.titleMobile"
                 class="text-3xl sm:text-5xl md:text-6xl font-bold mb-[2vh] font-heading drop-shadow-lg"
-                :class="[slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')]"
+                :class="[
+                  slide.titleClassMobile && slide.titleClass ? `${slide.titleClassMobile} md:${slide.titleClass}` :
+                  (slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')),
+                  getTextMarginClasses(slide)
+                ]"
               >
-                {{ slide.title }}
+                <!-- Mobile Title (wenn angegeben) -->
+                <span v-if="slide.titleMobile" class="md:hidden">{{ slide.titleMobile }}</span>
+                <!-- Desktop / Default Title -->
+                <span :class="{ 'hidden md:inline': !!slide.titleMobile }">{{ slide.title }}</span>
               </h2>
 
+              <!-- Subtitle -->
               <p
-                v-if="slide.subtitle"
-                class="text-xl sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
-                :class="[slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200'),
-                         slide.contentPosition?.includes('left') ? 'mr-auto' :
-                         slide.contentPosition?.includes('right') ? 'ml-auto' :
-                         'mx-auto'
+                v-if="slide.subtitle || slide.subtitleMobile"
+                class="text-lg sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
+                :class="[
+                  slide.subtitleClassMobile && slide.subtitleClass ? `${slide.subtitleClassMobile} md:${slide.subtitleClass}` :
+                  (slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200')),
+                  getTextMarginClasses(slide)
                 ]"
               >
-                {{ slide.subtitle }}
+                <span v-if="slide.subtitleMobile" class="md:hidden">{{ slide.subtitleMobile }}</span>
+                <span :class="{ 'hidden md:inline': !!slide.subtitleMobile }">{{ slide.subtitle }}</span>
               </p>
 
+              <!-- Description -->
               <p
-                v-if="slide.description"
-                class="text-base sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
-                :class="[slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300'),
-                         slide.contentPosition?.includes('left') ? 'mr-auto' :
-                         slide.contentPosition?.includes('right') ? 'ml-auto' :
-                         'mx-auto'
+                v-if="slide.description || slide.descriptionMobile"
+                class="text-sm sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
+                :class="[
+                  slide.descriptionClassMobile && slide.descriptionClass ? `${slide.descriptionClassMobile} md:${slide.descriptionClass}` :
+                  (slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300')),
+                  getTextMarginClasses(slide)
                 ]"
               >
-                {{ slide.description }}
+                <span v-if="slide.descriptionMobile" class="md:hidden">{{ slide.descriptionMobile }}</span>
+                <span :class="{ 'hidden md:inline': !!slide.descriptionMobile }">{{ slide.description }}</span>
               </p>
 
+              <!-- CTA Buttons (Responsive Positionierung & Buttons) -->
               <div
-                v-if="slide.ctaPrimary || slide.ctaSecondary"
-                class="flex flex-wrap gap-4"
-                :class="{
-                  'justify-start': slide.contentPosition?.includes('left'),
-                  'justify-end': slide.contentPosition?.includes('right'),
-                  'justify-center': !slide.contentPosition || slide.contentPosition.includes('center')
-                }"
+                v-if="slide.ctaPrimary || slide.ctaPrimaryMobile || slide.ctaSecondary || slide.ctaSecondaryMobile"
+                class="flex flex-wrap gap-3 sm:gap-4"
+                :class="getCtaJustifyClasses(slide)"
               >
+                <!-- Primary CTA (Mobile) -->
+                <Button
+                  v-if="slide.ctaPrimaryMobile"
+                  :to="slide.ctaPrimaryMobile.to"
+                  :label="slide.ctaPrimaryMobile.label"
+                  :target="slide.ctaPrimaryMobile.target"
+                  size="lg"
+                  :variant="slide.ctaPrimaryMobile.variant || 'primary'"
+                  cta
+                  class="md:hidden"
+                  :class="slide.ctaPrimaryMobile.class"
+                />
+                <!-- Primary CTA (Desktop / Default) -->
                 <Button
                   v-if="slide.ctaPrimary"
                   :to="slide.ctaPrimary.to"
@@ -360,8 +473,25 @@ const onSlideChange = (swiper: any) => {
                   size="xl"
                   :variant="slide.ctaPrimary.variant || 'primary'"
                   cta
-                  :class="slide.ctaPrimary.class"
+                  :class="[
+                    slide.ctaPrimaryMobile ? 'hidden md:inline-flex' : 'inline-flex',
+                    slide.ctaPrimary.class
+                  ]"
                 />
+
+                <!-- Secondary CTA (Mobile) -->
+                <Button
+                  v-if="slide.ctaSecondaryMobile"
+                  :to="slide.ctaSecondaryMobile.to"
+                  :label="slide.ctaSecondaryMobile.label"
+                  :target="slide.ctaSecondaryMobile.target"
+                  size="lg"
+                  :variant="slide.ctaSecondaryMobile.variant || 'ghost'"
+                  cta
+                  class="backdrop-blur-sm md:hidden"
+                  :class="slide.ctaSecondaryMobile.class"
+                />
+                <!-- Secondary CTA (Desktop / Default) -->
                 <Button
                   v-if="slide.ctaSecondary"
                   :to="slide.ctaSecondary.to"
@@ -371,7 +501,10 @@ const onSlideChange = (swiper: any) => {
                   :variant="slide.ctaSecondary.variant || 'ghost'"
                   cta
                   class="backdrop-blur-sm"
-                  :class="slide.ctaSecondary.class"
+                  :class="[
+                    slide.ctaSecondaryMobile ? 'hidden md:inline-flex' : 'inline-flex',
+                    slide.ctaSecondary.class
+                  ]"
                 />
               </div>
             </slot>
@@ -379,7 +512,7 @@ const onSlideChange = (swiper: any) => {
         </div>
       </component>
 
-      <div v-if="slides.length > 1" class="custom-pagination absolute bottom-8 left-0 right-0 flex justify-center z-20 hidden lg:flex [&>.swiper-pagination-bullet]:bg-white [&>.swiper-pagination-bullet-active]:bg-primary-500"/>
+      <div v-if="slides.length > 1" class="custom-pagination absolute bottom-8 left-0 right-0 flex justify-center z-20 hidden lg:flex [&>.swiper-pagination-bullet]:bg-white [&>.swiper-pagination-bullet-active]:bg-primary-500" />
 
       <button v-if="slides.length > 1" class="custom-prev absolute top-1/2 left-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
         <UIcon name="i-heroicons-chevron-left" class="w-10 h-10" />
@@ -387,7 +520,6 @@ const onSlideChange = (swiper: any) => {
       <button v-if="slides.length > 1" class="custom-next absolute top-1/2 right-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
         <UIcon name="i-heroicons-chevron-right" class="w-10 h-10" />
       </button>
-
     </component>
   </div>
 </template>
