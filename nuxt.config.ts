@@ -94,6 +94,7 @@ export default defineNuxtConfig({
     pages: {
       events: { de: '/termine' },
       membership: { de: '/mitglied-werden' },
+      'ksm-2026': { de: '/kreis-und-stadtmeisterschaften-2026' },
       jubilee: { de: '/50-jahre-tc-hardt' },
       facility: { de: '/anlage' },
       about: { de: "/ueber-uns" },
