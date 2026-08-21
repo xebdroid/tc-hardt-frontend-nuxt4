@@ -33,15 +33,16 @@ const heroSlides = computed<HeroSlide[]>(() => [
     srcMobile: '/img/home/stage-ksm-2026-mobile.jpg',
     imageClassMobile: 'object-[center_top]',
     title: 'Kreis- und Stadtmeisterschaften 2026',
-    titleClass: 'text-white font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[42px] xl:text-5xl leading-tight max-w-md md:max-w-lg lg:max-w-xl',
+    titleClass: 'text-white font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[48px] leading-tight text-center md:text-right',
     subtitle: 'Der Erwachsenen • 29.08. – 13.09.2026',
-    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider text-sm sm:text-lg md:text-xl',
+    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider text-sm sm:text-lg md:text-xl text-center md:text-right',
     description: 'TC Hardt 1976 e.V. • Birkmannsweg 16, 41169 Mönchengladbach',
-    descriptionClass: 'text-brand-light-200 font-medium text-xs sm:text-sm md:text-base',
+    descriptionClass: 'text-brand-light-200 font-medium text-xs sm:text-sm md:text-base text-center md:text-right',
     contentPosition: 'bottom-right',
     contentPositionMobile: 'bottom-center',
     contentPositionTablet: 'bottom-right',
-    ctaPrimary: { variant: 'brand-dark', label: 'Alle Events ansehen', to: localePath('events') },
+    contentWrapperClass: 'max-w-none w-full lg:max-w-xl xl:max-w-2xl lg:ml-auto lg:mr-0',
+    ctaPrimary: { variant: 'brand-dark', label: 'Alle Infos zum Turnier', to: localePath('ksm-2026') },
     ctaSecondary: { variant: 'highlight', label: 'Zur Anmeldung (tennis.de)', to: 'https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899', target: '_blank' }
   },
   {
@@ -225,7 +226,7 @@ const newsItems = computed(() => {
         </div>
       </div>
     </Section>
- 
+
     <MemorialSection />
 
     <Section

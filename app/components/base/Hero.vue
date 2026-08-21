@@ -351,15 +351,19 @@ const onSlideChange = (swiper: any) => {
         />
 
         <div
-          class="relative z-10 h-full w-full flex flex-col p-6 sm:p-12 lg:px-24 transition-all duration-500"
+          class="relative z-10 h-full w-full flex flex-col p-6 sm:p-10 lg:px-16 transition-all duration-500"
           :class="[
-            { 'pt-[70px] lg:pt-[120px] pb-12': !removeTopPadding && slides.length >= 1 },
+            { 'pt-[70px] lg:pt-[120px] pb-10 lg:pb-14': !removeTopPadding && slides.length >= 1 },
             getAlignmentClasses(slide)
           ]"
         >
           <div
-            class="w-full max-w-7xl flex flex-col shrink-0"
-            :class="[getMarginClasses(slide), getAlignmentClasses(slide), slide.contentWrapperClass]"
+            class="w-full flex flex-col shrink-0"
+            :class="[
+              slide.contentWrapperClass || 'max-w-7xl',
+              getMarginClasses(slide),
+              getAlignmentClasses(slide)
+            ]"
           >
             <slot :name="slide.slotName || 'content'" :slide="slide">
 
