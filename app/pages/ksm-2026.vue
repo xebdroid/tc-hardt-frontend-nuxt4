@@ -76,12 +76,13 @@ const scheduleMilestones = [
 
 // --- SPONSOREN KSM 2026 ---
 const ksmSponsors = [
-  { src: '/img/sponsors/ksm-2026/sponsor-tennis-kreis-moenchengladbach.png', alt: 'Tenniskreis Mönchengladbach' },
-  { src: '/img/sponsors/ksm-2026/sponsor-tc-venn.png', alt: 'TC Venn' },
-  { src: '/img/sponsors/ksm-2026/sponsor-blau-weiss-meer-tennis.png', alt: 'TG Blau-Weiss Meer' },
+  { src: '/img/sponsors/ksm-2026/sponsor-shirt-company.png', alt: 'Männer Moden Geldern', url:'https://share.google/PjF0RdCRTC4iQIWmq'},
+  { src: '/img/sponsors/ksm-2026/sponsor-tennis-kreis-moenchengladbach.png', alt: 'Tenniskreis Mönchengladbach', url:'https://tenniskreis-moenchengladbach.de/' },
+  { src: '/img/sponsors/ksm-2026/sponsor-tc-venn.png', alt: 'TC Venn', url:'https://www.tcvenn.de/' },
+  { src: '/img/sponsors/ksm-2026/sponsor-blau-weiss-meer-tennis.png', alt: 'TG Blau-Weiss Meer', url:'https://www.tg-blau-weiss-meer.de/' },
   { src: '/img/sponsors/ksm-2026/sponsor-heister-sport.png', alt: 'Sport Heister', url: 'https://www.sport-heister.de/' },
-  { src: '/img/sponsors/ksm-2026/sponsor-luce-eiscafe.png', alt: 'Eiscafé Luce' },
-  { src: '/img/sponsors/ksm-2026/sponsor-mg-sport.png', alt: 'MG-Sport' }
+  { src: '/img/sponsors/ksm-2026/sponsor-luce-eiscafe.png', alt: 'Eiscafé Luce', url: 'https://share.google/UINqUnzIMIQQnGMP6' },
+  { src: '/img/sponsors/ksm-2026/sponsor-mg-sport.png', alt: 'MG-Sport', url: 'https://www.mg-sport.de/' },
 ]
 </script>
 
@@ -181,7 +182,7 @@ const ksmSponsors = [
         <Button
           :to="localePath('sponsoring')"
           variant="outline"
-          label="Partner der KSM werden"
+          label="Jetzt TC-Hardt Sponsor werden"
           trailing-icon="i-heroicons-arrow-right"
         />
       </div>
