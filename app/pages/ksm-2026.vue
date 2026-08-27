@@ -65,7 +65,7 @@ const scheduleMilestones = [
   {
     date: 'Mo – Fr ab 17:00 Uhr',
     title: 'Hauptrunde & Abend-Sessions',
-    desc: 'Spannende Flutlicht- und Abendspiele unter der Woche auf unserer Anlage.'
+    desc: 'Spannende Abendspiele unter der Woche auf unserer Anlage.'
   },
   {
     date: '13.09.2026',
