@@ -53,11 +53,6 @@ const tournamentFacts = computed(() => [
 // --- ABLAUF ---
 const scheduleMilestones = [
   {
-    date: 'Ab sofort',
-    title: 'Online-Meldung geöffnet',
-    desc: 'Anmeldung über das offizielle Turnierportal tennis.de / mybigpoint möglich.'
-  },
-  {
     date: '29.08.2026',
     title: 'Turnierstart & Eröffnungsmatches',
     desc: 'Beginn der ersten Hauptfeldrunden auf allen Plätzen ab 10:00 Uhr.'
@@ -118,6 +113,17 @@ const ksmSponsors = [
         description="Der TC Hardt ist stolzer Hauptausrichter der Kreis- und Stadtmeisterschaften der Erwachsenen."
       />
 
+      <div class="flex justify-center">
+        <Button
+          class="text-center items-center mx-auto"
+          to="https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899"
+          label="Aktuelle Ergebnisse"
+          variant="primary"
+          icon="i-heroicons-trophy"
+          target="_blank"
+        />
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
         <FeatureCard
           v-for="(fact, index) in tournamentFacts"
@@ -144,7 +150,7 @@ const ksmSponsors = [
           description="Plane deine Turnierteilnahme oder deinen Besuch auf der Anlage am Birkmannsweg."
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-10">
           <div
             v-for="(item, idx) in scheduleMilestones"
             :key="idx"

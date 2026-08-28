@@ -16,6 +16,7 @@ export interface HeroSlideCTA {
   variant?: ButtonVariant
   class?: string
   target?: string
+  icon?: string
 }
 
 export interface HeroSlide {
@@ -462,6 +463,7 @@ const onSlideChange = (swiper: any) => {
                   :to="slide.ctaPrimaryMobile.to"
                   :label="slide.ctaPrimaryMobile.label"
                   :target="slide.ctaPrimaryMobile.target"
+                  :icon="slide.ctaPrimaryMobile.icon"
                   size="lg"
                   :variant="slide.ctaPrimaryMobile.variant || 'primary'"
                   cta
@@ -474,6 +476,7 @@ const onSlideChange = (swiper: any) => {
                   :to="slide.ctaPrimary.to"
                   :label="slide.ctaPrimary.label"
                   :target="slide.ctaPrimary.target"
+                  :icon="slide.ctaPrimary.icon"
                   size="xl"
                   :variant="slide.ctaPrimary.variant || 'primary'"
                   cta
@@ -489,6 +492,7 @@ const onSlideChange = (swiper: any) => {
                   :to="slide.ctaSecondaryMobile.to"
                   :label="slide.ctaSecondaryMobile.label"
                   :target="slide.ctaSecondaryMobile.target"
+                  :icon="slide.ctaSecondaryMobile.icon"
                   size="lg"
                   :variant="slide.ctaSecondaryMobile.variant || 'ghost'"
                   cta
@@ -501,6 +505,7 @@ const onSlideChange = (swiper: any) => {
                   :to="slide.ctaSecondary.to"
                   :label="slide.ctaSecondary.label"
                   :target="slide.ctaSecondary.target"
+                  :icon="slide.ctaSecondary.icon"
                   size="xl"
                   :variant="slide.ctaSecondary.variant || 'ghost'"
                   cta

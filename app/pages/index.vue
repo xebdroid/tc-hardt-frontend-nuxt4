@@ -42,7 +42,8 @@ const heroSlides = computed<HeroSlide[]>(() => [
     contentPositionMobile: 'bottom-center',
     contentPositionTablet: 'bottom-right',
     contentWrapperClass: 'max-w-none w-full lg:max-w-xl xl:max-w-2xl lg:ml-auto lg:mr-0',
-    ctaPrimary: { variant: 'brand-dark', label: 'Alle Infos zum Turnier', to: localePath('ksm-2026') },
+    ctaPrimary: { variant: 'highlight', label: 'Alle Infos zum Turnier', to: localePath('ksm-2026'), icon: 'i-heroicons-information-circle' },
+    ctaSecondary: { variant: 'brand-dark', label: 'Aktuelle Ergebnisse', to: 'https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899', target: '_blank', icon: 'i-heroicons-trophy' }
   },
   {
     type: 'image',
