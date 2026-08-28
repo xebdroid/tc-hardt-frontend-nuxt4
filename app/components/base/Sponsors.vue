@@ -18,7 +18,7 @@ const defaultItems: SponsorItem[] = [
   { src: '/img/sponsors/logo_ansgar_mertens_immobilien.png', url: 'https://immobilienvermittlung.nrw/', alt: 'Ansgar Mertens Immobilien' },
   { src: '/img/sponsors/logo_consys.png', url: 'https://zollsoftware-atlas.de/', alt: 'Consys Group' },
   { src: '/img/sponsors/logo_moll_bedachungen.png', url: 'https://moll-bedachungen.de/', alt: 'Moll Bedachungen' },
-  { src: '/img/sponsors/logo_kroker.png', url: 'https://www.xn--werbeprofi-mnchengladbach-9rc.de/', alt: 'Kroker Werbeprofi' },
+  { src: '/img/sponsors/logo_kroker.png', url: 'https://www.kroker-werbeprofi.de/', alt: 'Kroker Werbeprofi' },
   { src: '/img/sponsors/logo_fuchsbau.jpg', url: 'https://fuchsbau-mg.de/', alt: 'Gaststätte Fuchsbau 54' },
   { src: '/img/sponsors/logo_volksbank_immobilien.jpg', url: 'https://www.vobaimmo.de', alt: 'VOBA Immobilien eG' },
   { src: '/img/sponsors/logo_gs_metallbau_goelden_seewal.png', url: 'https://www.goelden-seewald.de/', alt: 'G+S Metallbau Gölden u. Seewald' },
