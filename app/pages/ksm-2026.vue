@@ -211,13 +211,6 @@ const ksmSponsors = [
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-4">
         <Button
-          to="https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899"
-          target="_blank"
-          label="Zur Anmeldung (tennis.de)"
-          variant="outline"
-          icon="i-heroicons-arrow-top-right-on-square"
-        />
-        <Button
           to="mailto:sportwart@tc-hardt.de"
           label="E-Mail an Sportwart"
           variant="outline"
