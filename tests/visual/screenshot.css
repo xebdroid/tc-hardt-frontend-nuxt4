@@ -1,0 +1,12 @@
+/* Wird nur beim Screenshot injiziert: Dev-Overlays ausblenden */
+#nuxt-devtools-container,
+nuxt-devtools-frame,
+vite-error-overlay,
+nuxt-error-overlay {
+  display: none !important;
+}
+
+/* Elemente mit wechselndem Inhalt (Videos, Autoplay-Karussells) */
+[data-vr-hide] {
+  visibility: hidden !important;
+}
