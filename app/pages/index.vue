@@ -29,24 +29,6 @@ useSeoMeta({
 const heroSlides = computed<HeroSlide[]>(() => [
   {
     type: 'image',
-    src: '/img/home/stage-ksm-2026.jpg',
-    srcMobile: '/img/home/stage-ksm-2026-mobile.jpg',
-    imageClassMobile: 'object-[center_top]',
-    title: 'Kreis- und Stadtmeisterschaften 2026',
-    titleClass: 'text-white font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[48px] leading-tight text-center md:text-right',
-    subtitle: 'Der Erwachsenen • 29.08. – 13.09.2026',
-    subtitleClass: 'text-brand-light-300 font-bold uppercase tracking-wider text-sm sm:text-lg md:text-xl text-center md:text-right',
-    description: 'TC Hardt 1976 e.V. • Birkmannsweg 16, 41169 Mönchengladbach',
-    descriptionClass: 'text-brand-light-200 font-medium text-xs sm:text-sm md:text-base text-center md:text-right',
-    contentPosition: 'bottom-right',
-    contentPositionMobile: 'bottom-center',
-    contentPositionTablet: 'bottom-right',
-    contentWrapperClass: 'max-w-none w-full lg:max-w-xl xl:max-w-2xl lg:ml-auto lg:mr-0',
-    ctaPrimary: { variant: 'highlight', label: 'Alle Infos zum Turnier', to: localePath('ksm-2026'), icon: 'i-heroicons-information-circle' },
-    ctaSecondary: { variant: 'brand-dark', label: 'Aktuelle Ergebnisse', to: 'https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899', target: '_blank', icon: 'i-heroicons-trophy' }
-  },
-  {
-    type: 'image',
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
     contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
     contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
