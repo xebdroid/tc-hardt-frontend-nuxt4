@@ -709,6 +709,30 @@
       "image": "/img/events/gluehwein-open.jpg",
       "highlightLevel": 0,
       "slug": "glahwein-open-saisonabschluss"
+    },
+    {
+      "id": 11,
+      "date": "2026-10-15",
+      "time": "19:00 Uhr",
+      "title": "Ressortsitzung Vereinsleben",
+      "description": "Zu unseren Ressortsitzungen sind alle Mitglieder herzlich eingeladen. Sie sind ein Format, um den Mitgliedern die Möglichkeit zu geben, Lob, Feedback, Kritik oder Anregungen direkt an den Vorstand zu geben. Nur durch die Mitarbeit aller Mitglieder kann unser Vereinsleben gut funktionieren. Am 15.10. werden wir explizit über das zurückliegende Jubiläumsjahr sprechen und u. a. die Kreis- und Stadtmeisterschaften reflektieren.",
+      "content": "<p class=\"mb-4\">Zu unseren Ressortsitzungen sind alle Mitglieder herzlich eingeladen. Sie sind ein Format, um den Mitgliedern die Möglichkeit zu geben, Lob, Feedback, Kritik oder Anregungen direkt an den Vorstand zu geben. Nur durch die Mitarbeit aller Mitglieder kann unser Vereinsleben gut funktionieren.</p><p class=\"mb-4\">Am 15.10. werden wir explizit über das zurückliegende Jubiläumsjahr sprechen und u. a. die Kreis- und Stadtmeisterschaften reflektieren.</p>",
+      "location": "Clubhaus",
+      "image": "/img/events/dylan-gillis-KdeqA3aTnBY-unsplash.jpg",
+      "highlightLevel": 0,
+      "slug": "ressortsitzung-vereinsleben"
+    },
+    {
+      "id": 12,
+      "date": "2026-11-14",
+      "time": "10:30 Uhr",
+      "title": "Abhängen der Netze und Windfänge",
+      "description": "Unsere Saison neigt sich dem Ende entgegen. Dementsprechend möchten wir am 14.11. unsere Anlage in den Winterschlaf schicken. Um alle anfallenden Arbeiten gut erledigen zu können, werden Helferinnen und Helfer benötigt. Nur gemeinsam können wir dafür sorgen, dass unsere Anlage in einem so tollen Zustand bleibt wie bisher!",
+      "content": "<p class=\"mb-4\">Unsere Saison neigt sich dem Ende entgegen. Dementsprechend möchten wir am 14.11. unsere Anlage in den Winterschlaf schicken.</p><p class=\"mb-4\">Um alle anfallenden Arbeiten gut erledigen zu können, werden Helferinnen und Helfer benötigt. Nur gemeinsam können wir dafür sorgen, dass unsere Anlage in einem so tollen Zustand bleibt wie bisher!</p>",
+      "location": "Auf der Anlage",
+      "image": "/img/events/windfang.jpg",
+      "highlightLevel": 0,
+      "slug": "abhaengen-der-netze-und-windfaenge"
     }
   ],
   "tariffs": [

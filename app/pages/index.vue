@@ -27,6 +27,17 @@ useSeoMeta({
 
 // --- DATA ---
 const heroSlides = computed<HeroSlide[]>(() => [
+    {
+    type: 'video',
+    src: '/videos/anlage-von-oben-small.mp4',
+    // src: '/videos/anlage-von-oben-large.mp4',
+    poster: '/img/home/anlage-von-oben-large-preview.jpg',
+    title: 'Mehr als nur ein Tennisplatz',
+    subtitle: 'Finde dein sportliches Zuhause. Genieße erstklassige Plätze, echte Gemeinschaft und die beste Zeit des Tages.',
+    contentPosition: 'bottom-center',
+    overlayClass: 'bg-gradient-to-t from-highlight-900/70 via-highlight-900/10 to-transparent',
+    ctaPrimary: { variant: 'brand-dark', label: 'Jetzt Mitglied werden', to: localePath('membership') }
+  },
   {
     type: 'image',
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
@@ -39,17 +50,6 @@ const heroSlides = computed<HeroSlide[]>(() => [
     contentPosition: 'center',
     overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
     ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
-  },
-  {
-    type: 'video',
-    src: '/videos/anlage-von-oben-small.mp4',
-    // src: '/videos/anlage-von-oben-large.mp4',
-    poster: '/img/home/anlage-von-oben-large-preview.jpg',
-    title: 'Mehr als nur ein Tennisplatz',
-    subtitle: 'Finde dein sportliches Zuhause. Genieße erstklassige Plätze, echte Gemeinschaft und die beste Zeit des Tages.',
-    contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-highlight-900/70 via-highlight-900/10 to-transparent',
-    ctaPrimary: { variant: 'brand-dark', label: 'Jetzt Mitglied werden', to: localePath('membership') }
   },
   {
     type: 'image',
