@@ -103,6 +103,8 @@ export default defineNuxtConfig({
       contact: { de: "/kontakt" },
       imprint: { de: "/impressum" },
       privacy: { de: "/datenschutz" },
+      'gallery/index': { de: '/galerie' },
+      'gallery/[slug]': { de: '/galerie/[slug]' },
     },
 
     detectBrowserLanguage: false,

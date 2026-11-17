@@ -14,7 +14,31 @@ export interface Event {
   time?: string;
   title: string;
   description?: string;
+  content?: string;
   location?: string;
   image: string | null;
   highlightLevel?: number;
+  slug?: string;
+  gallerySlug?: string;
+}
+
+export interface GalleryImage {
+  src: string;
+  type?: 'image' | 'video';
+  alt?: string;
+  caption?: string;
+}
+
+export interface GalleryAlbum {
+  id: number;
+  title: string;
+  slug: string;
+  year: number;
+  date: string;
+  description?: string;
+  folder?: string;
+  cover?: string;
+  published?: boolean;
+  captions?: Record<string, string>;
+  images?: Array<string | GalleryImage>;
 }
