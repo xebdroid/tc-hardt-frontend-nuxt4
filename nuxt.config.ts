@@ -1,5 +1,3 @@
-import tailwindcss from '@tailwindcss/vite'
-
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
@@ -53,14 +51,10 @@ export default defineNuxtConfig({
   },
 
   css: [
-    "~/assets/css/main.css",
     "~/assets/scss/main.scss"
   ],
 
   vite: {
-    plugins: [
-      tailwindcss()
-    ],
     css: {
       preprocessorOptions: {
         scss: {
