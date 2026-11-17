@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import InverseCorner from '~/components/layout/InverseCorner.vue'
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
+import ColorModeButton from '~/components/base/ColorModeButton.vue'
 import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
+import HeaderDesktopNav from '~/components/layout/header/DesktopNav.vue'
 import Button from '~/components/base/Button.vue'
-import BaseIcon from '~/components/base/Icon.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 import { useUIStore } from '~/stores/ui'
 
@@ -69,31 +70,7 @@ onUnmounted(() => {
         <div class="w-full flex items-start justify-between shrink-0 relative py-2 lg:py-3">
 
           <div class="hidden lg:flex flex-1 items-center self-center min-w-0 lg:pr-20">
-            <UNavigationMenu
-              :items="headerMenu"
-              orientation="horizontal"
-              content-orientation="vertical"
-              class="w-full justify-start"
-              :ui="{
-                content: 'w-auto min-w-max',
-                childLink: 'whitespace-nowrap text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors',
-                link: 'text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors'
-              }"
-            >
-              <template #item="{ item }">
-                <BaseIcon
-                  v-if="item.icon && !item.noDesktopIcon"
-                  :name="item.icon"
-                  class="w-5 h-5 shrink-0"
-                />
-                <span v-if="!item.isHome" class="truncate">{{ item.label }}</span>
-                <BaseIcon
-                  v-if="item.children?.length"
-                  name="i-heroicons-chevron-down-20-solid"
-                  class="w-4 h-4 ml-1 shrink-0 text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 dark:group-hover:text-brand-light-400 transition-colors duration-200 group-data-[state=open]:rotate-180"
-                />
-              </template>
-            </UNavigationMenu>
+            <HeaderDesktopNav :items="headerMenu" />
           </div>
 
           <HeaderLogo class="shrink-0 mx-auto" @click="closeMenu" />
@@ -113,13 +90,10 @@ onUnmounted(() => {
                 />
               </template>
 
-              <UColorModeButton
+              <ColorModeButton
                 v-if="showColorModeButton"
                 size="xl"
                 variant="ghost"
-                :ui="{
-                  leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors'
-                }"
               />
 
               <LanguageSwitcher

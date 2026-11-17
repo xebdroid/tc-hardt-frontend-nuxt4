@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
@@ -6,14 +8,15 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-12-21",
 
   colorMode: {
-    preference: 'light'
+    preference: 'light',
+    classSuffix: ''
   },
 
   modules: [
-    '@nuxt/ui',
+    '@nuxt/icon',
+    '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     '@nuxt/eslint',
-    '@nuxtjs/google-fonts',
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/seo'
@@ -55,6 +58,9 @@ export default defineNuxtConfig({
   ],
 
   vite: {
+    plugins: [
+      tailwindcss()
+    ],
     css: {
       preprocessorOptions: {
         scss: {
@@ -75,16 +81,6 @@ export default defineNuxtConfig({
 
   pinia: {
     storesDirs: ['./stores/**'],
-  },
-
-  googleFonts: {
-    families: {
-      Inter: [400, 500, 600],
-      Montserrat: [700, 800]
-    },
-    display: 'swap',
-    download: true,
-    inject: true
   },
 
   nitro: {

@@ -68,7 +68,7 @@ export function useCalendar(event: Event) {
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
       'BEGIN:VEVENT',
-      `URL:${process.client ? document.location.href : 'http://tc-hardt.de'}`,
+      `URL:https://tc-hardt.de`,
       `DTSTART:${startDate}`,
       `DTEND:${endDate}`,
       `SUMMARY:${event.title}`,

@@ -1,11 +1,15 @@
-import type { NavigationMenuItem } from '@nuxt/ui'
 import type { ButtonVariant } from '~/components/base/Button.vue'
 
-// Erweiterung des Typs für unsere Custom-Logik
-export interface CustomNavigationMenuItem extends NavigationMenuItem {
+export interface CustomNavigationMenuItem {
+  label: string
+  to?: string
+  icon?: string
+  description?: string
+  class?: string
   isHome?: boolean
   hidden?: boolean
   noDesktopIcon?: boolean
+  children?: CustomNavigationMenuItem[]
 }
 
 

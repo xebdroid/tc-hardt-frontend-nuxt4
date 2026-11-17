@@ -96,7 +96,7 @@ onUnmounted(() => {
             aria-label="Schließen"
             @click="close"
           >
-            <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
+            <BaseIcon name="i-heroicons-x-mark" class="w-6 h-6" />
           </button>
         </div>
 
@@ -113,7 +113,7 @@ onUnmounted(() => {
             aria-label="Vorheriges Bild"
             @click.stop="prev"
           >
-            <UIcon name="i-heroicons-chevron-left" class="w-6 h-6 md:w-7 md:h-7" />
+            <BaseIcon name="i-heroicons-chevron-left" class="w-6 h-6 md:w-7 md:h-7" />
           </button>
 
           <div class="flex flex-col items-center max-h-full max-w-full">
@@ -149,7 +149,7 @@ onUnmounted(() => {
             aria-label="Nächstes Bild"
             @click.stop="next"
           >
-            <UIcon name="i-heroicons-chevron-right" class="w-6 h-6 md:w-7 md:h-7" />
+            <BaseIcon name="i-heroicons-chevron-right" class="w-6 h-6 md:w-7 md:h-7" />
           </button>
         </div>
 
@@ -175,7 +175,7 @@ onUnmounted(() => {
                 class="w-full h-full object-cover"
               />
               <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <UIcon name="i-heroicons-play-solid" class="w-4 h-4 text-white" />
+                <BaseIcon name="i-heroicons-play-solid" class="w-4 h-4 text-white" />
               </div>
             </template>
             <img

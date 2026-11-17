@@ -37,14 +37,14 @@ defineProps<Props>()
       <!-- Foto- & Video-Anzahl oben rechts -->
       <div class="absolute top-3 right-3 flex items-center gap-1.5">
         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-black/65 text-white backdrop-blur-xs">
-          <UIcon name="i-heroicons-photo" class="w-4 h-4 text-accent-400" />
+          <BaseIcon name="i-heroicons-photo" class="w-4 h-4 text-accent-400" />
           {{ album.photoCount }} {{ album.photoCount === 1 ? 'Foto' : 'Fotos' }}
         </span>
         <span
           v-if="album.videoCount > 0"
           class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-black/65 text-white backdrop-blur-xs"
         >
-          <UIcon name="i-heroicons-video-camera" class="w-4 h-4 text-accent-400" />
+          <BaseIcon name="i-heroicons-video-camera" class="w-4 h-4 text-accent-400" />
           {{ album.videoCount }}
         </span>
       </div>
@@ -53,7 +53,7 @@ defineProps<Props>()
     <!-- Karten-Inhalt -->
     <div class="flex flex-col flex-grow p-5">
       <div v-if="album.date" class="flex items-center gap-1.5 mb-2">
-        <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-accent-500 shrink-0" />
+        <BaseIcon name="i-heroicons-calendar" class="w-4 h-4 text-accent-500 shrink-0" />
         <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
           {{ album.date }}
         </span>

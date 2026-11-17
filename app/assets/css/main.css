@@ -1,6 +1,6 @@
-@layer theme, base, components, utilities;
 @import "tailwindcss";
-@import "@nuxt/ui";
+@source "../../**/*";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Temporäre Tailwind v4 Theme-Brücke für noch nicht migrierte Komponenten.
    Wird in Phase 3 komplett entfernt, sobald alle Komponenten auf Scoped SCSS umgestellt sind. */
@@ -25,6 +25,18 @@
   --color-brand-dark-800: #1c3063;
   --color-brand-dark-900: #1a2852;
   --color-brand-dark-950: #0f1730;
+
+  --color-primary-50: #f0f3fa;
+  --color-primary-100: #e2e7f4;
+  --color-primary-200: #c9d3e9;
+  --color-primary-300: #a3b5db;
+  --color-primary-400: #7691ca;
+  --color-primary-500: #526eb6;
+  --color-primary-600: #3b529d;
+  --color-primary-700: #304182;
+  --color-primary-800: #1c3063;
+  --color-primary-900: #1a2852;
+  --color-primary-950: #0f1730;
 
   --color-brand-light-50: #ebf7fc;
   --color-brand-light-100: #c3e6f6;

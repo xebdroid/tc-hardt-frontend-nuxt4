@@ -84,18 +84,18 @@ const openLightbox = (index: number) => {
               {{ album.year }}
             </span>
             <span v-if="album.date" class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400">
-              <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-accent-500" />
+              <BaseIcon name="i-heroicons-calendar" class="w-4 h-4 text-accent-500" />
               {{ album.date }}
             </span>
             <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400">
-              <UIcon name="i-heroicons-photo" class="w-4 h-4 text-accent-500" />
+              <BaseIcon name="i-heroicons-photo" class="w-4 h-4 text-accent-500" />
               {{ album.photoCount }} {{ album.photoCount === 1 ? 'Foto' : 'Fotos' }}
             </span>
             <span
               v-if="album.videoCount > 0"
               class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400"
             >
-              <UIcon name="i-heroicons-video-camera" class="w-4 h-4 text-accent-500" />
+              <BaseIcon name="i-heroicons-video-camera" class="w-4 h-4 text-accent-500" />
               {{ album.videoCount }} {{ album.videoCount === 1 ? 'Video' : 'Videos' }}
             </span>
           </div>
@@ -142,12 +142,12 @@ const openLightbox = (index: number) => {
             <!-- Video-Badge & Play-Button bei Videos -->
             <template v-if="img.type === 'video'">
               <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-black/70 text-white text-xs font-semibold flex items-center gap-1 backdrop-blur-xs">
-                <UIcon name="i-heroicons-video-camera" class="w-3.5 h-3.5 text-accent-400" />
+                <BaseIcon name="i-heroicons-video-camera" class="w-3.5 h-3.5 text-accent-400" />
                 Video
               </div>
               <div class="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors flex items-center justify-center">
                 <div class="w-12 h-12 rounded-full bg-accent-500/90 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-200">
-                  <UIcon name="i-heroicons-play-solid" class="w-6 h-6 ml-0.5" />
+                  <BaseIcon name="i-heroicons-play-solid" class="w-6 h-6 ml-0.5" />
                 </div>
               </div>
             </template>
@@ -157,7 +157,7 @@ const openLightbox = (index: number) => {
               class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center"
             >
               <div class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100 transition-all duration-200">
-                <UIcon name="i-heroicons-magnifying-glass-plus" class="w-5 h-5" />
+                <BaseIcon name="i-heroicons-magnifying-glass-plus" class="w-5 h-5" />
               </div>
             </div>
             <div

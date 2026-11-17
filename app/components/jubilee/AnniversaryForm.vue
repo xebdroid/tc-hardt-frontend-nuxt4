@@ -1,35 +1,25 @@
 <script setup lang="ts">
-import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
+import BaseFormField from '~/components/base/FormField.vue'
+import BaseInput from '~/components/base/Input.vue'
+import BaseInputNumber from '~/components/base/InputNumber.vue'
+import BaseSelect from '~/components/base/Select.vue'
+import BaseRadioGroup from '~/components/base/RadioGroup.vue'
+import BaseTextarea from '~/components/base/Textarea.vue'
+import { useToast } from '~/composables/useToast'
 
-// --- Validierungs-Schema (Zod) ---
-const schema = z.object({
-  name: z.string().min(2, 'Bitte gib deinen Namen ein'),
+interface JubileeFormState {
+  name: string
+  ticketCount: number
+  ticketType: string | undefined
+  paymentMethod: string | undefined
+  message: string
+  website: string
+}
 
-  ticketCount: z.number({
-    required_error: 'Bitte gib die Anzahl ein',
-    invalid_type_error: 'Bitte gib eine gültige Zahl ein'
-  }).min(1, 'Mindestens 1 Ticket erforderlich').max(10, 'Maximal 10 Tickets pro Bestellung erlaubt'),
-
-  ticketType: z.any().refine(val => !!val, {
-    message: 'Bitte wähle Deine Ticketart aus'
-  }),
-
-  paymentMethod: z.any().refine(val => !!val, {
-    message: 'Bitte wähle eine Zahlungsart aus'
-  }),
-
-  message: z.string().optional(),
-  // Honeypot: Muss leer sein
-  website: z.string().optional()
-})
-
-type Schema = z.output<typeof schema>
-
-const state = reactive<Partial<Schema>>({
-  name: '', // Initial empty string forces Zod to use the .min() validation message
+const state = reactive<JubileeFormState>({
+  name: '',
   ticketCount: 1,
   ticketType: undefined,
   paymentMethod: undefined,
@@ -37,6 +27,7 @@ const state = reactive<Partial<Schema>>({
   website: ''
 })
 
+const errors = reactive<Partial<Record<keyof JubileeFormState, string>>>({})
 const isLoading = ref(false)
 const isSent = ref(false)
 const toast = useToast()
@@ -51,30 +42,48 @@ const paymentMethodOptions = [
   { value: 'cash', label: 'Barbezahlung' }
 ]
 
-// --- Submit Handler ---
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+function validate(): boolean {
+  errors.name = undefined
+  errors.ticketCount = undefined
+  errors.ticketType = undefined
+  errors.paymentMethod = undefined
+
+  if (state.name.trim().length < 2) {
+    errors.name = 'Bitte gib deinen Namen ein'
+  }
+
+  if (!state.ticketCount || state.ticketCount < 1) {
+    errors.ticketCount = 'Mindestens 1 Ticket erforderlich'
+  } else if (state.ticketCount > 10) {
+    errors.ticketCount = 'Maximal 10 Tickets pro Bestellung erlaubt'
+  }
+
+  if (!state.ticketType) {
+    errors.ticketType = 'Bitte wähle Deine Ticketart aus'
+  }
+
+  if (!state.paymentMethod) {
+    errors.paymentMethod = 'Bitte wähle eine Zahlungsart aus'
+  }
+
+  return !errors.name && !errors.ticketCount && !errors.ticketType && !errors.paymentMethod
+}
+
+async function onSubmit() {
+  if (!validate()) return
+
   isLoading.value = true
 
   try {
-    // --- LOKALES TESTEN DES PHP-SKRIPTS ---
-    // 1. Öffne ein neues Terminal im Ordner: tc-hardt-frontend-nuxt4/public
-    // 2. Führe folgenden Befehl aus: php -S localhost:8000
-    // 3. Kommentiere den Live-Endpoint aus und den lokalen ein:
-    const endpoint = '/send-mail.php' // Live-Endpoint
-    // const endpoint = 'http://localhost:8000/send-mail.php' // Lokaler Endpoint
-
-    // Da ticketType und paymentMethod Objekte sein können (durch USelect/URadioGroup),
-    // mappen wir sie vor dem Senden auf den reinen String-Wert, falls nötig.
-    const finalData = { ...event.data }
-    if (finalData.ticketType && typeof finalData.ticketType === 'object') {
-      finalData.ticketType = (finalData.ticketType as any).value || finalData.ticketType
-    }
-    if (finalData.paymentMethod && typeof finalData.paymentMethod === 'object') {
-      finalData.paymentMethod = (finalData.paymentMethod as any).value || finalData.paymentMethod
-    }
+    const endpoint = '/send-mail.php'
 
     const payload = {
-      ...finalData,
+      name: state.name.trim(),
+      ticketCount: state.ticketCount,
+      ticketType: state.ticketType,
+      paymentMethod: state.paymentMethod,
+      message: state.message,
+      website: state.website,
       formType: 'jubilaeum',
       to: 'jubilaeum@tc-hardt.de',
       subject: 'Neue Anmeldung zum Jubiläum'
@@ -115,6 +124,10 @@ function resetForm() {
   state.paymentMethod = undefined
   state.message = ''
   state.website = ''
+  errors.name = undefined
+  errors.ticketCount = undefined
+  errors.ticketType = undefined
+  errors.paymentMethod = undefined
   isSent.value = false
 }
 </script>
@@ -132,79 +145,78 @@ function resetForm() {
           margin-bottom="md"
         />
 
-        <UForm
-          :schema="schema"
-          :state="state"
+        <form
           class="space-y-8"
-          @submit="onSubmit"
+          novalidate
+          @submit.prevent="onSubmit"
         >
-          <UFormField
+          <BaseFormField
             label="Dein Name"
             name="name"
+            :error="errors.name"
             required
           >
-            <UInput
+            <BaseInput
               v-model="state.name"
               placeholder="Max Mustermann"
               icon="i-heroicons-user"
               size="lg"
-              class="w-full"
             />
-          </UFormField>
+          </BaseFormField>
 
           <div class="grid md:grid-cols-2 gap-8">
-            <UFormField
+            <BaseFormField
               label="Anzahl der Tickets"
               name="ticketCount"
+              :error="errors.ticketCount"
               required
             >
-              <UInputNumber
+              <BaseInputNumber
                 v-model="state.ticketCount"
                 :min="1"
                 :max="10"
                 size="lg"
-                class="w-full"
               />
-            </UFormField>
+            </BaseFormField>
 
-            <UFormField
+            <BaseFormField
               label="Ticketart"
               name="ticketType"
+              :error="errors.ticketType"
               required
             >
-              <USelect
+              <BaseSelect
                 v-model="state.ticketType"
                 :items="ticketTypeOptions"
                 placeholder="Bitte wählen..."
                 size="lg"
-                class="w-full"
               />
-            </UFormField>
+            </BaseFormField>
           </div>
 
-          <UFormField
+          <BaseFormField
             label="Zahlungsart"
             name="paymentMethod"
+            :error="errors.paymentMethod"
             required
           >
-            <URadioGroup
+            <BaseRadioGroup
               v-model="state.paymentMethod"
               :items="paymentMethodOptions"
             />
-          </UFormField>
+          </BaseFormField>
 
-          <UFormField
+          <BaseFormField
             label="Persönliche Nachricht (optional)"
             name="message"
           >
-            <UTextarea
+            <BaseTextarea
               v-model="state.message"
               placeholder="Möchtest du uns noch etwas mitteilen?"
               :rows="4"
               size="lg"
-              class="w-full"
             />
-          </UFormField>
+          </BaseFormField>
 
           <!-- Honeypot: Verstecktes Feld für Bots -->
           <input
@@ -227,7 +239,7 @@ function resetForm() {
               icon="i-heroicons-ticket"
             />
           </div>
-        </UForm>
+        </form>
       </div>
 
       <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">

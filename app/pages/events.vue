@@ -206,7 +206,7 @@ const handlePastEventToggle = (id: number) => {
         alignment="center"
       />
       <div class="space-y-4">
-        <UCollapsible
+        <BaseCollapsible
           v-for="group in pastEventsByYear"
           :key="group.year"
           class="flex flex-col"
@@ -252,7 +252,7 @@ const handlePastEventToggle = (id: number) => {
               />
             </div>
           </template>
-        </UCollapsible>
+        </BaseCollapsible>
       </div>
     </Section>
   </div>

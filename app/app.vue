@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import CookieModal from '~/components/base/CookieModal.vue'
 import ScrollToTop from '~/components/base/ScrollToTop.vue'
 import MobileStickyCTA from '~/components/base/MobileStickyCTA.vue'
+import ToastContainer from '~/components/base/ToastContainer.vue'
 import { useConsentStore } from '~/stores/consent'
 import { useUIStore } from '~/stores/ui'
 
@@ -65,16 +66,15 @@ useHead({
   <div>
     <NuxtLoadingIndicator color="#5aa9d4" :height="3" />
 
-    <UApp>
-      <div :class="{ 'pointer-events-none': store.isModalOpen }">
-        <NuxtLayout>
-          <NuxtPage />
-        </NuxtLayout>
-      </div>
+    <div :class="{ 'pointer-events-none': store.isModalOpen }">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
 
-      <CookieModal />
-      <ScrollToTop />
-      <MobileStickyCTA :is-menu-open="uiStore.isMobileMenuOpen" />
-    </UApp>
+    <CookieModal />
+    <ScrollToTop />
+    <MobileStickyCTA :is-menu-open="uiStore.isMobileMenuOpen" />
+    <ToastContainer />
   </div>
 </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
+import ColorModeButton from '~/components/base/ColorModeButton.vue'
 import Button from '~/components/base/Button.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 
@@ -204,12 +205,9 @@ const formatLabel = (label: string) => {
             <template v-if="showAppearanceModeButton || showLanguageSwitch">
               <div class="h-6 w-px bg-gray-200 dark:bg-gray-700" />
               <div class="flex items-center gap-1">
-                <UColorModeButton
+                <ColorModeButton
                   v-if="showAppearanceModeButton"
                   size="lg"
-                  :ui="{
-                    leadingIcon: 'text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors'
-                  }"
                 />
                 <LanguageSwitcher
                   v-if="showLanguageSwitch"

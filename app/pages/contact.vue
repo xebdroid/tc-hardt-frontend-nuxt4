@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { z } from 'zod'
-import type { FormSubmitEvent } from '#ui/types'
 import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
+import BaseFormField from '~/components/base/FormField.vue'
+import BaseInput from '~/components/base/Input.vue'
+import BaseTextarea from '~/components/base/Textarea.vue'
+import { useToast } from '~/composables/useToast'
 
 useSeoMeta({
   title: 'Kontakt',
@@ -16,45 +18,65 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// --- 1. Validierungs-Schema (Zod) ---
-const schema = z.object({
-  name: z.string().min(2, 'Bitte gib Deinen Namen ein (mind. 2 Zeichen)'),
-  email: z.string().email('Bitte gib eine gültige E-Mail-Adresse ein'),
-  message: z.string().min(10, 'Deine Nachricht ist etwas kurz (mind. 10 Zeichen)'),
-  // Honeypot: Muss leer sein
-  website: z.string().optional()
+interface ContactFormState {
+  name: string
+  email: string
+  message: string
+  website: string
+}
+
+const state = reactive<ContactFormState>({
+  name: '',
+  email: '',
+  message: '',
+  website: ''
 })
 
-type Schema = z.output<typeof schema>
-
-// --- 2. State ---
-// Wir nutzen hier undefined für die Initialisierung, da Nuxt UI / Zod dies beim Server-Rendering besser handhabt
-const state = reactive<Partial<Schema>>({
-  name: undefined,
-  email: undefined,
-  message: undefined,
-  website: undefined
-})
-
+const errors = reactive<Partial<Record<keyof ContactFormState, string>>>({})
 const isLoading = ref(false)
 const isSent = ref(false)
 const toast = useToast()
 
-// --- 3. Submit Handler ---
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+function validate(): boolean {
+  errors.name = undefined
+  errors.email = undefined
+  errors.message = undefined
+
+  const name = state.name.trim()
+  const email = state.email.trim()
+  const message = state.message.trim()
+
+  if (name.length < 2) {
+    errors.name = 'Bitte gib Deinen Namen ein (mind. 2 Zeichen)'
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.email = 'Bitte gib eine gültige E-Mail-Adresse ein'
+  }
+
+  if (message.length < 10) {
+    errors.message = 'Deine Nachricht ist etwas kurz (mind. 10 Zeichen)'
+  }
+
+  return !errors.name && !errors.email && !errors.message
+}
+
+async function onSubmit() {
+  if (!validate()) return
+
   isLoading.value = true
 
   try {
-    // --- LOKALES TESTEN DES PHP-SKRIPTS ---
-    // 1. Öffne ein neues Terminal im Ordner: tc-hardt-frontend-nuxt4/public
-    // 2. Führe folgenden Befehl aus: php -S localhost:8000
-    // 3. Kommentiere den Live-Endpoint aus und den lokalen ein:
-    const endpoint = '/send-mail.php' // Live-Endpoint
-    // const endpoint = 'http://localhost:8000/send-mail.php' // Lokaler Endpoint
+    const endpoint = '/send-mail.php'
 
     const response: any = await $fetch(endpoint, {
       method: 'POST',
-      body: event.data
+      body: {
+        name: state.name.trim(),
+        email: state.email.trim(),
+        message: state.message.trim(),
+        website: state.website
+      }
     })
 
     if (response.success === false) {
@@ -63,12 +85,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
     isSent.value = true
 
-    // --- Tracking des erfolgreichen Formularversands ---
     if (import.meta.client && (window as any)._paq) {
       (window as any)._paq.push(['trackEvent', 'Formulare', 'Erfolgreich gesendet', 'Kontaktformular'])
     }
 
-    // Scroll zum Anfang des Formular-Containers
     const formContainer = document.getElementById('contact-form-container')
     if (formContainer) {
       formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -87,6 +107,9 @@ function resetForm() {
   state.email = ''
   state.message = ''
   state.website = ''
+  errors.name = undefined
+  errors.email = undefined
+  errors.message = undefined
   isSent.value = false
 }
 </script>
@@ -163,56 +186,55 @@ function resetForm() {
               margin-bottom="md"
             />
 
-            <UForm
-              :schema="schema"
-              :state="state"
+            <form
               class="space-y-8"
-              @submit="onSubmit"
+              novalidate
+              @submit.prevent="onSubmit"
             >
               <div class="grid md:grid-cols-2 gap-8">
-                <UFormField
+                <BaseFormField
                   label="Dein Name"
                   name="name"
+                  :error="errors.name"
                   required
                 >
-                  <UInput
+                  <BaseInput
                     v-model="state.name"
                     placeholder="Max Mustermann"
                     icon="i-heroicons-user"
                     size="lg"
-                    class="w-full"
                   />
-                </UFormField>
+                </BaseFormField>
 
-                <UFormField
+                <BaseFormField
                   label="Deine E-Mail"
                   name="email"
+                  :error="errors.email"
                   required
                 >
-                  <UInput
+                  <BaseInput
                     v-model="state.email"
                     type="email"
                     placeholder="max@beispiel.de"
                     icon="i-heroicons-envelope"
                     size="lg"
-                    class="w-full"
                   />
-                </UFormField>
+                </BaseFormField>
               </div>
 
-              <UFormField
+              <BaseFormField
                 label="Nachricht"
                 name="message"
+                :error="errors.message"
                 required
               >
-                <UTextarea
+                <BaseTextarea
                   v-model="state.message"
                   placeholder="Wie können wir Dir helfen?"
                   :rows="6"
                   size="lg"
-                  class="w-full"
                 />
-              </UFormField>
+              </BaseFormField>
 
               <!-- Honeypot: Verstecktes Feld für Bots -->
               <input
@@ -235,7 +257,7 @@ function resetForm() {
                   icon="i-heroicons-paper-airplane"
                 />
               </div>
-            </UForm>
+            </form>
           </div>
 
           <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">

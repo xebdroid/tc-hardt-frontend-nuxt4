@@ -172,7 +172,7 @@ const downloadIcs = () => {
         </div>
       </div>
 
-      <UCollapsible
+      <BaseCollapsible
         class="flex-1 flex flex-col group/event min-w-0 justify-center data-[state=open]:justify-start"
         :disabled="!hasOptionalContent"
         :open="isOpen"
@@ -236,7 +236,7 @@ const downloadIcs = () => {
             </div>
           </div>
         </template>
-      </UCollapsible>
+      </BaseCollapsible>
     </div>
   </div>
 </template>
