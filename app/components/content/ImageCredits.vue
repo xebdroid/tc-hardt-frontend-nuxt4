@@ -127,6 +127,7 @@ const imageCredits: ImageCredit[] = [
   },
   { location: 'Sponsoren', src: '/img/sponsors/logo_tieves_schreinerei.png', credit: 'Tieves Schreinerei' },
   { location: 'Sponsoren', src: '/img/sponsors/logo_heister.jpg', credit: 'Sport Heister' },
+  { location: 'News', src: '/img/news/2026-deutschland-cup.jpg', credit: 'TC Hardt e.V.' },
   { location: 'News', src: '/img/news/50-jahre-wappen.jpg', credit: 'TC Hardt e.V.' },
   { location: 'News', src: '/img/news/winter-medenspiele.jpg', credit: 'TC Hardt e.V.' },
   { location: 'News', src: '/img/news/2026-rosenmontag.jpg', credit: 'TC Hardt e.V.' },

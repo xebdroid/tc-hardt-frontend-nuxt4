@@ -6,6 +6,16 @@
   },
   "news": [
     {
+      "id": 10,
+      "title": "Eishockey statt Tennis: TC Hardt zu Gast beim Deutschland Cup",
+      "date": "06.11.2026",
+      "slug": "2026-deutschland-cup",
+      "excerpt": "Schwarzer Puck statt gelbe Filzkugel: Am 5. November tauschten einige Mitglieder des TC Hardt den Tennisplatz gegen die Tribüne und besuchten gemeinsam das Länderspiel der deutschen Eishockey-Nationalmannschaft gegen Österreich im Düsseldorfer PSD Bank Dome.",
+      "image": "/img/news/2026-deutschland-cup.jpg",
+      "published": true,
+      "content": "<p class=\"mb-4\">Schwarzer Puck statt gelbe Filzkugel: Am 5. November tauschten einige Mitglieder des TC Hardt den Tennisplatz gegen die Tribüne und besuchten gemeinsam das Länderspiel der deutschen Eishockey-Nationalmannschaft gegen Österreich im Düsseldorfer PSD Bank Dome. Zum Auftakt des Deutschland Cups, der in diesem Jahr in Düsseldorf ausgetragen wurde, sahen unsere Mitglieder einen souveränen 3:0-Sieg der deutschen Mannschaft.</p><p class=\"mb-4\">Ein rundum gelungener Abend, der einmal mehr gezeigt hat: Beim TC Hardt verbindet uns nicht nur der Tennissport, sondern auch die Freude an gemeinsamen Erlebnissen. Und vielleicht heißt es ja schon im Mai 2027 wieder „Auf nach Düsseldorf!“, wenn dort die Eishockey-Heim-WM zu Gast ist.</p>"
+    },
+    {
       "id": 9,
       "title": "Morgen geht’s los: Die Kreis- und Stadtmeisterschaften 2026 starten!",
       "date": "28.08.2026",
