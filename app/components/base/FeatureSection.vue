@@ -1,77 +1,53 @@
 <script setup lang="ts">
-/**
- * FeatureSection - Eine Komponente für Bild/Text-Kombinationen
- */
 import Button from '~/components/base/Button.vue'
 import Image from '~/components/base/Image.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
 interface Props {
-  // Bild-Optionen
   imageSrc: string
   imageAlt?: string
   imagePosition?: 'left' | 'right'
   imageObjectPosition?: string
 
-  // Badge/Sticker-Optionen
   badgeText?: string
   badgeIcon?: string
 
-  // Button-Optionen
   buttonLabel?: string
   buttonTo?: string
   buttonVariant?: 'primary' | 'brand-dark' | 'highlight' | 'outline' | 'ghost'
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   imageAlt: '',
   imagePosition: 'left',
   imageObjectPosition: 'object-center',
   badgeIcon: 'i-heroicons-star',
   buttonVariant: 'brand-dark'
 })
-
-// Logik für die Grid-Reihenfolge auf Desktop
-const imageOrderClass = computed(() => {
-  return props.imagePosition === 'right' ? 'md:order-2' : 'md:order-1'
-})
-
-const contentOrderClass = computed(() => {
-  return props.imagePosition === 'right' ? 'md:order-1' : 'md:order-2'
-})
 </script>
 
 <template>
-  <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
-
-    <div
-      class="w-full md:w-1/2 relative md:px-0"
-      :class="imageOrderClass"
-    >
+  <div class="feature-section" :class="`image-${imagePosition}`">
+    <div class="media-col">
       <Image
         :src="imageSrc"
         :alt="imageAlt"
         :object-position="imageObjectPosition"
-        class="z-10"
+        class="feature-img"
       />
 
-      <div
-        v-if="badgeText"
-        class="absolute top-9 left-6 z-30 bg-highlight-400 text-brand-dark-900 p-4 rounded-xl shadow-lg rotate-340 hidden sm:block"
-      >
-        <div class="flex items-center gap-2">
-          <BaseIcon :name="badgeIcon" class="w-5 h-5" />
-          <span class="font-bold font-heading text-sm">{{ badgeText }}</span>
+      <div v-if="badgeText" class="sticker">
+        <div class="sticker-inner">
+          <BaseIcon :name="badgeIcon" class="sticker-icon" />
+          <span class="sticker-text">{{ badgeText }}</span>
         </div>
       </div>
     </div>
 
-    <div
-      class="w-full md:w-1/2"
-      :class="contentOrderClass"
-    >
+    <div class="content-col">
       <slot />
 
-      <div v-if="buttonLabel && buttonTo" class="mt-10 flex justify-end">
+      <div v-if="buttonLabel && buttonTo" class="action-row">
         <Button
           :to="buttonTo"
           :variant="buttonVariant"
@@ -80,6 +56,95 @@ const contentOrderClass = computed(() => {
         />
       </div>
     </div>
-
   </div>
 </template>
+
+<style lang="scss" scoped>
+.feature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+
+  @include up("md") {
+    flex-direction: row;
+
+    &.image-right {
+      .media-col { order: 2; }
+      .content-col { order: 1; }
+    }
+
+    &.image-left {
+      .media-col { order: 1; }
+      .content-col { order: 2; }
+    }
+  }
+
+  @include up("lg") {
+    gap: var(--space-24);
+  }
+}
+
+.media-col {
+  width: 100%;
+  position: relative;
+
+  @include up("md") {
+    width: 50%;
+  }
+}
+
+.feature-img {
+  z-index: 10;
+}
+
+.sticker {
+  display: none;
+  position: absolute;
+  top: 2.25rem;
+  left: 1.5rem;
+  z-index: 30;
+  background-color: var(--color-highlight-400);
+  color: var(--color-brand-dark-900);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-20deg);
+
+  @include up("sm") {
+    display: block;
+  }
+}
+
+.sticker-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sticker-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.sticker-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.content-col {
+  width: 100%;
+
+  @include up("md") {
+    width: 50%;
+  }
+}
+
+.action-row {
+  margin-top: var(--space-10);
+  display: flex;
+  justify-content: flex-end;
+}
+</style>

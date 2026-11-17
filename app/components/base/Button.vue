@@ -47,6 +47,18 @@ const props = withDefaults(defineProps<Props>(), {
 const slots = useSlots()
 
 const linkTarget = computed(() => props.to || props.href)
+const isExternalLink = computed(() => {
+  const url = linkTarget.value
+  if (!url) return false
+  return (
+    props.target === '_blank' ||
+    url.startsWith('http') ||
+    url.startsWith('mailto:') ||
+    url.startsWith('tel:') ||
+    url.startsWith('data:') ||
+    url.endsWith('.pdf')
+  )
+})
 const isTrailing = computed(() => props.trailing || Boolean(props.ui?.icon?.trailing))
 
 const leadingIconName = computed(() => {
@@ -71,6 +83,7 @@ const isIconOnly = computed(() => {
     :is="linkTarget ? NuxtLink : 'button'"
     :to="linkTarget || undefined"
     :target="linkTarget ? target : undefined"
+    :external="linkTarget ? isExternalLink : undefined"
     :type="!linkTarget ? type : undefined"
     :disabled="!linkTarget ? (disabled || loading) : undefined"
     :aria-disabled="linkTarget && (disabled || loading) ? 'true' : undefined"

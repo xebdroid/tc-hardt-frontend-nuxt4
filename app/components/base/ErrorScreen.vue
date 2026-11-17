@@ -81,20 +81,19 @@ useHead({
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 /* KOMPLETTES CSS OHNE LÜCKEN */
 .error-page-animated {
-  --color-white: #FFFDF7;
-  --brand-dark: #1C3063;
-  --brand-light: #7AC7EA;
-  --highlight: #A3E635;
+  --brand-dark: var(--color-brand-dark-800);
+  --brand-light: var(--color-brand-light-300);
+  --highlight: var(--color-highlight-400);
   --ball-start: #b2e3f7;
   --ball-mid: #7ac7ea;
   --ball-end: #4a9dbf;
 
   margin: 0;
   padding: 0;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-white);
   color: var(--brand-dark);
   height: 100vh;

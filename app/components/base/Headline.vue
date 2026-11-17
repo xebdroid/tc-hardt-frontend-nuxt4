@@ -1,44 +1,33 @@
 <script setup lang="ts">
-/**
- * TYPE DEFINITIONS
- */
+import { computed } from 'vue'
+
 type HeadlineSize = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type Align = 'left' | 'center' | 'right' | 'none'
 type Mode = 'dark' | 'light'
 type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-
-// Varianten für Tagline (Dachzeile)
 type TaglineVariant = 'default' | 'brand' | 'accent' | 'highlight'
-
-// Varianten für Description
 type DescriptionVariant = 'default' | 'brand'
 
 interface Props {
-  // --- INHALT ---
   tagline?: string
   title?: string
   description?: string
 
-  // --- SEMANTIK ---
   taglineTag?: string
   tag?: string
   descriptionTag?: string
 
-  // --- OPTIK ---
   size?: HeadlineSize
-  alignment?: Align // Umbenannt von align zu alignment
+  alignment?: Align
   mode?: Mode
   hyphens?: boolean
 
-  // --- VARIANTEN ---
   taglineVariant?: TaglineVariant
   descriptionVariant?: DescriptionVariant
 
-  // --- SPACING ---
   marginTop?: SpacingSize
   marginBottom?: SpacingSize
 
-  // --- OVERRIDES ---
   wrapperClass?: string
   taglineClass?: string
   titleClass?: string
@@ -67,90 +56,31 @@ const props = withDefaults(defineProps<Props>(), {
   wrapperClass: undefined
 })
 
-// --- GRÖSSEN ---
-const sizeClasses = computed(() => {
-  switch (props.size) {
-    case 'h1': return 'text-4xl sm:text-5xl lg:text-6xl'
-    case 'h2': return 'text-3xl md:text-4xl'
-    case 'h3': return 'text-2xl sm:text-3xl'
-    case 'h4': return 'text-xl sm:text-2xl'
-    case 'h5': return 'text-lg sm:text-xl'
-    case 'h6': return 'text-base font-bold uppercase tracking-wide'
-    default: return 'text-3xl md:text-4xl'
-  }
+const mbClass = computed(() => {
+  return props.marginBottom ? `mb-${props.marginBottom}` : 'mb-default'
 })
 
-// --- ALIGNMENT ---
-const alignClasses = computed(() => {
-  switch (props.alignment) { // Umbenannt
-    case 'center': return 'text-center items-center mx-auto'
-    case 'right': return 'text-right items-end ml-auto'
-    case 'none': return ''
-    default: return 'text-left items-start'
-  }
-})
-
-// --- SPACING ---
-const mtMap: Record<SpacingSize, string> = {
-  none: 'mt-0', xs: 'mt-3', sm: 'mt-6', md: 'mt-8', lg: 'mt-12', xl: 'mt-16'
-}
-const mbMap: Record<SpacingSize, string> = {
-  none: 'mb-0', xs: 'mb-3', sm: 'mb-6', md: 'mb-8', lg: 'mb-12', xl: 'mb-16'
-}
-
-const spacingClasses = computed(() => {
-  const classes = []
-  if (props.marginTop) classes.push(mtMap[props.marginTop])
-  if (props.marginBottom) {
-    classes.push(mbMap[props.marginBottom])
-  } else {
-    classes.push('mb-8 md:mb-12')
-  }
-  return classes.join(' ')
-})
-
-// --- FARBEN / VARIANTEN ---
-const colors = computed(() => {
-  let taglineColor = ''
-  const defaultTagline = props.mode === 'light' ? 'text-gray-400' : 'text-gray-500'
-
-  switch (props.taglineVariant) {
-    case 'brand': taglineColor = 'text-brand-light-600'; break;
-    case 'accent': taglineColor = 'text-accent-600'; break;
-    case 'highlight': taglineColor = 'text-highlight-400'; break;
-    default: taglineColor = defaultTagline;
-  }
-
-  const titleColor = props.mode === 'light'
-    ? 'text-white'
-    : 'text-brand-dark-900 dark:text-white'
-
-  let descColor = ''
-  const defaultDesc = props.mode === 'light' ? 'text-gray-200' : 'text-gray-600 dark:text-gray-400'
-
-  switch (props.descriptionVariant) {
-    case 'brand': descColor = 'text-brand-dark-600 dark:text-brand-dark-300'; break;
-    default: descColor = defaultDesc;
-  }
-
-  return {
-    tagline: props.taglineClass || taglineColor,
-    title: props.titleClass || titleColor,
-    desc: props.descriptionClass || descColor
-  }
+const mtClass = computed(() => {
+  return props.marginTop ? `mt-${props.marginTop}` : ''
 })
 </script>
 
 <template>
   <div
-    class="flex flex-col gap-4 max-w-3xl"
-    :class="[alignClasses, spacingClasses, wrapperClass]"
+    class="base-headline"
+    :class="[
+      `align-${alignment}`,
+      `mode-${mode}`,
+      mtClass,
+      mbClass,
+      wrapperClass
+    ]"
   >
     <component
       :is="taglineTag"
       v-if="tagline || $slots.tagline"
-      class="font-bold uppercase tracking-widest text-sm block"
-      :class="colors.tagline"
+      class="tagline"
+      :class="taglineClass || `tagline-${taglineVariant}`"
     >
       <slot name="tagline">
         {{ tagline }}
@@ -160,8 +90,12 @@ const colors = computed(() => {
     <component
       :is="tag"
       v-if="title || $slots.title"
-      class="font-heading font-bold leading-tight"
-      :class="[sizeClasses, colors.title, { 'break-word-hyphens': hyphens }]"
+      class="title"
+      :class="[
+        `size-${size}`,
+        titleClass || 'title-default',
+        { 'break-word-hyphens': hyphens }
+      ]"
     >
       <slot name="title">
         {{ title }}
@@ -171,8 +105,8 @@ const colors = computed(() => {
     <component
       :is="descriptionTag"
       v-if="description || $slots.description"
-      class="text-lg leading-relaxed"
-      :class="colors.desc"
+      class="description"
+      :class="descriptionClass || `desc-${descriptionVariant}`"
     >
       <slot name="description">
         {{ description }}
@@ -182,3 +116,191 @@ const colors = computed(() => {
     <slot />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.base-headline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 48rem; /* max-w-3xl */
+
+  /* Alignment */
+  &.align-left {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  &.align-center {
+    text-align: center;
+    align-items: center;
+    margin-inline: auto;
+  }
+
+  &.align-right {
+    text-align: right;
+    align-items: flex-end;
+    margin-left: auto;
+  }
+
+  /* Margins Top */
+  &.mt-none { margin-top: 0; }
+  &.mt-xs { margin-top: var(--space-3); }
+  &.mt-sm { margin-top: var(--space-6); }
+  &.mt-md { margin-top: var(--space-8); }
+  &.mt-lg { margin-top: var(--space-12); }
+  &.mt-xl { margin-top: var(--space-16); }
+
+  /* Margins Bottom */
+  &.mb-default {
+    margin-bottom: var(--space-8);
+
+    @include up("md") {
+      margin-bottom: var(--space-12);
+    }
+  }
+  &.mb-none { margin-bottom: 0; }
+  &.mb-xs { margin-bottom: var(--space-3); }
+  &.mb-sm { margin-bottom: var(--space-6); }
+  &.mb-md { margin-bottom: var(--space-8); }
+  &.mb-lg { margin-bottom: var(--space-12); }
+  &.mb-xl { margin-bottom: var(--space-16); }
+}
+
+.tagline {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  &.tagline-default {
+    color: var(--color-gray-500);
+
+    .mode-light & {
+      color: var(--color-gray-400);
+    }
+  }
+
+  &.tagline-brand {
+    color: var(--color-brand-light-600);
+  }
+
+  &.tagline-accent {
+    color: var(--color-accent-600);
+  }
+
+  &.tagline-highlight {
+    color: var(--color-highlight-400);
+  }
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+
+  &.title-default {
+    color: var(--color-brand-dark-900);
+
+    @include dark {
+      color: var(--color-white);
+    }
+
+    .mode-light & {
+      color: var(--color-white);
+    }
+  }
+
+  /* Sizes */
+  &.size-h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+
+    @include up("sm") {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    @include up("lg") {
+      font-size: 3.75rem;
+      line-height: 1;
+    }
+  }
+
+  &.size-h2 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+
+    @include up("md") {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+  }
+
+  &.size-h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+
+    @include up("sm") {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
+  }
+
+  &.size-h4 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+
+    @include up("sm") {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+
+  &.size-h5 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+
+    @include up("sm") {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  &.size-h6 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.625;
+  margin: 0;
+
+  &.desc-default {
+    color: var(--color-gray-600);
+
+    @include dark {
+      color: var(--color-gray-400);
+    }
+
+    .mode-light & {
+      color: var(--color-gray-200);
+    }
+  }
+
+  &.desc-brand {
+    color: var(--color-brand-dark-600);
+
+    @include dark {
+      color: var(--color-brand-dark-300);
+    }
+  }
+}
+</style>

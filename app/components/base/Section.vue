@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NuxtImg } from '#components'
 import { computed } from 'vue'
-import type { SpacingSize, RoundedSide, Responsive } from '~/types'
+import type { SpacingSize, RoundedSide, Responsive, Breakpoint } from '~/types'
 
 interface Props {
   variant?:
@@ -20,34 +20,13 @@ interface Props {
   marginTop?: Responsive<SpacingSize>
   marginBottom?: Responsive<SpacingSize>
 
-  /**
-   * Zieht die Section nach oben über den Vorgänger (-mt)
-   */
   overlapTop?: boolean
-
-  /**
-   * Zieht die nachfolgende Section unter diese Section (-mb)
-   */
   overlapBottom?: boolean
 
-  /**
-   * Wickelt nur den INHALT in einen Container (Standard: true)
-   */
   useContainer?: Responsive<boolean>
-
-  /**
-   * Wickelt die GESAMTE Sektion in einen Container
-   */
   outerContainer?: Responsive<boolean>
 
-  /**
-   * URL zu einem Hintergrundbild
-   */
   backgroundImage?: string
-
-  /**
-   * Ob das Hintergrundbild einen Parallax-Effekt haben soll
-   */
   parallax?: boolean
 }
 
@@ -69,8 +48,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const backgroundStyles = computed(() => {
-  if (!props.backgroundImage) { return {} }
-  // Parallax: background-attachment: fixed als CSS-Hintergrund
+  if (!props.backgroundImage) return {}
   if (props.parallax) {
     return {
       backgroundImage: `url(${props.backgroundImage})`,
@@ -80,135 +58,51 @@ const backgroundStyles = computed(() => {
       backgroundAttachment: 'fixed'
     }
   }
-  // Ohne Parallax: kein CSS-Hintergrund, wird per NuxtImg im Template gelöst
   return {}
 })
 
-// --- FARBEN ---
-const variantClasses = computed(() => {
-  switch (props.variant) {
-    case 'gray': return 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
-    case 'gray-light': return 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border-t border-gray-100 dark:border-gray-800'
-    case 'primary': return 'bg-brand-dark-900 text-white'
-    case 'primary-light': return 'bg-brand-dark-50 dark:bg-brand-dark-900/50 text-brand-dark-900 dark:text-white'
-    case 'secondary': return 'bg-brand-light-300 text-white'
-    case 'secondary-light': return 'bg-brand-light-50 dark:bg-brand-light-950/30 text-brand-dark-900 dark:text-brand-light-50'
-    case 'highlight': return 'bg-highlight-400 text-brand-dark-900'
-    case 'highlight-light': return 'bg-highlight-50 dark:bg-highlight-900/10 text-brand-dark-900 dark:text-white'
-    case 'accent': return 'bg-accent-500 text-white'
-    case 'accent-light': return 'bg-accent-50 dark:bg-accent-900/10 text-brand-dark-900 dark:text-white'
-    default: return 'bg-white dark:bg-gray-950 text-gray-900 dark:text-white'
-  }
-})
-
-// --- PADDING & MARGIN ---
-const spacingMaps = {
-  pt: {
-    base: { none: 'pt-0', xs: 'pt-4', sm: 'pt-12', md: 'pt-16', lg: 'pt-24', xl: 'pt-32', xxl: 'pt-42' },
-    sm: { none: 'sm:pt-0', xs: 'sm:pt-4', sm: 'sm:pt-12', md: 'sm:pt-16', lg: 'sm:pt-24', xl: 'sm:pt-32', xxl: 'sm:pt-42' },
-    md: { none: 'md:pt-0', xs: 'md:pt-4', sm: 'md:pt-12', md: 'md:pt-16', lg: 'md:pt-24', xl: 'md:pt-32', xxl: 'md:pt-42' },
-    lg: { none: 'lg:pt-0', xs: 'lg:pt-4', sm: 'lg:pt-12', md: 'lg:pt-16', lg: 'lg:pt-24', xl: 'lg:pt-32', xxl: 'lg:pt-42' },
-    xl: { none: 'xl:pt-0', xs: 'xl:pt-4', sm: 'xl:pt-12', md: 'xl:pt-16', lg: 'xl:pt-24', xl: 'xl:pt-32', xxl: 'xl:pt-42' },
-    '2xl': { none: '2xl:pt-0', xs: '2xl:pt-4', sm: '2xl:pt-12', md: '2xl:pt-16', lg: '2xl:pt-24', xl: '2xl:pt-32', xxl: '2xl:pt-42' }
-  },
-  pb: {
-    base: { none: 'pb-0', xs: 'pb-4', sm: 'pb-12', md: 'pb-16', lg: 'pb-24', xl: 'pb-32', xxl: 'pb-42' },
-    sm: { none: 'sm:pb-0', xs: 'sm:pb-4', sm: 'sm:pb-12', md: 'sm:pb-16', lg: 'sm:pb-24', xl: 'sm:pb-32', xxl: 'sm:pb-42' },
-    md: { none: 'md:pb-0', xs: 'md:pb-4', sm: 'md:pb-12', md: 'md:pb-16', lg: 'md:pb-24', xl: 'md:pb-32', xxl: 'md:pb-42' },
-    lg: { none: 'lg:pb-0', xs: 'lg:pb-4', sm: 'lg:pb-12', md: 'lg:pb-16', lg: 'lg:pb-24', xl: 'lg:pb-32', xxl: 'lg:pb-42' },
-    xl: { none: 'xl:pb-0', xs: 'xl:pb-4', sm: 'xl:pb-12', md: 'xl:pb-16', lg: 'xl:pb-24', xl: 'xl:pb-32', xxl: 'xl:pb-42' },
-    '2xl': { none: '2xl:pb-0', xs: '2xl:pb-4', sm: '2xl:pb-12', md: '2xl:pb-16', lg: '2xl:pb-24', xl: '2xl:pb-32', xxl: '2xl:pb-42' }
-  },
-  pl: {
-    base: { none: 'pl-0', xs: 'pl-4', sm: 'pl-12', md: 'pl-16', lg: 'pl-24', xl: 'pl-32', xxl: 'pl-42' },
-    sm: { none: 'sm:pl-0', xs: 'sm:pl-4', sm: 'sm:pl-12', md: 'sm:pl-16', lg: 'sm:pl-24', xl: 'sm:pl-32', xxl: 'sm:pl-42' },
-    md: { none: 'md:pl-0', xs: 'md:pl-4', sm: 'md:pl-12', md: 'md:pl-16', lg: 'md:pl-24', xl: 'md:pl-32', xxl: 'md:pl-42' },
-    lg: { none: 'lg:pl-0', xs: 'lg:pl-4', sm: 'lg:pl-12', md: 'lg:pl-16', lg: 'lg:pl-24', xl: 'lg:pl-32', xxl: 'lg:pl-42' },
-    xl: { none: 'xl:pl-0', xs: 'xl:pl-4', sm: 'xl:pl-12', md: 'xl:pl-16', lg: 'xl:pl-24', xl: 'xl:pl-32', xxl: 'xl:pl-42' },
-    '2xl': { none: '2xl:pl-0', xs: '2xl:pl-4', sm: '2xl:pl-12', md: '2xl:pl-16', lg: '2xl:pl-24', xl: '2xl:pl-32', xxl: '2xl:pl-42' }
-  },
-  pr: {
-    base: { none: 'pr-0', xs: 'pr-4', sm: 'pr-12', md: 'pr-16', lg: 'pr-24', xl: 'pr-32', xxl: 'pr-42' },
-    sm: { none: 'sm:pr-0', xs: 'sm:pr-4', sm: 'sm:pr-12', md: 'sm:pr-16', lg: 'sm:pr-24', xl: 'sm:pr-32', xxl: 'sm:pr-42' },
-    md: { none: 'md:pr-0', xs: 'md:pr-4', sm: 'md:pr-12', md: 'md:pr-16', lg: 'md:pr-24', xl: 'md:pr-32', xxl: 'md:pr-42' },
-    lg: { none: 'lg:pr-0', xs: 'lg:pr-4', sm: 'lg:pr-12', md: 'lg:pr-16', lg: 'lg:pr-24', xl: 'lg:pr-32', xxl: 'lg:pr-42' },
-    xl: { none: 'xl:pr-0', xs: 'xl:pr-4', sm: 'xl:pr-12', md: 'xl:pr-16', lg: 'xl:pr-24', xl: 'xl:pr-32', xxl: 'xl:pr-42' },
-    '2xl': { none: '2xl:pr-0', xs: '2xl:pr-4', sm: '2xl:pr-12', md: '2xl:pr-16', lg: '2xl:pr-24', xl: '2xl:pr-32', xxl: '2xl:pr-42' }
-  },
-  mt: {
-    base: { none: 'mt-0', xs: 'mt-4', sm: 'mt-12', md: 'mt-16', lg: 'mt-24', xl: 'mt-32', xxl: 'mt-42' },
-    sm: { none: 'sm:mt-0', xs: 'sm:mt-4', sm: 'sm:mt-12', md: 'sm:mt-16', lg: 'sm:mt-24', xl: 'sm:mt-32', xxl: 'sm:mt-42' },
-    md: { none: 'md:mt-0', xs: 'md:mt-4', sm: 'md:mt-12', md: 'md:mt-16', lg: 'md:mt-24', xl: 'md:mt-32', xxl: 'md:mt-42' },
-    lg: { none: 'lg:mt-0', xs: 'lg:mt-4', sm: 'lg:mt-12', md: 'lg:mt-16', lg: 'lg:mt-24', xl: 'lg:mt-32', xxl: 'lg:mt-42' },
-    xl: { none: 'xl:mt-0', xs: 'xl:mt-4', sm: 'xl:mt-12', md: 'xl:mt-16', lg: 'xl:mt-24', xl: 'xl:mt-32', xxl: 'xl:mt-42' },
-    '2xl': { none: '2xl:mt-0', xs: '2xl:mt-4', sm: '2xl:mt-12', md: '2xl:mt-16', lg: '2xl:mt-24', xl: '2xl:mt-32', xxl: '2xl:mt-42' }
-  },
-  mb: {
-    base: { none: 'mb-0', xs: 'mb-4', sm: 'mb-12', md: 'mb-16', lg: 'mb-24', xl: 'mb-32', xxl: 'mb-42' },
-    sm: { none: 'sm:mb-0', xs: 'sm:mb-4', sm: 'sm:mb-12', md: 'sm:mb-16', lg: 'sm:mb-24', xl: 'sm:mb-32', xxl: 'sm:mb-42' },
-    md: { none: 'md:mb-0', xs: 'md:mb-4', sm: 'md:mb-12', md: 'md:mb-16', lg: 'md:mb-24', xl: 'md:mb-32', xxl: 'md:mb-42' },
-    lg: { none: 'lg:mb-0', xs: 'lg:mb-4', sm: 'lg:mb-12', md: 'lg:mb-16', lg: 'lg:mb-24', xl: 'lg:mb-32', xxl: 'lg:mb-42' },
-    xl: { none: 'xl:mb-0', xs: 'xl:mb-4', sm: 'xl:mb-12', md: 'xl:mb-16', lg: 'xl:mb-24', xl: 'xl:mb-32', xxl: 'xl:mb-42' },
-    '2xl': { none: '2xl:mb-0', xs: '2xl:mb-4', sm: '2xl:mb-12', md: '2xl:mb-16', lg: '2xl:mb-24', xl: '2xl:mb-32', xxl: '2xl:mb-42' }
-  }
-}
-
 const getResponsiveClasses = (
-  propValue: Responsive<SpacingSize> | undefined,
-  spacingDict: Record<string, Record<SpacingSize, string>>
-): string => {
-  if (!propValue) { return '' }
-
+  prefix: string,
+  propValue: Responsive<SpacingSize> | undefined
+): string[] => {
+  if (!propValue) return []
   if (typeof propValue === 'string') {
-    return spacingDict.base[propValue]
+    return [`${prefix}-base-${propValue}`]
   }
-
   const classes: string[] = []
-  if (propValue.base) classes.push(spacingDict.base[propValue.base])
-  if (propValue.sm) classes.push(spacingDict.sm[propValue.sm])
-  if (propValue.md) classes.push(spacingDict.md[propValue.md])
-  if (propValue.lg) classes.push(spacingDict.lg[propValue.lg])
-  if (propValue.xl) classes.push(spacingDict.xl[propValue.xl])
-  if (propValue['2xl']) classes.push(spacingDict['2xl'][propValue['2xl']])
-
-  return classes.join(' ')
+  if (propValue.base) classes.push(`${prefix}-base-${propValue.base}`)
+  if (propValue.sm) classes.push(`${prefix}-sm-${propValue.sm}`)
+  if (propValue.md) classes.push(`${prefix}-md-${propValue.md}`)
+  if (propValue.lg) classes.push(`${prefix}-lg-${propValue.lg}`)
+  if (propValue.xl) classes.push(`${prefix}-xl-${propValue.xl}`)
+  if (propValue['2xl']) classes.push(`${prefix}-2xl-${propValue['2xl']}`)
+  return classes
 }
 
-const spacingClasses = computed(() => {
-  const classes = [
-    getResponsiveClasses(props.paddingTop, spacingMaps.pt),
-    getResponsiveClasses(props.paddingBottom, spacingMaps.pb),
-    getResponsiveClasses(props.paddingLeft, spacingMaps.pl),
-    getResponsiveClasses(props.paddingRight, spacingMaps.pr),
-    getResponsiveClasses(props.marginTop, spacingMaps.mt),
-    getResponsiveClasses(props.marginBottom, spacingMaps.mb)
-  ]
-  return classes.filter(c => c).join(' ')
-})
+const spacingClasses = computed(() => [
+  ...getResponsiveClasses('pt', props.paddingTop),
+  ...getResponsiveClasses('pb', props.paddingBottom),
+  ...getResponsiveClasses('pl', props.paddingLeft),
+  ...getResponsiveClasses('pr', props.paddingRight),
+  ...getResponsiveClasses('mt', props.marginTop),
+  ...getResponsiveClasses('mb', props.marginBottom)
+])
 
-// --- OVERLAP LOGIK ---
 const layoutClasses = computed(() => {
-  const classes = []
-  if (props.overlapTop) classes.push('-mt-16')
-  if (props.overlapBottom) classes.push('-mb-16')
+  const classes: string[] = []
+  if (props.overlapTop) classes.push('overlap-top')
+  if (props.overlapBottom) classes.push('overlap-bottom')
 
   const rounded = props.rounded === true ? 'both' : props.rounded
+  if (rounded === 'both') classes.push('rounded-both')
+  else if (rounded === 'top') classes.push('rounded-top')
+  else if (rounded === 'bottom') classes.push('rounded-bottom')
 
-  if (rounded === 'both') {
-    classes.push('rounded-3xl')
-  } else if (rounded === 'top') {
-    classes.push('rounded-t-3xl')
-  } else if (rounded === 'bottom') {
-    classes.push('rounded-b-3xl')
-  }
-  return classes.join(' ')
+  return classes
 })
 
-// --- CONTAINER LOGIC ---
-const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValue: boolean): string => {
+const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValue: boolean): string[] => {
   const isContainer = value ?? defaultValue
-
-  // 1. Status für jeden Breakpoint ermitteln
   const state: Record<'base' | Breakpoint, boolean> = {
     base: false, sm: false, md: false, lg: false, xl: false, '2xl': false
   }
@@ -224,63 +118,14 @@ const getContainerClasses = (value: Responsive<boolean> | undefined, defaultValu
     state['2xl'] = isContainer['2xl'] ?? state.xl
   }
 
-  const classes: string[] = ['w-full']
-
-  // 2. Hilfsfunktion, um Statusänderungen sicher anzuwenden
-  const applyState = (bp: 'base' | Breakpoint, isOn: boolean, isStateChange: boolean) => {
-    if (bp === 'base') {
-      if (isOn) classes.push('mx-auto', 'px-4')
-      else classes.push('mx-0', 'px-0', 'max-w-full')
-    } else if (bp === 'sm') {
-      if (isStateChange) {
-        // sm:max-w-none neutralisiert ein potenzielles max-w-full von base=false
-        if (isOn) classes.push('sm:mx-auto', 'sm:px-6', 'sm:max-w-none')
-        else classes.push('sm:mx-0', 'sm:px-0', 'sm:max-w-full')
-      } else if (isOn) {
-        classes.push('sm:px-6')
-      }
-    } else if (bp === 'md') {
-      if (isStateChange) {
-        // HIER BEHOBEN: Keine harte max-w-3xl mehr! Er verhält sich jetzt exakt wie in
-        // deinem Original-Design (flüssig mit Padding).
-        if (isOn) classes.push('md:mx-auto', 'md:px-6', 'md:max-w-none')
-        else classes.push('md:mx-0', 'md:px-0', 'md:max-w-full')
-      } else if (isOn) {
-        classes.push('md:px-6') // Falls sich das Padding ändert, stellen wir es sicher
-      }
-    } else if (bp === 'lg') {
-      if (isStateChange) {
-        if (isOn) classes.push('lg:mx-auto', 'lg:px-0', 'lg:max-w-4xl')
-        else classes.push('lg:mx-0', 'lg:px-0', 'lg:max-w-full')
-      } else if (isOn) {
-        classes.push('lg:px-0', 'lg:max-w-4xl')
-      }
-    } else if (bp === 'xl') {
-      if (isStateChange) {
-        if (isOn) classes.push('xl:mx-auto', 'xl:px-0', 'xl:max-w-5xl')
-        else classes.push('xl:mx-0', 'xl:px-0', 'xl:max-w-full')
-      } else if (isOn) {
-        classes.push('xl:max-w-5xl')
-      }
-    } else if (bp === '2xl') {
-      if (isStateChange) {
-        if (isOn) classes.push('2xl:mx-auto', '2xl:px-0', '2xl:max-w-6xl')
-        else classes.push('2xl:mx-0', '2xl:px-0', '2xl:max-w-full')
-      } else if (isOn) {
-        classes.push('2xl:max-w-6xl')
-      }
-    }
-  }
-
-  // 3. Wende die Logik für jeden Breakpoint an
-  applyState('base', state.base, true)
-  applyState('sm', state.sm, state.sm !== state.base)
-  applyState('md', state.md, state.md !== state.sm)
-  applyState('lg', state.lg, state.lg !== state.md)
-  applyState('xl', state.xl, state.xl !== state.lg)
-  applyState('2xl', state['2xl'], state['2xl'] !== state.xl)
-
-  return classes.join(' ')
+  return [
+    state.base ? 'cnt-base-on' : 'cnt-base-off',
+    state.sm ? 'cnt-sm-on' : 'cnt-sm-off',
+    state.md ? 'cnt-md-on' : 'cnt-md-off',
+    state.lg ? 'cnt-lg-on' : 'cnt-lg-off',
+    state.xl ? 'cnt-xl-on' : 'cnt-xl-off',
+    state['2xl'] ? 'cnt-2xl-on' : 'cnt-2xl-off'
+  ]
 }
 
 const outerContainerClasses = computed(() => getContainerClasses(props.outerContainer, false))
@@ -288,36 +133,300 @@ const innerContainerClasses = computed(() => getContainerClasses(props.useContai
 </script>
 
 <template>
-  <div :class="outerContainerClasses">
+  <div class="section-outer" :class="outerContainerClasses">
     <section
-      class="w-full transition-colors duration-300 relative"
+      class="base-section"
       :class="[
-        variantClasses,
-        spacingClasses,
-        layoutClasses
+        `variant-${variant}`,
+        ...spacingClasses,
+        ...layoutClasses
       ]"
       :style="backgroundStyles"
     >
       <div
         v-if="backgroundImage && !parallax"
-        class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]"
+        class="bg-layer"
       >
         <NuxtImg
           :src="backgroundImage"
           alt=""
-          class="w-full h-full object-cover"
+          class="bg-img"
           sizes="sm:100vw md:100vw lg:1400px"
           loading="lazy"
         />
       </div>
 
-      <div v-if="$slots.background" class="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
+      <div v-if="$slots.background" class="bg-layer">
         <slot name="background" />
       </div>
 
-      <div class="relative z-10 h-full" :class="innerContainerClasses">
+      <div class="section-inner" :class="innerContainerClasses">
         <slot />
       </div>
     </section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+$spacings: (
+  "none": 0rem,
+  "xs": 1rem,      /* 4 */
+  "sm": 3rem,      /* 12 */
+  "md": 4rem,      /* 16 */
+  "lg": 6rem,      /* 24 */
+  "xl": 8rem,      /* 32 */
+  "xxl": 10.5rem   /* 42 */
+);
+
+@mixin spacing-rules($bp-name) {
+  @each $size-name, $val in $spacings {
+    &.pt-#{$bp-name}-#{$size-name} { padding-top: $val; }
+    &.pb-#{$bp-name}-#{$size-name} { padding-bottom: $val; }
+    &.pl-#{$bp-name}-#{$size-name} { padding-left: $val; }
+    &.pr-#{$bp-name}-#{$size-name} { padding-right: $val; }
+    &.mt-#{$bp-name}-#{$size-name} { margin-top: $val; }
+    &.mb-#{$bp-name}-#{$size-name} { margin-bottom: $val; }
+  }
+}
+
+.section-outer,
+.section-inner {
+  width: 100%;
+
+  &.cnt-base-on {
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+  }
+  &.cnt-base-off {
+    margin-inline: 0;
+    padding-inline: 0;
+    max-width: 100%;
+  }
+
+  @include up("sm") {
+    &.cnt-sm-on {
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+      max-width: none;
+    }
+    &.cnt-sm-off {
+      margin-inline: 0;
+      padding-inline: 0;
+      max-width: 100%;
+    }
+  }
+
+  @include up("md") {
+    &.cnt-md-on {
+      margin-inline: auto;
+      padding-inline: var(--space-6);
+      max-width: none;
+    }
+    &.cnt-md-off {
+      margin-inline: 0;
+      padding-inline: 0;
+      max-width: 100%;
+    }
+  }
+
+  @include up("lg") {
+    &.cnt-lg-on {
+      margin-inline: auto;
+      padding-inline: 0;
+      max-width: 56rem; /* 4xl */
+    }
+    &.cnt-lg-off {
+      margin-inline: 0;
+      padding-inline: 0;
+      max-width: 100%;
+    }
+  }
+
+  @include up("xl") {
+    &.cnt-xl-on {
+      margin-inline: auto;
+      padding-inline: 0;
+      max-width: 64rem; /* 5xl */
+    }
+    &.cnt-xl-off {
+      margin-inline: 0;
+      padding-inline: 0;
+      max-width: 100%;
+    }
+  }
+
+  @include up("2xl") {
+    &.cnt-2xl-on {
+      margin-inline: auto;
+      padding-inline: 0;
+      max-width: 72rem; /* 6xl */
+    }
+    &.cnt-2xl-off {
+      margin-inline: 0;
+      padding-inline: 0;
+      max-width: 100%;
+    }
+  }
+}
+
+.section-inner {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+}
+
+.base-section {
+  width: 100%;
+  position: relative;
+  transition: background-color 300ms ease, color 300ms ease;
+
+  /* Variants */
+  &.variant-default {
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+
+    @include dark {
+      background-color: var(--color-gray-950);
+      color: var(--color-white);
+    }
+  }
+
+  &.variant-gray {
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-900);
+
+    @include dark {
+      background-color: var(--color-gray-800);
+      color: var(--color-white);
+    }
+  }
+
+  &.variant-gray-light {
+    background-color: var(--color-gray-50);
+    color: var(--color-gray-900);
+    border-top: 1px solid var(--color-gray-100);
+
+    @include dark {
+      background-color: var(--color-gray-900);
+      color: var(--color-white);
+      border-top-color: var(--color-gray-800);
+    }
+  }
+
+  &.variant-primary {
+    background-color: var(--color-brand-dark-900);
+    color: var(--color-white);
+  }
+
+  &.variant-primary-light {
+    background-color: var(--color-brand-dark-50);
+    color: var(--color-brand-dark-900);
+
+    @include dark {
+      background-color: rgb(26 40 82 / 0.5);
+      color: var(--color-white);
+    }
+  }
+
+  &.variant-secondary {
+    background-color: var(--color-brand-light-300);
+    color: var(--color-white);
+  }
+
+  &.variant-secondary-light {
+    background-color: var(--color-brand-light-50);
+    color: var(--color-brand-dark-900);
+
+    @include dark {
+      background-color: rgb(3 15 20 / 0.3);
+      color: var(--color-brand-light-50);
+    }
+  }
+
+  &.variant-highlight {
+    background-color: var(--color-highlight-400);
+    color: var(--color-brand-dark-900);
+  }
+
+  &.variant-highlight-light {
+    background-color: var(--color-highlight-50);
+    color: var(--color-brand-dark-900);
+
+    @include dark {
+      background-color: rgb(54 83 20 / 0.1);
+      color: var(--color-white);
+    }
+  }
+
+  &.variant-accent {
+    background-color: var(--color-accent-500);
+    color: var(--color-white);
+  }
+
+  &.variant-accent-light {
+    background-color: var(--color-accent-50);
+    color: var(--color-brand-dark-900);
+
+    @include dark {
+      background-color: rgb(64 32 6 / 0.1);
+      color: var(--color-white);
+    }
+  }
+
+  /* Overlap & Rounded */
+  &.overlap-top {
+    margin-top: -4rem;
+  }
+
+  &.overlap-bottom {
+    margin-bottom: -4rem;
+  }
+
+  &.rounded-both {
+    border-radius: var(--radius-2xl);
+  }
+
+  &.rounded-top {
+    border-top-left-radius: var(--radius-2xl);
+    border-top-right-radius: var(--radius-2xl);
+  }
+
+  &.rounded-bottom {
+    border-bottom-left-radius: var(--radius-2xl);
+    border-bottom-right-radius: var(--radius-2xl);
+  }
+
+  /* Spacings per breakpoint */
+  @include spacing-rules("base");
+
+  @include up("sm") {
+    @include spacing-rules("sm");
+  }
+  @include up("md") {
+    @include spacing-rules("md");
+  }
+  @include up("lg") {
+    @include spacing-rules("lg");
+  }
+  @include up("xl") {
+    @include spacing-rules("xl");
+  }
+  @include up("2xl") {
+    @include spacing-rules("2xl");
+  }
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>

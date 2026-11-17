@@ -22,7 +22,6 @@ const props = defineProps({
 
 const months = ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEZ']
 
-// --- Default Variant Logic ---
 const parseDate = (dateInput: string | Date) => {
   if (!dateInput) return { day: '00', month: '???', year: '0000' }
   if (typeof dateInput === 'string' && dateInput.trim().toLowerCase() === 'tba') {
@@ -50,7 +49,6 @@ const defaultDates = computed(() => {
   return dates
 })
 
-// --- Jubilee Variant Logic ---
 const parsedJubileeDate = computed(() => {
   if (!props.dateString) {
     return {
@@ -100,58 +98,42 @@ const parsedJubileeDate = computed(() => {
 
 <template>
   <!-- Jubilee Variant -->
-  <div v-if="variant === 'jubilee'" class="mb-4 text-center">
-    <template v-if="parsedJubileeDate.type === 'single'">
-      <div class="flex flex-col items-center">
-        <div class="flex items-baseline justify-center gap-x-2">
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.day }}.</span>
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.month }}</span>
-        </div>
-        <div class="text-base font-medium text-gray-500 dark:text-gray-500 mt-1">
-          {{ parsedJubileeDate.year }}
-        </div>
+  <div v-if="variant === 'jubilee'" class="event-date is-jubilee">
+    <div class="jubilee-col">
+      <div v-if="parsedJubileeDate.type === 'single'" class="jubilee-row">
+        <span class="jubilee-highlight">{{ parsedJubileeDate.day }}.</span>
+        <span class="jubilee-highlight">{{ parsedJubileeDate.month }}</span>
       </div>
-    </template>
-    <template v-else-if="parsedJubileeDate.type === 'multiday'">
-      <div class="flex flex-col items-center">
-        <div class="flex items-baseline justify-center gap-x-2">
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.day1 }}/{{ parsedJubileeDate.day2 }}.</span>
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.month }}</span>
-        </div>
-        <div class="text-base font-medium text-gray-500 dark:text-gray-500 mt-1">
-          {{ parsedJubileeDate.year }}
-        </div>
+      <div v-else-if="parsedJubileeDate.type === 'multiday'" class="jubilee-row">
+        <span class="jubilee-highlight">{{ parsedJubileeDate.day1 }}/{{ parsedJubileeDate.day2 }}.</span>
+        <span class="jubilee-highlight">{{ parsedJubileeDate.month }}</span>
       </div>
-    </template>
-    <template v-else-if="parsedJubileeDate.type === 'range'">
-      <div class="flex flex-col items-center">
-        <div class="flex items-baseline justify-center gap-x-3">
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.startDay }}. {{ parsedJubileeDate.startMonth }}</span>
-          <span class="text-2xl font-light text-gray-400">→</span>
-          <span class="text-2xl font-extrabold text-accent-500 dark:text-accent-400">{{ parsedJubileeDate.endDay }}. {{ parsedJubileeDate.endMonth }}</span>
-        </div>
-        <div class="text-base font-medium text-gray-500 dark:text-gray-500 mt-1">
-          {{ parsedJubileeDate.year }}
-        </div>
+      <div v-else-if="parsedJubileeDate.type === 'range'" class="jubilee-row is-range">
+        <span class="jubilee-highlight">{{ parsedJubileeDate.startDay }}. {{ parsedJubileeDate.startMonth }}</span>
+        <span class="jubilee-arrow">→</span>
+        <span class="jubilee-highlight">{{ parsedJubileeDate.endDay }}. {{ parsedJubileeDate.endMonth }}</span>
       </div>
-    </template>
+      <div class="jubilee-year">
+        {{ parsedJubileeDate.year }}
+      </div>
+    </div>
   </div>
 
   <!-- Default Variant -->
-  <div v-else-if="variant === 'default'" class="flex items-center">
+  <div v-else-if="variant === 'default'" class="event-date is-default">
     <template v-for="(dateItem, index) in defaultDates" :key="index">
-      <div v-if="index > 0" class="mx-2 text-gray-300 dark:text-gray-600 text-2xl md:text-3xl font-light">
+      <div v-if="index > 0" class="date-sep">
         -
       </div>
-      <div class="flex items-center gap-x-2">
-        <div class="text-3xl md:text-4xl font-extrabold text-accent-500 dark:text-accent-400 leading-none -mt-1">
+      <div class="date-block">
+        <div class="day">
           {{ dateItem.day }}
         </div>
-        <div class="flex flex-col justify-between">
-          <div class="text-xs md:text-sm font-bold text-brand-dark-800 dark:text-white leading-tight">
+        <div class="month-year">
+          <div class="month">
             {{ dateItem.month }}
           </div>
-          <div class="text-xs md:text-sm font-medium text-gray-400 dark:text-gray-500 leading-tight">
+          <div class="year">
             {{ dateItem.year }}
           </div>
         </div>
@@ -159,3 +141,131 @@ const parsedJubileeDate = computed(() => {
     </template>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.event-date {
+  &.is-jubilee {
+    margin-bottom: var(--space-4);
+    text-align: center;
+  }
+
+  &.is-default {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.jubilee-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jubilee-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &.is-range {
+    gap: 0.75rem;
+  }
+}
+
+.jubilee-highlight {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 800;
+  color: var(--color-accent-500);
+
+  @include dark {
+    color: var(--color-accent-400);
+  }
+}
+
+.jubilee-arrow {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--color-gray-400);
+}
+
+.jubilee-year {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-gray-500);
+  margin-top: 0.25rem;
+}
+
+.date-sep {
+  margin-inline: 0.5rem;
+  color: var(--color-gray-300);
+  font-size: 1.5rem;
+  font-weight: 300;
+
+  @include up("md") {
+    font-size: 1.875rem;
+  }
+
+  @include dark {
+    color: var(--color-gray-600);
+  }
+}
+
+.date-block {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.day {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--color-accent-500);
+  line-height: 1;
+  margin-top: -0.25rem;
+
+  @include up("md") {
+    font-size: 2.25rem;
+  }
+
+  @include dark {
+    color: var(--color-accent-400);
+  }
+}
+
+.month-year {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.month {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-800);
+  line-height: 1.25;
+
+  @include up("md") {
+    font-size: 0.875rem;
+  }
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.year {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-400);
+  line-height: 1.25;
+
+  @include up("md") {
+    font-size: 0.875rem;
+  }
+
+  @include dark {
+    color: var(--color-gray-500);
+  }
+}
+</style>

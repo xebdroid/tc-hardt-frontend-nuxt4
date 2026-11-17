@@ -3,7 +3,9 @@ import { ref, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import type { ButtonVariant } from '~/components/base/Button.vue'
+import { useUIStore } from '~/stores/ui'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -34,55 +36,44 @@ export interface HeroSlide {
   imageWrapperClass?: string
   contentWrapperClass?: string
 
-  // Overlays (responsive)
   overlayClass?: string
   overlayClassMobile?: string
   overlayClassTablet?: string
 
-  // Content Image / Logo / Badge
   contentImage?: string
   contentImageMobile?: string
   contentImageClass?: string
   contentImageClassMobile?: string
 
-  // Title (responsive)
   title?: string
   titleMobile?: string
   titleClass?: string
   titleClassMobile?: string
 
-  // Subtitle (responsive)
   subtitle?: string
   subtitleMobile?: string
   subtitleClass?: string
   subtitleClassMobile?: string
 
-  // Description (responsive)
   description?: string
   descriptionMobile?: string
   descriptionClass?: string
   descriptionClassMobile?: string
 
-  // CTAs (responsive)
   ctaPrimary?: HeroSlideCTA
   ctaPrimaryMobile?: HeroSlideCTA
   ctaSecondary?: HeroSlideCTA
   ctaSecondaryMobile?: HeroSlideCTA
 
-  // Responsive positions
   contentPosition?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
   contentPositionMobile?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
   contentPositionTablet?: 'top-left' | 'top-center' | 'top-right' | 'center-left' | 'center' | 'center-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
 
-  // Eigener Slot-Name für komplett freies HTML
   slotName?: string
 
-  // Theme for text color
   theme?: 'light' | 'dark'
   themeMobile?: 'light' | 'dark'
 }
-
-import { useUIStore } from '~/stores/ui'
 
 const props = withDefaults(defineProps<{
   slides?: HeroSlide[]
@@ -95,7 +86,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   slides: () => [],
   height: 'large',
-  fallbackClass: 'bg-primary-900',
+  fallbackClass: undefined,
   autoplay: 5000,
   loopVideo: false,
   theme: 'light',
@@ -105,7 +96,6 @@ const props = withDefaults(defineProps<{
 const swiperInstance = ref<any>(null)
 const uiStore = useUIStore()
 
-// Melden, ob wir einen Fullscreen Hero haben (für den Sticky CTA)
 onMounted(() => {
   if (props.height === 'full' || props.height === 'large') {
     uiStore.setFullScreenHero(true)
@@ -118,81 +108,37 @@ onUnmounted(() => {
   }
 })
 
-// --- HÖHEN BERECHNUNG ---
-const containerHeightClass = computed(() => {
-  switch (props.height) {
-    case 'full': return 'h-[100svh] lg:h-[calc(100vh-2rem)]'
-    case 'large': return 'h-[800px]'
-    case 'medium': return 'h-[450px]'
-    case 'small': return 'h-[300px]'
-    default: return 'h-[450px]'
-  }
-})
-
-// --- POSITIONIERUNGS-HELFER ---
-const getAlignItemsClass = (position?: string, breakpointPrefix = '') => {
-  if (!position) return ''
-  const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
-  if (position.includes('left')) return `${p}items-start ${p}text-left`
-  if (position.includes('right')) return `${p}items-end ${p}text-right`
-  return `${p}items-center ${p}text-center`
+const getPosAlign = (pos?: string) => {
+  if (!pos) return 'center'
+  if (pos.includes('left')) return 'left'
+  if (pos.includes('right')) return 'right'
+  return 'center'
 }
 
-const getMarginClass = (position?: string, breakpointPrefix = '') => {
-  if (!position) return ''
-  const p = breakpointPrefix ? `${breakpointPrefix}:` : ''
-  if (position.includes('top')) return `${p}mb-auto ${p}mt-0`
-  if (position.includes('bottom')) return `${p}mt-auto ${p}mb-0`
-  return `${p}my-auto`
+const getPosValign = (pos?: string) => {
+  if (!pos) return 'center'
+  if (pos.includes('top')) return 'top'
+  if (pos.includes('bottom')) return 'bottom'
+  return 'center'
 }
 
-const getAlignmentClasses = (slide: HeroSlide) => {
-  const baseAlign = getAlignItemsClass(slide.contentPositionMobile || slide.contentPosition || 'center')
-  const mdAlign = slide.contentPositionTablet ? getAlignItemsClass(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getAlignItemsClass(slide.contentPosition, 'md') : '')
-  const lgAlign = slide.contentPosition ? getAlignItemsClass(slide.contentPosition, 'lg') : ''
-  return `${baseAlign} ${mdAlign} ${lgAlign}`
-}
+const getPositionClasses = (slide: HeroSlide) => {
+  const basePos = slide.contentPositionMobile || slide.contentPosition || 'center'
+  const mdPos = slide.contentPositionTablet || slide.contentPosition || basePos
+  const lgPos = slide.contentPosition || mdPos
 
-const getMarginClasses = (slide: HeroSlide) => {
-  const baseMargin = getMarginClass(slide.contentPositionMobile || slide.contentPosition || 'center')
-  const mdMargin = slide.contentPositionTablet ? getMarginClass(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getMarginClass(slide.contentPosition, 'md') : '')
-  const lgMargin = slide.contentPosition ? getMarginClass(slide.contentPosition, 'lg') : ''
-  return `${baseMargin} ${mdMargin} ${lgMargin}`
-}
-
-// Responsiver horizontaler Textblock-Rand (für subtitle / description)
-const getTextMarginClasses = (slide: HeroSlide) => {
-  const getHMargin = (pos?: string, prefix = '') => {
-    if (!pos) return ''
-    const p = prefix ? `${prefix}:` : ''
-    if (pos.includes('left')) return `${p}mr-auto ${p}ml-0`
-    if (pos.includes('right')) return `${p}ml-auto ${p}mr-0`
-    return `${p}mx-auto`
-  }
-  const baseHMargin = getHMargin(slide.contentPositionMobile || slide.contentPosition || 'center')
-  const mdHMargin = slide.contentPositionTablet ? getHMargin(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getHMargin(slide.contentPosition, 'md') : '')
-  const lgHMargin = slide.contentPosition ? getHMargin(slide.contentPosition, 'lg') : ''
-  return `${baseHMargin} ${mdHMargin} ${lgHMargin}`
-}
-
-// Responsive Ausrichtung der CTA-Buttons
-const getCtaJustifyClasses = (slide: HeroSlide) => {
-  const getJustify = (pos?: string, prefix = '') => {
-    if (!pos) return ''
-    const p = prefix ? `${prefix}:` : ''
-    if (pos.includes('left')) return `${p}justify-start`
-    if (pos.includes('right')) return `${p}justify-end`
-    return `${p}justify-center`
-  }
-  const baseJustify = getJustify(slide.contentPositionMobile || slide.contentPosition || 'center')
-  const mdJustify = slide.contentPositionTablet ? getJustify(slide.contentPositionTablet, 'md') : (slide.contentPositionMobile && slide.contentPosition ? getJustify(slide.contentPosition, 'md') : '')
-  const lgJustify = slide.contentPosition ? getJustify(slide.contentPosition, 'lg') : ''
-  return `${baseJustify} ${mdJustify} ${lgJustify}`
+  return [
+    `pos-base-h-${getPosAlign(basePos)}`,
+    `pos-base-v-${getPosValign(basePos)}`,
+    `pos-md-h-${getPosAlign(mdPos)}`,
+    `pos-md-v-${getPosValign(mdPos)}`,
+    `pos-lg-h-${getPosAlign(lgPos)}`,
+    `pos-lg-v-${getPosValign(lgPos)}`
+  ]
 }
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
-// --- VIDEO LOGIK ---
 const handleVideoLoaded = (e: Event) => {
   const video = e.target as HTMLVideoElement
   if (swiperInstance.value && swiperInstance.value.autoplay.running) {
@@ -238,10 +184,15 @@ const onSlideChange = (swiper: any) => {
 
 <template>
   <div
-    class="relative w-full overflow-hidden lg:rounded-3xl"
-    :class="[containerHeightClass, !slides.length ? fallbackClass : 'bg-gray-900', `theme-${props.theme}`, { 'pt-[70px] lg:pt-[120px]': !removeTopPadding && slides.length < 1 }]"
+    class="base-hero"
+    :class="[
+      `height-${height}`,
+      `theme-${props.theme}`,
+      !slides.length ? (fallbackClass || 'default-fallback-bg') : 'slides-bg',
+      { 'has-top-padding': !removeTopPadding && slides.length < 1 }
+    ]"
   >
-    <div v-if="!slides.length" class="relative h-full w-full flex flex-col justify-center items-center p-8 sm:p-16 text-center">
+    <div v-if="!slides.length" class="empty-hero-content">
       <slot name="content" :slide="null" />
     </div>
 
@@ -255,8 +206,8 @@ const onSlideChange = (swiper: any) => {
       :autoplay="(slides.length > 1 && autoplay !== false) ? { delay: typeof autoplay === 'number' ? autoplay : 5000, disableOnInteraction: false } : false"
       :pagination="{ clickable: true, el: '.custom-pagination' }"
       :navigation="{ nextEl: '.custom-next', prevEl: '.custom-prev' }"
-      class="h-full w-full group"
-      :class="{ 'relative': slides.length === 1 }"
+      class="hero-slider"
+      :class="{ 'is-single': slides.length === 1 }"
       @swiper="onSwiperInit"
       @slide-change="onSlideChange"
     >
@@ -264,12 +215,12 @@ const onSlideChange = (swiper: any) => {
         :is="slides.length > 1 ? SwiperSlide : 'div'"
         v-for="(slide, index) in slides"
         :key="index"
-        class="relative bg-gray-900 h-full w-full"
+        class="hero-slide"
       >
-        <div class="absolute inset-0 select-none">
+        <div class="media-wrap">
           <div
             v-if="slide.type === 'color'"
-            class="w-full h-full"
+            class="media-fill"
             :class="[slide.colorClass, slide.overlayClass]"
             :style="{ backgroundColor: slide.overlayClass ? '' : slide.color }"
           />
@@ -277,7 +228,7 @@ const onSlideChange = (swiper: any) => {
             v-else-if="slide.type === 'video'"
             :src="slide.src"
             :poster="slide.poster"
-            class="w-full h-full object-cover"
+            class="media-video"
             muted
             playsinline
             :loop="loopVideo"
@@ -287,16 +238,15 @@ const onSlideChange = (swiper: any) => {
 
           <div
             v-else-if="slide.type === 'image'"
-            class="w-full h-full"
+            class="media-fill"
             :class="slide.imageWrapperClass"
           >
-            <!-- Responsive Images via Tailwind hidden/block -->
             <NuxtImg
               v-if="slide.srcMobile"
               :src="slide.srcMobile"
               :alt="slide.alt || 'Hero Image Mobile'"
-              class="w-full h-full object-cover block"
-              :class="[(slide.srcTablet || slide.src) ? 'md:hidden' : '', slide.imageClassMobile || slide.imageClass || 'object-top']"
+              class="media-img"
+              :class="[(slide.srcTablet || slide.src) ? 'hide-from-md' : '', slide.imageClassMobile || slide.imageClass || 'object-top']"
               sizes="360px sm:640px md:768px"
               quality="90"
               format="webp"
@@ -309,8 +259,8 @@ const onSlideChange = (swiper: any) => {
               v-if="slide.srcTablet"
               :src="slide.srcTablet"
               :alt="slide.alt || 'Hero Image Tablet'"
-              class="w-full h-full object-cover hidden md:block"
-              :class="[slide.src ? 'lg:hidden' : '', slide.imageClass]"
+              class="media-img show-md-only"
+              :class="[slide.src ? 'hide-from-lg' : '', slide.imageClass]"
               sizes="768px lg:1024px"
               quality="90"
               format="webp"
@@ -322,8 +272,8 @@ const onSlideChange = (swiper: any) => {
               v-if="slide.src"
               :src="slide.src"
               :alt="slide.alt || 'Hero Image'"
-              class="w-full h-full object-cover"
-              :class="[(slide.srcMobile || slide.srcTablet) ? (slide.srcTablet ? 'hidden lg:block' : 'hidden md:block') : 'block', slide.imageClass]"
+              class="media-img"
+              :class="[(slide.srcMobile || slide.srcTablet) ? (slide.srcTablet ? 'show-from-lg' : 'show-from-md') : '', slide.imageClass]"
               sizes="sm:100vw md:100vw lg:100vw xl:100vw xxl:1536px"
               quality="90"
               format="webp"
@@ -334,70 +284,61 @@ const onSlideChange = (swiper: any) => {
           </div>
         </div>
 
-        <!-- Overlays (unterstützt mobile & desktop getrennt oder kombiniert) -->
+        <!-- Overlays -->
         <div
           v-if="slide.overlayClassMobile && slide.type !== 'color'"
-          class="absolute inset-0 z-[5] md:hidden"
+          class="slide-overlay hide-from-md"
           :class="slide.overlayClassMobile"
         />
         <div
           v-if="slide.overlayClassTablet && slide.type !== 'color'"
-          class="absolute inset-0 z-[5] hidden md:block lg:hidden"
+          class="slide-overlay show-md-to-lg"
           :class="slide.overlayClassTablet"
         />
         <div
           v-if="slide.overlayClass && slide.type !== 'color'"
-          class="absolute inset-0 z-[5]"
-          :class="[slide.overlayClassMobile ? 'hidden md:block' : 'block', slide.overlayClass]"
+          class="slide-overlay"
+          :class="[slide.overlayClassMobile ? 'show-from-md' : '', slide.overlayClass]"
         />
 
         <div
-          class="relative z-10 h-full w-full flex flex-col p-6 sm:p-10 lg:px-16 transition-all duration-500"
+          class="slide-stage"
           :class="[
-            { 'pt-[70px] lg:pt-[120px] pb-10 lg:pb-14': !removeTopPadding && slides.length >= 1 },
-            getAlignmentClasses(slide)
+            { 'has-slide-padding': !removeTopPadding && slides.length >= 1 },
+            ...getPositionClasses(slide)
           ]"
         >
           <div
-            class="w-full flex flex-col shrink-0"
+            class="slide-box"
             :class="[
-              slide.contentWrapperClass || 'max-w-7xl',
-              getMarginClasses(slide),
-              getAlignmentClasses(slide)
+              slide.contentWrapperClass || 'default-max-width',
+              ...getPositionClasses(slide)
             ]"
           >
             <slot :name="slide.slotName || 'content'" :slide="slide">
-
-              <!-- Content Image (z. B. Jubiläums-Logo / Badge) -->
+              <!-- Content Image -->
               <div
                 v-if="slide.contentImage || slide.contentImageMobile"
-                class="min-h-[60px] sm:min-h-[100px] flex flex-col mb-[2vh]"
-                :class="[
-                  slide.contentPosition?.includes('left') ? 'items-start' :
-                  slide.contentPosition?.includes('right') ? 'items-end' :
-                  'items-center'
-                ]"
+                class="badge-wrap"
               >
-                <!-- Mobile Content Image (optional) -->
                 <NuxtImg
                   v-if="slide.contentImageMobile"
                   :src="slide.contentImageMobile"
-                  class="h-auto object-contain max-h-[25vh] md:hidden"
-                  :class="[slide.contentImageClassMobile || slide.contentImageClass || 'w-24 sm:w-32']"
+                  class="badge-img hide-from-md"
+                  :class="[slide.contentImageClassMobile || slide.contentImageClass || 'default-badge-width']"
                   alt="Content Icon Mobile"
                   sizes="300px"
                   quality="90"
                   format="webp"
                   :loading="index === 0 ? 'eager' : 'lazy'"
                 />
-                <!-- Desktop / Default Content Image -->
                 <NuxtImg
                   v-if="slide.contentImage"
                   :src="slide.contentImage"
-                  class="h-auto object-contain max-h-[25vh] lg:max-h-[35vh]"
+                  class="badge-img is-desktop"
                   :class="[
-                    slide.contentImageMobile ? 'hidden md:block' : 'block',
-                    slide.contentImageClass || 'w-24 sm:w-32'
+                    slide.contentImageMobile ? 'show-from-md' : '',
+                    slide.contentImageClass || 'default-badge-width'
                   ]"
                   alt="Content Icon"
                   sizes="sm:300px md:400px lg:600px"
@@ -410,54 +351,47 @@ const onSlideChange = (swiper: any) => {
               <!-- Title -->
               <h2
                 v-if="slide.title || slide.titleMobile"
-                class="text-3xl sm:text-5xl md:text-6xl font-bold mb-[2vh] font-heading drop-shadow-lg"
+                class="slide-title"
                 :class="[
                   slide.titleClassMobile && slide.titleClass ? `${slide.titleClassMobile} md:${slide.titleClass}` :
-                  (slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-white')),
-                  getTextMarginClasses(slide)
+                  (slide.titleClass ? slide.titleClass : (slide.theme === 'dark' ? 'theme-dark-text' : 'theme-light-title'))
                 ]"
               >
-                <!-- Mobile Title (wenn angegeben) -->
-                <span v-if="slide.titleMobile" class="md:hidden">{{ slide.titleMobile }}</span>
-                <!-- Desktop / Default Title -->
-                <span :class="{ 'hidden md:inline': !!slide.titleMobile }">{{ slide.title }}</span>
+                <span v-if="slide.titleMobile" class="hide-from-md">{{ slide.titleMobile }}</span>
+                <span :class="{ 'show-inline-from-md': !!slide.titleMobile }">{{ slide.title }}</span>
               </h2>
 
               <!-- Subtitle -->
               <p
                 v-if="slide.subtitle || slide.subtitleMobile"
-                class="text-lg sm:text-2xl font-bold mb-[2vh] max-w-2xl drop-shadow-md"
+                class="slide-subtitle"
                 :class="[
                   slide.subtitleClassMobile && slide.subtitleClass ? `${slide.subtitleClassMobile} md:${slide.subtitleClass}` :
-                  (slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-200')),
-                  getTextMarginClasses(slide)
+                  (slide.subtitleClass ? slide.subtitleClass : (slide.theme === 'dark' ? 'theme-dark-text' : 'theme-light-subtitle'))
                 ]"
               >
-                <span v-if="slide.subtitleMobile" class="md:hidden">{{ slide.subtitleMobile }}</span>
-                <span :class="{ 'hidden md:inline': !!slide.subtitleMobile }">{{ slide.subtitle }}</span>
+                <span v-if="slide.subtitleMobile" class="hide-from-md">{{ slide.subtitleMobile }}</span>
+                <span :class="{ 'show-inline-from-md': !!slide.subtitleMobile }">{{ slide.subtitle }}</span>
               </p>
 
               <!-- Description -->
               <p
                 v-if="slide.description || slide.descriptionMobile"
-                class="text-sm sm:text-lg mb-[4vh] max-w-2xl leading-relaxed drop-shadow-md"
+                class="slide-desc"
                 :class="[
                   slide.descriptionClassMobile && slide.descriptionClass ? `${slide.descriptionClassMobile} md:${slide.descriptionClass}` :
-                  (slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'text-brand-dark-900' : 'text-gray-300')),
-                  getTextMarginClasses(slide)
+                  (slide.descriptionClass ? slide.descriptionClass : (slide.theme === 'dark' ? 'theme-dark-text' : 'theme-light-desc'))
                 ]"
               >
-                <span v-if="slide.descriptionMobile" class="md:hidden">{{ slide.descriptionMobile }}</span>
-                <span :class="{ 'hidden md:inline': !!slide.descriptionMobile }">{{ slide.description }}</span>
+                <span v-if="slide.descriptionMobile" class="hide-from-md">{{ slide.descriptionMobile }}</span>
+                <span :class="{ 'show-inline-from-md': !!slide.descriptionMobile }">{{ slide.description }}</span>
               </p>
 
-              <!-- CTA Buttons (Responsive Positionierung & Buttons) -->
+              <!-- CTA Buttons -->
               <div
                 v-if="slide.ctaPrimary || slide.ctaPrimaryMobile || slide.ctaSecondary || slide.ctaSecondaryMobile"
-                class="flex flex-wrap gap-3 sm:gap-4"
-                :class="getCtaJustifyClasses(slide)"
+                class="cta-row"
               >
-                <!-- Primary CTA (Mobile) -->
                 <Button
                   v-if="slide.ctaPrimaryMobile"
                   :to="slide.ctaPrimaryMobile.to"
@@ -470,7 +404,6 @@ const onSlideChange = (swiper: any) => {
                   class="md:hidden"
                   :class="slide.ctaPrimaryMobile.class"
                 />
-                <!-- Primary CTA (Desktop / Default) -->
                 <Button
                   v-if="slide.ctaPrimary"
                   :to="slide.ctaPrimary.to"
@@ -481,12 +414,11 @@ const onSlideChange = (swiper: any) => {
                   :variant="slide.ctaPrimary.variant || 'primary'"
                   cta
                   :class="[
-                    slide.ctaPrimaryMobile ? 'hidden md:inline-flex' : 'inline-flex',
+                    slide.ctaPrimaryMobile ? 'hidden md:inline-flex' : '',
                     slide.ctaPrimary.class
                   ]"
                 />
 
-                <!-- Secondary CTA (Mobile) -->
                 <Button
                   v-if="slide.ctaSecondaryMobile"
                   :to="slide.ctaSecondaryMobile.to"
@@ -496,10 +428,9 @@ const onSlideChange = (swiper: any) => {
                   size="lg"
                   :variant="slide.ctaSecondaryMobile.variant || 'ghost'"
                   cta
-                  class="backdrop-blur-sm md:hidden"
+                  class="secondary-blur md:hidden"
                   :class="slide.ctaSecondaryMobile.class"
                 />
-                <!-- Secondary CTA (Desktop / Default) -->
                 <Button
                   v-if="slide.ctaSecondary"
                   :to="slide.ctaSecondary.to"
@@ -509,9 +440,9 @@ const onSlideChange = (swiper: any) => {
                   size="xl"
                   :variant="slide.ctaSecondary.variant || 'ghost'"
                   cta
-                  class="backdrop-blur-sm"
+                  class="secondary-blur"
                   :class="[
-                    slide.ctaSecondaryMobile ? 'hidden md:inline-flex' : 'inline-flex',
+                    slide.ctaSecondaryMobile ? 'hidden md:inline-flex' : '',
                     slide.ctaSecondary.class
                   ]"
                 />
@@ -521,28 +452,432 @@ const onSlideChange = (swiper: any) => {
         </div>
       </component>
 
-      <div v-if="slides.length > 1" class="custom-pagination absolute bottom-8 left-0 right-0 flex justify-center z-20 hidden lg:flex [&>.swiper-pagination-bullet]:bg-white [&>.swiper-pagination-bullet-active]:bg-primary-500" />
+      <div v-if="slides.length > 1" class="custom-pagination hero-pagination" />
 
-      <button v-if="slides.length > 1" class="custom-prev absolute top-1/2 left-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
-        <BaseIcon name="i-heroicons-chevron-left" class="w-10 h-10" />
+      <button v-if="slides.length > 1" type="button" class="custom-prev nav-arrow is-prev" aria-label="Vorheriger Slide">
+        <BaseIcon name="i-heroicons-chevron-left" class="arrow-icon" />
       </button>
-      <button v-if="slides.length > 1" class="custom-next absolute top-1/2 right-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
-        <BaseIcon name="i-heroicons-chevron-right" class="w-10 h-10" />
+      <button v-if="slides.length > 1" type="button" class="custom-next nav-arrow is-next" aria-label="Nächster Slide">
+        <BaseIcon name="i-heroicons-chevron-right" class="arrow-icon" />
       </button>
     </component>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@mixin pos-rules($bp) {
+  &.pos-#{$bp}-h-left {
+    align-items: flex-start;
+    text-align: left;
+    .slide-title, .slide-subtitle, .slide-desc { margin-left: 0; margin-right: auto; }
+    .cta-row { justify-content: flex-start; }
+    .badge-wrap { align-items: flex-start; }
+  }
+  &.pos-#{$bp}-h-right {
+    align-items: flex-end;
+    text-align: right;
+    .slide-title, .slide-subtitle, .slide-desc { margin-left: auto; margin-right: 0; }
+    .cta-row { justify-content: flex-end; }
+    .badge-wrap { align-items: flex-end; }
+  }
+  &.pos-#{$bp}-h-center {
+    align-items: center;
+    text-align: center;
+    .slide-title, .slide-subtitle, .slide-desc { margin-inline: auto; }
+    .cta-row { justify-content: center; }
+    .badge-wrap { align-items: center; }
+  }
+
+  &.pos-#{$bp}-v-top {
+    margin-top: 0;
+    margin-bottom: auto;
+  }
+  &.pos-#{$bp}-v-bottom {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+  &.pos-#{$bp}-v-center {
+    margin-block: auto;
+  }
+}
+
+.base-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  @include up("lg") {
+    border-radius: var(--radius-2xl);
+  }
+
+  &.default-fallback-bg {
+    background-color: var(--color-brand-dark-900);
+  }
+
+  &.slides-bg {
+    background-color: var(--color-gray-900);
+  }
+
+  &.has-top-padding {
+    padding-top: 70px;
+
+    @include up("lg") {
+      padding-top: 120px;
+    }
+  }
+
+  &.height-full {
+    height: 100svh;
+
+    @include up("lg") {
+      height: calc(100vh - 2rem);
+    }
+  }
+
+  &.height-large {
+    height: 800px;
+  }
+
+  &.height-medium {
+    height: 450px;
+  }
+
+  &.height-small {
+    height: 300px;
+  }
+}
+
+.empty-hero-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-8);
+  text-align: center;
+
+  @include up("sm") {
+    padding: var(--space-16);
+  }
+}
+
+.hero-slider {
+  width: 100%;
+  height: 100%;
+
+  &.is-single {
+    position: relative;
+  }
+}
+
+.hero-slide {
+  position: relative;
+  background-color: var(--color-gray-900);
+  width: 100%;
+  height: 100%;
+}
+
+.media-wrap {
+  position: absolute;
+  inset: 0;
+  user-select: none;
+}
+
+.media-fill,
+.media-video,
+.media-img {
+  width: 100%;
+  height: 100%;
+}
+
+.media-video,
+.media-img {
+  object-fit: cover;
+}
+
+.media-img {
+  display: block;
+
+  &.object-top { object-position: top; }
+  &.object-center { object-position: center; }
+  &.object-bottom { object-position: bottom; }
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.hide-from-md {
+  @include up("md") {
+    display: none !important;
+  }
+}
+
+.show-from-md {
+  display: none !important;
+  @include up("md") {
+    display: block !important;
+  }
+}
+
+.show-inline-from-md {
+  display: none;
+  @include up("md") {
+    display: inline;
+  }
+}
+
+.show-from-lg {
+  display: none !important;
+  @include up("lg") {
+    display: block !important;
+  }
+}
+
+.show-md-only,
+.show-md-to-lg {
+  display: none !important;
+  @include up("md") {
+    display: block !important;
+  }
+  @include up("lg") {
+    display: none !important;
+  }
+}
+
+.hide-from-lg {
+  @include up("lg") {
+    display: none !important;
+  }
+}
+
+.slide-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  transition: all 500ms ease;
+
+  @include up("sm") {
+    padding: var(--space-10);
+  }
+
+  @include up("lg") {
+    padding-inline: var(--space-16);
+  }
+
+  &.has-slide-padding {
+    padding-top: 70px;
+    padding-bottom: 2.5rem;
+
+    @include up("lg") {
+      padding-top: 120px;
+      padding-bottom: 3.5rem;
+    }
+  }
+
+  @include pos-rules("base");
+  @include up("md") {
+    @include pos-rules("md");
+  }
+  @include up("lg") {
+    @include pos-rules("lg");
+  }
+}
+
+.slide-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  &.default-max-width {
+    max-width: 80rem; /* max-w-7xl */
+  }
+
+  @include pos-rules("base");
+  @include up("md") {
+    @include pos-rules("md");
+  }
+  @include up("lg") {
+    @include pos-rules("lg");
+  }
+}
+
+.badge-wrap {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2vh;
+
+  @include up("sm") {
+    min-height: 100px;
+  }
+}
+
+.badge-img {
+  height: auto;
+  object-fit: contain;
+  max-height: 25vh;
+
+  &.is-desktop {
+    @include up("lg") {
+      max-height: 35vh;
+    }
+  }
+
+  &.default-badge-width {
+    width: 6rem;
+    @include up("sm") {
+      width: 8rem;
+    }
+  }
+}
+
+.slide-title {
+  margin: 0 0 2vh;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+
+  @include up("sm") {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  @include up("md") {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  &.theme-light-title {
+    color: var(--color-white);
+  }
+
+  &.theme-dark-text {
+    color: var(--color-brand-dark-900);
+  }
+}
+
+.slide-subtitle {
+  margin: 0 0 2vh;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  max-width: 42rem;
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+
+  @include up("sm") {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  &.theme-light-subtitle {
+    color: var(--color-gray-200);
+  }
+
+  &.theme-dark-text {
+    color: var(--color-brand-dark-900);
+  }
+}
+
+.slide-desc {
+  margin: 0 0 4vh;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  max-width: 42rem;
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07));
+
+  @include up("sm") {
+    font-size: 1.125rem;
+  }
+
+  &.theme-light-desc {
+    color: var(--color-gray-300);
+  }
+
+  &.theme-dark-text {
+    color: var(--color-brand-dark-900);
+  }
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+
+  @include up("sm") {
+    gap: var(--space-4);
+  }
+}
+
+.secondary-blur {
+  backdrop-filter: blur(4px);
+}
+
+.hero-pagination {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: none;
+  justify-content: center;
+
+  @include up("lg") {
+    display: flex;
+  }
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: rgb(255 255 255 / 0.7);
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: var(--color-white);
+  }
+
+  @include up("lg") {
+    display: none;
+  }
+
+  &.is-prev { left: var(--space-4); }
+  &.is-next { right: var(--space-4); }
+}
+
+.arrow-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 :deep(.swiper-pagination-bullet) {
   width: 10px;
   height: 10px;
+  background-color: var(--color-white);
   opacity: 0.5;
   transition: all 0.3s;
 }
+
 :deep(.swiper-pagination-bullet-active) {
   width: 24px;
   border-radius: 5px;
+  background-color: var(--color-brand-dark-500);
   opacity: 1;
 }
 </style>

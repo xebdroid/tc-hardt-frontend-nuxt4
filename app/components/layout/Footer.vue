@@ -80,6 +80,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
               :key="index"
               :to="link.to"
               :target="link.target || '_self'"
+              :external="link.target === '_blank' || link.to.endsWith('.pdf')"
               class="text-lg font-medium text-gray-300 hover:text-white transition-colors"
             >
               {{ link.label }}
