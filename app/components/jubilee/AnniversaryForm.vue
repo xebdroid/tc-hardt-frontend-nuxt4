@@ -7,6 +7,7 @@ import BaseInputNumber from '~/components/base/InputNumber.vue'
 import BaseSelect from '~/components/base/Select.vue'
 import BaseRadioGroup from '~/components/base/RadioGroup.vue'
 import BaseTextarea from '~/components/base/Textarea.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import { useToast } from '~/composables/useToast'
 
 interface JubileeFormState {
@@ -133,9 +134,8 @@ function resetForm() {
 </script>
 
 <template>
-  <div id="anniversary-form-container" class="mx-auto w-full max-w-3xl">
-    <div class="bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700">
-
+  <div id="anniversary-form-container" class="anniversary-form">
+    <div class="form-card">
       <div v-if="!isSent">
         <Headline
           title="Tickets für die Jubiläumsfeier"
@@ -146,7 +146,7 @@ function resetForm() {
         />
 
         <form
-          class="space-y-8"
+          class="form-stack"
           novalidate
           @submit.prevent="onSubmit"
         >
@@ -164,7 +164,7 @@ function resetForm() {
             />
           </BaseFormField>
 
-          <div class="grid md:grid-cols-2 gap-8">
+          <div class="two-cols">
             <BaseFormField
               label="Anzahl der Tickets"
               name="ticketCount"
@@ -218,17 +218,17 @@ function resetForm() {
             />
           </BaseFormField>
 
-          <!-- Honeypot: Verstecktes Feld für Bots -->
+          <!-- Honeypot -->
           <input
             v-model="state.website"
             type="text"
             name="website"
-            class="hidden"
+            class="honeypot"
             tabindex="-1"
             autocomplete="off"
           >
 
-          <div class="pt-2">
+          <div class="submit-row">
             <Button
               type="submit"
               block
@@ -242,12 +242,12 @@ function resetForm() {
         </form>
       </div>
 
-      <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
-        <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-6 shadow-sm">
-          <BaseIcon name="i-heroicons-check" class="w-12 h-12" />
+      <div v-else class="success-box">
+        <div class="success-badge">
+          <BaseIcon name="i-heroicons-check" class="success-icon" />
         </div>
-        <h3 class="text-3xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank für deine Bestellung!</h3>
-        <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
+        <h3 class="success-title">Vielen Dank für deine Bestellung!</h3>
+        <p class="success-desc">
           Wir haben deine Ticket-Bestellung erhalten und freuen uns darauf, mit dir zu feiern. Weitere Infos folgen in Kürze.
         </p>
         <Button
@@ -257,7 +257,105 @@ function resetForm() {
           @click="resetForm"
         />
       </div>
-
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.anniversary-form {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 48rem;
+}
+
+.form-card {
+  background-color: var(--color-pure-white);
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-gray-100);
+
+  @include up("sm") {
+    padding: var(--space-12);
+  }
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+}
+
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+
+  @include up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.honeypot {
+  display: none;
+}
+
+.submit-row {
+  padding-top: var(--space-2);
+}
+
+.success-box {
+  padding-block: var(--space-16);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-badge {
+  width: 6rem;
+  height: 6rem;
+  background-color: var(--color-success-100);
+  color: var(--color-success-600);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.success-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.success-title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.success-desc {
+  margin: 0 auto var(--space-10);
+  font-size: 1.125rem;
+  color: var(--color-gray-600);
+  max-width: 32rem;
+  line-height: 1.625;
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+</style>

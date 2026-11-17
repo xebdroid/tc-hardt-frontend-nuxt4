@@ -1,14 +1,13 @@
 <script setup lang="ts">
 interface ImageCredit {
-  location: string;
-  src: string;
-  author?: { name: string, url: string };
-  source?: { name: string, url: string };
-  credit?: string;
+  location: string
+  src: string
+  author?: { name: string, url: string }
+  source?: { name: string, url: string }
+  credit?: string
 }
 
 const imageCredits: ImageCredit[] = [
-  // Stock Photos
   {
     location: 'Startseite, Hero, Training',
     src: '/img/home/alexander-lunyov-wBLW_19byJY-unsplash.jpg',
@@ -52,7 +51,8 @@ const imageCredits: ImageCredit[] = [
     },
   },
   {
-    location: 'Mitgliedschaft', src: '/img/membership/tennis-platz-bank.jpg',
+    location: 'Mitgliedschaft',
+    src: '/img/membership/tennis-platz-bank.jpg',
     author: { name: 'Jean Luc Catarin', url: 'https://unsplash.com/de/@luckybel' },
     source: {
       name: 'Unsplash',
@@ -60,32 +60,14 @@ const imageCredits: ImageCredit[] = [
     },
   },
   {
-    location: 'Training', src: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
+    location: 'Training',
+    src: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
     author: { name: 'Gonzalo Facello', url: 'https://unsplash.com/de/@gonchifacello' },
     source: {
       name: 'Unsplash',
       url: 'https://unsplash.com/de/fotos/eine-person-die-einen-tennisschlager-auf-einem-tennisplatz-halt-RjCo6j0BkU8',
     },
   },
-  /*
-  {
-    location: 'Jubiläum', src: '/img/jubilee/konfetti.jpg',
-    author: { name: 'Jason Leung', url: 'https://unsplash.com/de/@ninjason' },
-    source: {
-      name: 'Unsplash',
-      url: 'https://unsplash.com/de/fotos/selektive-fokusfotografie-von-mehrfarbigem-konfetti-Xaanw0s0pMk',
-    },
-  },
-  {
-    location: 'Jubiläum', src: '/img/jubilee/gluehwein.jpg',
-    author: { name: 'Svitlana', url: 'https://unsplash.com/de/@kekse_und_ich' },
-    source: {
-      name: 'Unsplash',
-      url: 'https://unsplash.com/de/fotos/ein-holzloffel-mit-zitronen-und-eine-schussel-mit-geschnittenen-zitronen-8ts6P7yv-nE',
-    },
-  },
-  */
-  // Internal Images
   { location: 'Training', src: '/img/training/tennisschule-rot-weiss.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Training', src: '/img/training/trainer-nicole-gafert.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Training', src: '/img/training/trainer-marc-wigge.jpg', credit: 'TC Hardt e.V.' },
@@ -94,12 +76,6 @@ const imageCredits: ImageCredit[] = [
   { location: 'Sponsoring', src: '/img/sponsoring/sponsoring-website.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Sponsoring', src: '/img/sponsoring/sponsoring-freundetafel_4x3.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Sponsoring', src: '/img/boris_ruetten.jpg', credit: 'TC Hardt e.V.' },
-  /*
-  { location: 'Jubiläum', src: '/img/jubilee/tennis-plaetze-von-oben.jpg', credit: 'TC Hardt e.V.' },
-  { location: 'Jubiläum', src: '/img/jubilee/50-jahre-emblem.png', credit: 'TC Hardt e.V.' },
-  { location: 'Jubiläum', src: '/img/jubilee/drei-tennis-plaetze-leer.jpg', credit: 'TC Hardt e.V.' },
-  { location: 'Jubiläum', src: '/img/jubilee/50-jahre-emblem-gold.png', credit: 'TC Hardt e.V.' },
-  */
   { location: 'Startseite', src: '/img/home/anlage-von-oben-large-preview.png', credit: 'TC Hardt e.V.' },
   { location: 'Startseite', src: '/img/home/clubhaus-von-oben.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Startseite', src: '/img/home/unsere-werte.jpg', credit: 'TC Hardt e.V.' },
@@ -108,7 +84,6 @@ const imageCredits: ImageCredit[] = [
   { location: 'Anlage', src: '/img/facility/buegeln.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Anlage', src: '/img/facility/beachvolleyball.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Über Uns', src: '/img/about/tc-hardt-anlage.jpg', credit: 'TC Hardt e.V.' },
-  // { location: 'Jubiläum', src: '/img/jubilee/50-jahre-tc-hardt.jpg', credit: 'TC Hardt e.V.' },
   {
     location: 'Sponsoren',
     src: '/img/sponsors/logo_fsd_fruhen_schulze_dupuis.jpg',
@@ -154,60 +129,202 @@ const imageCredits: ImageCredit[] = [
   { location: 'Events', src: '/img/events/sangria-open.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Events', src: '/img/events/finale.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Events', src: '/img/events/gluehwein-open.jpg', credit: 'TC Hardt e.V.' },
-];
+]
 </script>
 
 <template>
-  <div class="w-full">
-    <table class="w-full text-sm">
-      <thead class="hidden bg-gray-50 dark:bg-brand-dark-900/20 md:table-header-group">
-      <tr class="text-left">
-        <th class="p-3 font-semibold text-gray-700 dark:text-gray-200 rounded-tl-lg">
-          Einsatzort
-        </th>
-        <th class="p-3 font-semibold text-gray-700 dark:text-gray-200">
-          Bild-Quelle
-        </th>
-        <th class="p-3 font-semibold text-gray-700 dark:text-gray-200 rounded-tr-lg">
-          Bildnachweis
-        </th>
-      </tr>
+  <div class="image-credits">
+    <table class="credits-table">
+      <thead class="thead">
+        <tr>
+          <th class="th is-first">Einsatzort</th>
+          <th class="th">Bild-Quelle</th>
+          <th class="th is-last">Bildnachweis</th>
+        </tr>
       </thead>
-      <tbody class="space-y-2 md:space-y-0 md:divide-y md:divide-gray-200 dark:md:divide-gray-700">
-      <tr
-        v-for="(credit, index) in imageCredits"
-        :key="index"
-        class="block rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800
-                 md:table-row md:rounded-none md:shadow-none
-                 md:odd:bg-white md:even:bg-gray-50
-                 dark:md:odd:bg-gray-800/50 dark:md:even:bg-gray-700/50"
-      >
-        <td class="flex flex-col p-3 text-gray-800 dark:text-gray-300 md:table-cell md:p-3">
-          <span class="font-semibold text-gray-600 dark:text-gray-400 md:hidden">Einsatzort</span>
-          <span class="text-left">{{ credit.location }}</span>
-        </td>
-        <td
-          class="flex flex-col p-3 border-t border-gray-100 dark:border-gray-700/50 text-gray-600 dark:text-gray-400 md:table-cell md:p-3 md:border-t-0 break-all">
-          <span class="font-semibold text-gray-600 dark:text-gray-400 md:hidden">Bild-Quelle</span>
-          <span class="text-left">{{ credit.src }}</span>
-        </td>
-        <td
-          class="flex flex-col p-3 border-t border-gray-100 dark:border-gray-700/50 text-gray-600 dark:text-gray-400 md:table-cell md:p-3">
-          <span class="font-semibold text-gray-600 dark:text-gray-400 md:hidden">Bildnachweis</span>
-          <span class="text-left">
+      <tbody class="tbody">
+        <tr
+          v-for="(credit, index) in imageCredits"
+          :key="index"
+          class="tr"
+        >
+          <td class="td is-location">
+            <span class="mobile-label">Einsatzort</span>
+            <span>{{ credit.location }}</span>
+          </td>
+          <td class="td is-src">
+            <span class="mobile-label">Bild-Quelle</span>
+            <span>{{ credit.src }}</span>
+          </td>
+          <td class="td is-credit">
+            <span class="mobile-label">Bildnachweis</span>
+            <span>
               <template v-if="credit.author && credit.source">
-                Foto von <a :href="credit.author.url" target="_blank" rel="noopener noreferrer"
-                            class="text-primary-500 hover:underline">{{ credit.author.name }}</a>
-                auf <a :href="credit.source.url" target="_blank" rel="noopener noreferrer"
-                       class="text-primary-500 hover:underline">{{ credit.source.name }}</a>
+                Foto von
+                <a :href="credit.author.url" target="_blank" rel="noopener noreferrer" class="credit-link">
+                  {{ credit.author.name }}
+                </a>
+                auf
+                <a :href="credit.source.url" target="_blank" rel="noopener noreferrer" class="credit-link">
+                  {{ credit.source.name }}
+                </a>
               </template>
               <template v-else>
                 {{ credit.credit }}
               </template>
             </span>
-        </td>
-      </tr>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.image-credits {
+  width: 100%;
+}
+
+.credits-table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.thead {
+  display: none;
+  background-color: var(--color-gray-50);
+  text-align: left;
+
+  @include up("md") {
+    display: table-header-group;
+  }
+
+  @include dark {
+    background-color: rgb(26 40 82 / 0.2);
+  }
+}
+
+.th {
+  padding: var(--space-3);
+  font-weight: 600;
+  color: var(--color-gray-700);
+
+  @include dark {
+    color: var(--color-gray-200);
+  }
+
+  &.is-first {
+    border-top-left-radius: var(--radius-md);
+  }
+
+  &.is-last {
+    border-top-right-radius: var(--radius-md);
+  }
+}
+
+.tr {
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-pure-white);
+  margin-bottom: var(--space-2);
+
+  @include dark {
+    background-color: var(--color-gray-800);
+  }
+
+  @include up("md") {
+    display: table-row;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+    border-top: 1px solid var(--color-gray-200);
+
+    &:nth-child(odd) {
+      background-color: var(--color-pure-white);
+    }
+
+    &:nth-child(even) {
+      background-color: var(--color-gray-50);
+    }
+
+    @include dark {
+      border-top-color: var(--color-gray-700);
+
+      &:nth-child(odd) {
+        background-color: rgb(30 41 59 / 0.5);
+      }
+
+      &:nth-child(even) {
+        background-color: rgb(51 65 85 / 0.5);
+      }
+    }
+  }
+}
+
+.td {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  text-align: left;
+  color: var(--color-gray-600);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+
+  &.is-location {
+    color: var(--color-gray-800);
+
+    @include dark {
+      color: var(--color-gray-300);
+    }
+  }
+
+  &.is-src {
+    border-top: 1px solid var(--color-gray-100);
+    word-break: break-all;
+
+    @include dark {
+      border-top-color: rgb(51 65 85 / 0.5);
+    }
+  }
+
+  &.is-credit {
+    border-top: 1px solid var(--color-gray-100);
+
+    @include dark {
+      border-top-color: rgb(51 65 85 / 0.5);
+    }
+  }
+
+  @include up("md") {
+    display: table-cell;
+    border-top: 0 !important;
+  }
+}
+
+.mobile-label {
+  font-weight: 600;
+  color: var(--color-gray-600);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+
+  @include up("md") {
+    display: none;
+  }
+}
+
+.credit-link {
+  color: var(--color-brand-dark-500);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+</style>

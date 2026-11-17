@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, watch } from 'vue'
 import type { GalleryImage } from '~/types'
+import BaseIcon from '~/components/base/Icon.vue'
 
 interface Props {
   images: GalleryImage[]
@@ -64,59 +65,48 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition duration-150 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
+    <Transition name="lightbox-fade">
       <div
         v-if="isOpen && currentImage"
-        class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex flex-col justify-between select-none"
+        class="gallery-lightbox"
         role="dialog"
         aria-modal="true"
         @click.self="close"
       >
-        <!-- Top-Leiste (Zähler, Titel & Schließen) -->
-        <div class="flex items-center justify-between px-4 py-3 md:px-8 md:py-4 text-white bg-gradient-to-b from-black/70 to-transparent z-10">
-          <div class="flex items-center gap-3 min-w-0">
-            <span class="px-3 py-1 rounded-full bg-white/15 text-xs md:text-sm font-bold shrink-0">
+        <!-- Top-Leiste -->
+        <div class="top-bar">
+          <div class="top-left">
+            <span class="counter">
               {{ currentIndex + 1 }} / {{ images.length }}
             </span>
-            <span v-if="albumTitle" class="text-sm md:text-base font-medium text-gray-200 truncate hidden sm:inline">
+            <span v-if="albumTitle" class="album-title">
               {{ albumTitle }}
             </span>
           </div>
 
           <button
             type="button"
-            class="p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer"
+            class="close-btn"
             aria-label="Schließen"
             @click="close"
           >
-            <BaseIcon name="i-heroicons-x-mark" class="w-6 h-6" />
+            <BaseIcon name="i-heroicons-x-mark" class="close-icon" />
           </button>
         </div>
 
-        <!-- Hauptbild-Bereich (Originalformat) -->
-        <div
-          class="relative flex-1 flex items-center justify-center px-4 md:px-16 min-h-0"
-          @click.self="close"
-        >
-          <!-- Zurück-Pfeil -->
+        <!-- Hauptbild-Bereich -->
+        <div class="stage" @click.self="close">
           <button
             v-if="images.length > 1"
             type="button"
-            class="absolute left-2 md:left-6 z-10 p-2.5 md:p-3 rounded-full bg-black/50 hover:bg-white/20 text-white border border-white/15 transition-colors cursor-pointer"
+            class="nav-btn is-prev"
             aria-label="Vorheriges Bild"
             @click.stop="prev"
           >
-            <BaseIcon name="i-heroicons-chevron-left" class="w-6 h-6 md:w-7 md:h-7" />
+            <BaseIcon name="i-heroicons-chevron-left" class="nav-icon" />
           </button>
 
-          <div class="flex flex-col items-center max-h-full max-w-full">
+          <div class="media-box">
             <video
               v-if="currentImage.type === 'video'"
               :key="currentImage.src"
@@ -124,46 +114,39 @@ onUnmounted(() => {
               controls
               autoplay
               playsinline
-              class="max-h-[72vh] md:max-h-[76vh] max-w-[92vw] md:max-w-[82vw] w-auto h-auto rounded-lg shadow-2xl bg-black"
+              class="media-el is-video"
             />
             <img
               v-else
               :key="currentImage.src"
               :src="currentImage.src"
               :alt="currentImage.alt || albumTitle || 'Galeriebild'"
-              class="max-h-[72vh] md:max-h-[76vh] max-w-[92vw] md:max-w-[82vw] w-auto h-auto object-contain rounded-lg shadow-2xl"
+              class="media-el is-img"
             >
-            <p
-              v-if="currentImage.caption"
-              class="mt-3 text-center text-sm md:text-base text-gray-200 max-w-2xl px-4"
-            >
+            <p v-if="currentImage.caption" class="caption">
               {{ currentImage.caption }}
             </p>
           </div>
 
-          <!-- Weiter-Pfeil -->
           <button
             v-if="images.length > 1"
             type="button"
-            class="absolute right-2 md:right-6 z-10 p-2.5 md:p-3 rounded-full bg-black/50 hover:bg-white/20 text-white border border-white/15 transition-colors cursor-pointer"
+            class="nav-btn is-next"
             aria-label="Nächstes Bild"
             @click.stop="next"
           >
-            <BaseIcon name="i-heroicons-chevron-right" class="w-6 h-6 md:w-7 md:h-7" />
+            <BaseIcon name="i-heroicons-chevron-right" class="nav-icon" />
           </button>
         </div>
 
-        <!-- Thumbnail-Leiste unten -->
-        <div
-          v-if="images.length > 1"
-          class="px-4 py-3 md:py-4 bg-gradient-to-t from-black/80 to-transparent flex justify-center overflow-x-auto gap-2"
-        >
+        <!-- Thumbnail-Leiste -->
+        <div v-if="images.length > 1" class="thumb-bar">
           <button
             v-for="(img, idx) in images"
             :key="img.src"
             type="button"
-            class="relative w-14 h-10 md:w-16 md:h-12 rounded-md overflow-hidden shrink-0 border-2 transition-all cursor-pointer bg-gray-900"
-            :class="idx === currentIndex ? 'border-accent-400 scale-105 opacity-100' : 'border-transparent opacity-50 hover:opacity-80'"
+            class="thumb-btn"
+            :class="{ 'is-active': idx === currentIndex }"
             @click.stop="selectIndex(idx)"
           >
             <template v-if="img.type === 'video'">
@@ -172,23 +155,284 @@ onUnmounted(() => {
                 preload="metadata"
                 muted
                 playsinline
-                class="w-full h-full object-cover"
+                class="thumb-media"
               />
-              <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <BaseIcon name="i-heroicons-play-solid" class="w-4 h-4 text-white" />
+              <div class="thumb-play-overlay">
+                <BaseIcon name="i-heroicons-play-solid" class="play-icon" />
               </div>
             </template>
             <img
               v-else
               :src="img.src"
               :alt="img.alt || ''"
-              class="w-full h-full object-cover"
+              class="thumb-media"
               loading="lazy"
             >
           </button>
         </div>
-        <div v-else class="h-4" />
+        <div v-else class="bottom-spacer" />
       </div>
     </Transition>
   </Teleport>
 </template>
+
+<style lang="scss" scoped>
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background-color: rgb(0 0 0 / 0.95);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-white);
+  background-image: linear-gradient(to bottom, rgb(0 0 0 / 0.7), transparent);
+  z-index: 10;
+
+  @include up("md") {
+    padding: var(--space-4) var(--space-8);
+  }
+}
+
+.top-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.counter {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(255 255 255 / 0.15);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+
+  @include up("md") {
+    font-size: 0.875rem;
+  }
+}
+
+.album-title {
+  display: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-200);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include up("sm") {
+    display: inline;
+  }
+
+  @include up("md") {
+    font-size: 1rem;
+  }
+}
+
+.close-btn {
+  padding: var(--space-2);
+  border-radius: var(--radius-full);
+  border: 0;
+  background-color: rgb(255 255 255 / 0.1);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background-color: rgb(255 255 255 / 0.25);
+  }
+}
+
+.close-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--space-4);
+  min-height: 0;
+
+  @include up("md") {
+    padding-inline: var(--space-16);
+  }
+}
+
+.nav-btn {
+  position: absolute;
+  z-index: 10;
+  padding: 0.625rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(0 0 0 / 0.5);
+  color: var(--color-white);
+  border: 1px solid rgb(255 255 255 / 0.15);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background-color: rgb(255 255 255 / 0.2);
+  }
+
+  &.is-prev {
+    left: var(--space-2);
+    @include up("md") { left: var(--space-6); }
+  }
+
+  &.is-next {
+    right: var(--space-2);
+    @include up("md") { right: var(--space-6); }
+  }
+
+  @include up("md") {
+    padding: 0.75rem;
+  }
+}
+
+.nav-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  @include up("md") {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+.media-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.media-el {
+  max-height: 72vh;
+  max-width: 92vw;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2xl);
+
+  @include up("md") {
+    max-height: 76vh;
+    max-width: 82vw;
+  }
+
+  &.is-video {
+    background-color: var(--color-black);
+  }
+
+  &.is-img {
+    object-fit: contain;
+  }
+}
+
+.caption {
+  margin: var(--space-3) 0 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-gray-200);
+  max-width: 42rem;
+  padding-inline: var(--space-4);
+
+  @include up("md") {
+    font-size: 1rem;
+  }
+}
+
+.thumb-bar {
+  padding: var(--space-3) var(--space-4);
+  background-image: linear-gradient(to top, rgb(0 0 0 / 0.8), transparent);
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  gap: var(--space-2);
+
+  @include up("md") {
+    padding-block: var(--space-4);
+  }
+}
+
+.thumb-btn {
+  position: relative;
+  width: 3.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  background-color: var(--color-gray-900);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  @include up("md") {
+    width: 4rem;
+    height: 3rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.is-active {
+    border-color: var(--color-accent-400);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.thumb-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-play-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-white);
+}
+
+.bottom-spacer {
+  height: var(--space-4);
+}
+
+.lightbox-fade-enter-active {
+  transition: opacity 200ms ease-out;
+}
+.lightbox-fade-leave-active {
+  transition: opacity 150ms ease-in;
+}
+.lightbox-fade-enter-from,
+.lightbox-fade-leave-to {
+  opacity: 0;
+}
+</style>

@@ -72,15 +72,34 @@ const displayEvents = computed(() => {
       margin-bottom="xs"
       alignment="center"
     />
-    <div :class="layout === 'grid' ? 'grid grid-cols-1 md:grid-cols-3 gap-6 items-start' : 'space-y-4'">
+    <div :class="layout === 'grid' ? 'events-grid' : 'events-list'">
       <EventItem
         v-for="event in displayEvents"
         :key="event.id"
         :event="event"
         :is-open="openEventId === event.id"
-        @toggle="handleToggle(event.id)"
         :variant="layout === 'grid' ? 'compact' : 'default'"
+        @toggle="handleToggle(event.id)"
       />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+
+  @include up("md") {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+</style>

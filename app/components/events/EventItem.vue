@@ -5,6 +5,8 @@ import { useCalendar } from '~/composables/useCalendar'
 import Button from '~/components/base/Button.vue'
 import EventDate from '~/components/base/EventDate.vue'
 import Image from '~/components/base/Image.vue'
+import BaseIcon from '~/components/base/Icon.vue'
+import BaseCollapsible from '~/components/base/Collapsible.vue'
 
 const props = defineProps({
   event: {
@@ -33,132 +35,36 @@ const hasOptionalContent = computed(() => {
 
 const emit = defineEmits(['toggle'])
 
-// --- NEU: Tracking für Aufklappen ---
 function handleToggle() {
   emit('toggle')
-  // Wir tracken nur das aktive Aufklappen, nicht das Zuklappen
   if (import.meta.client && !props.isOpen && (window as any)._paq) {
     (window as any)._paq.push(['trackEvent', 'Termine', 'Details Aufgeklappt', props.event.title])
   }
 }
 
-// --- NEU: Tracking für Kalender Button Klicks ---
 function trackCalendarClick(actionLabel?: string) {
   if (import.meta.client && (window as any)._paq) {
     const label = actionLabel || 'Unbekannt'
     (window as any)._paq.push(['trackEvent', 'Termine', 'Kalender Export', `${props.event.title} (${label})`])
   }
 }
-
-const cardClasses = computed(() => [
-  'w-full',
-  'border',
-  'border-gray-200 dark:border-gray-700',
-  'rounded-xl',
-  'transition-all',
-  'duration-300',
-  'bg-white dark:bg-gray-900',
-  'overflow-hidden', // Ensure rounded corners clip children
-  props.isPast && !props.isOpen
-    ? 'opacity-70'
-    : '',
-  !props.isPast
-    ? 'hover:scale-[1.02] hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-600'
-    : '',
-  (props.isPast && !props.isOpen) ? 'grayscale' : ''
-])
-
-const downloadIcs = () => {
-  // --- NEU: Tracking falls die direkte ICS Funktion aufgerufen wird ---
-  if (import.meta.client && (window as any)._paq) {
-    (window as any)._paq.push(['trackEvent', 'Termine', 'ICS Download', props.event.title])
-  }
-
-  const e = props.event
-
-  const formatDate = (d: Date) => {
-    return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
-  }
-
-  const formatAllDay = (d: Date) => {
-    return d.toISOString().split('T')[0].replace(/-/g, '')
-  }
-
-  let start = ''
-  let end = ''
-  const isAllDay = !e.time
-
-  const startDateObj = new Date(e.date)
-
-  if (isAllDay) {
-    start = `DTSTART;VALUE=DATE:${formatAllDay(startDateObj)}`
-    const endDateObj = e.dateEnd ? new Date(e.dateEnd) : new Date(e.date)
-    endDateObj.setDate(endDateObj.getDate() + 1)
-    end = `DTEND;VALUE=DATE:${formatAllDay(endDateObj)}`
-  } else {
-    const timeRangeMatch = e.time?.match(/(\d{1,2}):(\d{2})\s*[–-]\s*(\d{1,2}):(\d{2})/)
-    const singleTimeMatch = e.time?.match(/(\d{1,2}):(\d{2})/)
-
-    let sHours = 0, sMinutes = 0
-
-    if (timeRangeMatch) {
-        sHours = parseInt(timeRangeMatch[1])
-        sMinutes = parseInt(timeRangeMatch[2])
-    } else if (singleTimeMatch) {
-        sHours = parseInt(singleTimeMatch[1])
-        sMinutes = parseInt(singleTimeMatch[2])
-    }
-
-    startDateObj.setHours(sHours, sMinutes)
-    start = `DTSTART:${formatDate(startDateObj)}`
-
-    let endDateObj = new Date(startDateObj)
-    if (timeRangeMatch) {
-        const eHours = parseInt(timeRangeMatch[3])
-        const eMinutes = parseInt(timeRangeMatch[4])
-        endDateObj = new Date(e.date)
-        endDateObj.setHours(eHours, eMinutes)
-    } else {
-        endDateObj.setHours(startDateObj.getHours() + 2)
-    }
-    end = `DTEND:${formatDate(endDateObj)}`
-  }
-
-  const icsContent = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//TC Hardt//Website//DE',
-    'BEGIN:VEVENT',
-    `UID:${Date.now()}-${e.id}@tc-hardt.de`,
-    `DTSTAMP:${formatDate(new Date())}`,
-    `SUMMARY:${e.title}`,
-    `DESCRIPTION:${e.description || ''}`,
-    `LOCATION:${e.location || ''}`,
-    start,
-    end,
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\r\n')
-
-  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
-  const link = document.createElement('a')
-  link.href = window.URL.createObjectURL(blob)
-  link.setAttribute('download', `${e.title.replace(/[^a-z0-9]/gi, '_')}.ics`)
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-}
 </script>
 
 <template>
-  <div :class="cardClasses">
-    <div class="flex flex-col items-stretch h-full" :class="variant === 'default' ? 'md:flex-row' : ''">
-
-      <div class="bg-gray-50 dark:bg-white/5 flex-shrink-0 border-b border-gray-100 dark:border-gray-700 flex flex-col" :class="variant === 'default' ? 'md:w-80 md:border-b-0 md:border-r' : ''">
-        <div
-          class="flex flex-row items-center justify-between p-3 md:p-4 gap-4"
-        >
-          <div :class="[!event.dateEnd ? 'md:flex-1 md:flex md:justify-center' : '']">
+  <div
+    class="event-item"
+    :class="[
+      `variant-${variant}`,
+      {
+        'is-past-closed': isPast && !isOpen,
+        'is-upcoming': !isPast
+      }
+    ]"
+  >
+    <div class="item-layout">
+      <div class="date-sidebar">
+        <div class="date-row">
+          <div :class="{ 'single-date-wrap': !event.dateEnd }">
             <EventDate :date="event.date" :date-end="event.dateEnd" />
           </div>
 
@@ -167,53 +73,54 @@ const downloadIcs = () => {
             :alt="event.title"
             variant="event"
           >
-            <BaseIcon name="i-heroicons-calendar-days" class="w-8 h-8 text-gray-400" />
+            <BaseIcon name="i-heroicons-calendar-days" class="fallback-icon" />
           </Image>
         </div>
       </div>
 
       <BaseCollapsible
-        class="flex-1 flex flex-col group/event min-w-0 justify-center data-[state=open]:justify-start"
+        class="collapsible-col"
         :disabled="!hasOptionalContent"
         :open="isOpen"
       >
-        <div class="p-3 md:p-4 flex justify-between items-center gap-4 cursor-pointer min-h-[5.5rem] md:min-h-24" @click="handleToggle">
-          <h3 class="text-xl font-bold text-brand-dark-900 dark:text-white group-hover/event:text-accent-600 dark:group-hover/event:text-accent-400 transition-colors">
+        <div class="header-trigger" @click="handleToggle">
+          <h3 class="title">
             {{ event.title }}
           </h3>
 
-          <div v-if="hasOptionalContent" class="flex-shrink-0 mt-1">
+          <div v-if="hasOptionalContent" class="chevron-wrap">
             <BaseIcon
               name="i-heroicons-chevron-down"
-              class="w-6 h-6 text-gray-400 transition-transform duration-300"
-              :class="{ 'rotate-180': isOpen }"
+              class="chevron-icon"
+              :class="{ 'is-open': isOpen }"
             />
           </div>
         </div>
 
         <template #content>
-          <div class="px-3 pb-3 md:px-4 md:pb-4 text-gray-600 dark:text-gray-300 space-y-4">
+          <div class="details-body">
+            <!-- eslint-disable-next-line vue/no-v-html -->
             <div
               v-if="event.content"
-              class="prose dark:prose-invert max-w-none text-sm"
+              class="rich-text"
               v-html="event.content"
             />
-            <p v-else-if="event.description" class="text-sm">
+            <p v-else-if="event.description" class="desc-text">
               {{ event.description }}
             </p>
 
-            <div class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
-              <div v-if="event.time" class="flex items-center">
-                <BaseIcon name="i-heroicons-clock" class="w-4 h-4 mr-2 text-accent-500" />
+            <div class="meta-bar">
+              <div v-if="event.time" class="meta-item">
+                <BaseIcon name="i-heroicons-clock" class="meta-icon" />
                 <span>{{ event.time }}</span>
               </div>
-              <div v-if="event.location" class="flex items-center">
-                <BaseIcon name="i-heroicons-map-pin" class="w-4 h-4 mr-2 text-accent-500" />
+              <div v-if="event.location" class="meta-item">
+                <BaseIcon name="i-heroicons-map-pin" class="meta-icon" />
                 <span>{{ event.location }}</span>
               </div>
             </div>
 
-            <div v-if="event.gallerySlug" class="pt-2">
+            <div v-if="event.gallerySlug" class="gallery-action">
               <Button
                 :to="$localePath(`/galerie/${event.gallerySlug}`)"
                 label="Zur Bildergalerie"
@@ -223,14 +130,14 @@ const downloadIcs = () => {
               />
             </div>
 
-            <div v-if="!isPast && calendarOptions.length > 0" class="flex flex-wrap gap-3 pt-2">
+            <div v-if="!isPast && calendarOptions.length > 0" class="calendar-actions">
               <Button
                 v-for="(action, idx) in calendarOptions"
                 :key="idx"
                 v-bind="action"
                 size="md"
                 variant="outline"
-                class="flex-1 sm:flex-none justify-center"
+                class="cal-btn"
                 @click="trackCalendarClick(action.label)"
               />
             </div>
@@ -240,3 +147,233 @@ const downloadIcs = () => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.event-item {
+  width: 100%;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-pure-white);
+  overflow: hidden;
+  transition: all 300ms ease;
+
+  @include dark {
+    background-color: var(--color-gray-900);
+    border-color: var(--color-gray-700);
+  }
+
+  &.is-past-closed {
+    opacity: 0.7;
+    filter: grayscale(100%);
+  }
+
+  &.is-upcoming:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-gray-300);
+
+    @include dark {
+      border-color: var(--color-gray-600);
+    }
+  }
+}
+
+.item-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+
+  .variant-default & {
+    @include up("md") {
+      flex-direction: row;
+    }
+  }
+}
+
+.date-sidebar {
+  background-color: var(--color-gray-50);
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-gray-100);
+  display: flex;
+  flex-direction: column;
+
+  @include dark {
+    background-color: rgb(255 255 255 / 0.05);
+    border-bottom-color: var(--color-gray-700);
+  }
+
+  .variant-default & {
+    @include up("md") {
+      width: 20rem; /* md:w-80 */
+      border-bottom: 0;
+      border-right: 1px solid var(--color-gray-100);
+
+      @include dark {
+        border-right-color: var(--color-gray-700);
+      }
+    }
+  }
+}
+
+.date-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  gap: var(--space-4);
+
+  @include up("md") {
+    padding: var(--space-4);
+  }
+}
+
+.single-date-wrap {
+  @include up("md") {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.fallback-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-gray-400);
+}
+
+.collapsible-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  justify-content: center;
+
+  &[data-state="open"] {
+    justify-content: flex-start;
+  }
+}
+
+.header-trigger {
+  padding: var(--space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  cursor: pointer;
+  min-height: 5.5rem;
+
+  @include up("md") {
+    padding: var(--space-4);
+    min-height: 6rem;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+  transition: color var(--transition-fast);
+
+  @include dark {
+    color: var(--color-white);
+  }
+
+  .collapsible-col:hover & {
+    color: var(--color-accent-600);
+
+    @include dark {
+      color: var(--color-accent-400);
+    }
+  }
+}
+
+.chevron-wrap {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.chevron-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-gray-400);
+  transition: transform 300ms ease;
+
+  &.is-open {
+    transform: rotate(180deg);
+  }
+}
+
+.details-body {
+  padding: 0 var(--space-3) var(--space-3);
+  color: var(--color-gray-600);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  @include up("md") {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.rich-text,
+.desc-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+  border-top: 1px solid var(--color-gray-100);
+  padding-top: var(--space-4);
+
+  @include dark {
+    color: var(--color-gray-400);
+    border-top-color: var(--color-gray-700);
+  }
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+}
+
+.meta-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  color: var(--color-accent-500);
+}
+
+.gallery-action {
+  padding-top: 0.5rem;
+}
+
+.calendar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: 0.5rem;
+}
+
+.cal-btn {
+  flex: 1;
+  justify-content: center;
+
+  @include up("sm") {
+    flex: none;
+  }
+}
+</style>
