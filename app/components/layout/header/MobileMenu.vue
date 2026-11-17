@@ -9,17 +9,15 @@ const props = defineProps<{
   headerMenu: any[]
   navButtons: any[]
   socialLinks: any[]
-  showAppearanceModeButton: boolean;
-  showLanguageSwitch: boolean;
+  showAppearanceModeButton: boolean
+  showLanguageSwitch: boolean
 }>()
 
 const emit = defineEmits(['close'])
 const route = useRoute()
 
-// Tracken, welches Submenü offen ist (Akkordeon-Logik manuell)
 const openSection = ref<string | null>(null)
 
-// Hilfsfunktion: Ist ein Menüpunkt oder eines seiner Kinder aktiv?
 const isItemActive = (item: any) => {
   if (item.to && route.path === item.to) return true
   if (item.children) {
@@ -28,34 +26,11 @@ const isItemActive = (item: any) => {
   return false
 }
 
-// Hilfsfunktion: Hat ein Kind-Element spezielle Highlight-Klassen? (z.B. Jubiläum)
-const getChildStyles = (child: any) => {
-  const isActive = route.path === child.to
-
-  if (isActive) {
-    return {
-      link: 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400',
-      icon: 'text-primary-500',
-      label: 'text-primary-600 dark:text-primary-400'
-    }
-  }
-
-  // Prüfen auf "Jubiläum" Highlight (anhand der Klasse oder des Pfads)
+const getChildStateClass = (child: any) => {
+  if (route.path === child.to) return 'is-active'
   const isJubilee = child.to?.includes('jubilee') || (child.class && child.class.includes('accent'))
-
-  if (isJubilee) {
-    return {
-      link: 'text-accent-600 dark:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-950/20',
-      icon: 'text-accent-500',
-      label: 'text-accent-600 dark:text-accent-400'
-    }
-  }
-
-  return {
-    link: 'text-brand-dark-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800',
-    icon: 'text-gray-400',
-    label: 'text-brand-dark-800 dark:text-gray-200'
-  }
+  if (isJubilee) return 'is-jubilee'
+  return ''
 }
 
 const toggleSection = (label: string) => {
@@ -66,14 +41,12 @@ const toggleSection = (label: string) => {
   }
 }
 
-// Wenn das Menü geschlossen wird, auch Sektionen schließen
 watch(() => props.isOpen, (newVal) => {
   if (!newVal) {
     openSection.value = null
   }
 })
 
-// Hilfsfunktion für den Umbruchschutz beim Jubiläum
 const formatLabel = (label: string) => {
   if (label.includes('TC Hardt')) {
     return label.replace('TC Hardt', 'TC&nbsp;Hardt')
@@ -84,84 +57,68 @@ const formatLabel = (label: string) => {
 
 <template>
   <div
-    class="lg:hidden grid transition-[grid-template-rows] duration-300 ease-in-out"
-    :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+    class="mobile-menu"
+    :class="{ 'is-open': isOpen }"
   >
-    <div class="overflow-hidden flex flex-col max-h-[calc(100dvh-120px)]">
-      <!-- Scrollbarer Bereich für das Hauptmenü -->
-      <div class="overflow-y-auto flex-1 px-1">
-        <div class="pb-4 pt-4 flex flex-col gap-1">
+    <div class="menu-inner">
+      <div class="scroll-area">
+        <div class="nav-items">
           <template v-for="item in headerMenu" :key="item.label">
             <!-- Normaler Link -->
             <NuxtLink
               v-if="!item.children || item.children.length === 0"
               :to="item.to"
-              class="group flex items-center gap-2 py-2 px-3 rounded-xl transition-colors"
-              active-class="bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
-              inactive-class="text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800"
+              class="menu-link"
+              :class="{ 'is-active': route.path === item.to }"
               @click="emit('close')"
             >
-              <BaseIcon v-if="item.icon" :name="item.icon" class="w-5 h-5 shrink-0" />
-              <span
-                class="text-lg font-medium break-word-hyphens"
-                v-html="formatLabel(item.label)"
-              />
+              <BaseIcon v-if="item.icon" :name="item.icon" class="item-icon" />
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <span class="item-label break-word-hyphens" v-html="formatLabel(item.label)" />
             </NuxtLink>
 
             <!-- Kategorie mit Unterpunkten -->
-            <div v-else class="flex flex-col gap-1">
+            <div v-else class="group-section">
               <button
-                class="flex items-center justify-between py-2 px-3 rounded-xl transition-colors w-full text-left"
-                :class="isItemActive(item)
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                  : 'text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800'"
+                type="button"
+                class="menu-link is-trigger"
+                :class="{ 'is-active': isItemActive(item) }"
                 @click="toggleSection(item.label)"
               >
-                <div class="flex items-center gap-2">
-                  <BaseIcon
-                    v-if="item.icon"
-                    :name="item.icon"
-                    class="w-5 h-5 shrink-0"
-                  />
-                  <span
-                    class="text-lg font-medium break-word-hyphens"
-                    v-html="formatLabel(item.label)"
-                  />
+                <div class="trigger-left">
+                  <BaseIcon v-if="item.icon" :name="item.icon" class="item-icon" />
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span class="item-label break-word-hyphens" v-html="formatLabel(item.label)" />
                 </div>
                 <BaseIcon
                   name="i-heroicons-chevron-right-20-solid"
-                  class="w-5 h-5 transition-transform duration-300"
-                  :class="{ 'rotate-90': openSection === item.label }"
+                  class="chevron-icon"
+                  :class="{ 'is-open': openSection === item.label }"
                 />
               </button>
 
-              <!-- Untermenü mit weicher Animation -->
+              <!-- Untermenü -->
               <div
-                class="grid transition-[grid-template-rows] duration-300 ease-in-out"
-                :class="openSection === item.label ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
+                class="sub-grid"
+                :class="{ 'is-open': openSection === item.label }"
               >
-                <div class="overflow-hidden">
-                  <!-- Untermenü mit Einrückung und vertikaler Linie -->
-                  <div class="flex flex-col gap-1 py-2 ml-4 pl-4 border-l-2 border-gray-100 dark:border-gray-800">
+                <div class="sub-inner">
+                  <div class="sub-list">
                     <NuxtLink
                       v-for="child in item.children"
                       :key="child.label"
                       :to="child.to"
-                      class="flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all"
-                      :class="getChildStyles(child).link"
+                      class="sub-link"
+                      :class="getChildStateClass(child)"
                       @click="emit('close')"
                     >
                       <BaseIcon
                         v-if="child.icon"
                         :name="child.icon"
-                        class="w-4 h-4 shrink-0"
-                        :class="getChildStyles(child).icon"
+                        class="sub-icon"
                       />
-                      <span
-                        class="text-md font-bold leading-tight break-word-hyphens"
-                        :class="getChildStyles(child).label"
-                        v-html="formatLabel(child.label)"
-                      />
+                      <!-- eslint-disable-next-line vue/no-v-html -->
+                      <span class="sub-label break-word-hyphens" v-html="formatLabel(child.label)" />
                     </NuxtLink>
                   </div>
                 </div>
@@ -172,12 +129,11 @@ const formatLabel = (label: string) => {
       </div>
 
       <!-- Fixierter Bereich für CTA-Buttons und Social Links -->
-      <div class="shrink-0 flex flex-col gap-3 pt-4 pb-4 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
-        <div class="flex flex-col gap-2">
+      <div class="footer-bar">
+        <div class="cta-stack">
           <Button
             v-for="(btn, index) in navButtons.slice().reverse()"
             :key="index"
-            class="flex sm:hidden"
             :to="btn.to"
             :label="btn.label"
             :target="btn.target"
@@ -187,9 +143,9 @@ const formatLabel = (label: string) => {
           />
         </div>
 
-        <div class="flex flex-col gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <div class="flex items-center justify-center gap-3">
-            <div class="flex items-center gap-1">
+        <div class="meta-bar">
+          <div class="meta-row">
+            <div class="social-row">
               <template v-for="(social, index) in socialLinks" :key="index">
                 <Button
                   v-if="social.icon"
@@ -198,13 +154,12 @@ const formatLabel = (label: string) => {
                   variant="ghost"
                   :icon="social.icon"
                   size="lg"
-                  class="text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors"
                 />
               </template>
             </div>
             <template v-if="showAppearanceModeButton || showLanguageSwitch">
-              <div class="h-6 w-px bg-gray-200 dark:bg-gray-700" />
-              <div class="flex items-center gap-1">
+              <div class="divider" />
+              <div class="social-row">
                 <ColorModeButton
                   v-if="showAppearanceModeButton"
                   size="lg"
@@ -221,3 +176,261 @@ const formatLabel = (label: string) => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.mobile-menu {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease-in-out;
+
+  &.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  @include up("lg") {
+    display: none;
+  }
+}
+
+.menu-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 120px);
+}
+
+.scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding-inline: 0.25rem;
+}
+
+.nav-items {
+  padding-block: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.group-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-lg);
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: var(--color-brand-dark-800);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+
+  @include dark {
+    color: var(--color-brand-dark-100);
+  }
+
+  &.is-trigger {
+    justify-content: space-between;
+  }
+
+  &:hover:not(.is-active) {
+    background-color: var(--color-gray-50);
+
+    @include dark {
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  &.is-active {
+    background-color: var(--color-brand-dark-50);
+    color: var(--color-brand-dark-600);
+
+    @include dark {
+      background-color: rgb(26 40 82 / 0.2);
+      color: var(--color-brand-dark-400);
+    }
+  }
+}
+
+.trigger-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.item-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.item-label {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+}
+
+.chevron-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 300ms ease;
+
+  &.is-open {
+    transform: rotate(90deg);
+  }
+}
+
+.sub-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms ease-in-out;
+
+  &.is-open {
+    grid-template-rows: 1fr;
+  }
+}
+
+.sub-inner {
+  overflow: hidden;
+}
+
+.sub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 0.5rem;
+  margin-left: var(--space-4);
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-gray-100);
+
+  @include dark {
+    border-left-color: var(--color-gray-800);
+  }
+}
+
+.sub-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--color-brand-dark-800);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+
+  @include dark {
+    color: var(--color-gray-200);
+  }
+
+  .sub-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    color: var(--color-gray-400);
+  }
+
+  &:hover:not(.is-active):not(.is-jubilee) {
+    background-color: var(--color-gray-50);
+
+    @include dark {
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  &.is-active {
+    background-color: var(--color-brand-dark-50);
+    color: var(--color-brand-dark-600);
+
+    .sub-icon {
+      color: var(--color-brand-dark-500);
+    }
+
+    @include dark {
+      background-color: rgb(26 40 82 / 0.2);
+      color: var(--color-brand-dark-400);
+    }
+  }
+
+  &.is-jubilee {
+    color: var(--color-accent-600);
+
+    .sub-icon {
+      color: var(--color-accent-500);
+    }
+
+    &:hover {
+      background-color: var(--color-accent-50);
+    }
+  }
+}
+
+.sub-label {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.footer-bar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-gray-100);
+
+  @include dark {
+    background-color: var(--color-gray-900);
+    border-top-color: var(--color-gray-800);
+  }
+}
+
+.cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  @include up("sm") {
+    display: none;
+  }
+}
+
+.meta-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.divider {
+  height: 1.5rem;
+  width: 1px;
+  background-color: var(--color-gray-200);
+
+  @include dark {
+    background-color: var(--color-gray-700);
+  }
+}
+</style>

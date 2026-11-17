@@ -8,11 +8,10 @@ import HeaderDesktopNav from '~/components/layout/header/DesktopNav.vue'
 import Button from '~/components/base/Button.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 import { useUIStore } from '~/stores/ui'
-
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
-const showColorModeButton = ref(false);
-const showLanguageSwitch = ref(false);
+const showColorModeButton = ref(false)
+const showLanguageSwitch = ref(false)
 
 const { headerMenu, navButtons, socialLinks } = useNavigation()
 const route = useRoute()
@@ -24,7 +23,6 @@ const toggleMenu = () => { uiStore.toggleMobileMenu() }
 
 watch(() => route.fullPath, closeMenu)
 
-// Body Scroll Lock, wenn das mobile Menü offen ist
 watch(isMobileMenuOpen, (isOpen) => {
   if (isOpen) {
     document.body.style.overflow = 'hidden'
@@ -45,39 +43,28 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
-  // Sicherstellen, dass der Scroll-Lock aufgehoben wird, wenn die Komponente unmountet
   document.body.style.overflow = ''
 })
 </script>
 
 <template>
-  <header class="fixed top-0 lg:top-4 left-0 right-0 z-50 pointer-events-none w-full">
+  <header class="site-header">
+    <div class="header-shell">
+      <InverseCorner class="corner is-outer-left" :angle="0" />
+      <InverseCorner class="corner is-outer-right" :angle="-90" />
+      <InverseCorner class="corner is-logo-left" :angle="0" />
+      <InverseCorner class="corner is-logo-right" :angle="-90" />
 
-    <div
-      class="relative lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto flex justify-center
-      before:content-[''] before:block before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2
-      before:w-[97px] before:h-[113px] before:rounded-[10px] before:bg-white dark:before:bg-gray-900 before:hidden before:lg:block
-      before:shadow-[0_25px_15px_-10px_rgba(0,0,0,0.15)]"
-    >
-
-      <InverseCorner class="hidden lg:block absolute -left-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900" :angle="0" />
-      <InverseCorner class="hidden lg:block absolute -right-[26px] top-0 w-[26px] h-[26px] text-white dark:text-gray-900" :angle="-90" />
-      <InverseCorner class="hidden lg:block absolute top-0 right-1/2 mr-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="0" />
-      <InverseCorner class="hidden lg:block absolute top-0 left-1/2 ml-[48px] w-[26px] h-[26px] top-[72px] text-white dark:text-gray-900" :angle="-90" />
-
-      <div class="pointer-events-auto w-full bg-white dark:bg-gray-900 rounded-b-3xl px-6 lg:px-8 flex flex-col transition-all duration-300 ease-in-out shadow-xl">
-
-        <div class="w-full flex items-start justify-between shrink-0 relative py-2 lg:py-3">
-
-          <div class="hidden lg:flex flex-1 items-center self-center min-w-0 lg:pr-20">
+      <div class="header-card">
+        <div class="header-bar">
+          <div class="left-col">
             <HeaderDesktopNav :items="headerMenu" />
           </div>
 
-          <HeaderLogo class="shrink-0 mx-auto" @click="closeMenu" />
+          <HeaderLogo class="logo-col" @click="closeMenu" />
 
-          <div class="flex-1 flex items-center justify-end gap-3 lg:pl-20 self-center">
-
-            <div class="hidden lg:flex items-center gap-2 border-r border-gray-200 dark:border-gray-700 pr-4 mr-2">
+          <div class="right-col">
+            <div class="social-group">
               <template v-for="(social, index) in socialLinks" :key="index">
                 <Button
                   v-if="social.icon"
@@ -86,7 +73,6 @@ onUnmounted(() => {
                   variant="ghost"
                   size="xl"
                   :icon="social.icon"
-                  class="text-brand-dark-800 dark:text-brand-dark-100 hover:text-primary-500 dark:hover:text-brand-light-400 transition-colors"
                 />
               </template>
 
@@ -100,11 +86,10 @@ onUnmounted(() => {
                 v-if="showLanguageSwitch"
                 size="xl"
                 variant="ghost"
-                class="text-brand-dark-800 dark:text-brand-dark-100 dark:hover:text-brand-light-400 transition-colors"
               />
             </div>
 
-            <div class="hidden sm:flex items-center gap-2">
+            <div class="cta-group">
               <Button
                 v-for="(btn, index) in navButtons"
                 :key="index"
@@ -117,7 +102,6 @@ onUnmounted(() => {
             </div>
 
             <HeaderHamburger :is-open="isMobileMenuOpen" @toggle="toggleMenu" />
-
           </div>
         </div>
 
@@ -130,24 +114,228 @@ onUnmounted(() => {
           :show-language-switch="showLanguageSwitch"
           @close="closeMenu"
         />
-
       </div>
     </div>
 
-    <!-- Backdrop / Overlay für Mobile Menu -->
-    <Transition
-      enter-active-class="transition-opacity duration-300 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition-opacity duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
+    <Transition name="backdrop-fade">
       <div
         v-if="isMobileMenuOpen"
-        class="fixed inset-0 bg-brand-dark-950/80 dark:bg-black/80 backdrop-blur-sm z-[-1] pointer-events-auto lg:hidden"
+        class="mobile-backdrop"
         @click="closeMenu"
       />
     </Transition>
   </header>
 </template>
+
+<style lang="scss" scoped>
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-header);
+  pointer-events: none;
+  width: 100%;
+
+  @include up("lg") {
+    top: 1rem;
+  }
+}
+
+.header-shell {
+  position: relative;
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+
+  @include up("lg") {
+    max-width: 56rem;
+  }
+
+  @include up("xl") {
+    max-width: 64rem;
+  }
+
+  @include up("2xl") {
+    max-width: 72rem;
+  }
+
+  &::before {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 97px;
+    height: 113px;
+    border-radius: 10px;
+    background-color: var(--color-white);
+    box-shadow: 0 25px 15px -10px rgba(0, 0, 0, 0.15);
+
+    @include up("lg") {
+      display: block;
+    }
+  }
+
+  @include dark {
+    &::before {
+      background-color: var(--color-gray-900);
+    }
+  }
+}
+
+.corner {
+  display: none;
+  position: absolute;
+  width: 26px;
+  height: 26px;
+
+  @include up("lg") {
+    display: block;
+  }
+
+  &.is-outer-left {
+    top: 0;
+    left: -26px;
+  }
+
+  &.is-outer-right {
+    top: 0;
+    right: -26px;
+  }
+
+  &.is-logo-left {
+    top: 72px;
+    right: 50%;
+    margin-right: 48px;
+  }
+
+  &.is-logo-right {
+    top: 72px;
+    left: 50%;
+    margin-left: 48px;
+  }
+}
+
+.header-card {
+  pointer-events: auto;
+  width: 100%;
+  background-color: var(--color-white);
+  border-bottom-left-radius: var(--radius-2xl);
+  border-bottom-right-radius: var(--radius-2xl);
+  padding-inline: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  transition: all 300ms ease-in-out;
+
+  @include up("lg") {
+    padding-inline: var(--space-8);
+  }
+
+  @include dark {
+    background-color: var(--color-gray-900);
+  }
+}
+
+.header-bar {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: relative;
+  padding-block: var(--space-2);
+
+  @include up("lg") {
+    padding-block: var(--space-3);
+  }
+}
+
+.left-col {
+  display: none;
+  flex: 1;
+  align-items: center;
+  align-self: center;
+  min-width: 0;
+
+  @include up("lg") {
+    display: flex;
+    padding-right: var(--space-20);
+  }
+}
+
+.logo-col {
+  flex-shrink: 0;
+  margin-inline: auto;
+}
+
+.right-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  align-self: center;
+
+  @include up("lg") {
+    padding-left: var(--space-20);
+  }
+}
+
+.social-group {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  border-right: 1px solid var(--color-gray-200);
+  padding-right: var(--space-4);
+  margin-right: var(--space-2);
+
+  @include up("lg") {
+    display: flex;
+  }
+
+  @include dark {
+    border-right-color: var(--color-gray-700);
+  }
+}
+
+.cta-group {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+
+  @include up("sm") {
+    display: flex;
+  }
+}
+
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(15 23 48 / 0.8);
+  backdrop-filter: blur(4px);
+  z-index: -1;
+  pointer-events: auto;
+
+  @include up("lg") {
+    display: none;
+  }
+
+  @include dark {
+    background-color: rgb(0 0 0 / 0.8);
+  }
+}
+
+.backdrop-fade-enter-active {
+  transition: opacity 300ms ease-out;
+}
+.backdrop-fade-leave-active {
+  transition: opacity 200ms ease-in;
+}
+.backdrop-fade-enter-from,
+.backdrop-fade-leave-to {
+  opacity: 0;
+}
+</style>

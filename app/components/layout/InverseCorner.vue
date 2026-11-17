@@ -1,12 +1,11 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
   angle?: number
-  // Standardmäßig deine "Inhalt-Farbe". Kann aber überschrieben werden.
   colorClass?: string
   size?: number
 }>(), {
   angle: 0,
-  colorClass: 'text-white dark:text-gray-900',
+  colorClass: undefined,
   size: 26
 })
 
@@ -28,15 +27,14 @@ const maskStyle = computed(() => {
   }
 })
 
-// Quick and dirty way to convert text-color to bg-color
 const bgColorClass = computed(() => {
-  return props.colorClass.replace('text-', 'bg-')
+  return props.colorClass ? props.colorClass.replace('text-', 'bg-') : 'default-bg'
 })
 </script>
 
 <template>
   <div
-    class="pointer-events-none"
+    class="inverse-corner"
     :class="bgColorClass"
     :style="{
       width: `${size}px`,
@@ -48,3 +46,17 @@ const bgColorClass = computed(() => {
     aria-hidden="true"
   />
 </template>
+
+<style lang="scss" scoped>
+.inverse-corner {
+  pointer-events: none;
+
+  &.default-bg {
+    background-color: var(--color-white);
+
+    @include dark {
+      background-color: var(--color-gray-900);
+    }
+  }
+}
+</style>

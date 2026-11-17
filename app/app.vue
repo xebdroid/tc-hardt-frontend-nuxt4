@@ -30,7 +30,6 @@ const { locale } = useI18n()
 const lang = computed(() => locale.value || 'de')
 const dir = 'ltr'
 
-// Strukturierte Daten für Schema.org
 defineOrganization({
   name: 'Tennisclub Hardt e.V.',
   url: 'https://tc-hardt.de',
@@ -52,13 +51,9 @@ useHead({
   htmlAttrs: { lang, dir },
   link: [
     { rel: 'icon', href: '/favicon.ico' },
-    // WICHTIG: Preload für die wichtigsten Schriftarten, verhindert das Text-Zucken
     { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/EurostileBold.woff2', crossorigin: 'anonymous' },
     { rel: 'preload', as: 'font', type: 'font/woff2', href: '/fonts/Eurostile-ExtendedTwo.woff2', crossorigin: 'anonymous' }
-  ],
-  bodyAttrs: {
-    class: 'font-sans antialiased bg-gray-50 dark:bg-gray-950'
-  }
+  ]
 })
 </script>
 
@@ -66,7 +61,7 @@ useHead({
   <div>
     <NuxtLoadingIndicator color="#5aa9d4" :height="3" />
 
-    <div :class="{ 'pointer-events-none': store.isModalOpen }">
+    <div :class="{ 'is-modal-locked': store.isModalOpen }">
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
@@ -78,3 +73,9 @@ useHead({
     <ToastContainer />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.is-modal-locked {
+  pointer-events: none;
+}
+</style>
