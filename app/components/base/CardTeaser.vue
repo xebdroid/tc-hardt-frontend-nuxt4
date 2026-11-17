@@ -38,7 +38,7 @@ defineProps<Props>()
         v-if="date"
         class="flex items-center gap-2 mb-3"
       >
-        <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
+        <BaseIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
         <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
       </div>
 

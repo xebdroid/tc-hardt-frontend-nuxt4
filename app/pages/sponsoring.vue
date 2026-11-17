@@ -116,15 +116,15 @@ const impressions = [
           />
           <ul class="space-y-4 text-gray-700 mt-8">
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-heart" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-heart" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Gastfreundschaft:</strong> Wir bieten ein familiäres Umfeld und eine erstklassige Infrastruktur für Mitglieder und Gäste.</span>
             </li>
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-users" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-users" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Teamgeist:</strong> Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel und starkem Zusammenhalt.</span>
             </li>
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-hand-raised" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-hand-raised" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Fairness:</strong> Wir legen Wert auf sportliches Verhalten und eine transparente Partnerschaft auf Augenhöhe.</span>
             </li>
           </ul>
@@ -145,15 +145,15 @@ const impressions = [
           />
           <ul class="space-y-4 text-gray-700 mt-8">
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-megaphone" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-megaphone" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Hohe Sichtbarkeit:</strong> Profitieren Sie von unserer starken Präsenz – online und vor Ort auf unserer Anlage mit hunderten wöchentlichen Besuchern.</span>
             </li>
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-user-group" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-user-group" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine vielseitige Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
             </li>
             <li class="flex items-start gap-3">
-              <UIcon name="i-heroicons-sparkles" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+              <BaseIcon name="i-heroicons-sparkles" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
               <span><strong>Positives Image:</strong> Positionieren Sie sich als Förderer des lokalen Sports und der Jugendarbeit. Das schafft Sympathie und Vertrauen.</span>
             </li>
           </ul>
@@ -176,7 +176,7 @@ const impressions = [
           class="group flex flex-col p-8 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
           <div class="w-16 h-16 mx-auto bg-brand-light-50 dark:bg-brand-light-900/30 rounded-2xl flex items-center justify-center mb-6 text-brand-light-600 dark:text-brand-light-400 group-hover:scale-110 transition-transform duration-300">
-            <UIcon :name="item.icon" class="w-8 h-8" />
+            <BaseIcon :name="item.icon" class="w-8 h-8" />
           </div>
           <h3 class="text-xl font-heading font-bold text-brand-dark-900 dark:text-white mb-3 text-center group-hover:text-brand-light-600 transition-colors">{{ item.name }}</h3>
           <p class="text-gray-600 dark:text-gray-300 text-base mb-8 flex-grow leading-relaxed text-center">{{ item.description }}</p>
@@ -213,15 +213,15 @@ const impressions = [
         />
         <ul class="space-y-4 text-gray-700">
           <li class="flex items-start gap-3">
-            <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
             <span><strong>Infrastrukturinvestitionen:</strong> Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
             <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Gemeinschaftsgrundschule Hardt, der Gesamtschule Hardt und unserer Tennisschule.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
             <span><strong>Events:</strong> Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.</span>
           </li>
         </ul>

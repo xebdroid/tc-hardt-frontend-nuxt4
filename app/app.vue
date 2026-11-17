@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import * as locales from '@nuxt/ui/locale'
 import CookieModal from '~/components/base/CookieModal.vue'
 import ScrollToTop from '~/components/base/ScrollToTop.vue'
 import MobileStickyCTA from '~/components/base/MobileStickyCTA.vue'
@@ -27,8 +26,8 @@ useSeoMeta({
 })
 
 const { locale } = useI18n()
-const lang = computed(() => locales[locale.value]?.code || 'de')
-const dir = computed(() => locales[locale.value]?.dir || 'ltr')
+const lang = computed(() => locale.value || 'de')
+const dir = 'ltr'
 
 // Strukturierte Daten für Schema.org
 defineOrganization({

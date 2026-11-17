@@ -33,7 +33,7 @@ useSeoMeta({
       </template>
     </Hero>
 
-    <UContainer class="py-16">
+    <div class="u-container py-16">
 
       <div class="space-y-12">
 
@@ -64,7 +64,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -89,7 +89,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -116,7 +116,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -147,7 +147,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -184,7 +184,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -212,7 +212,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -244,7 +244,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -285,7 +285,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -321,7 +321,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -365,6 +365,6 @@ useSeoMeta({
         Stand: März 2026
       </div>
 
-    </UContainer>
+    </div>
   </div>
 </template>

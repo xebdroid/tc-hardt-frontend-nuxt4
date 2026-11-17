@@ -25,9 +25,9 @@
 
       <Header />
 
-      <UMain>
+      <main class="u-main">
         <NuxtPage />
-      </UMain>
+      </main>
 
       <Footer />
 

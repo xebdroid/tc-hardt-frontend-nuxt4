@@ -232,7 +232,7 @@ function resetForm() {
 
       <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
         <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-6 shadow-sm">
-          <UIcon name="i-heroicons-check" class="w-12 h-12" />
+          <BaseIcon name="i-heroicons-check" class="w-12 h-12" />
         </div>
         <h3 class="text-3xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank für deine Bestellung!</h3>
         <p class="text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">

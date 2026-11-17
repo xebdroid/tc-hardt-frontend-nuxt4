@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
 const store = useConsentStore()
 const route = useRoute()
@@ -74,10 +75,9 @@ function openLegalPage() {
         @vue:mounted="({ el }) => el.focus()"
       >
 
-        <UButton
+        <AppButton
           icon="i-heroicons-x-mark"
           variant="ghost"
-          color="gray"
           class="absolute top-3 right-3 z-10 focus:ring-0"
           tabindex="-1"
           aria-label="Ablehnen und Schließen"
@@ -95,7 +95,7 @@ function openLegalPage() {
 
           <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 opacity-70">
             <div class="flex items-center gap-3">
-              <UIcon name="i-heroicons-check-circle" class="text-green-500 w-6 h-6" />
+              <BaseIcon name="i-heroicons-check-circle" class="text-green-500 w-6 h-6" />
               <div class="text-left">
                 <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Notwendig</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400">Grundfunktionen</span>
@@ -110,7 +110,7 @@ function openLegalPage() {
 
           <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
             <div class="flex items-center gap-3">
-              <UIcon name="i-heroicons-chart-bar" class="text-brand-dark-900 dark:text-white w-6 h-6" />
+              <BaseIcon name="i-heroicons-chart-bar" class="text-brand-dark-900 dark:text-white w-6 h-6" />
               <div class="text-left">
                 <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Statistiken</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400">Anonymes Tracking zur Verbesserung</span>
@@ -121,7 +121,7 @@ function openLegalPage() {
 
           <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
             <div class="flex items-center gap-3">
-              <UIcon name="i-heroicons-map" class="text-brand-dark-900 dark:text-white w-6 h-6" />
+              <BaseIcon name="i-heroicons-map" class="text-brand-dark-900 dark:text-white w-6 h-6" />
               <div class="text-left">
                 <span class="block font-bold text-sm text-gray-900 dark:text-gray-200">Google Maps</span>
                 <span class="text-xs text-gray-500 dark:text-gray-400">Karten & Anfahrt</span>

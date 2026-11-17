@@ -1,0 +1,93 @@
+@use "mixins" as *;
+
+/* ==========================================================================
+   GLOBALE BASIS-STYLES, FONTS & CONTAINER
+   ========================================================================== */
+
+/* 1. Extended (Breit) - Normal */
+@font-face {
+  font-family: "EurostileExtended";
+  src: url("/fonts/Eurostile-ExtendedTwo.woff2") format("woff2"),
+       url("/fonts/Eurostile-ExtendedTwo.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Extended (Breit) - Fett */
+@font-face {
+  font-family: "EurostileExtended";
+  src: url("/fonts/Eurostile-BoldExtendedTwo.woff2") format("woff2"),
+       url("/fonts/Eurostile-BoldExtendedTwo.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 3. Standard Bold (Eng) */
+@font-face {
+  font-family: "EurostileBold";
+  src: url("/fonts/EurostileBold.woff2") format("woff2"),
+       url("/fonts/EurostileBold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+.u-container {
+  @include container;
+}
+
+.u-not-container {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
+.u-main {
+  min-height: 100vh;
+}
+
+.u-separator {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--color-gray-200);
+  margin: 0;
+
+  @include dark {
+    border-top-color: var(--color-gray-800);
+  }
+}
+
+.break-word-hyphens {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  word-wrap: break-word;
+}
+
+@keyframes gold-shine-rotate {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 0%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gold-rotate {
+  background-size: 300% 300%;
+  animation: gold-shine-rotate 6s linear infinite;
+}

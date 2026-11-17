@@ -128,7 +128,7 @@ const showBackToTop = computed(() => {
                   aria-label="Nach oben scrollen"
                   @click="scrollToTop"
                 >
-                  <UIcon name="i-heroicons-arrow-up" class="w-6 h-6" />
+                  <BaseIcon name="i-heroicons-arrow-up" class="w-6 h-6" />
                 </button>
               </div>
             </div>

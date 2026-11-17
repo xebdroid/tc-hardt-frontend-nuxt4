@@ -195,7 +195,7 @@ const newsItems = computed(() => {
               class="flex flex-col items-center text-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-brand-light-200 transition-colors"
             >
               <div class="flex-shrink-0">
-                <UIcon :name="val.icon" class="w-8 h-8 text-highlight-500" />
+                <BaseIcon :name="val.icon" class="w-8 h-8 text-highlight-500" />
               </div>
               <div>
                 <h4 class="font-bold text-brand-dark-900 dark:text-white text-lg">
@@ -283,10 +283,10 @@ const newsItems = computed(() => {
 
         <div class="flex justify-center gap-8 mt-6 md:mt-0 md:block">
           <button class="news-prev text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:z-10">
-            <UIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
+            <BaseIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
           </button>
           <button class="news-next text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:right-0 md:z-10">
-            <UIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
+            <BaseIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
           </button>
         </div>
       </div>

@@ -49,7 +49,29 @@ export default defineNuxtConfig({
     }
   },
 
-  css: ["~/assets/css/main.css"],
+  css: [
+    "~/assets/css/main.css",
+    "~/assets/scss/main.scss"
+  ],
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/scss/mixins" as *;'
+        }
+      }
+    }
+  },
+
+  icon: {
+    customCollections: [
+      {
+        prefix: 'custom',
+        dir: './app/assets/icons'
+      }
+    ]
+  },
 
   pinia: {
     storesDirs: ['./stores/**'],

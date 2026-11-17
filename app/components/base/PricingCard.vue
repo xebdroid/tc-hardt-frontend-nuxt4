@@ -94,7 +94,7 @@ const emit = defineEmits(['button-click'])
           :key="feature"
           class="flex items-start gap-3 text-sm lg:text-base text-gray-600 dark:text-gray-300"
         >
-          <UIcon name="i-heroicons-check-circle" class="w-5 h-5 lg:w-6 lg:h-6 text-highlight-500 shrink-0" />
+          <BaseIcon name="i-heroicons-check-circle" class="w-5 h-5 lg:w-6 lg:h-6 text-highlight-500 shrink-0" />
           <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="feature" />
         </li>

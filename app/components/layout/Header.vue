@@ -4,6 +4,7 @@ import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 import HeaderLogo from '~/components/layout/header/Logo.vue'
 import HeaderHamburger from '~/components/layout/header/Hamburger.vue'
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import HeaderMobileMenu from '~/components/layout/header/MobileMenu.vue'
 import { useUIStore } from '~/stores/ui'
 
@@ -80,13 +81,13 @@ onUnmounted(() => {
               }"
             >
               <template #item="{ item }">
-                <UIcon
+                <BaseIcon
                   v-if="item.icon && !item.noDesktopIcon"
                   :name="item.icon"
                   class="w-5 h-5 shrink-0"
                 />
                 <span v-if="!item.isHome" class="truncate">{{ item.label }}</span>
-                <UIcon
+                <BaseIcon
                   v-if="item.children?.length"
                   name="i-heroicons-chevron-down-20-solid"
                   class="w-4 h-4 ml-1 shrink-0 text-brand-dark-800 dark:text-brand-dark-100 group-hover:text-primary-500 dark:group-hover:text-brand-light-400 transition-colors duration-200 group-data-[state=open]:rotate-180"
@@ -101,7 +102,7 @@ onUnmounted(() => {
 
             <div class="hidden lg:flex items-center gap-2 border-r border-gray-200 dark:border-gray-700 pr-4 mr-2">
               <template v-for="(social, index) in socialLinks" :key="index">
-                <UButton
+                <Button
                   v-if="social.icon"
                   :to="social.href"
                   target="_blank"
@@ -129,11 +130,10 @@ onUnmounted(() => {
               />
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="hidden sm:flex items-center gap-2">
               <Button
                 v-for="(btn, index) in navButtons"
                 :key="index"
-                class="hidden sm:flex"
                 :to="btn.to"
                 :label="btn.label"
                 :target="btn.target"

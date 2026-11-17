@@ -59,7 +59,7 @@ const contentOrderClass = computed(() => {
         class="absolute top-9 left-6 z-30 bg-highlight-400 text-brand-dark-900 p-4 rounded-xl shadow-lg rotate-340 hidden sm:block"
       >
         <div class="flex items-center gap-2">
-          <UIcon :name="badgeIcon" class="w-5 h-5" />
+          <BaseIcon :name="badgeIcon" class="w-5 h-5" />
           <span class="font-bold font-heading text-sm">{{ badgeText }}</span>
         </div>
       </div>

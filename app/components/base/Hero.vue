@@ -524,10 +524,10 @@ const onSlideChange = (swiper: any) => {
       <div v-if="slides.length > 1" class="custom-pagination absolute bottom-8 left-0 right-0 flex justify-center z-20 hidden lg:flex [&>.swiper-pagination-bullet]:bg-white [&>.swiper-pagination-bullet-active]:bg-primary-500" />
 
       <button v-if="slides.length > 1" class="custom-prev absolute top-1/2 left-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
-        <UIcon name="i-heroicons-chevron-left" class="w-10 h-10" />
+        <BaseIcon name="i-heroicons-chevron-left" class="w-10 h-10" />
       </button>
       <button v-if="slides.length > 1" class="custom-next absolute top-1/2 right-4 z-20 -translate-y-1/2 text-white/70 hover:text-white lg:hidden">
-        <UIcon name="i-heroicons-chevron-right" class="w-10 h-10" />
+        <BaseIcon name="i-heroicons-chevron-right" class="w-10 h-10" />
       </button>
     </component>
   </div>

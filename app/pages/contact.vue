@@ -109,13 +109,13 @@ function resetForm() {
       </template>
     </Hero>
 
-    <UContainer class="py-16 space-y-16">
+    <div class="u-container py-16 space-y-16">
 
       <div class="grid md:grid-cols-3 gap-8 mx-auto w-full">
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <UIcon name="i-heroicons-map-pin" class="w-6 h-6" />
+            <BaseIcon name="i-heroicons-map-pin" class="w-6 h-6" />
           </div>
           <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Clubanlage</h3>
           <address class="text-gray-600 dark:text-gray-300 not-italic">
@@ -127,7 +127,7 @@ function resetForm() {
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <UIcon name="i-heroicons-inbox-arrow-down" class="w-6 h-6" />
+            <BaseIcon name="i-heroicons-inbox-arrow-down" class="w-6 h-6" />
           </div>
           <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Postanschrift</h3>
           <address class="text-gray-600 dark:text-gray-300 not-italic">
@@ -138,7 +138,7 @@ function resetForm() {
 
         <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
           <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <UIcon name="i-heroicons-envelope" class="w-6 h-6" />
+            <BaseIcon name="i-heroicons-envelope" class="w-6 h-6" />
           </div>
           <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">E-Mail</h3>
           <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -240,7 +240,7 @@ function resetForm() {
 
           <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
             <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-6 shadow-sm">
-              <UIcon name="i-heroicons-check" class="w-12 h-12" />
+              <BaseIcon name="i-heroicons-check" class="w-12 h-12" />
             </div>
             <h3 class="text-4xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank!</h3>
             <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
@@ -300,6 +300,6 @@ function resetForm() {
 
       </Section>
 
-    </UContainer>
+    </div>
   </div>
 </template>

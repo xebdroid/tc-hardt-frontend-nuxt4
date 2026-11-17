@@ -4,6 +4,8 @@ import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import Button from '~/components/base/Button.vue'
+import Badge from '~/components/base/Badge.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import Image from '~/components/base/Image.vue'
 
 useSeoMeta({
@@ -53,14 +55,14 @@ useSeoMeta({
             <h3 class="text-3xl font-bold text-gray-800">
               {{ member.name }}
             </h3>
-            <UBadge
+            <Badge
               variant="subtle"
               color="primary"
               size="lg"
               class="mt-2 mb-4"
             >
               {{ member.role }}
-            </UBadge>
+            </Badge>
             <div
               v-if="member.area"
               class="text-gray-600 my-6"
@@ -102,7 +104,7 @@ useSeoMeta({
               variant="round"
               size="large"
             >
-              <UIcon
+              <BaseIcon
                 name="i-heroicons-user-circle"
                 class="w-48 h-48 text-gray-300"
               />
@@ -115,14 +117,14 @@ useSeoMeta({
             <h3 class="text-3xl font-bold text-gray-800">
               {{ member.name }}
             </h3>
-            <UBadge
+            <Badge
               variant="subtle"
               color="primary"
               size="lg"
               class="mt-2 mb-4"
             >
               {{ member.role }}
-            </UBadge>
+            </Badge>
             <div
               v-if="member.area"
               class="text-gray-600 my-6"
@@ -181,7 +183,7 @@ useSeoMeta({
               variant="round"
               size="small"
             >
-              <UIcon
+              <BaseIcon
                 name="i-heroicons-user-circle"
                 class="w-16 h-16 text-gray-300"
               />

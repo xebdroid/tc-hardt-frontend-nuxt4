@@ -56,7 +56,7 @@ const shareUrl = computed(() => encodeURIComponent(url))
             :class="link.class"
             :title="`${link.name} teilen`"
           >
-            <UIcon :name="link.icon" class="w-5 h-5" />
+            <BaseIcon :name="link.icon" class="w-5 h-5" />
           </a>
         </div>
       </div> -->

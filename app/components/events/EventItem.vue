@@ -167,7 +167,7 @@ const downloadIcs = () => {
             :alt="event.title"
             variant="event"
           >
-            <UIcon name="i-heroicons-calendar-days" class="w-8 h-8 text-gray-400" />
+            <BaseIcon name="i-heroicons-calendar-days" class="w-8 h-8 text-gray-400" />
           </Image>
         </div>
       </div>
@@ -183,7 +183,7 @@ const downloadIcs = () => {
           </h3>
 
           <div v-if="hasOptionalContent" class="flex-shrink-0 mt-1">
-            <UIcon
+            <BaseIcon
               name="i-heroicons-chevron-down"
               class="w-6 h-6 text-gray-400 transition-transform duration-300"
               :class="{ 'rotate-180': isOpen }"
@@ -204,11 +204,11 @@ const downloadIcs = () => {
 
             <div class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-4">
               <div v-if="event.time" class="flex items-center">
-                <UIcon name="i-heroicons-clock" class="w-4 h-4 mr-2 text-accent-500" />
+                <BaseIcon name="i-heroicons-clock" class="w-4 h-4 mr-2 text-accent-500" />
                 <span>{{ event.time }}</span>
               </div>
               <div v-if="event.location" class="flex items-center">
-                <UIcon name="i-heroicons-map-pin" class="w-4 h-4 mr-2 text-accent-500" />
+                <BaseIcon name="i-heroicons-map-pin" class="w-4 h-4 mr-2 text-accent-500" />
                 <span>{{ event.location }}</span>
               </div>
             </div>

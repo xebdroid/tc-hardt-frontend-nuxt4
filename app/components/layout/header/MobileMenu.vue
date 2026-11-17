@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LanguageSwitcher from '~/components/base/LanguageSwitcher.vue'
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
 const props = defineProps<{
   isOpen: boolean
@@ -99,7 +100,7 @@ const formatLabel = (label: string) => {
               inactive-class="text-brand-dark-800 dark:text-brand-dark-100 hover:bg-gray-50 dark:hover:bg-gray-800"
               @click="emit('close')"
             >
-              <UIcon v-if="item.icon" :name="item.icon" class="w-5 h-5 shrink-0" />
+              <BaseIcon v-if="item.icon" :name="item.icon" class="w-5 h-5 shrink-0" />
               <span
                 class="text-lg font-medium break-word-hyphens"
                 v-html="formatLabel(item.label)"
@@ -116,7 +117,7 @@ const formatLabel = (label: string) => {
                 @click="toggleSection(item.label)"
               >
                 <div class="flex items-center gap-2">
-                  <UIcon
+                  <BaseIcon
                     v-if="item.icon"
                     :name="item.icon"
                     class="w-5 h-5 shrink-0"
@@ -126,7 +127,7 @@ const formatLabel = (label: string) => {
                     v-html="formatLabel(item.label)"
                   />
                 </div>
-                <UIcon
+                <BaseIcon
                   name="i-heroicons-chevron-right-20-solid"
                   class="w-5 h-5 transition-transform duration-300"
                   :class="{ 'rotate-90': openSection === item.label }"
@@ -149,7 +150,7 @@ const formatLabel = (label: string) => {
                       :class="getChildStyles(child).link"
                       @click="emit('close')"
                     >
-                      <UIcon
+                      <BaseIcon
                         v-if="child.icon"
                         :name="child.icon"
                         class="w-4 h-4 shrink-0"
@@ -189,7 +190,7 @@ const formatLabel = (label: string) => {
           <div class="flex items-center justify-center gap-3">
             <div class="flex items-center gap-1">
               <template v-for="(social, index) in socialLinks" :key="index">
-                <UButton
+                <Button
                   v-if="social.icon"
                   :href="social.href"
                   target="_blank"

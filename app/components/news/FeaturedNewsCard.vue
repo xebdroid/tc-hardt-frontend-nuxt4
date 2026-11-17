@@ -48,7 +48,7 @@ withDefaults(defineProps<Props>(), {
         <div class="flex-grow flex flex-col min-w-0 md:hidden pt-0.5">
           <!-- Datum ÜBER dem Titel auf Mobile -->
           <div v-if="date" class="flex items-center gap-1 mb-1">
-            <UIcon name="i-heroicons-calendar" class="w-3.5 h-3.5 text-highlight-500" />
+            <BaseIcon name="i-heroicons-calendar" class="w-3.5 h-3.5 text-highlight-500" />
             <span class="text-[10px] font-bold text-gray-500 uppercase">{{ date }}</span>
           </div>
           
@@ -74,7 +74,7 @@ withDefaults(defineProps<Props>(), {
             title-class="text-xl text-brand-dark-900 dark:text-white group-hover:text-highlight-600 transition-colors line-clamp-1 break-word-hyphens"
           />
           <div v-if="date" class="flex items-center gap-2 shrink-0 mt-1">
-            <UIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
+            <BaseIcon name="i-heroicons-calendar" class="w-4 h-4 text-highlight-500" />
             <span class="text-xs font-bold text-gray-500 uppercase">{{ date }}</span>
           </div>
         </div>

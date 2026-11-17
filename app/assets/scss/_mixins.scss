@@ -1,0 +1,83 @@
+@use "sass:map";
+
+/* ==========================================================================
+   SCSS BREAKPOINTS & MIXINS
+   Wird automatisch via Vite additionalData in alle Vue-Komponenten geladen.
+   Keine direkten CSS-Ausgaben in dieser Datei!
+   ========================================================================== */
+
+$breakpoints: (
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "2xl": 1536px
+);
+
+/// Media Query ab Breakpoint aufwärts (min-width)
+/// Beispiel: @include up('lg') { ... }
+@mixin up($bp) {
+  $width: map.get($breakpoints, $bp);
+  @if $width {
+    @media (min-width: $width) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $bp) {
+      @content;
+    }
+  }
+}
+
+/// Media Query unterhalb eines Breakpoints (max-width)
+/// Beispiel: @include down('lg') { ... }
+@mixin down($bp) {
+  $width: map.get($breakpoints, $bp);
+  @if $width {
+    @media (max-width: ($width - 0.02px)) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $bp) {
+      @content;
+    }
+  }
+}
+
+/// Dark Mode Mixin für Vue Scoped SCSS
+/// Beispiel:
+/// .card {
+///   background: var(--color-white);
+///   @include dark {
+///     background: var(--color-brand-dark-900);
+///   }
+/// }
+@mixin dark {
+  html.dark & {
+    @content;
+  }
+}
+
+/// Standard-Seiten-Container (entspricht .u-container)
+@mixin container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+
+  @include up("sm") {
+    padding-inline: var(--space-6);
+  }
+
+  @include up("lg") {
+    padding-inline: 0;
+    max-width: 56rem; /* 896px (4xl) */
+  }
+
+  @include up("xl") {
+    max-width: 64rem; /* 1024px (5xl) */
+  }
+
+  @include up("2xl") {
+    max-width: 72rem; /* 1152px (6xl) */
+  }
+}

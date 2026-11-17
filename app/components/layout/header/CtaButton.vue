@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Button from '~/components/base/Button.vue'
+
 const props = defineProps<{
   to: string
   label: string
@@ -14,14 +16,13 @@ function trackClick() {
 </script>
 
 <template>
-  <UButton
+  <Button
     :to="to"
     :label="label"
     :target="target"
     :block="block"
-    variant="solid"
+    variant="primary"
     :size="block ? 'xl' : 'md'"
-    class="transition-colors bg-brand-dark-800 hover:bg-brand-dark-700 dark:bg-highlight-500 dark:hover:bg-highlight-400 dark:hover:bg-highlight-400 dark:text-brand-dark-950"
     @click="trackClick"
   />
 </template>

@@ -50,28 +50,28 @@ useSeoMeta({
         />
         <ul class="mt-8 grid gap-4 text-gray-700">
           <li class="flex items-start gap-3">
-            <UIcon
+            <BaseIcon
               name="i-heroicons-check-circle"
               class="text-3xl text-brand-light-600 shrink-0"
             />
             <span><b>6 frisch sanierte Sandplätze</b> für optimale Spielbedingungen.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon
+            <BaseIcon
               name="i-heroicons-check-circle"
               class="text-3xl text-brand-light-600 shrink-0"
             />
             <span><b>Einladendes Clubhaus</b> mit Sonnenterrasse für gesellige Stunden.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon
+            <BaseIcon
               name="i-heroicons-check-circle"
               class="text-3xl text-brand-light-600 shrink-0"
             />
             <span>Professionelles Training für alle Alters- und Spielklassen.</span>
           </li>
           <li class="flex items-start gap-3">
-            <UIcon
+            <BaseIcon
               name="i-heroicons-check-circle"
               class="text-3xl text-brand-light-600 shrink-0"
             />
@@ -103,7 +103,7 @@ useSeoMeta({
           <div class="relative">
             <dt>
               <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-brand-light-500 text-white">
-                <UIcon
+                <BaseIcon
                   name="i-heroicons-hand-raised"
                   class="h-6 w-6"
                 />
@@ -119,7 +119,7 @@ useSeoMeta({
           <div class="relative">
             <dt>
               <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-brand-light-500 text-white">
-                <UIcon
+                <BaseIcon
                   name="i-heroicons-users"
                   class="h-6 w-6"
                 />
@@ -135,7 +135,7 @@ useSeoMeta({
           <div class="relative">
             <dt>
               <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-brand-light-500 text-white">
-                <UIcon
+                <BaseIcon
                   name="i-heroicons-scale"
                   class="h-6 w-6"
                 />
@@ -151,7 +151,7 @@ useSeoMeta({
           <div class="relative">
             <dt>
               <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-brand-light-500 text-white">
-                <UIcon
+                <BaseIcon
                   name="i-heroicons-face-smile"
                   class="h-6 w-6"
                 />

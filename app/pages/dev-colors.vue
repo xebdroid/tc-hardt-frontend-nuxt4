@@ -50,7 +50,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
           <div class="flex items-center gap-2 mb-6">
-            <UIcon name="i-heroicons-sun" class="w-6 h-6 text-brand-dark-500" />
+            <BaseIcon name="i-heroicons-sun" class="w-6 h-6 text-brand-dark-500" />
             <h3 class="font-bold text-lg text-gray-900">Light Mode Context</h3>
           </div>
           <div class="space-y-6">
@@ -71,7 +71,7 @@
 
         <div class="bg-brand-dark-950 p-8 rounded-2xl shadow-xl border border-brand-dark-900">
           <div class="flex items-center gap-2 mb-6">
-            <UIcon name="i-heroicons-moon" class="w-6 h-6 text-brand-light-400" />
+            <BaseIcon name="i-heroicons-moon" class="w-6 h-6 text-brand-light-400" />
             <h3 class="font-bold text-lg text-white">Dark Mode Context</h3>
           </div>
           <div class="space-y-6">

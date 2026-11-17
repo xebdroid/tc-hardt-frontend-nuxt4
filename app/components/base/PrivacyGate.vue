@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
 const store = useConsentStore()
 
@@ -20,7 +21,7 @@ defineProps<{
         class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 bg-gray-100 dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700"
       >
         <div class="relative z-10 max-w-md">
-          <UIcon :name="icon || 'i-heroicons-lock-closed'" class="w-12 h-12 text-gray-400 mb-4 mx-auto" />
+          <BaseIcon :name="icon || 'i-heroicons-lock-closed'" class="w-12 h-12 text-gray-400 mb-4 mx-auto" />
 
           <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">
             {{ title || 'Inhalt blockiert' }}
@@ -37,7 +38,7 @@ defineProps<{
               icon="i-heroicons-check"
               @click="store.acceptAll"
             />
-            <UButton
+            <AppButton
               variant="ghost"
               label="Einstellungen"
               size="xs"

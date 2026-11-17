@@ -55,7 +55,7 @@ const dynamicClasses = computed(() => {
       class="w-14 h-14 rounded-full flex items-center justify-center mb-6 transition-transform group-hover:scale-110"
       :class="iconBg"
     >
-      <UIcon
+      <BaseIcon
         :name="icon"
         class="w-8 h-8"
         :class="iconColor"

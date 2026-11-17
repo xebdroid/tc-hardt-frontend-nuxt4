@@ -284,7 +284,7 @@ const simplifiedRegularPlans = computed(() => {
         </ol>
 
         <div class="bg-brand-dark-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl h-full flex flex-col justify-center">
-          <UIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
+          <BaseIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
 
           <div class="relative z-10">
             <Headline

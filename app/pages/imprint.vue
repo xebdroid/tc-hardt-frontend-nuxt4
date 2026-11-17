@@ -2,6 +2,7 @@
 import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import AppButton from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import ImageCredits from '~/components/content/ImageCredits.vue'
 
 useSeoMeta({
@@ -31,7 +32,7 @@ useSeoMeta({
       </template>
     </Hero>
 
-    <UContainer class="py-16">
+    <div class="u-container py-16">
 
       <div class="space-y-12">
 
@@ -82,7 +83,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -108,7 +109,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -158,7 +159,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-4 gap-x-12">
           <div class="md:col-span-4 lg:col-span-3">
@@ -174,7 +175,7 @@ useSeoMeta({
               <details class="group">
                 <summary class="font-semibold cursor-pointer text-brand-dark-900 dark:text-white group-open:mb-4 flex items-center justify-between">
                   <span>Vollständige Liste anzeigen</span>
-                  <UIcon name="i-heroicons-chevron-down" class="w-5 h-5 transition-transform transform group-open:rotate-180" />
+                  <BaseIcon name="i-heroicons-chevron-down" class="w-5 h-5 transition-transform transform group-open:rotate-180" />
                 </summary>
                 <ImageCredits />
               </details>
@@ -182,7 +183,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <USeparator />
+        <hr class="u-separator">
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12 items-center">
           <div class="md:col-span-4 lg:col-span-3">
@@ -211,6 +212,6 @@ useSeoMeta({
         </div>
 
       </div>
-    </UContainer>
+    </div>
   </div>
 </template>

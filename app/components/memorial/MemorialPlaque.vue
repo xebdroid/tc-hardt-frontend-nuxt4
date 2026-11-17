@@ -38,7 +38,7 @@
             <!-- Herz-Trennlinie (bildet den unteren Rand) -->
             <div class="flex items-center justify-center gap-2 sm:gap-3 w-full max-w-[180px]">
               <span class="h-px flex-1 bg-gradient-to-r from-transparent to-[#7AC7EA]" />
-              <UIcon
+              <BaseIcon
                 name="i-heroicons-heart-solid"
                 class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#7AC7EA] shrink-0"
               />

@@ -68,7 +68,7 @@ useSeoMeta({
           :key="team.name"
           class="text-center p-4 rounded-xl bg-white shadow-sm transition-all hover:shadow-md"
         >
-          <UIcon name="i-heroicons-user-group" class="w-8 h-8 text-brand-light-400 mb-2 mx-auto" />
+          <BaseIcon name="i-heroicons-user-group" class="w-8 h-8 text-brand-light-400 mb-2 mx-auto" />
           <h3 class="font-bold text-lg text-gray-800">{{ team.name }}</h3>
           <span class="text-xs text-gray-400 uppercase tracking-wider">{{ team.category }}</span>
         </div>

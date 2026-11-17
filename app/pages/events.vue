@@ -221,7 +221,7 @@ const handlePastEventToggle = (id: number) => {
             @click="handlePastYearToggle(group.year)"
           >
             <div class="flex items-center gap-3">
-              <UIcon
+              <BaseIcon
                 name="i-heroicons-calendar-days"
                 class="w-6 h-6 text-accent-500 shrink-0"
               />
@@ -233,7 +233,7 @@ const handlePastEventToggle = (id: number) => {
               </span>
             </div>
 
-            <UIcon
+            <BaseIcon
               name="i-heroicons-chevron-down"
               class="w-6 h-6 transition-transform duration-300 shrink-0"
               :class="openPastYear === group.year ? 'rotate-180 text-accent-500' : 'text-gray-400'"

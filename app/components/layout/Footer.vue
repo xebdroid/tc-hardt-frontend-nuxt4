@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import Section from '~/components/base/Section.vue'
 import db from '~/assets/data/db.json'
 
@@ -16,7 +17,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
 
 <template>
   <footer class="mt-auto w-full isolate">
-    <UContainer v-if="showCta">
+    <div v-if="showCta" class="u-container">
       <Section
         variant="secondary"
         padding-top="sm"
@@ -25,7 +26,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
         rounded
       >
         <div class="inline-flex p-4 rounded-full bg-white mb-6 shadow-sm">
-          <UIcon name="i-heroicons-heart" class="w-10 h-10 text-highlight-600" />
+          <BaseIcon name="i-heroicons-heart" class="w-10 h-10 text-highlight-600" />
         </div>
 
         <h2 class="text-3xl sm:text-5xl font-heading font-bold text-brand-dark-900 mb-6">
@@ -46,7 +47,7 @@ const showCta = computed(() => !route.meta.hideFooterCta)
           {{ $t('nav.buttons.membership') }}
         </Button>
       </Section>
-    </UContainer>
+    </div>
 
     <div
       class="bg-brand-dark-900 text-white pb-12 rounded-t-3xl relative z-0 mt-0"
@@ -100,10 +101,9 @@ const showCta = computed(() => !route.meta.hideFooterCta)
               :key="index"
               :to="social.href"
               target="_blank"
-              variant="ghost"
+              variant="ghost-white"
               :icon="social.icon"
               size="lg"
-              class="text-gray-300 hover:text-white hover:bg-brand-dark-700"
             />
           </div>
         </div>
