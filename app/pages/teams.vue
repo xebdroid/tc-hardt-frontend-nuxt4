@@ -4,6 +4,7 @@ import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
 useSeoMeta({
   title: 'Mannschaften',
@@ -12,37 +13,33 @@ useSeoMeta({
   ogDescription: 'Unsere Mannschaften – Gemeinsam stark auf dem Platz. Von Jugend bis Senioren. Erfahre mehr über unsere Teams und Ergebnisse.',
   ogImage: '/img/logo.png',
   twitterCard: 'summary_large_image',
-});
-
+})
 </script>
 
 <template>
   <div>
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+    <Hero height="small">
       <template #content>
         <Headline
           title="Unsere Mannschaften"
           description="Gemeinsam stark auf dem Platz – wo Tennis auf Teamgeist trifft."
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'sm'"
+          tag="h1"
+          size="h1"
+          mode="light"
+          alignment="center"
+          margin-bottom="sm"
         />
       </template>
     </Hero>
 
     <Section>
-      <div class="max-w-3xl mx-auto text-center space-y-6">
-        <p class="text-lg text-gray-600">
+      <div class="intro-box">
+        <p class="intro-lead">
           Ob jung oder erfahren, ambitioniert oder einfach mit Spaß dabei – unsere Mannschaften sind das sportliche Herz des TC Hardt.
           In verschiedenen Alters- und Leistungsklassen vertreten wir unseren Verein mit
-          <strong class="text-tennis-900">Teamgeist, Fairness und Freude am Wettkampf</strong>.
+          <strong>Teamgeist, Fairness und Freude am Wettkampf</strong>.
         </p>
-        <p class="text-gray-600">
+        <p class="intro-sub">
           Unsere Spielerinnen und Spieler nehmen regelmäßig an den offiziellen Medenspielen, dem Bezirkspokal
           sowie an Freundschafts- und Hobbyturnieren teil. Dabei steht nicht nur der sportliche Erfolg im Vordergrund,
           sondern auch das Miteinander – auf und neben dem Platz.
@@ -62,15 +59,15 @@ useSeoMeta({
         tag="h2"
       />
 
-      <div class="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:px-24">
+      <div class="teams-grid">
         <div
           v-for="team in db.teams"
           :key="team.name"
-          class="text-center p-4 rounded-xl bg-white shadow-sm transition-all hover:shadow-md"
+          class="team-card"
         >
-          <BaseIcon name="i-heroicons-user-group" class="w-8 h-8 text-brand-light-400 mb-2 mx-auto" />
-          <h3 class="font-bold text-lg text-gray-800">{{ team.name }}</h3>
-          <span class="text-xs text-gray-400 uppercase tracking-wider">{{ team.category }}</span>
+          <BaseIcon name="i-heroicons-user-group" class="team-icon" />
+          <h3 class="team-name">{{ team.name }}</h3>
+          <span class="team-cat">{{ team.category }}</span>
         </div>
       </div>
     </Section>
@@ -80,7 +77,7 @@ useSeoMeta({
       overlap-top
       rounded
       outer-container
-      class="text-center"
+      class="center-section"
       padding-top="sm"
       padding-bottom="md"
       margin-bottom="xl"
@@ -90,11 +87,11 @@ useSeoMeta({
         tagline="Live dabei"
         alignment="center"
       />
-      <p class="text-gray-700 my-4 max-w-2xl mx-auto">
+      <p class="section-desc">
         Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse,
         findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga.
       </p>
-      <div class="mt-8">
+      <div class="action-wrap">
         <Button
           to="https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786"
           target="_blank"
@@ -114,17 +111,17 @@ useSeoMeta({
       rounded="top"
       outer-container
     >
-      <div class=" text-center">
+      <div class="center-section">
         <Headline
           title="Du möchtest Teil eines Teams werden?"
           alignment="center"
           tag="h3"
         />
-        <p class="text-gray-700 mt-4 mb-8 max-w-2xl mx-auto">
+        <p class="join-desc">
           Dann sprich uns an – wir freuen uns über neue Gesichter, Spielstärke ist zweitrangig.
           Was zählt, ist der Spaß am Spiel und der Zusammenhalt im Team.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <div class="join-actions">
           <Button
             :to="$localePath('contact')"
             size="lg"
@@ -134,6 +131,105 @@ useSeoMeta({
         </div>
       </div>
     </Section>
-
   </div>
 </template>
+
+<style lang="scss" scoped>
+.intro-box {
+  max-width: 48rem;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.intro-lead {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--color-gray-600);
+}
+
+.intro-sub {
+  margin: 0;
+  color: var(--color-gray-600);
+}
+
+.teams-grid {
+  margin-top: var(--space-12);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include up("md") {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-inline: var(--space-24);
+  }
+}
+
+.team-card {
+  text-align: center;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-pure-white);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.team-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-brand-light-400);
+  margin: 0 auto var(--space-2);
+  display: block;
+}
+
+.team-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-gray-800);
+}
+
+.team-cat {
+  font-size: 0.75rem;
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.center-section {
+  text-align: center;
+}
+
+.section-desc {
+  color: var(--color-gray-700);
+  margin: var(--space-4) auto;
+  max-width: 42rem;
+}
+
+.action-wrap {
+  margin-top: var(--space-8);
+}
+
+.join-desc {
+  color: var(--color-gray-700);
+  margin: var(--space-4) auto var(--space-8);
+  max-width: 42rem;
+}
+
+.join-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+
+  @include up("sm") {
+    flex-direction: row;
+  }
+}
+</style>

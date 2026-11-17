@@ -6,7 +6,6 @@ import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import Sponsors from '~/components/base/Sponsors.vue'
 
-const { t } = useI18n()
 const localePath = useLocalePath()
 
 useSeoMeta({
@@ -18,39 +17,37 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// --- FACTS / HIGHLIGHTS ---
 const tournamentFacts = computed(() => [
   {
     icon: 'i-heroicons-calendar',
     title: '29.08. – 13.09.2026',
     description: 'Zwei Wochen hochklassiges Tennis mit dem großen Finalsonntag am 13. September.',
-    iconColor: 'text-blue-500',
-    iconBg: 'bg-blue-50 dark:bg-blue-900/10'
+    iconColor: 'color-blue',
+    iconBg: 'bg-blue'
   },
   {
     icon: 'i-heroicons-map-pin',
     title: 'Austragungsorte',
     description: 'Hauptanlage mit 6 Sandplätzen beim TC Hardt sowie Spiele beim TC Venn & TG Blau-Weiss Meer.',
-    iconColor: 'text-orange-500',
-    iconBg: 'bg-orange-50 dark:bg-orange-900/10'
+    iconColor: 'color-orange',
+    iconBg: 'bg-orange'
   },
   {
     icon: 'i-heroicons-user-group',
     title: 'Konkurrenzen',
     description: 'Damen & Herren in der Offenen Klasse sowie Senioren-Altersklassen (30+, 40+, 50+, 60+) in Einzel & Doppel.',
-    iconColor: 'text-green-500',
-    iconBg: 'bg-green-50 dark:bg-green-900/10'
+    iconColor: 'color-green',
+    iconBg: 'bg-green'
   },
   {
     icon: 'i-heroicons-trophy',
     title: 'Offizielles LK-Turnier',
     description: 'Gewertet für Leistungsklassen & deutsche Rangliste des DTB. Offizielle Bälle & Oberschiedsrichter.',
-    iconColor: 'text-teal-500',
-    iconBg: 'bg-teal-50 dark:bg-teal-900/10'
+    iconColor: 'color-teal',
+    iconBg: 'bg-teal'
   }
 ])
 
-// --- ABLAUF ---
 const scheduleMilestones = [
   {
     date: '29.08.2026',
@@ -69,12 +66,11 @@ const scheduleMilestones = [
   }
 ]
 
-// --- SPONSOREN KSM 2026 ---
 const ksmSponsors = [
-  { src: '/img/sponsors/ksm-2026/sponsor-shirt-company.png', alt: 'Männer Moden Geldern', url:'https://share.google/PjF0RdCRTC4iQIWmq'},
-  { src: '/img/sponsors/ksm-2026/sponsor-tennis-kreis-moenchengladbach.png', alt: 'Tenniskreis Mönchengladbach', url:'https://tenniskreis-moenchengladbach.de/' },
-  { src: '/img/sponsors/ksm-2026/sponsor-tc-venn.png', alt: 'TC Venn', url:'https://www.tcvenn.de/' },
-  { src: '/img/sponsors/ksm-2026/sponsor-blau-weiss-meer-tennis.png', alt: 'TG Blau-Weiss Meer', url:'https://www.tg-blau-weiss-meer.de/' },
+  { src: '/img/sponsors/ksm-2026/sponsor-shirt-company.png', alt: 'Männer Moden Geldern', url: 'https://share.google/PjF0RdCRTC4iQIWmq' },
+  { src: '/img/sponsors/ksm-2026/sponsor-tennis-kreis-moenchengladbach.png', alt: 'Tenniskreis Mönchengladbach', url: 'https://tenniskreis-moenchengladbach.de/' },
+  { src: '/img/sponsors/ksm-2026/sponsor-tc-venn.png', alt: 'TC Venn', url: 'https://www.tcvenn.de/' },
+  { src: '/img/sponsors/ksm-2026/sponsor-blau-weiss-meer-tennis.png', alt: 'TG Blau-Weiss Meer', url: 'https://www.tg-blau-weiss-meer.de/' },
   { src: '/img/sponsors/ksm-2026/sponsor-heister-sport.png', alt: 'Sport Heister', url: 'https://www.sport-heister.de/' },
   { src: '/img/sponsors/ksm-2026/sponsor-luce-eiscafe.png', alt: 'Eiscafé Luce', url: 'https://share.google/UINqUnzIMIQQnGMP6' },
   { src: '/img/sponsors/ksm-2026/sponsor-mg-sport.png', alt: 'MG-Sport', url: 'https://www.mg-sport.de/' },
@@ -82,12 +78,8 @@ const ksmSponsors = [
 </script>
 
 <template>
-  <div>
-    <!-- 1. Hero (Exakter Stil der Termine-Seite) -->
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+  <div class="ksm-page">
+    <Hero height="small">
       <template #content>
         <Headline
           title="Kreis- und Stadtmeisterschaften 2026"
@@ -100,7 +92,6 @@ const ksmSponsors = [
       </template>
     </Hero>
 
-    <!-- 2. Key-Facts Section (Sauberer Anschluss ohne Overlap) -->
     <Section>
       <Headline
         title="Das Turnier auf einen Blick"
@@ -113,9 +104,8 @@ const ksmSponsors = [
         description="Der TC Hardt ist stolzer Hauptausrichter der Kreis- und Stadtmeisterschaften der Erwachsenen."
       />
 
-      <div class="flex justify-center">
+      <div class="results-cta">
         <Button
-          class="text-center items-center mx-auto"
           to="https://www.tennis.de/spielen/spielbetrieb/turniersuche.html#detail/783899"
           label="Aktuelle Ergebnisse"
           variant="primary"
@@ -124,7 +114,7 @@ const ksmSponsors = [
         />
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+      <div class="facts-grid">
         <FeatureCard
           v-for="(fact, index) in tournamentFacts"
           :key="index"
@@ -133,14 +123,13 @@ const ksmSponsors = [
       </div>
     </Section>
 
-    <!-- 3. Schedule / Ablauf Section -->
-    <div class="my-8 sm:my-14 lg:my-20">
+    <div class="schedule-wrapper">
       <Section
         variant="secondary-light"
         rounded
         padding-top="lg"
         padding-bottom="lg"
-        class="relative z-10"
+        class="schedule-section"
       >
         <Headline
           alignment="center"
@@ -150,19 +139,19 @@ const ksmSponsors = [
           description="Plane deine Turnierteilnahme oder deinen Besuch auf der Anlage am Birkmannsweg."
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-10">
+        <div class="schedule-grid">
           <div
             v-for="(item, idx) in scheduleMilestones"
             :key="idx"
-            class="flex flex-col p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-md border border-brand-light-200/70 dark:border-gray-700 transition-transform duration-300 hover:scale-[1.01]"
+            class="milestone-card"
           >
-            <div class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-brand-light-100 dark:bg-brand-light-900/30 text-brand-dark-800 dark:text-brand-light-300 w-fit mb-3">
+            <div class="milestone-badge">
               {{ item.date }}
             </div>
-            <h4 class="font-bold text-lg text-brand-dark-900 dark:text-white mb-2">
+            <h4 class="milestone-title">
               {{ item.title }}
             </h4>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p class="milestone-desc">
               {{ item.desc }}
             </p>
           </div>
@@ -170,7 +159,6 @@ const ksmSponsors = [
       </Section>
     </div>
 
-    <!-- 4. Sponsoren & Partner der KSM -->
     <Section
       variant="default"
       padding-top="xl"
@@ -184,7 +172,7 @@ const ksmSponsors = [
         description="Ein herzliches Dankeschön an unsere Sponsoren und Förderer, die dieses Sportevent für die Region Mönchengladbach ermöglichen."
       />
 
-      <div class="flex justify-center mt-6 mb-10">
+      <div class="sponsor-cta">
         <Button
           :to="localePath('sponsoring')"
           variant="outline"
@@ -193,11 +181,9 @@ const ksmSponsors = [
         />
       </div>
 
-      <!-- Sponsoren Karussell -->
       <Sponsors :items="ksmSponsors" contained />
     </Section>
 
-    <!-- 5. Turnierleitung & Kontakt (Exakt wie auf der Training-Seite) -->
     <Section
       variant="secondary-light"
       padding-top="md"
@@ -205,17 +191,17 @@ const ksmSponsors = [
       overlap-bottom
       rounded="top"
       outer-container
-      class="text-center"
+      class="contact-section"
     >
       <Headline
         title="Noch Fragen zum Turnier?"
         tagline="Turnierleitung & Kontakt"
         alignment="center"
       />
-      <p class="text-gray-700 dark:text-gray-300 my-4 max-w-2xl mx-auto">
+      <p class="contact-text">
         Unser Sportwart und das Organisationsteam stehen dir für alle Fragen rund um Konkurrenzen, Meldungen und Spielzeiten gerne zur Verfügung.
       </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <div class="contact-actions">
         <Button
           to="mailto:sportwart@tc-hardt.de"
           label="E-Mail an Sportwart"
@@ -232,3 +218,145 @@ const ksmSponsors = [
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.results-cta {
+  display: flex;
+  justify-content: center;
+}
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-10);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.schedule-wrapper {
+  margin-block: var(--space-8);
+
+  @include up('sm') {
+    margin-block: 3.5rem;
+  }
+
+  @include up('lg') {
+    margin-block: var(--space-20);
+  }
+}
+
+.schedule-section {
+  position: relative;
+  z-index: 10;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+
+  @include up('md') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.milestone-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-pure-white);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgb(189 229 249 / 0.7);
+  transition: transform 300ms ease;
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+
+.milestone-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-light-100);
+  color: var(--color-brand-dark-800);
+  width: fit-content;
+  margin-bottom: var(--space-3);
+
+  @include dark {
+    background-color: rgb(9 44 60 / 0.3);
+    color: var(--color-brand-light-300);
+  }
+}
+
+.milestone-title {
+  margin: 0 0 var(--space-2);
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--color-brand-dark-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.milestone-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--color-gray-600);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+}
+
+.sponsor-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.contact-section {
+  text-align: center;
+}
+
+.contact-text {
+  color: var(--color-gray-700);
+  margin: var(--space-4) auto;
+  max-width: 42rem;
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.contact-actions {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+</style>

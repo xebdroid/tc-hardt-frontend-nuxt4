@@ -7,6 +7,7 @@ import PrivacyGate from '~/components/base/PrivacyGate.vue'
 import BaseFormField from '~/components/base/FormField.vue'
 import BaseInput from '~/components/base/Input.vue'
 import BaseTextarea from '~/components/base/Textarea.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import { useToast } from '~/composables/useToast'
 
 useSeoMeta({
@@ -115,68 +116,61 @@ function resetForm() {
 </script>
 
 <template>
-  <div>
-
-    <Hero
-      height="small"
-    >
+  <div class="contact-page">
+    <Hero height="small">
       <template #content>
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-6xl font-heading font-bold text-white mb-6">
+        <div class="hero-header">
+          <h1 class="hero-title">
             Kontakt
           </h1>
-          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p class="hero-subtitle">
             Fragen? Anregungen? Wir sind für Dich da.
           </p>
         </div>
       </template>
     </Hero>
 
-    <div class="u-container py-16 space-y-16">
-
-      <div class="grid md:grid-cols-3 gap-8 mx-auto w-full">
-
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <BaseIcon name="i-heroicons-map-pin" class="w-6 h-6" />
+    <div class="u-container page-body">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon-box">
+            <BaseIcon name="i-heroicons-map-pin" class="info-icon" />
           </div>
-          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Clubanlage</h3>
-          <address class="text-gray-600 dark:text-gray-300 not-italic">
+          <h3 class="info-title">Clubanlage</h3>
+          <address class="info-address">
             TC Hardt 1976 e.V.<br>
             Birkmannsweg 16<br>
             41169 Mönchengladbach
           </address>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <BaseIcon name="i-heroicons-inbox-arrow-down" class="w-6 h-6" />
+        <div class="info-card">
+          <div class="info-icon-box">
+            <BaseIcon name="i-heroicons-inbox-arrow-down" class="info-icon" />
           </div>
-          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">Postanschrift</h3>
-          <address class="text-gray-600 dark:text-gray-300 not-italic">
+          <h3 class="info-title">Postanschrift</h3>
+          <address class="info-address">
             Postfach 601272<br>
             41162 Mönchengladbach
           </address>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-          <div class="w-12 h-12 rounded-full bg-brand-dark-100 dark:bg-brand-dark-800 flex items-center justify-center text-brand-dark-900 dark:text-white mb-4">
-            <BaseIcon name="i-heroicons-envelope" class="w-6 h-6" />
+        <div class="info-card">
+          <div class="info-icon-box">
+            <BaseIcon name="i-heroicons-envelope" class="info-icon" />
           </div>
-          <h3 class="text-lg font-bold text-brand-dark-900 dark:text-white mb-2">E-Mail</h3>
-          <p class="text-gray-600 dark:text-gray-300 mb-4">
+          <h3 class="info-title">E-Mail</h3>
+          <p class="info-text">
             Schreib uns jederzeit eine E-Mail.
           </p>
-          <a href="mailto:info@tc-hardt.de" class="text-accent-600 dark:text-accent-400 font-bold hover:underline">
+          <a href="mailto:info@tc-hardt.de" class="info-link">
             info@tc-hardt.de
           </a>
         </div>
-
       </div>
 
-      <div id="contact-form-container" class="mx-auto w-full">
-        <div class="bg-white dark:bg-gray-800 p-8 sm:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700">
-
+      <div id="contact-form-container" class="form-wrapper">
+        <div class="form-card">
           <div v-if="!isSent">
             <Headline
               title="Schreib uns eine Nachricht"
@@ -187,11 +181,11 @@ function resetForm() {
             />
 
             <form
-              class="space-y-8"
+              class="contact-form"
               novalidate
               @submit.prevent="onSubmit"
             >
-              <div class="grid md:grid-cols-2 gap-8">
+              <div class="form-row">
                 <BaseFormField
                   label="Dein Name"
                   name="name"
@@ -241,12 +235,12 @@ function resetForm() {
                 v-model="state.website"
                 type="text"
                 name="website"
-                class="hidden"
+                class="honeypot"
                 tabindex="-1"
                 autocomplete="off"
               >
 
-              <div class="pt-2">
+              <div class="submit-row">
                 <Button
                   type="submit"
                   block
@@ -260,12 +254,12 @@ function resetForm() {
             </form>
           </div>
 
-          <div v-else class="py-16 text-center flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
-            <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-6 shadow-sm">
-              <BaseIcon name="i-heroicons-check" class="w-12 h-12" />
+          <div v-else class="success-box">
+            <div class="success-icon-wrap">
+              <BaseIcon name="i-heroicons-check" class="success-icon" />
             </div>
-            <h3 class="text-4xl font-bold text-brand-dark-900 dark:text-white mb-4">Vielen Dank!</h3>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-lg mx-auto leading-relaxed">
+            <h3 class="success-title">Vielen Dank!</h3>
+            <p class="success-text">
               Deine Nachricht wurde erfolgreich an uns übermittelt. <br>Wir werden uns in Kürze bei Dir melden.
             </p>
             <Button
@@ -275,7 +269,6 @@ function resetForm() {
               @click="resetForm"
             />
           </div>
-
         </div>
       </div>
 
@@ -287,8 +280,7 @@ function resetForm() {
           alignment="center"
         />
 
-        <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 h-[500px] w-full bg-gray-200 relative">
-
+        <div class="map-frame">
           <PrivacyGate
             id="google-maps"
             title="Google Maps laden"
@@ -306,22 +298,285 @@ function resetForm() {
               title="Google Maps Standort TC Hardt"
             />
           </PrivacyGate>
-
         </div>
 
-        <div class="mt-4 text-center">
+        <div class="map-link-row">
           <a
             href="https://maps.app.goo.gl/wt8zcsPJbvQfiyTM9"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm text-gray-500 hover:text-accent-600 underline"
+            class="map-link"
           >
             Route in Google Maps App öffnen
           </a>
         </div>
-
       </Section>
-
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.hero-header {
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0 0 var(--space-6);
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  color: var(--color-pure-white);
+
+  @include up('sm') {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+.hero-subtitle {
+  margin: 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--color-gray-300);
+  max-width: 42rem;
+}
+
+.page-body {
+  padding-block: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.info-grid {
+  display: grid;
+  gap: var(--space-8);
+  margin-inline: auto;
+  width: 100%;
+
+  @include up('md') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.info-card {
+  background-color: var(--color-pure-white);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow var(--transition-fast);
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.info-icon-box {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-dark-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-dark-900);
+  margin-bottom: var(--space-4);
+
+  @include dark {
+    background-color: var(--color-brand-dark-800);
+    color: var(--color-white);
+  }
+}
+
+.info-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.info-title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.info-address {
+  font-style: normal;
+  color: var(--color-gray-600);
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.info-text {
+  margin: 0 0 var(--space-4);
+  color: var(--color-gray-600);
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.info-link {
+  color: var(--color-accent-600);
+  font-weight: 700;
+  text-decoration: none;
+
+  @include dark {
+    color: var(--color-accent-400);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form-wrapper {
+  margin-inline: auto;
+  width: 100%;
+}
+
+.form-card {
+  background-color: var(--color-pure-white);
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-gray-100);
+
+  @include up('sm') {
+    padding: var(--space-12);
+  }
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.form-row {
+  display: grid;
+  gap: var(--space-8);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.honeypot {
+  display: none;
+}
+
+.submit-row {
+  padding-top: var(--space-2);
+}
+
+.success-box {
+  padding-block: var(--space-16);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-icon-wrap {
+  width: 6rem;
+  height: 6rem;
+  background-color: #dcfce7;
+  color: #16a34a;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+
+  @include dark {
+    background-color: rgb(20 83 45 / 0.3);
+    color: #4ade80;
+  }
+}
+
+.success-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.success-title {
+  margin: 0 0 var(--space-4);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.success-text {
+  margin: 0 auto var(--space-10);
+  font-size: 1.25rem;
+  line-height: 1.625;
+  color: var(--color-gray-600);
+  max-width: 32rem;
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.map-frame {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-gray-200);
+  height: 500px;
+  width: 100%;
+  background-color: var(--color-gray-200);
+  position: relative;
+
+  @include dark {
+    border-color: var(--color-gray-700);
+  }
+}
+
+.map-link-row {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.map-link {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-gray-500);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--color-accent-600);
+  }
+}
+</style>

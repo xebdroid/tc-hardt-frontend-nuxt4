@@ -19,11 +19,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+  <div class="board-page">
+    <Hero height="small">
       <template #content>
         <Headline
           title="Der Vorstand"
@@ -47,32 +44,30 @@ useSeoMeta({
         padding-bottom="xl"
         outer-container
       >
-        <div class="flex flex-col md:grid md:grid-cols-3 gap-12 items-center">
+        <div class="member-row">
           <div
             v-if="index % 2 === 0"
-            class="order-2 text-center md:text-right md:justify-self-end max-w-md md:order-0"
+            class="member-info is-left"
           >
-            <h3 class="text-3xl font-bold text-gray-800">
+            <h3 class="member-name">
               {{ member.name }}
             </h3>
             <Badge
               variant="subtle"
               color="primary"
               size="lg"
-              class="mt-2 mb-4"
+              class="member-badge"
             >
               {{ member.role }}
             </Badge>
             <div
               v-if="member.area"
-              class="text-gray-600 my-6"
+              class="member-area"
             >
-              <span class="font-semibold block text-gray-800 mb-1">Zuständig für:</span>
+              <span class="area-label">Zuständig für:</span>
               {{ member.area }}
             </div>
-            <div
-              class="flex gap-4 justify-center md:justify-end"
-            >
+            <div class="member-actions is-right">
               <Button
                 v-if="member.email"
                 :to="`mailto:${member.email}`"
@@ -93,11 +88,13 @@ useSeoMeta({
               </Button>
             </div>
           </div>
+
           <div
             v-if="index % 2 !== 0"
-            class="hidden md:block"
+            class="member-spacer"
           />
-          <div class="order-1 md:order-none mx-auto">
+
+          <div class="member-avatar">
             <Image
               :src="member.image"
               :alt="member.name"
@@ -106,35 +103,34 @@ useSeoMeta({
             >
               <BaseIcon
                 name="i-heroicons-user-circle"
-                class="w-48 h-48 text-gray-300"
+                class="avatar-placeholder-lg"
               />
             </Image>
           </div>
+
           <div
             v-if="index % 2 !== 0"
-            class="order-2 text-center md:text-left md:justify-self-start max-w-md md:order-none"
+            class="member-info is-right"
           >
-            <h3 class="text-3xl font-bold text-gray-800">
+            <h3 class="member-name">
               {{ member.name }}
             </h3>
             <Badge
               variant="subtle"
               color="primary"
               size="lg"
-              class="mt-2 mb-4"
+              class="member-badge"
             >
               {{ member.role }}
             </Badge>
             <div
               v-if="member.area"
-              class="text-gray-600 my-6"
+              class="member-area"
             >
-              <span class="font-semibold block text-gray-800 mb-1">Zuständig für:</span>
+              <span class="area-label">Zuständig für:</span>
               {{ member.area }}
             </div>
-            <div
-              class="flex gap-4 justify-center md:justify-start"
-            >
+            <div class="member-actions is-left">
               <Button
                 v-if="member.email"
                 :to="`mailto:${member.email}`"
@@ -158,6 +154,7 @@ useSeoMeta({
         </div>
       </Section>
     </div>
+
     <Section
       variant="secondary-light"
       outer-container
@@ -170,13 +167,13 @@ useSeoMeta({
         alignment="center"
         tagline="Zusätzliche Unterstützung für den Verein"
       />
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 md:px-24">
+      <div class="extended-grid">
         <div
           v-for="member in db.extendedBoard"
           :key="member.name"
-          class="bg-white rounded-lg shadow-sm p-6 text-center flex flex-col"
+          class="extended-card"
         >
-          <div class="mx-auto mb-4">
+          <div class="extended-avatar">
             <Image
               :src="member.image"
               :alt="member.name"
@@ -185,25 +182,25 @@ useSeoMeta({
             >
               <BaseIcon
                 name="i-heroicons-user-circle"
-                class="w-16 h-16 text-gray-300"
+                class="avatar-placeholder-sm"
               />
             </Image>
           </div>
-          <div class="flex-grow">
-            <h3 class="text-lg font-semibold text-gray-800">
+          <div class="extended-body">
+            <h3 class="extended-name">
               {{ member.name }}
             </h3>
-            <p class="text-brand-light-700 font-medium">
+            <p class="extended-role">
               {{ member.role }}
             </p>
           </div>
-          <div class="flex gap-2 mt-4">
+          <div class="extended-actions">
             <Button
               v-if="member.email"
               :to="`mailto:${member.email}`"
               variant="outline"
               icon="i-heroicons-envelope"
-              class="flex-1 justify-center"
+              class="extended-btn"
             >
               E-Mail
             </Button>
@@ -212,7 +209,7 @@ useSeoMeta({
               :to="`tel:${member.phone}`"
               variant="outline"
               icon="i-heroicons-phone"
-              class="flex-1 justify-center"
+              class="extended-btn"
             >
               Anrufen
             </Button>
@@ -222,3 +219,170 @@ useSeoMeta({
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.member-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  align-items: center;
+
+  @include up('md') {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.member-info {
+  order: 2;
+  text-align: center;
+  max-width: 28rem;
+
+  &.is-left {
+    @include up('md') {
+      order: 0;
+      text-align: right;
+      justify-self: end;
+    }
+  }
+
+  &.is-right {
+    @include up('md') {
+      order: 0;
+      text-align: left;
+      justify-self: start;
+    }
+  }
+}
+
+.member-spacer {
+  display: none;
+
+  @include up('md') {
+    display: block;
+  }
+}
+
+.member-avatar {
+  order: 1;
+  margin-inline: auto;
+
+  @include up('md') {
+    order: 0;
+  }
+}
+
+.avatar-placeholder-lg {
+  width: 12rem;
+  height: 12rem;
+  color: var(--color-gray-300);
+}
+
+.avatar-placeholder-sm {
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-gray-300);
+}
+
+.member-name {
+  margin: 0;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.member-badge {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.member-area {
+  color: var(--color-gray-600);
+  margin-block: var(--space-6);
+}
+
+.area-label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  margin-bottom: var(--space-1);
+}
+
+.member-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+
+  &.is-right {
+    @include up('md') {
+      justify-content: flex-end;
+    }
+  }
+
+  &.is-left {
+    @include up('md') {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.extended-grid {
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: var(--space-24);
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.extended-card {
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.extended-avatar {
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+}
+
+.extended-body {
+  flex-grow: 1;
+}
+
+.extended-name {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+}
+
+.extended-role {
+  margin: 0;
+  color: var(--color-brand-light-700);
+  font-weight: 500;
+}
+
+.extended-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.extended-btn {
+  flex: 1 1 0%;
+  justify-content: center;
+}
+</style>

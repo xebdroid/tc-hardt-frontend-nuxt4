@@ -7,6 +7,8 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import EventList from '~/components/events/EventList.vue'
 import EventItem from '~/components/events/EventItem.vue'
+import BaseCollapsible from '~/components/base/Collapsible.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
 import Button from '~/components/base/Button.vue'
 
@@ -19,9 +21,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// Sicherer SSR-Umgang mit Datum (verhindert Hydration Mismatches)
 const now = ref(new Date())
-const currentYear = computed(() => now.value.getFullYear())
 
 onMounted(() => {
   now.value = new Date()
@@ -44,12 +44,18 @@ const upcomingEvents = computed(() => {
     })
 })
 
-// --- SCHEMA.ORG: RICH SNIPPETS FOR EVENTS ---
+const upcomingYear = computed(() => {
+  const datedEvents = upcomingEvents.value.filter(e => !isTbaDate(e.date))
+  if (datedEvents.length === 0) return now.value.getFullYear()
+  const years = [...new Set(datedEvents.map(e => new Date(e.date).getFullYear()))].sort()
+  return years.length === 1 ? `${years[0]}` : `${years[0]}/${years[years.length - 1]}`
+})
+
 const upcomingEventsForSchema = computed(() => {
   return upcomingEvents.value
     .filter(event => !isTbaDate(event.date))
     .slice(0, 10)
-    .map(event => {
+    .map((event) => {
       const atHomeKeywords = ['clubhaus', 'anlage', 'tc hardt']
       const locationString = event.location?.toLowerCase() || ''
       const isAtHome = atHomeKeywords.some(keyword => locationString.includes(keyword))
@@ -70,7 +76,6 @@ const upcomingEventsForSchema = computed(() => {
     })
 })
 
-// Übermittelt die Termine an das SEO-Modul
 useSchemaOrg([
   ...upcomingEventsForSchema.value.map(evt => defineEvent(evt))
 ])
@@ -128,31 +133,31 @@ const handlePastEventToggle = (id: number) => {
 </script>
 
 <template>
-  <div>
-    <Hero height="small" fallback-class="bg-brand-dark-900">
+  <div class="events-page">
+    <Hero height="small">
       <template #content>
         <Headline
           title="Club-Veranstaltungen"
           description="Das ist bei uns im Club los. Komm vorbei!"
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'sm'"
+          tag="h1"
+          size="h1"
+          mode="light"
+          alignment="center"
+          margin-bottom="sm"
         />
       </template>
     </Hero>
 
     <Section margin-bottom="none">
       <Headline
-        :title="`Unsere Events ${currentYear}`"
+        :title="`Unsere Events ${upcomingYear}`"
         :description="eventCountDescription"
         tag="h2"
         size="h2"
         alignment="center"
         margin-bottom="sm"
       />
-      <div class="flex justify-center">
+      <div class="download-row">
         <Button
           label="Alle Termine herunterladen"
           icon="i-heroicons-arrow-down-tray"
@@ -162,7 +167,6 @@ const handlePastEventToggle = (id: number) => {
       </div>
     </Section>
 
-
     <Section
       v-if="upcomingEvents.length > 0"
       variant="secondary-light"
@@ -170,78 +174,77 @@ const handlePastEventToggle = (id: number) => {
       overlap-bottom
       padding-top="xs"
       padding-bottom="sm"
-      :padding-left="{ base: 'none', md: 'xs' , lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'xs' , lg: 'md'}"
-      :outer-container="{ base: false, md: true}"
-      class="relative z-10"
+      :padding-left="{ base: 'none', md: 'xs', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'xs', lg: 'md' }"
+      :outer-container="{ base: false, md: true }"
+      class="upcoming-section"
     >
       <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
         <EventList
           v-for="(monthlyEvents, month) in upcomingEventsByMonth"
           :key="month"
-          :month="month"
+          :month="month as string"
           :events="monthlyEvents"
+          class="month-group"
         />
       </template>
-      <div v-else class="text-center text-gray-500 py-8">
-        <p>Zurzeit sind keine neuen Termine geplant. Schau bald wieder vorbei!</p>
-      </div>
+      <p v-else class="empty-text">
+        Aktuell sind keine zukünftigen Termine eingetragen.
+      </p>
     </Section>
+
     <Section
-      v-if="pastEvents.length > 0"
+      v-if="pastEventsByYear.length > 0"
       variant="gray-light"
-      rounded
-      outer-container
-      overlap-top
-      padding-top="lg"
-      padding-bottom="sm"
-      :padding-left="{ base: 'none', md: 'md' }"
-      :padding-right="{ base: 'none', md: 'md'}"
+      rounded="top"
+      :padding-top="{ base: 'lg', md: 'xl' }"
+      padding-bottom="lg"
+      :padding-left="{ base: 'none', md: 'xs', lg: 'md' }"
+      :padding-right="{ base: 'none', md: 'xs', lg: 'md' }"
+      :outer-container="{ base: false, md: true }"
       margin-bottom="xl"
-      class="relative z-0"
+      class="past-section"
     >
       <Headline
         title="Vergangene Events"
         description="Ein kleiner Rückblick auf unsere letzten Veranstaltungen."
         alignment="center"
       />
-      <div class="space-y-4">
+      <div class="past-years">
         <BaseCollapsible
           v-for="group in pastEventsByYear"
           :key="group.year"
-          class="flex flex-col"
+          class="year-collapsible"
           :open="openPastYear === group.year"
         >
           <button
             type="button"
-            class="group/year w-full p-4 md:px-6 md:py-5 flex justify-between items-center gap-4 cursor-pointer text-left rounded-xl bg-white dark:bg-gray-900 border transition-all duration-200"
-            :class="openPastYear === group.year
-              ? 'border-accent-500 dark:border-accent-400 shadow-sm'
-              : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-white/5'"
+            class="year-trigger"
+            :class="{ 'is-open': openPastYear === group.year }"
             @click="handlePastYearToggle(group.year)"
           >
-            <div class="flex items-center gap-3">
+            <div class="year-left">
               <BaseIcon
                 name="i-heroicons-calendar-days"
-                class="w-6 h-6 text-accent-500 shrink-0"
+                class="year-icon"
               />
-              <span class="text-xl md:text-2xl font-bold text-brand-dark-900 dark:text-white group-hover/year:text-accent-600 dark:group-hover/year:text-accent-400 transition-colors">
+              <span class="year-label">
                 Jahrgang {{ group.year }}
               </span>
-              <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+              <span class="year-count">
                 {{ group.events.length }} {{ group.events.length === 1 ? 'Termin' : 'Termine' }}
               </span>
             </div>
 
             <BaseIcon
               name="i-heroicons-chevron-down"
-              class="w-6 h-6 transition-transform duration-300 shrink-0"
-              :class="openPastYear === group.year ? 'rotate-180 text-accent-500' : 'text-gray-400'"
+              class="year-chevron"
+              :class="{ 'is-open': openPastYear === group.year }"
             />
           </button>
 
           <template #content>
-            <div class="pt-4 space-y-4">
+            <div class="year-events">
               <EventItem
                 v-for="event in group.events"
                 :key="event.id"
@@ -257,3 +260,151 @@ const handlePastEventToggle = (id: number) => {
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.download-row {
+  display: flex;
+  justify-content: center;
+}
+
+.upcoming-section {
+  position: relative;
+  z-index: 10;
+}
+
+.month-group {
+  margin-bottom: var(--space-12);
+}
+
+.empty-text {
+  text-align: center;
+  color: var(--color-gray-500);
+}
+
+.past-section {
+  position: relative;
+  z-index: 0;
+}
+
+.past-years {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.year-collapsible {
+  display: flex;
+  flex-direction: column;
+}
+
+.year-trigger {
+  width: 100%;
+  padding: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  cursor: pointer;
+  text-align: left;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-pure-white);
+  border: 1px solid var(--color-gray-200);
+  transition: all 200ms ease;
+
+  @include up("md") {
+    padding: var(--space-5) var(--space-6);
+  }
+
+  @include dark {
+    background-color: var(--color-gray-900);
+    border-color: var(--color-gray-700);
+  }
+
+  &:hover:not(.is-open) {
+    background-color: var(--color-gray-50);
+
+    @include dark {
+      background-color: rgb(255 255 255 / 0.05);
+    }
+  }
+
+  &.is-open {
+    border-color: var(--color-accent-500);
+    box-shadow: var(--shadow-sm);
+
+    @include dark {
+      border-color: var(--color-accent-400);
+    }
+  }
+}
+
+.year-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.year-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-accent-500);
+  flex-shrink: 0;
+}
+
+.year-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+  transition: color var(--transition-fast);
+
+  @include up("md") {
+    font-size: 1.5rem;
+  }
+
+  @include dark {
+    color: var(--color-white);
+  }
+
+  .year-trigger:hover & {
+    color: var(--color-accent-600);
+
+    @include dark {
+      color: var(--color-accent-400);
+    }
+  }
+}
+
+.year-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-600);
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    color: var(--color-gray-300);
+  }
+}
+
+.year-chevron {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-gray-400);
+  flex-shrink: 0;
+  transition: transform 300ms ease, color var(--transition-fast);
+
+  &.is-open {
+    transform: rotate(180deg);
+    color: var(--color-accent-500);
+  }
+}
+
+.year-events {
+  padding-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+</style>

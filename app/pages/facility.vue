@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue';
-import Section from '~/components/base/Section.vue';
-import FeatureSection from '~/components/base/FeatureSection.vue';
-import Headline from '~/components/base/Headline.vue';
-import Button from '~/components/base/Button.vue';
-import type { SpacingSize, Responsive } from '~/types';
+import Hero from '~/components/base/Hero.vue'
+import Section from '~/components/base/Section.vue'
+import FeatureSection from '~/components/base/FeatureSection.vue'
+import Headline from '~/components/base/Headline.vue'
+import Button from '~/components/base/Button.vue'
+import type { SpacingSize, Responsive } from '~/types'
 
 useSeoMeta({
   title: 'Anlage & Freizeit',
@@ -13,9 +13,8 @@ useSeoMeta({
   ogDescription: 'Entdecke die vielfältigen Möglichkeiten auf unserer Tennisanlage am Hardter Wald: 6 Ascheplätze, Clubhaus mit Sonnenterrasse, Beach-Volleyball und mehr.',
   ogImage: '/img/facility/tc-hardt-facility-01.jpg',
   twitterCard: 'summary_large_image',
-});
+})
 
-// Definieren der Standard-Paddings für alle Sektionen
 const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<SpacingSize> } = {
   top: { base: 'xs', sm: 'sm', md: 'lg' },
   bottom: { base: 'xs', sm: 'sm', md: 'lg' }
@@ -27,14 +26,13 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     <Hero
       :slides="[]"
       height="small"
-      fallback-class="bg-brand-dark-900"
     >
       <template #content>
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-5xl font-heading font-bold text-white mb-4">
+        <div class="hero-header">
+          <h1 class="hero-title">
             Anlage & Freizeit
           </h1>
-          <p class="text-xl text-brand-light-100 max-w-2xl mx-auto">
+          <p class="hero-subtitle">
             Viel Raum für Sport, Familie und Erholung direkt am Hardter Wald.
           </p>
         </div>
@@ -144,17 +142,16 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
       rounded="top"
       outer-container
     >
-      <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
+      <div class="cta-box">
         <Headline
           title="Neugierig geworden?"
           description="Komm einfach vorbei und mach dir selbst ein Bild von unserer idyllischen Anlage. Wir freuen uns auf deinen Besuch am Hardter Wald!"
           tag="h2"
           size="h2"
           alignment="center"
-          wrapper-class="max-w-2xl"
           margin-bottom="lg"
         />
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="cta-actions">
           <Button
             to="/kontakt#map"
             variant="primary"
@@ -167,3 +164,44 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.hero-header {
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: var(--color-white);
+
+  @include up("sm") {
+    font-size: 3rem;
+  }
+}
+
+.hero-subtitle {
+  margin: 0 auto;
+  font-size: 1.25rem;
+  color: var(--color-brand-light-100);
+  max-width: 42rem;
+}
+
+.cta-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+</style>

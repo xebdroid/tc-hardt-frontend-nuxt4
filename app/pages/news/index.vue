@@ -15,12 +15,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
-
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+  <div class="news-index-page">
+    <Hero height="small">
       <template #content>
         <Headline
           title="Aktuelles"
@@ -37,11 +33,11 @@ useSeoMeta({
       variant="secondary-light"
       margin-top="sm"
       margin-bottom="md"
-      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      :outer-container="{ base: false, md: true}"
+      :outer-container="{ base: false, md: true }"
       rounded
     >
       <NewsList />

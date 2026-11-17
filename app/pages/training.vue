@@ -21,11 +21,11 @@ const slides: HeroSlide[] = [
     type: 'image',
     src: '/img/training/mann-haelt-tennisschlaeger-mit-ball.jpg',
     contentImage: '/img/training/tennisschule-rot-weiss.jpg',
-    contentImageClass: 'w-full max-w-[250px] lg:w-[300px] drop-shadow-lg rounded-full bg-white p-3',
+    contentImageClass: 'school-badge-logo',
     title: 'Training',
     subtitle: 'Professionelles Training für jedes Niveau – direkt bei uns auf der Anlage.',
     contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-brand-dark-900/90 via-brand-dark-900/20 to-transparent'
+    overlayClass: 'overlay-brand-dark'
   }
 ]
 
@@ -61,15 +61,15 @@ const trainingTypes = [
     />
 
     <Section>
-      <div class="max-w-4xl mx-auto text-center">
+      <div class="partner-intro">
         <Headline
           tagline="Unser Partner für dein Spiel"
           title="Qualifiziertes Training"
           description="Seit der Sommersaison 2014 ist die Tennisschule Rot-Weiss unser starker Partner auf dem Platz. Mit Erfahrung seit 2011 und Expertise aus verschiedenen Vereinen steht sie für modernes, professionelles Training mit klaren Qualitätsstandards. Egal auf welchem Level Du spielst – Du hast gerade erst angefangen, oder hast bereits einige Erfahrung oder Du spielst sogar ambitioniert in einer Mannschaft – hier wird jeder mit Leidenschaft gefördert."
           alignment="center"
-          :margin-bottom="'sm'"
+          margin-bottom="sm"
         />
-        <div class="mt-8">
+        <div class="partner-cta">
           <Button
             to="https://tennisschule-rotweiss.de/"
             target="_blank"
@@ -92,7 +92,7 @@ const trainingTypes = [
         tagline="Für jedes Ziel der richtige Weg"
         alignment="center"
       />
-      <div class="grid md:grid-cols-2 gap-8 mt-12">
+      <div class="offers-grid">
         <FeatureCard
           v-for="training in trainingTypes"
           :key="training.title"
@@ -116,32 +116,28 @@ const trainingTypes = [
         tagline="Kompetenz und Erfahrung für deinen Erfolg"
         alignment="center"
       />
-      <div class="mt-12 mx-auto space-y-16">
+      <div class="coaches-stack">
         <FeatureSection
           image-src="/img/training/trainer-nicole-gafert.jpg"
           image-alt="Trainerin Nicole Gafert"
-          :image-rounded="true"
         >
           <Headline
             title="Nicole Gafert"
             description="Staatlich geprüfte Tennislehrerin und DTB B-Trainerin. Sie begeistert mit ihrer positiven Art und modernen Trainingsmethoden nach den aktuellen Trainingsrichtlinien des DTB."
-            alignment="none"
-            class="items-start text-left"
-            :margin-bottom="'none'"
+            alignment="left"
+            margin-bottom="none"
           />
         </FeatureSection>
         <FeatureSection
           image-src="/img/training/trainer-marc-wigge.jpg"
           image-alt="Trainer Marc Wigge"
-          :image-rounded="true"
           image-position="right"
         >
           <Headline
             title="Marc Wigge"
             description="Staatlich geprüfter Tennislehrer und DTB B-Trainer. Mit seiner langjährigen Erfahrung bringt er dein Spiel auf das nächste Level."
-            alignment="none"
-            class="items-start text-left"
-            :margin-bottom="'none'"
+            alignment="left"
+            margin-bottom="none"
           />
         </FeatureSection>
       </div>
@@ -154,17 +150,17 @@ const trainingTypes = [
       overlap-bottom
       rounded="top"
       outer-container
-      class="text-center"
+      class="contact-section"
     >
       <Headline
         title="Interesse geweckt?"
         tagline="Nimm Kontakt auf"
         alignment="center"
       />
-      <p class="text-gray-700 my-4 max-w-2xl mx-auto">
+      <p class="contact-desc">
         Für weitere Informationen zum Trainingsangebot, Preisen oder zur Buchung einer Probestunde, kontaktiere die Tennisschule Rot-Weiss direkt.
       </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <div class="contact-actions">
         <Button
           to="tel:01608081655"
           label="Nicole Gafert anrufen"
@@ -185,6 +181,68 @@ const trainingTypes = [
         />
       </div>
     </Section>
-
   </div>
 </template>
+
+<style lang="scss" scoped>
+:deep(.school-badge-logo) {
+  width: 100%;
+  max-width: 250px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-pure-white);
+  padding: var(--space-3);
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+
+  @include up("lg") {
+    width: 300px;
+    max-width: 300px;
+  }
+}
+
+.partner-intro {
+  max-width: 56rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.partner-cta {
+  margin-top: var(--space-8);
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+
+  @include up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.coaches-stack {
+  margin-top: var(--space-12);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.contact-section {
+  text-align: center;
+}
+
+.contact-desc {
+  color: var(--color-gray-700);
+  margin: var(--space-4) auto;
+  max-width: 42rem;
+}
+
+.contact-actions {
+  margin-top: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+</style>

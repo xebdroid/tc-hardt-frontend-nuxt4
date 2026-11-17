@@ -5,6 +5,7 @@ import FeatureCard from '~/components/base/FeatureCard.vue'
 import PricingCard from '~/components/base/PricingCard.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import db from '~/assets/data/db.json'
 
 useSeoMeta({
@@ -33,7 +34,7 @@ const heroSlides: import('vue').ComputedRef<HeroSlide[]> = computed(() => [
     contentPosition: 'bottom-center',
     ctaPrimary: { variant: 'highlight', label: 'Direkt zum Antrag', to: '#anmeldung', icon: 'i-heroicons-arrow-down-tray' },
     ctaSecondary: { variant: 'brand-dark', label: 'Tarife ansehen', to: '#tarife' },
-    overlayClass: 'bg-gradient-to-t from-accent-900/90 via-accent-900/50 to-transparent',
+    overlayClass: 'overlay-accent-strong',
     theme: 'light'
   }
 ])
@@ -55,7 +56,7 @@ const getPlanBase = (override: Record<string, any> = {}) => {
   const defaultButton = {
     label: 'Zum Antrag',
     icon: 'i-heroicons-arrow-down-tray',
-    variant: 'secondary', // Default to secondary
+    variant: 'brand-dark',
     block: true,
     size: 'lg',
   }
@@ -66,14 +67,12 @@ const getPlanBase = (override: Record<string, any> = {}) => {
     price: override.price || '',
     billingCycle: override.billingCycle || '',
     features: override.features || [],
-    class: 'bg-white dark:bg-brand-dark-950 border border-gray-200 dark:border-brand-dark-800 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-2xl flex flex-col h-full relative',
     button: { ...defaultButton, ...override.button },
   }
 
   return { ...basePlan, ...override }
 }
 
-// 1. Trial Plans
 const simplifiedTrialPlans = computed(() => {
   const trialAdult = rawTariffs.find(t => t.id === 'trial_adult')!
   const trialYoung = rawTariffs.find(t => t.id === 'trial_young')!
@@ -106,7 +105,6 @@ const simplifiedTrialPlans = computed(() => {
   ]
 })
 
-// 2. Regular Plans
 const simplifiedRegularPlans = computed(() => {
   const adult = rawTariffs.find(t => t.id === 'adult')!
   const family = rawTariffs.find(t => t.id === 'family')!
@@ -171,7 +169,7 @@ const simplifiedRegularPlans = computed(() => {
         description="Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander, sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse."
       />
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="benefits-grid">
         <FeatureCard
           v-for="(benefit, index) in benefits"
           :key="index"
@@ -185,8 +183,8 @@ const simplifiedRegularPlans = computed(() => {
       variant="highlight-light"
       outer-container
       rounded
-      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-bottom="{ base: 'lg', sm:'lg', md: 'xl' }"
+      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
+      :padding-bottom="{ base: 'lg', sm: 'lg', md: 'xl' }"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
     >
@@ -195,7 +193,7 @@ const simplifiedRegularPlans = computed(() => {
         title="Schnupperangebote"
         description="Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist."
       />
-      <div class="grid sm:grid-cols-2 gap-8 mx-auto">
+      <div class="plans-grid">
         <PricingCard
           v-for="(plan, i) in simplifiedTrialPlans"
           :key="i"
@@ -211,8 +209,8 @@ const simplifiedRegularPlans = computed(() => {
       overlap-top
       rounded
       outer-container
-      :padding-top="{ base: 'xs', sm:'xs', md: 'sm' }"
-      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-top="{ base: 'xs', sm: 'xs', md: 'sm' }"
+      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="sm"
@@ -223,7 +221,7 @@ const simplifiedRegularPlans = computed(() => {
         description="Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt."
         hyphens
       />
-      <div class="grid sm:grid-cols-2 gap-8 mx-auto">
+      <div class="plans-grid">
         <PricingCard
           v-for="(plan, i) in simplifiedRegularPlans"
           :key="i"
@@ -238,61 +236,59 @@ const simplifiedRegularPlans = computed(() => {
       variant="secondary-light"
       outer-container
       rounded
-      :padding-top="{ base: 'xs', sm:'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', sm:'sm', md: 'md' }"
+      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
+      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
       :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
       :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
       margin-bottom="xl"
     >
-      <div class="mb-12 text-center md:text-left">
+      <div class="steps-header">
         <Headline
           title="So wirst du Mitglied"
           description="Dein Weg in den Club – einfach und unkompliziert in 3 Schritten."
-          :alignment="'center'"
-          :margin-bottom="'none'"
+          alignment="center"
+          margin-bottom="none"
         />
       </div>
-      <div class="grid md:grid-cols-2 gap-16 items-stretch">
-        <ol class="space-y-12">
-          <li class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-              1
-            </div>
-            <div class="ml-6">
-              <h3 class="text-lg font-bold mb-1">Herunterladen</h3>
-              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Lade den Aufnahmeantrag als PDF herunter.</p>
+      <div class="signup-grid">
+        <ol class="steps-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h3 class="step-title">Herunterladen</h3>
+              <p class="step-desc">Lade den Aufnahmeantrag als PDF herunter.</p>
             </div>
           </li>
-          <li class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-              2
-            </div>
-            <div class="ml-6">
-              <h3 class="text-lg font-bold mb-1">Ausfüllen</h3>
-              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Fülle den Antrag digital oder per Hand aus und unterschreibe ihn.</p>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h3 class="step-title">Ausfüllen</h3>
+              <p class="step-desc">Fülle den Antrag digital oder per Hand aus und unterschreibe ihn.</p>
             </div>
           </li>
-          <li class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-dark-900 text-white flex items-center justify-center font-bold text-2xl">
-              3
-            </div>
-            <div class="ml-6">
-              <h3 class="text-lg font-bold mb-1">Absenden</h3>
-              <p class="text-sm text-brand-dark-700 dark:text-gray-400">Sende den Antrag per E-Mail an <a href="mailto:info@tc-hardt.de" class="font-bold hover:underline text-brand-dark-900 dark:text-white">info@tc-hardt.de</a> oder per Post.</p>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h3 class="step-title">Absenden</h3>
+              <p class="step-desc">
+                Sende den Antrag per E-Mail an
+                <a href="mailto:info@tc-hardt.de" class="mail-link">info@tc-hardt.de</a>
+                oder per Post.
+              </p>
             </div>
           </li>
         </ol>
 
-        <div class="bg-brand-dark-900 rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl h-full flex flex-col justify-center">
-          <BaseIcon name="i-heroicons-document-text" class="absolute -right-6 -bottom-6 w-48 h-48 text-white/5 rotate-12 pointer-events-none" />
+        <div class="download-card">
+          <BaseIcon name="i-heroicons-document-text" class="bg-doc-icon" />
 
-          <div class="relative z-10">
+          <div class="download-content">
             <Headline
               title="Aufnahmeantrag"
               description="Hier findest du das offizielle Formular inklusive der Datenschutzhinweise."
-              :alignment="'center'"
-              :mode="'light'"
-              :size="'h3'"
+              alignment="center"
+              mode="light"
+              size="h3"
             />
 
             <Button
@@ -300,7 +296,6 @@ const simplifiedRegularPlans = computed(() => {
               target="_blank"
               size="xl"
               icon="i-heroicons-arrow-down-tray"
-              class="shadow-xl hover:shadow-2xl transition-all"
               variant="highlight"
               label="Antrag (PDF)"
             />
@@ -310,3 +305,141 @@ const simplifiedRegularPlans = computed(() => {
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+
+  @include up("sm") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up("lg") {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-inline: auto;
+
+  @include up("sm") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.steps-header {
+  margin-bottom: var(--space-12);
+}
+
+.signup-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-16);
+  align-items: stretch;
+
+  @include up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.steps-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-dark-900);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.step-body {
+  margin-left: var(--space-6);
+}
+
+.step-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.step-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-brand-dark-700);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+}
+
+.mail-link {
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.download-card {
+  background-color: var(--color-brand-dark-900);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-2xl);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include up("sm") {
+    padding: var(--space-12);
+  }
+}
+
+.bg-doc-icon {
+  position: absolute;
+  right: -1.5rem;
+  bottom: -1.5rem;
+  width: 12rem;
+  height: 12rem;
+  color: rgb(255 255 255 / 0.05);
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+.download-content {
+  position: relative;
+  z-index: 10;
+}
+</style>

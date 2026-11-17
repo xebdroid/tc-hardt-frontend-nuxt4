@@ -8,37 +8,32 @@ useSeoMeta({
   ogTitle: 'Datenschutzerklärung',
   description: 'Datenschutzerklärung des Tennisclub Hardt e.V. – Informationen zur Erhebung und Verarbeitung Ihrer personenbezogenen Daten.',
   ogDescription: 'Datenschutzerklärung des Tennisclub Hardt e.V. – Informationen zur Erhebung und Verarbeitung Ihrer personenbezogenen Daten.',
-  robots: 'noindex, nofollow', // Datenschutz muss nicht unbedingt indexiert werden
+  robots: 'noindex, nofollow',
 })
 </script>
 
 <template>
-  <div>
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+  <div class="privacy-page">
+    <Hero height="small">
       <template #content>
-        <div class="text-center">
-          <h1 class="text-3xl sm:text-5xl font-bold text-white mb-4 font-heading">
+        <div class="hero-header">
+          <h1 class="hero-title">
             Datenschutzerklärung
           </h1>
-          <p class="text-xl text-gray-300">
+          <p class="hero-subtitle">
             des Tennisclub Hardt e.V.
           </p>
-          <div class="mt-4 inline-block px-3 py-1 rounded-full bg-white/10 text-sm text-gray-200 backdrop-blur-sm border border-white/10">
+          <div class="hero-badge">
             Stand: März 2026
           </div>
         </div>
       </template>
     </Hero>
 
-    <div class="u-container py-16">
-
-      <div class="space-y-12">
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+    <div class="u-container legal-body">
+      <div class="legal-sections">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Information & Verantwortlicher"
               tag="h2"
@@ -47,27 +42,27 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Im Folgenden informieren wir über die Erhebung personenbezogener Daten bei Nutzung unserer Website oder falls Sie Kontakt per E-Mail, über das Kontaktformular auf unserer Webseite oder per Post zu uns aufnehmen. Personenbezogene Daten sind alle Daten, die auf Sie persönlich beziehbar sind, z. B. Name, Adresse, E-Mail-Adressen, Nutzerverhalten.
             </p>
             <p>
               Verantwortlicher gem. Art. 4 Abs. 7 EU-Datenschutz-Grundverordnung (DS-GVO) ist:
             </p>
-            <address class="not-italic font-medium text-brand-dark-900 dark:text-white block bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+            <address class="info-box">
               <strong>Tennisclub Hardt e.V.</strong><br>
               Vertreten durch den Vorstand<br>
               Birkmannsweg 16<br>
               41169 Mönchengladbach<br><br>
-              E-Mail: <a href="mailto:info@tc-hardt.de" class="text-accent-600 dark:text-accent-400 hover:underline">info@tc-hardt.de</a>
+              E-Mail: <a href="mailto:info@tc-hardt.de" class="accent-link">info@tc-hardt.de</a>
             </address>
           </div>
         </div>
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Kontaktaufnahme"
               tag="h2"
@@ -76,7 +71,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Bei einer Kontaktaufnahme mit uns per E-Mail oder per Post werden die von Ihnen mitgeteilten Daten (Ihre E-Mail-Adresse oder Postadresse, Ihr Name und ggf. Ihre Telefonnummer) von uns gespeichert, um Ihre Fragen zu beantworten (Rechtsgrundlage ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO).
             </p>
@@ -91,8 +86,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Ihre Rechte"
               tag="h2"
@@ -101,16 +96,16 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
-            <ul class="list-disc list-inside space-y-1 ml-2 marker:text-accent-500">
+            <ul class="bullet-list is-accent">
               <li>Recht auf Auskunft</li>
               <li>Recht auf Berichtigung oder Löschung</li>
               <li>Recht auf Einschränkung der Verarbeitung</li>
               <li>Recht auf Widerspruch gegen die Verarbeitung</li>
               <li>Recht auf Datenübertragbarkeit</li>
             </ul>
-            <p class="text-sm mt-4 bg-yellow-50 dark:bg-yellow-900/10 text-yellow-800 dark:text-yellow-200 p-4 rounded-lg border border-yellow-100 dark:border-yellow-900/20">
+            <p class="warning-callout">
               Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch uns zu beschweren.
             </p>
           </div>
@@ -118,8 +113,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Erhebung bei Besuch"
               tag="h2"
@@ -128,11 +123,11 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Bei der bloß informatorischen Nutzung der Website, also wenn Sie sich nicht registrieren oder uns anderweitig Informationen übermitteln, erheben wir nur die personenbezogenen Daten, die Ihr Browser an unseren Server übermittelt. Wenn Sie unsere Website betrachten möchten, erheben wir die folgenden Daten, die für uns technisch erforderlich sind, um Ihnen unsere Website anzuzeigen und die Stabilität und Sicherheit zu gewährleisten (Rechtsgrundlage ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO):
             </p>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm list-inside list-disc marker:text-gray-400">
+            <ul class="bullet-grid">
               <li>IP-Adresse</li>
               <li>Datum und Uhrzeit der Anfrage</li>
               <li>Zeitzonendifferenz zur Greenwich Mean Time (GMT)</li>
@@ -149,8 +144,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Einsatz von Cookies"
               tag="h2"
@@ -159,14 +154,14 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Zusätzlich zu den zuvor genannten Daten werden bei Ihrer Nutzung unserer Website Cookies auf Ihrem Rechner gespeichert. Bei Cookies handelt es sich um kleine Textdateien, die auf Ihrer Festplatte dem von Ihnen verwendeten Browser zugeordnet gespeichert werden und durch welche der Stelle, die den Cookie setzt (hier durch uns), bestimmte Informationen zufließen. Cookies können keine Programme ausführen oder Viren auf Ihren Computer übertragen. Sie dienen dazu, das Internetangebot insgesamt nutzerfreundlicher und effektiver zu machen.
             </p>
 
-            <div class="space-y-4 mt-4">
+            <div class="sub-stack">
               <p><strong>a)</strong> Diese Website nutzt folgende Arten von Cookies, deren Umfang und Funktionsweise im Folgenden erläutert werden:</p>
-              <ul class="list-disc list-inside ml-4">
+              <ul class="bullet-list is-indented">
                 <li>Transiente Cookies (dazu b)</li>
                 <li>Persistente Cookies (dazu c)</li>
               </ul>
@@ -186,8 +181,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Weitere Funktionen"
               tag="h2"
@@ -196,7 +191,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Neben der rein informatorischen Nutzung unserer Website bieten wir verschiedene Leistungen an, die Sie bei Interesse nutzen können. Dazu müssen Sie in der Regel weitere personenbezogene Daten angeben, die wir zur Erbringung der jeweiligen Leistung nutzen und für die die zuvor genannten Grundsätze zur Datenverarbeitung gelten.
             </p>
@@ -214,8 +209,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Widerspruch & Widerruf"
               tag="h2"
@@ -224,7 +219,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p>
               Falls Sie eine Einwilligung zur Verarbeitung Ihrer Daten erteilt haben, können Sie diese jederzeit widerrufen. Ein solcher Widerruf beeinflusst die Zulässigkeit der Verarbeitung Ihrer personenbezogenen Daten, nachdem Sie ihn gegenüber uns ausgesprochen haben.
             </p>
@@ -232,13 +227,13 @@ useSeoMeta({
               Soweit wir die Verarbeitung Ihrer personenbezogenen Daten auf die Interessenabwägung stützen, können Sie Widerspruch gegen die Verarbeitung einlegen. Dies ist der Fall, wenn die Verarbeitung insbesondere nicht zur Erfüllung eines Vertrags mit Ihnen erforderlich ist, was von uns jeweils bei der nachfolgenden Beschreibung der Funktionen dargestellt wird. Bei Ausübung eines solchen Widerspruchs bitten wir um Darlegung der Gründe, weshalb wir Ihre personenbezogenen Daten nicht wie von uns durchgeführt verarbeiten sollten. Im Falle Ihres begründeten Widerspruchs prüfen wir die Sachlage und werden entweder die Datenverarbeitung einstellen bzw. anpassen oder Ihnen unsere zwingenden schutzwürdigen Gründe aufzeigen, aufgrund derer wir die Verarbeitung fortführen.
             </p>
 
-            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 mt-4">
-              <p class="font-bold">
+            <div class="info-box is-plain">
+              <p class="bold-text">
                 Selbstverständlich können Sie der Verarbeitung Ihrer personenbezogenen Daten für Zwecke der Werbung und Datenanalyse jederzeit widersprechen. Über Ihren Werbewiderspruch können Sie uns unter folgenden Kontaktdaten informieren:
               </p>
-              <div class="mt-4">
+              <div class="sub-stack-sm">
                 <p><strong>Per Post:</strong><br>Tennisclub Hardt e.V.<br>Birkmannsweg 16<br>41169 Mönchengladbach</p>
-                <p class="mt-2"><strong>Per E-Mail:</strong><br><a href="mailto:info@tc-hardt.de" class="text-accent-600 dark:text-accent-400 hover:underline">info@tc-hardt.de</a></p>
+                <p><strong>Per E-Mail:</strong><br><a href="mailto:info@tc-hardt.de" class="accent-link">info@tc-hardt.de</a></p>
               </div>
             </div>
           </div>
@@ -246,8 +241,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Links & Social Media"
               tag="h2"
@@ -256,7 +251,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p><strong>Einsatz von Verlinkungen zu Webseiten anderer Anbieter und Social-Media-Diensten:</strong></p>
             <p>
               Unsere Webseite enthält Verlinkungen zu anderen Anbietern sowie folgenden Social-Media Webseiten: Facebook und Instagram. Wenn Sie unsere Seite besuchen, werden grundsätzlich keine personenbezogenen Daten an die Betreiber übermittelt. Die Verlinkung zu der Social-Media-Webseite erkennen Sie an der Markierung oder das Logo. Wir eröffnen Ihnen die Möglichkeit, über diese Verlinkung direkt auf die entsprechende Social-Media-Webseite zu gelangen. Wir empfehlen Ihnen, sich nach Nutzung eines sozialen Netzwerks regelmäßig auszuloggen, insbesondere jedoch vor Aktivierung der Verlinkung, da Sie so eine Zuordnung zu Ihrem Profil bei der Social-Media-Website vermeiden können.
@@ -268,17 +263,17 @@ useSeoMeta({
               Weitere Informationen zu Zweck und Umfang der Datenerhebung und ihrer Verarbeitung durch den Social-Media-Anbieter erhalten Sie in den im Folgenden mitgeteilten Datenschutzerklärungen dieser Anbieter. Dort erhalten Sie auch weitere Informationen zu Ihren diesbezüglichen Rechten und Einstellungsmöglichkeiten zum Schutze Ihrer Privatsphäre.
             </p>
 
-            <p class="font-bold mt-4">Adressen der jeweiligen Anbieter und URL mit deren Datenschutzhinweisen:</p>
-            <ul class="space-y-4 text-sm break-all">
+            <p class="bold-text">Adressen der jeweiligen Anbieter und URL mit deren Datenschutzhinweisen:</p>
+            <ul class="provider-list">
               <li>
                 <strong>a) Meta Platforms Ireland Limited</strong> (Facebook, Instagram), 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland; <a
                   href="https://www.facebook.com/about/privacy"
                   target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
+                  class="accent-link"
                 >https://www.facebook.com/about/privacy</a> sowie <a
                   href="https://help.instagram.com/519522125107875"
                   target="_blank"
-                  class="text-accent-600 dark:text-accent-400 hover:underline"
+                  class="accent-link"
                 >https://help.instagram.com/519522125107875</a>. Meta hat sich dem EU-US Data Privacy Framework unterworfen.
               </li>
             </ul>
@@ -287,8 +282,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Analyse-Tools"
               tag="h2"
@@ -297,7 +292,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p><strong>Einsatz von Matomo:</strong></p>
             <p>
               Diese Website nutzt den Webanalysedienst Matomo, um die Nutzung unserer Website analysieren und regelmäßig verbessern zu können. Über die gewonnenen Statistiken können wir unser Angebot verbessern und für Sie als Nutzer interessanter ausgestalten.
@@ -315,7 +310,7 @@ useSeoMeta({
               Das Programm Matomo ist ein Open-Source-Projekt. Informationen des Drittanbieters zum Datenschutz erhalten Sie unter <a
                 href="https://matomo.org/privacy-policy/"
                 target="_blank"
-                class="text-accent-600 dark:text-accent-400 hover:underline"
+                class="accent-link"
               >https://matomo.org/privacy-policy/</a>.
             </p>
           </div>
@@ -323,8 +318,8 @@ useSeoMeta({
 
         <hr class="u-separator">
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-y-6 gap-x-12">
-          <div class="md:col-span-4 lg:col-span-3">
+        <div class="legal-row">
+          <div class="legal-sidebar">
             <Headline
               title="Google Maps"
               tag="h2"
@@ -333,7 +328,7 @@ useSeoMeta({
             />
           </div>
 
-          <div class="md:col-span-8 lg:col-span-9 space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed text-left">
+          <div class="legal-content">
             <p><strong>Einbindung von Google Maps:</strong></p>
             <p>
               Auf dieser Webseite nutzen wir das Angebot von Google Maps. Dadurch können wir Ihnen interaktive Karten direkt in der Website anzeigen und ermöglichen Ihnen die komfortable Nutzung der Karten-Funktion.
@@ -350,7 +345,7 @@ useSeoMeta({
                 size="xs"
                 variant="outline"
                 icon="i-heroicons-arrow-top-right-on-square"
-                class="inline-flex ml-2"
+                class="inline-btn"
               />
             </p>
             <p>
@@ -358,13 +353,243 @@ useSeoMeta({
             </p>
           </div>
         </div>
-
       </div>
 
-      <div class="mt-16 text-center text-xs text-gray-400">
+      <div class="legal-footer">
         Stand: März 2026
       </div>
-
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.hero-header {
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-heading);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: var(--color-pure-white);
+
+  @include up('sm') {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.hero-subtitle {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--color-gray-300);
+}
+
+.hero-badge {
+  margin-top: var(--space-4);
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(255 255 255 / 0.1);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-gray-200);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.legal-body {
+  padding-block: var(--space-16);
+}
+
+.legal-sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.legal-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--space-6);
+  column-gap: var(--space-12);
+
+  @include up('md') {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+.legal-sidebar {
+  @include up('md') {
+    grid-column: span 4 / span 4;
+  }
+
+  @include up('lg') {
+    grid-column: span 3 / span 3;
+  }
+}
+
+.legal-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--color-gray-600);
+  line-height: 1.625;
+  text-align: left;
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+
+  @include up('md') {
+    grid-column: span 8 / span 8;
+  }
+
+  @include up('lg') {
+    grid-column: span 9 / span 9;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.info-box {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--color-brand-dark-900);
+  display: block;
+  background-color: var(--color-gray-50);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-100);
+
+  &.is-plain {
+    font-weight: 400;
+    color: inherit;
+    margin-top: var(--space-4);
+  }
+
+  @include dark {
+    color: var(--color-white);
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+}
+
+.accent-link {
+  color: var(--color-accent-600);
+  text-decoration: none;
+
+  @include dark {
+    color: var(--color-accent-400);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.bullet-list {
+  list-style: disc inside;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  &.is-accent {
+    margin-left: var(--space-2);
+
+    li::marker {
+      color: var(--color-accent-500);
+    }
+  }
+
+  &.is-indented {
+    margin-left: var(--space-4);
+  }
+}
+
+.bullet-grid {
+  list-style: disc inside;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+
+  @include up('sm') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  li::marker {
+    color: var(--color-gray-400);
+  }
+}
+
+.warning-callout {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-top: var(--space-4);
+  background-color: #fefce8;
+  color: #854d0e;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid #fef9c3;
+
+  @include dark {
+    background-color: rgb(113 63 18 / 0.1);
+    color: #fef08a;
+    border-color: rgb(113 63 18 / 0.2);
+  }
+}
+
+.sub-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.sub-stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.bold-text {
+  font-weight: 700;
+}
+
+.provider-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  word-break: break-all;
+}
+
+.inline-btn {
+  display: inline-flex;
+  margin-left: var(--space-2);
+}
+
+.legal-footer {
+  margin-top: var(--space-16);
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-gray-400);
+}
+</style>

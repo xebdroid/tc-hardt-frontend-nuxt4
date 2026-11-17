@@ -5,8 +5,7 @@ import Headline from '~/components/base/Headline.vue'
 import Image from '~/components/base/Image.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import Button from '~/components/base/Button.vue'
-import 'swiper/css'
-import 'swiper/css/pagination'
+import BaseIcon from '~/components/base/Icon.vue'
 
 useSeoMeta({
   title: 'Sponsoring & Partner',
@@ -17,7 +16,6 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// --- NEU: Tracking für Sponsoring-Kontakt ---
 function trackSponsoringContact(method: string) {
   if (import.meta.client && (window as any)._paq) {
     (window as any)._paq.push(['trackEvent', 'Sponsoring', 'Kontakt aufgenommen', method])
@@ -62,27 +60,20 @@ const pricing = [
     description: 'Das Rundum-Sorglos-Paket für Premium-Partner. Maximale Sichtbarkeit auf allen Kanälen.'
   }
 ]
-
-const impressions = [
-  { src: '/img/sponsoring/sponsoring-freundetafel.jpg', alt: 'Beispiel Freunde-Tafel', label: 'Freunde-Tafel' },
-  { src: '/img/sponsoring/sponsoring-bandenwerbung.jpg', alt: 'Beispiel Bandenwerbung', label: 'Bandenwerbung' },
-  { src: '/img/sponsoring/sponsoring-website.jpg', alt: 'Beispiel Homepage Werbung', label: 'Homepage' }
-]
 </script>
 
 <template>
-  <div>
+  <div class="sponsoring-page">
     <Hero
       height="small"
-      fallback-class="bg-brand-dark-900"
-      class="relative z-10"
+      class="hero-top"
     >
       <template #content>
-        <div class="text-center">
-          <h1 class="text-4xl sm:text-6xl font-heading font-bold text-white mb-6">
+        <div class="hero-header">
+          <h1 class="hero-title">
             Sponsoring
           </h1>
-          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p class="hero-subtitle">
             Gemeinsam mehr bewegen – Werden Sie Partner des TC Hardt.
           </p>
         </div>
@@ -101,7 +92,7 @@ const impressions = [
         alignment="center"
       />
 
-      <div class="mt-16 space-y-20">
+      <div class="values-stack">
         <FeatureSection
           image-src="/img/sponsoring/sponsoring-freundetafel_4x3.jpg"
           image-alt="Freundetafel des TC Hardt"
@@ -111,20 +102,20 @@ const impressions = [
             title="Eine starke Gemeinschaft"
             description="Als Partner des TC Hardt werden Sie Teil eines Vereins, der auf drei zentrale Werte aufgebaut ist."
             alignment="none"
-            class="text-left items-start"
+            class="headline-left"
             :margin-bottom="'none'"
           />
-          <ul class="space-y-4 text-gray-700 mt-8">
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-heart" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+          <ul class="check-list with-mt">
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-heart" class="check-icon is-offset" />
               <span><strong>Gastfreundschaft:</strong> Wir bieten ein familiäres Umfeld und eine erstklassige Infrastruktur für Mitglieder und Gäste.</span>
             </li>
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-users" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-users" class="check-icon is-offset" />
               <span><strong>Teamgeist:</strong> Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel und starkem Zusammenhalt.</span>
             </li>
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-hand-raised" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-hand-raised" class="check-icon is-offset" />
               <span><strong>Fairness:</strong> Wir legen Wert auf sportliches Verhalten und eine transparente Partnerschaft auf Augenhöhe.</span>
             </li>
           </ul>
@@ -140,20 +131,20 @@ const impressions = [
             title="Ein Gewinn für Ihre Marke"
             description="Ihr Engagement bei uns ist mehr als nur ein Logo – es ist eine Investition, die sich auszahlt."
             alignment="none"
-            class="text-left items-start"
+            class="headline-left"
             :margin-bottom="'none'"
           />
-          <ul class="space-y-4 text-gray-700 mt-8">
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-megaphone" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+          <ul class="check-list with-mt">
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-megaphone" class="check-icon is-offset" />
               <span><strong>Hohe Sichtbarkeit:</strong> Profitieren Sie von unserer starken Präsenz – online und vor Ort auf unserer Anlage mit hunderten wöchentlichen Besuchern.</span>
             </li>
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-user-group" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-user-group" class="check-icon is-offset" />
               <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine vielseitige Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
             </li>
-            <li class="flex items-start gap-3">
-              <BaseIcon name="i-heroicons-sparkles" class="w-6 h-6 text-brand-dark-500 shrink-0 mt-1" />
+            <li class="check-item">
+              <BaseIcon name="i-heroicons-sparkles" class="check-icon is-offset" />
               <span><strong>Positives Image:</strong> Positionieren Sie sich als Förderer des lokalen Sports und der Jugendarbeit. Das schafft Sympathie und Vertrauen.</span>
             </li>
           </ul>
@@ -169,28 +160,28 @@ const impressions = [
         alignment="center"
       />
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="pricing-grid">
         <div
           v-for="item in pricing"
           :key="item.name"
-          class="group flex flex-col p-8 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+          class="package-card"
         >
-          <div class="w-16 h-16 mx-auto bg-brand-light-50 dark:bg-brand-light-900/30 rounded-2xl flex items-center justify-center mb-6 text-brand-light-600 dark:text-brand-light-400 group-hover:scale-110 transition-transform duration-300">
-            <BaseIcon :name="item.icon" class="w-8 h-8" />
+          <div class="package-icon-box">
+            <BaseIcon :name="item.icon" class="package-icon" />
           </div>
-          <h3 class="text-xl font-heading font-bold text-brand-dark-900 dark:text-white mb-3 text-center group-hover:text-brand-light-600 transition-colors">{{ item.name }}</h3>
-          <p class="text-gray-600 dark:text-gray-300 text-base mb-8 flex-grow leading-relaxed text-center">{{ item.description }}</p>
-          <div class="pt-6 border-t border-gray-100 dark:border-gray-700 mt-auto flex flex-col items-center text-center">
-            <div class="w-full">
-              <span class="text-xs font-bold text-brand-light-600 uppercase tracking-wider block mb-1">Format</span>
-              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ item.size }}</p>
+          <h3 class="package-title">{{ item.name }}</h3>
+          <p class="package-desc">{{ item.description }}</p>
+          <div class="package-footer">
+            <div class="package-meta">
+              <span class="meta-label">Format</span>
+              <p class="meta-value">{{ item.size }}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-12 p-8 bg-brand-dark-900 text-white rounded-2xl flex flex-col md:flex-row justify-between items-center gap-6 shadow-lg">
-        <p class="text-lg font-medium">Windfänger, Sportausrüstung oder individuelle Pakete? Sprechen wir darüber!</p>
+      <div class="custom-banner">
+        <p class="banner-text">Windfänger, Sportausrüstung oder individuelle Pakete? Sprechen wir darüber!</p>
         <Button
           label="Individuelle Anfrage"
           variant="highlight"
@@ -211,17 +202,17 @@ const impressions = [
           tagline="Transparenz"
           description="Ihre Sponsorengelder werden zweckgebunden eingesetzt, um unseren Verein nachhaltig zu stärken."
         />
-        <ul class="space-y-4 text-gray-700">
-          <li class="flex items-start gap-3">
-            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+        <ul class="check-list">
+          <li class="check-item">
+            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
             <span><strong>Infrastrukturinvestitionen:</strong> Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.</span>
           </li>
-          <li class="flex items-start gap-3">
-            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+          <li class="check-item">
+            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
             <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Gemeinschaftsgrundschule Hardt, der Gesamtschule Hardt und unserer Tennisschule.</span>
           </li>
-          <li class="flex items-start gap-3">
-            <BaseIcon name="i-heroicons-check-circle" class="w-6 h-6 text-brand-dark-500 shrink-0" />
+          <li class="check-item">
+            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
             <span><strong>Events:</strong> Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.</span>
           </li>
         </ul>
@@ -236,8 +227,8 @@ const impressions = [
       rounded="top"
       outer-container
     >
-      <div class="grid md:grid-cols-[auto_1fr] gap-12 md:gap-0 items-center">
-        <div class="flex justify-center md:px-24">
+      <div class="contact-layout">
+        <div class="contact-portrait">
           <Image
             src="/img/board/vorstand-boris-ruetten.jpg"
             alt="Boris Rütten"
@@ -245,28 +236,28 @@ const impressions = [
           />
         </div>
 
-        <div class="text-center md:text-left">
+        <div class="contact-body">
           <Headline
             title="Lassen Sie uns sprechen!"
             tagline="Ihr Ansprechpartner"
             mode="dark"
             :use-container="false"
             alignment="none"
-            class="items-center md:items-start text-center md:text-left mx-auto md:mx-0"
+            class="contact-headline"
             margin-bottom="sm"
           />
 
-          <p class="text-gray-600 mb-8 text-lg leading-relaxed max-w-2xl mx-auto md:mx-0">
+          <p class="contact-text">
             Haben Sie Fragen zu unseren Paketen oder möchten Sie den TC Hardt individuell unterstützen?
             Ich freue mich auf den persönlichen Austausch!
           </p>
 
-          <div class="mb-10 text-brand-dark-900">
-            <p class="font-black text-3xl mb-1">Boris Rütten</p>
-            <p class="text-brand-light-600 uppercase tracking-widest text-sm font-bold">Stv. Vorsitzender & Sponsoring</p>
+          <div class="contact-person">
+            <p class="person-name">Boris Rütten</p>
+            <p class="person-role">Stv. Vorsitzender & Sponsoring</p>
           </div>
 
-          <div class="flex flex-wrap justify-center md:justify-start gap-4">
+          <div class="contact-actions">
             <Button
               to="mailto:boris.ruetten@tc-hardt.de"
               variant="primary"
@@ -287,3 +278,324 @@ const impressions = [
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.hero-top {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-header {
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0 0 var(--space-6);
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  color: var(--color-pure-white);
+
+  @include up('sm') {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+.hero-subtitle {
+  margin: 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--color-gray-300);
+  max-width: 42rem;
+}
+
+.values-stack {
+  margin-top: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+}
+
+.headline-left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  color: var(--color-gray-700);
+
+  &.with-mt {
+    margin-top: var(--space-8);
+  }
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.check-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-brand-dark-500);
+  flex-shrink: 0;
+
+  &.is-offset {
+    margin-top: 0.25rem;
+  }
+}
+
+.pricing-grid {
+  display: grid;
+  gap: var(--space-6);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.package-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8);
+  background-color: var(--color-pure-white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-100);
+  box-shadow: var(--shadow-sm);
+  transition: all 300ms ease;
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-0.25rem);
+
+    .package-icon-box {
+      transform: scale(1.1);
+    }
+
+    .package-title {
+      color: var(--color-brand-light-600);
+    }
+  }
+}
+
+.package-icon-box {
+  width: 4rem;
+  height: 4rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+  background-color: var(--color-brand-light-50);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-light-600);
+  transition: transform 300ms ease;
+
+  @include dark {
+    background-color: rgb(9 44 60 / 0.3);
+    color: var(--color-brand-light-400);
+  }
+}
+
+.package-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.package-title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+  text-align: center;
+  transition: color var(--transition-fast);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.package-desc {
+  margin: 0 0 var(--space-8);
+  color: var(--color-gray-600);
+  font-size: 1rem;
+  flex-grow: 1;
+  line-height: 1.625;
+  text-align: center;
+
+  @include dark {
+    color: var(--color-gray-300);
+  }
+}
+
+.package-footer {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-gray-100);
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  @include dark {
+    border-top-color: var(--color-gray-700);
+  }
+}
+
+.package-meta {
+  width: 100%;
+}
+
+.meta-label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: var(--color-brand-light-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meta-value {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+
+  @include dark {
+    color: var(--color-gray-100);
+  }
+}
+
+.custom-banner {
+  margin-top: var(--space-12);
+  padding: var(--space-8);
+  background-color: var(--color-brand-dark-900);
+  color: var(--color-pure-white);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-6);
+  box-shadow: var(--shadow-lg);
+
+  @include up('md') {
+    flex-direction: row;
+  }
+}
+
+.banner-text {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+}
+
+.contact-layout {
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+
+  @include up('md') {
+    grid-template-columns: auto 1fr;
+    gap: 0;
+  }
+}
+
+.contact-portrait {
+  display: flex;
+  justify-content: center;
+
+  @include up('md') {
+    padding-inline: var(--space-24);
+  }
+}
+
+.contact-body {
+  text-align: center;
+
+  @include up('md') {
+    text-align: left;
+  }
+}
+
+.contact-headline {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+
+  @include up('md') {
+    align-items: flex-start;
+    text-align: left;
+    margin-inline: 0;
+  }
+}
+
+.contact-text {
+  margin: 0 auto var(--space-8);
+  color: var(--color-gray-600);
+  font-size: 1.125rem;
+  line-height: 1.625;
+  max-width: 42rem;
+
+  @include up('md') {
+    margin-inline: 0;
+  }
+}
+
+.contact-person {
+  margin-bottom: var(--space-10);
+  color: var(--color-brand-dark-900);
+}
+
+.person-name {
+  margin: 0 0 var(--space-1);
+  font-weight: 900;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.person-role {
+  margin: 0;
+  color: var(--color-brand-light-600);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+
+  @include up('md') {
+    justify-content: flex-start;
+  }
+}
+</style>

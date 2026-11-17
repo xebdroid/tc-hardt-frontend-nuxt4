@@ -1,103 +1,7 @@
-<template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 p-8 font-sans">
-
-    <div class="max-w-7xl mx-auto mb-12">
-      <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">TC Hardt Design System</h1>
-      <p class="text-gray-500">
-        Live-Werte aus der <code>main.css</code>. Änderungen dort werden hier automatisch reflektiert.
-      </p>
-    </div>
-
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
-
-      <div
-        v-for="palette in palettes"
-        :key="palette.key"
-        class="space-y-4"
-      >
-        <div class="flex items-center gap-3 mb-2">
-          <div
-            class="w-12 h-12 rounded-xl shadow-lg ring-1 ring-gray-900/10"
-            :style="{ backgroundColor: `var(--color-${palette.key}-${palette.base})` }"
-          />
-          <div>
-            <h2 class="font-bold text-gray-900 dark:text-white">{{ palette.label }}</h2>
-            <p class="text-xs text-gray-500">Variable: --color-{{ palette.key }}-*</p>
-          </div>
-        </div>
-
-        <div class="flex flex-col rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-800">
-          <div
-            v-for="step in steps"
-            :key="step"
-            class="h-10 px-4 flex items-center justify-between text-xs font-mono transition-all hover:scale-105 hover:shadow-md hover:z-10 origin-left"
-            :style="{
-              backgroundColor: `var(--color-${palette.key}-${step})`,
-              color: getContrastColor(resolvedColors[`${palette.key}-${step}`])
-            }"
-          >
-            <span class="font-bold">{{ step }}</span>
-            <span class="opacity-80 uppercase">{{ resolvedColors[`${palette.key}-${step}`] || 'loading...' }}</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">UI Komponenten Check</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-          <div class="flex items-center gap-2 mb-6">
-            <BaseIcon name="i-heroicons-sun" class="w-6 h-6 text-brand-dark-500" />
-            <h3 class="font-bold text-lg text-gray-900">Light Mode Context</h3>
-          </div>
-          <div class="space-y-6">
-            <div class="flex flex-wrap gap-4 items-center">
-              <button class="px-5 py-2.5 rounded-lg font-bold bg-brand-dark-800 text-white hover:bg-brand-dark-900 transition shadow-lg shadow-brand-dark-900/20">
-                Primary (Navy)
-              </button>
-              <button class="px-5 py-2.5 rounded-lg font-bold bg-accent-500 text-white hover:bg-accent-600 transition shadow-lg shadow-accent-500/30">
-                Action (Orange)
-              </button>
-            </div>
-            <div class="flex gap-3">
-              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-highlight-100 text-highlight-800 border border-highlight-200">Neu</span>
-              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-brand-dark-50 text-brand-dark-700 border border-brand-dark-100">Info</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-brand-dark-950 p-8 rounded-2xl shadow-xl border border-brand-dark-900">
-          <div class="flex items-center gap-2 mb-6">
-            <BaseIcon name="i-heroicons-moon" class="w-6 h-6 text-brand-light-400" />
-            <h3 class="font-bold text-lg text-white">Dark Mode Context</h3>
-          </div>
-          <div class="space-y-6">
-            <div class="flex flex-wrap gap-4 items-center">
-              <button class="px-5 py-2.5 rounded-lg font-bold bg-brand-dark-600 text-white hover:bg-brand-dark-500 transition border border-brand-dark-500">
-                Primary (Light Navy)
-              </button>
-              <button class="px-5 py-2.5 rounded-lg font-bold bg-accent-500 text-white hover:bg-accent-400 transition shadow-lg shadow-accent-500/20">
-                Action (Orange)
-              </button>
-            </div>
-            <div class="flex gap-3">
-              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-highlight-900/30 text-highlight-300 border border-highlight-800">Live</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</template>
-
 <script setup>
 import { onMounted, reactive } from 'vue'
+import BaseIcon from '~/components/base/Icon.vue'
 
-// 1. Konfiguration: Welche Paletten gibt es?
 const palettes = [
   { key: 'brand-dark', label: 'Brand Dark (Navy)', base: '800' },
   { key: 'brand-light', label: 'Brand Light (Sky)', base: '400' },
@@ -107,50 +11,419 @@ const palettes = [
 
 const steps = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950']
 
-// 2. State für die ausgelesenen Hex-Werte
 const resolvedColors = reactive({})
 
-// 3. Helper: RGB String zu Hex konvertieren (Browser geben oft "rgb(r, g, b)" zurück)
 const rgbToHex = (rgbStr) => {
   if (!rgbStr) return null
-  // Falls es schon Hex ist
   if (rgbStr.startsWith('#')) return rgbStr
 
   const rgb = rgbStr.match(/\d+/g)
   if (!rgb) return null
 
-  return "#" +
-    ("0" + parseInt(rgb[0], 10).toString(16)).slice(-2) +
-    ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
-    ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2)
+  return '#' +
+    ('0' + parseInt(rgb[0], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2)
 }
 
-// 4. Farben auslesen wenn Komponente gemountet ist (Browser Access nötig)
 onMounted(() => {
   const styles = getComputedStyle(document.documentElement)
 
   palettes.forEach(palette => {
     steps.forEach(step => {
-      // Wir bauen den Variablennamen: z.B. --color-brand-dark-500
       const varName = `--color-${palette.key}-${step}`
       const value = styles.getPropertyValue(varName).trim()
-
-      // Speichern (konvertiert zu Hex für die Anzeige und Kontrast-Berechnung)
       resolvedColors[`${palette.key}-${step}`] = rgbToHex(value) || value
     })
   })
 })
 
-// 5. Kontrast Berechnung für Textfarbe (Schwarz/Weiß)
 function getContrastColor(hex) {
-  if (!hex || !hex.startsWith('#')) return 'black' // Fallback
+  if (!hex || !hex.startsWith('#')) return 'black'
 
   const r = parseInt(hex.substr(1, 2), 16)
   const g = parseInt(hex.substr(3, 2), 16)
   const b = parseInt(hex.substr(5, 2), 16)
 
-  // YIQ Formel für Helligkeit
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
   return (yiq >= 128) ? 'black' : 'white'
 }
 </script>
+
+<template>
+  <div class="dev-colors-page">
+    <div class="header-box">
+      <h1 class="page-title">TC Hardt Design System</h1>
+      <p class="page-desc">
+        Live-Werte aus den CSS Custom Properties (<code>_tokens.scss</code>). Änderungen dort werden hier automatisch reflektiert.
+      </p>
+    </div>
+
+    <div class="palettes-grid">
+      <div
+        v-for="palette in palettes"
+        :key="palette.key"
+        class="palette-col"
+      >
+        <div class="palette-header">
+          <div
+            class="palette-swatch"
+            :style="{ backgroundColor: `var(--color-${palette.key}-${palette.base})` }"
+          />
+          <div>
+            <h2 class="palette-title">{{ palette.label }}</h2>
+            <p class="palette-var">Variable: --color-{{ palette.key }}-*</p>
+          </div>
+        </div>
+
+        <div class="steps-stack">
+          <div
+            v-for="step in steps"
+            :key="step"
+            class="step-row"
+            :style="{
+              backgroundColor: `var(--color-${palette.key}-${step})`,
+              color: getContrastColor(resolvedColors[`${palette.key}-${step}`])
+            }"
+          >
+            <span class="step-label">{{ step }}</span>
+            <span class="step-hex">{{ resolvedColors[`${palette.key}-${step}`] || 'loading...' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-container">
+      <h2 class="section-title">UI Komponenten Check</h2>
+
+      <div class="preview-grid">
+        <div class="preview-card is-light">
+          <div class="card-header">
+            <BaseIcon name="i-heroicons-sun" class="card-icon is-light" />
+            <h3 class="card-title is-light">Light Mode Context</h3>
+          </div>
+          <div class="card-body">
+            <div class="btn-row">
+              <button class="demo-btn is-primary-light">
+                Primary (Navy)
+              </button>
+              <button class="demo-btn is-accent">
+                Action (Orange)
+              </button>
+            </div>
+            <div class="badge-row">
+              <span class="demo-badge is-highlight">Neu</span>
+              <span class="demo-badge is-info">Info</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-card is-dark">
+          <div class="card-header">
+            <BaseIcon name="i-heroicons-moon" class="card-icon is-dark" />
+            <h3 class="card-title is-dark">Dark Mode Context</h3>
+          </div>
+          <div class="card-body">
+            <div class="btn-row">
+              <button class="demo-btn is-primary-dark">
+                Primary (Light Navy)
+              </button>
+              <button class="demo-btn is-accent">
+                Action (Orange)
+              </button>
+            </div>
+            <div class="badge-row">
+              <span class="demo-badge is-live">Live</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.dev-colors-page {
+  min-height: 100vh;
+  background-color: var(--color-gray-50);
+  padding: var(--space-8);
+  font-family: var(--font-sans);
+
+  @include dark {
+    background-color: var(--color-gray-950);
+  }
+}
+
+.header-box {
+  max-width: 80rem;
+  margin: 0 auto var(--space-12);
+}
+
+.page-title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.page-desc {
+  margin: 0;
+  color: var(--color-gray-500);
+}
+
+.palettes-grid {
+  max-width: 80rem;
+  margin: 0 auto var(--space-16);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('xl') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.palette-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.palette-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.palette-swatch {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgb(17 24 39 / 0.1);
+}
+
+.palette-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.palette-var {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-gray-500);
+}
+
+.steps-stack {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-200);
+
+  @include dark {
+    border-color: var(--color-gray-800);
+  }
+}
+
+.step-row {
+  height: 2.5rem;
+  padding-inline: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  transition: all var(--transition-fast);
+  transform-origin: left;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+  }
+}
+
+.step-label {
+  font-weight: 700;
+}
+
+.step-hex {
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.preview-container {
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+.section-title {
+  margin: 0 0 var(--space-8);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.preview-card {
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+
+  &.is-light {
+    background-color: var(--color-pure-white);
+    border: 1px solid var(--color-gray-100);
+  }
+
+  &.is-dark {
+    background-color: var(--color-brand-dark-950);
+    border: 1px solid var(--color-brand-dark-900);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.card-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &.is-light {
+    color: var(--color-brand-dark-500);
+  }
+
+  &.is-dark {
+    color: var(--color-brand-light-400);
+  }
+}
+
+.card-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.125rem;
+
+  &.is-light {
+    color: var(--color-gray-900);
+  }
+
+  &.is-dark {
+    color: var(--color-pure-white);
+  }
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.demo-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  color: var(--color-pure-white);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+
+  &.is-primary-light {
+    background-color: var(--color-brand-dark-800);
+    box-shadow: var(--shadow-lg);
+
+    &:hover {
+      background-color: var(--color-brand-dark-900);
+    }
+  }
+
+  &.is-primary-dark {
+    background-color: var(--color-brand-dark-600);
+    border: 1px solid var(--color-brand-dark-500);
+
+    &:hover {
+      background-color: var(--color-brand-dark-500);
+    }
+  }
+
+  &.is-accent {
+    background-color: var(--color-accent-500);
+    box-shadow: var(--shadow-lg);
+
+    &:hover {
+      background-color: var(--color-accent-600);
+    }
+  }
+}
+
+.badge-row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.demo-badge {
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  &.is-highlight {
+    background-color: var(--color-highlight-100);
+    color: var(--color-highlight-800);
+    border: 1px solid var(--color-highlight-200);
+  }
+
+  &.is-info {
+    background-color: var(--color-brand-dark-50);
+    color: var(--color-brand-dark-700);
+    border: 1px solid var(--color-brand-dark-100);
+  }
+
+  &.is-live {
+    background-color: rgb(56 80 10 / 0.3);
+    color: var(--color-highlight-300);
+    border: 1px solid var(--color-highlight-800);
+  }
+}
+</style>

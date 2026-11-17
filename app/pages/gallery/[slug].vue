@@ -5,6 +5,7 @@ import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import GalleryLightbox from '~/components/gallery/GalleryLightbox.vue'
 import { useGallery } from '~/composables/useGallery'
 
@@ -40,13 +41,10 @@ const openLightbox = (index: number) => {
 </script>
 
 <template>
-  <div v-if="album">
-    <Hero
-      height="small"
-      fallback-class="bg-brand-dark-900"
-    >
+  <div v-if="album" class="gallery-detail-page">
+    <Hero height="small">
       <template #content>
-        <div class="flex flex-col items-center gap-6">
+        <div class="hero-content">
           <Headline
             title="Bildergalerie"
             tag="h1"
@@ -76,26 +74,26 @@ const openLightbox = (index: number) => {
       margin-bottom="xl"
       margin-top="sm"
     >
-      <div class="max-w-6xl mx-auto">
+      <div class="album-container">
         <!-- Album-Header -->
-        <div class="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
-          <div class="flex flex-wrap items-center gap-3 mb-3">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-dark-800 text-white">
+        <div class="album-header">
+          <div class="album-meta">
+            <span class="year-badge">
               {{ album.year }}
             </span>
-            <span v-if="album.date" class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400">
-              <BaseIcon name="i-heroicons-calendar" class="w-4 h-4 text-accent-500" />
+            <span v-if="album.date" class="meta-item">
+              <BaseIcon name="i-heroicons-calendar" class="meta-icon" />
               {{ album.date }}
             </span>
-            <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400">
-              <BaseIcon name="i-heroicons-photo" class="w-4 h-4 text-accent-500" />
+            <span class="meta-item">
+              <BaseIcon name="i-heroicons-photo" class="meta-icon" />
               {{ album.photoCount }} {{ album.photoCount === 1 ? 'Foto' : 'Fotos' }}
             </span>
             <span
               v-if="album.videoCount > 0"
-              class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-500 dark:text-gray-400"
+              class="meta-item"
             >
-              <BaseIcon name="i-heroicons-video-camera" class="w-4 h-4 text-accent-500" />
+              <BaseIcon name="i-heroicons-video-camera" class="meta-icon" />
               {{ album.videoCount }} {{ album.videoCount === 1 ? 'Video' : 'Videos' }}
             </span>
           </div>
@@ -114,13 +112,13 @@ const openLightbox = (index: number) => {
         <!-- Einheitliches 4:3 Foto-Grid -->
         <div
           v-if="album.images.length > 0"
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+          class="media-grid"
         >
           <button
             v-for="(img, idx) in album.images"
             :key="img.src"
             type="button"
-            class="group relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-xs hover:shadow-lg border border-gray-200/80 dark:border-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-500"
+            class="media-item"
             @click="openLightbox(idx)"
           >
             <video
@@ -129,7 +127,7 @@ const openLightbox = (index: number) => {
               preload="metadata"
               muted
               playsinline
-              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              class="media-thumb"
             />
             <NuxtImg
               v-else
@@ -137,42 +135,42 @@ const openLightbox = (index: number) => {
               :alt="img.alt || album.title"
               sizes="sm:100vw md:50vw lg:320px"
               loading="lazy"
-              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              class="media-thumb"
             />
             <!-- Video-Badge & Play-Button bei Videos -->
             <template v-if="img.type === 'video'">
-              <div class="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-black/70 text-white text-xs font-semibold flex items-center gap-1 backdrop-blur-xs">
-                <BaseIcon name="i-heroicons-video-camera" class="w-3.5 h-3.5 text-accent-400" />
+              <div class="video-badge">
+                <BaseIcon name="i-heroicons-video-camera" class="video-badge-icon" />
                 Video
               </div>
-              <div class="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors flex items-center justify-center">
-                <div class="w-12 h-12 rounded-full bg-accent-500/90 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-200">
-                  <BaseIcon name="i-heroicons-play-solid" class="w-6 h-6 ml-0.5" />
+              <div class="video-overlay">
+                <div class="play-circle">
+                  <BaseIcon name="i-heroicons-play-solid" class="play-icon" />
                 </div>
               </div>
             </template>
             <!-- Lupen-Icon bei Fotos -->
             <div
               v-else
-              class="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center"
+              class="photo-overlay"
             >
-              <div class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-90 group-hover:scale-100 transition-all duration-200">
-                <BaseIcon name="i-heroicons-magnifying-glass-plus" class="w-5 h-5" />
+              <div class="zoom-circle">
+                <BaseIcon name="i-heroicons-magnifying-glass-plus" class="zoom-icon" />
               </div>
             </div>
             <div
               v-if="img.caption"
-              class="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-black/75 via-black/40 to-transparent text-left opacity-0 group-hover:opacity-100 transition-opacity"
+              class="caption-bar"
             >
-              <span class="text-xs text-white font-medium line-clamp-1">
+              <span class="caption-text">
                 {{ img.caption }}
               </span>
             </div>
           </button>
         </div>
 
-        <div v-else class="text-center py-12">
-          <p class="text-gray-500">
+        <div v-else class="empty-state">
+          <p class="empty-text">
             In diesem Album befinden sich aktuell noch keine Fotos.
           </p>
         </div>
@@ -187,12 +185,294 @@ const openLightbox = (index: number) => {
     />
   </div>
 
-  <div v-else class="min-h-screen flex items-center justify-center">
-    <div class="text-center">
-      <h1 class="text-2xl font-bold mb-4">Album nicht gefunden</h1>
-      <NuxtLink :to="localePath('/galerie')" class="text-accent-600 hover:underline">
+  <div v-else class="not-found">
+    <div class="not-found-box">
+      <h1 class="not-found-title">Album nicht gefunden</h1>
+      <NuxtLink :to="localePath('/galerie')" class="not-found-link">
         Zurück zur Galerie
       </NuxtLink>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.album-container {
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.album-header {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-gray-200);
+
+  @include dark {
+    border-bottom-color: var(--color-gray-700);
+  }
+}
+
+.album-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.year-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  background-color: var(--color-brand-dark-800);
+  color: var(--color-pure-white);
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--color-gray-500);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+}
+
+.meta-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-accent-500);
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+
+  @include up('sm') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('md') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.media-item {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--color-gray-100);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid rgb(229 231 235 / 0.8);
+  cursor: pointer;
+  transition: box-shadow var(--transition-fast);
+
+  @include dark {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-accent-500);
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+
+    .media-thumb {
+      transform: scale(1.05);
+    }
+
+    .video-overlay {
+      background-color: rgb(0 0 0 / 0.35);
+    }
+
+    .play-circle {
+      transform: scale(1.1);
+    }
+
+    .photo-overlay {
+      background-color: rgb(0 0 0 / 0.25);
+    }
+
+    .zoom-circle {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .caption-bar {
+      opacity: 1;
+    }
+  }
+}
+
+.media-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.video-badge {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(0 0 0 / 0.7);
+  color: var(--color-pure-white);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  backdrop-filter: blur(2px);
+}
+
+.video-badge-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--color-accent-400);
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.2);
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(249 115 22 / 0.9);
+  color: var(--color-pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  transition: transform 200ms ease;
+}
+
+.play-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.125rem;
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background-color: rgb(0 0 0 / 0.6);
+  color: var(--color-pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 200ms ease;
+}
+
+.zoom-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.caption-bar {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0.625rem;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0.4), transparent);
+  text-align: left;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.caption-text {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-pure-white);
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  text-align: center;
+  padding-block: var(--space-12);
+}
+
+.empty-text {
+  margin: 0;
+  color: var(--color-gray-500);
+}
+
+.not-found {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-box {
+  text-align: center;
+}
+
+.not-found-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+}
+
+.not-found-link {
+  color: var(--color-accent-600);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+</style>

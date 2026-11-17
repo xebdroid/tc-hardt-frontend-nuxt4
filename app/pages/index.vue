@@ -11,6 +11,7 @@ import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import EventList from '~/components/events/EventList.vue'
 import MemorialSection from '~/components/memorial/MemorialSection.vue'
+import BaseIcon from '~/components/base/Icon.vue'
 import db from '~/assets/data/db.json'
 
 const { t } = useI18n()
@@ -25,41 +26,24 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-// --- DATA ---
 const heroSlides = computed<HeroSlide[]>(() => [
-    {
+  {
     type: 'video',
     src: '/videos/anlage-von-oben-small.mp4',
-    // src: '/videos/anlage-von-oben-large.mp4',
     poster: '/img/home/anlage-von-oben-large-preview.jpg',
     title: 'Mehr als nur ein Tennisplatz',
     subtitle: 'Finde dein sportliches Zuhause. Genieße erstklassige Plätze, echte Gemeinschaft und die beste Zeit des Tages.',
     contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-highlight-900/70 via-highlight-900/10 to-transparent',
+    overlayClass: 'overlay-highlight',
     ctaPrimary: { variant: 'brand-dark', label: 'Jetzt Mitglied werden', to: localePath('membership') }
   },
-  /*
-  {
-    type: 'image',
-    src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
-    contentImage: '/img/jubilee/50-jahre-emblem-gold.png',
-    contentImageClass: 'w-60 sm:w-80 lg:w-120 mb-4',
-    title: 'TC Hardt',
-    titleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate font-bold',
-    subtitle: 'Seit 1976 schlägt das Herz des Tennissports am Birkmannsweg. Feiere mit uns ein halbes Jahrhundert Vereinsgeschichte.',
-    subtitleClass: 'bg-clip-text text-transparent bg-gradient-to-br from-[#8D6933] via-[#E3C887] to-[#714C20] animate-gold-rotate',
-    contentPosition: 'center',
-    overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
-    ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
-  },
-  */
   {
     type: 'image',
     src: '/img/home/alexander-lunyov-wBLW_19byJY-unsplash.jpg',
     title: 'Spielend besser werden',
     subtitle: 'Vom ersten Aufschlag bis zum Match-Gewinn. Wir bieten professionelles Training für jedes Alter und jedes Niveau.',
     contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/10 to-transparent',
+    overlayClass: 'overlay-accent',
     ctaPrimary: { label: 'Unser Trainingsangebot', to: localePath('training') }
   },
   {
@@ -68,7 +52,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     title: 'Unsere Heimat im Grünen',
     subtitle: 'Sechs topgepflegte Plätze, ein modernes Clubhaus und die wohl schönste Sonnenterrasse im Viertel.',
     contentPosition: 'bottom-center',
-    overlayClass: 'bg-gradient-to-t from-accent-900/70 via-accent-900/40 to-transparent',
+    overlayClass: 'overlay-accent-mid',
     ctaPrimary: { label: 'Unsere Heimat', to: localePath('facility') }
   }
 ])
@@ -79,32 +63,32 @@ const clubFeatures = computed(() => [
     title: t('home.intro_features.courts.title'),
     description: t('home.intro_features.courts.desc'),
     to: localePath('membership'),
-    iconColor: 'text-orange-500',
-    iconBg: 'bg-orange-50 dark:bg-orange-900/10'
+    iconColor: 'color-orange',
+    iconBg: 'bg-orange'
   },
   {
     icon: 'i-heroicons-user-group',
     title: t('home.intro_features.community.title'),
     description: t('home.intro_features.community.desc'),
     to: localePath('membership'),
-    iconColor: 'text-blue-500',
-    iconBg: 'bg-blue-50 dark:bg-blue-900/10'
+    iconColor: 'color-blue',
+    iconBg: 'bg-blue'
   },
   {
     icon: 'i-heroicons-sparkles',
     title: t('home.intro_features.training.title'),
     description: t('home.intro_features.training.desc'),
     to: localePath('training'),
-    iconColor: 'text-green-500',
-    iconBg: 'bg-green-50 dark:bg-green-900/10'
+    iconColor: 'color-green',
+    iconBg: 'bg-green'
   },
   {
     icon: 'i-heroicons-home-modern',
     title: 'Clubheim',
     description: 'Geselligkeit & kühle Getränke nach dem Match.',
     to: localePath('about'),
-    iconColor: 'text-teal-500',
-    iconBg: 'bg-teal-50 dark:bg-teal-900/10'
+    iconColor: 'color-teal',
+    iconBg: 'bg-teal'
   }
 ])
 
@@ -116,7 +100,6 @@ const values = computed(() => [
 ])
 
 const newsItems = computed(() => {
-  // Helper to parse DD.MM.YYYY
   const parseDate = (dateString: string) => {
     const [day, month, year] = dateString.split('.').map(Number)
     return new Date(year, month - 1, day)
@@ -126,18 +109,15 @@ const newsItems = computed(() => {
     return parseDate(b.date).getTime() - parseDate(a.date).getTime()
   })
 
-  // Return only the 4 most recent news items
   return sortedNews.slice(0, 4)
 })
-
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="home-page">
     <Hero
       :slides="heroSlides"
       height="full"
-      fallback-class="bg-brand-dark-900"
       :autoplay="10000"
     />
 
@@ -156,7 +136,7 @@ const newsItems = computed(() => {
         description="Entdecke, was unseren Verein besonders macht und warum du dich bei uns wohlfühlen wirst."
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="features-grid">
         <FeatureCard
           v-for="(feature, index) in clubFeatures"
           :key="index"
@@ -175,33 +155,32 @@ const newsItems = computed(() => {
         tagline="TC Hardt Philosophie"
         tagline-variant="accent"
         :title="$t('home.values.title')"
-        title-class="text-3xl sm:text-4xl lg:text-5xl"
         :description="$t('home.values.description')"
       />
 
-      <div class="mt-10 flex flex-col lg:flex-row items-stretch gap-12 lg:gap-24">
-        <div class="w-full lg:w-1/2">
+      <div class="values-layout">
+        <div class="values-media">
           <img
             src="/img/home/unsere-werte.jpg"
             alt="Tennis Community TC Hardt"
-            class="w-full h-full object-cover rounded-3xl shadow-xl border-4 border-white dark:border-gray-800"
+            class="values-img"
           >
         </div>
-        <div class="w-full lg:w-1/2">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+        <div class="values-col">
+          <div class="values-grid">
             <div
               v-for="(val, i) in values"
               :key="i"
-              class="flex flex-col items-center text-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 hover:border-brand-light-200 transition-colors"
+              class="value-card"
             >
-              <div class="flex-shrink-0">
-                <BaseIcon :name="val.icon" class="w-8 h-8 text-highlight-500" />
+              <div class="value-icon-wrap">
+                <BaseIcon :name="val.icon" class="value-icon" />
               </div>
               <div>
-                <h4 class="font-bold text-brand-dark-900 dark:text-white text-lg">
+                <h4 class="value-title">
                   {{ val.title }}
                 </h4>
-                <p class="text-base text-gray-600 dark:text-gray-400 mt-1 leading-snug">
+                <p class="value-desc">
                   {{ val.description }}
                 </p>
               </div>
@@ -219,7 +198,7 @@ const newsItems = computed(() => {
       overlap-bottom
       :padding-top="{ base: 'sm', md: 'md' }"
       :padding-bottom="{ base: 'xs', md: 'md' }"
-      class="relative z-20"
+      class="news-section"
     >
       <Headline
         mode="light"
@@ -227,10 +206,10 @@ const newsItems = computed(() => {
         tagline="Aktuelles"
         tagline-variant="highlight"
         :title="$t('home.news.title')"
-        class="mb-8"
+        margin-bottom="md"
       />
 
-      <div class="flex justify-center mb-8">
+      <div class="center-action">
         <Button
           :to="localePath('news')"
           variant="highlight"
@@ -240,7 +219,7 @@ const newsItems = computed(() => {
         </Button>
       </div>
 
-      <div class="relative px-0 md:px-12">
+      <div class="news-slider-wrap">
         <ClientOnly>
           <Swiper
             :modules="[Autoplay, Navigation]"
@@ -257,12 +236,12 @@ const newsItems = computed(() => {
               disableOnInteraction: false,
               pauseOnMouseEnter: true
             }"
-            class="w-full"
+            class="news-swiper"
           >
             <SwiperSlide
-              v-for="(news, index) in newsItems"
+              v-for="news in newsItems"
               :key="(news as any).slug"
-              class="h-auto"
+              class="news-slide"
             >
               <FeaturedNewsCard
                 :to="localePath({ name: 'news-slug', params: { slug: (news as any).slug } })"
@@ -271,34 +250,32 @@ const newsItems = computed(() => {
                 :date="news.date"
                 :description="news.excerpt"
                 link-text="Weiterlesen"
-                class="w-full h-full"
               />
             </SwiperSlide>
           </Swiper>
 
           <template #fallback>
-            <div class="w-full h-64 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-2xl" />
+            <div class="news-skeleton" />
           </template>
         </ClientOnly>
 
-        <div class="flex justify-center gap-8 mt-6 md:mt-0 md:block">
-          <button class="news-prev text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:left-0 md:z-10">
-            <BaseIcon name="i-heroicons-chevron-left" class="w-8 h-8" />
+        <div class="news-arrows">
+          <button type="button" class="news-prev news-arrow is-prev" aria-label="Vorherige News">
+            <BaseIcon name="i-heroicons-chevron-left" class="arrow-icon" />
           </button>
-          <button class="news-next text-white hover:text-highlight-500 transition-colors md:absolute md:top-1/2 md:-translate-y-1/2 md:right-0 md:z-10">
-            <BaseIcon name="i-heroicons-chevron-right" class="w-8 h-8" />
+          <button type="button" class="news-next news-arrow is-next" aria-label="Nächste News">
+            <BaseIcon name="i-heroicons-chevron-right" class="arrow-icon" />
           </button>
         </div>
       </div>
     </Section>
-
 
     <Section
       variant="secondary"
       rounded
       :padding-top="{ base: 'lg', md: 'lg', lg: 'xl' }"
       :padding-bottom="{ base: 'sm', md: 'md' }"
-      class="relative z-10"
+      class="events-section"
     >
       <Headline
         alignment="center"
@@ -307,7 +284,7 @@ const newsItems = computed(() => {
         description="Die nächsten Highlights in unserem Vereinskalender."
       />
 
-      <div class="flex justify-center mb-8">
+      <div class="center-action">
         <Button
           :to="localePath('events')"
           variant="brand-dark"
@@ -335,7 +312,7 @@ const newsItems = computed(() => {
         :description="t('sponsors.subtitle')"
       />
 
-      <div class="flex justify-center mt-6 mb-12">
+      <div class="sponsors-action">
         <Button
           :to="localePath('sponsoring')"
           variant="outline"
@@ -348,3 +325,215 @@ const newsItems = computed(() => {
     </Section>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.home-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+
+  @include up("md") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up("lg") {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.values-layout {
+  margin-top: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-12);
+
+  @include up("lg") {
+    flex-direction: row;
+    gap: var(--space-24);
+  }
+}
+
+.values-media,
+.values-col {
+  width: 100%;
+
+  @include up("lg") {
+    width: 50%;
+  }
+}
+
+.values-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  border: 4px solid var(--color-white);
+
+  @include dark {
+    border-color: var(--color-gray-800);
+  }
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  height: 100%;
+
+  @include up("sm") {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.value-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-100);
+  transition: border-color var(--transition-fast);
+
+  @include dark {
+    background-color: rgb(30 41 59 / 0.5);
+    border-color: var(--color-gray-700);
+  }
+
+  &:hover {
+    border-color: var(--color-brand-light-200);
+  }
+}
+
+.value-icon-wrap {
+  flex-shrink: 0;
+}
+
+.value-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-highlight-500);
+}
+
+.value-title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-brand-dark-900);
+  font-size: 1.125rem;
+
+  @include dark {
+    color: var(--color-white);
+  }
+}
+
+.value-desc {
+  margin: 0.25rem 0 0;
+  font-size: 1rem;
+  color: var(--color-gray-600);
+  line-height: 1.375;
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
+}
+
+.news-section {
+  position: relative;
+  z-index: 20;
+}
+
+.events-section {
+  position: relative;
+  z-index: 10;
+}
+
+.center-action {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-8);
+}
+
+.sponsors-action {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+.news-slider-wrap {
+  position: relative;
+  padding-inline: 0;
+
+  @include up("md") {
+    padding-inline: var(--space-12);
+  }
+}
+
+.news-swiper {
+  width: 100%;
+}
+
+.news-slide {
+  height: auto;
+}
+
+.news-skeleton {
+  width: 100%;
+  height: 16rem;
+  background-color: var(--color-gray-100);
+  border-radius: var(--radius-xl);
+
+  @include dark {
+    background-color: var(--color-gray-800);
+  }
+}
+
+.news-arrows {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+
+  @include up("md") {
+    display: block;
+    margin-top: 0;
+  }
+}
+
+.news-arrow {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-highlight-500);
+  }
+
+  @include up("md") {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    &.is-prev { left: 0; }
+    &.is-next { right: 0; }
+  }
+}
+
+.arrow-icon {
+  width: 2rem;
+  height: 2rem;
+}
+</style>
