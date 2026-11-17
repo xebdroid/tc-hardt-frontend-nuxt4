@@ -9,9 +9,15 @@ export function useCalendar(event: Event) {
   // Helper to format dates for calendar links (YYYYMMDDTHHMMSSZ)
   // We'll assume a default time if not provided, e.g., 9am for start, 10am for end.
   // Timezone is assumed to be Europe/Berlin.
+  const isTba = computed(() => {
+    if (!event.date || event.date.trim().toLowerCase() === 'tba') return true
+    return isNaN(new Date(event.date).getTime())
+  })
+
   const toUTC = (dateString: string, timeString: string = '09:00'): string => {
     const [hours, minutes] = timeString.split(':').map(Number)
     const date = new Date(dateString)
+    if (isNaN(date.getTime())) return ''
     date.setUTCHours(hours - 2) // Adjust for CEST to UTC
     date.setUTCMinutes(minutes)
     date.setUTCSeconds(0)
@@ -75,20 +81,23 @@ export function useCalendar(event: Event) {
     return `data:text/calendar;charset=utf8,${encodeURIComponent(content)}`
   })
 
-  const calendarOptions = computed(() => [
-    {
-      label: t('calendar.google'),
-      icon: 'i-simple-icons-googlecalendar',
-      to: googleLink.value,
-      target: '_blank'
-    },
-    {
-      label: t('calendar.download_ics'),
-      icon: 'i-heroicons-arrow-down-tray',
-      to: icsContent.value,
-      download: `${(event as any).slug}.ics`
-    }
-  ])
+  const calendarOptions = computed(() => {
+    if (isTba.value) return []
+    return [
+      {
+        label: t('calendar.google'),
+        icon: 'i-simple-icons-googlecalendar',
+        to: googleLink.value,
+        target: '_blank'
+      },
+      {
+        label: t('calendar.download_ics'),
+        icon: 'i-heroicons-arrow-down-tray',
+        to: icsContent.value,
+        download: `${(event as any).slug}.ics`
+      }
+    ]
+  })
 
   return {
     calendarOptions

@@ -41,7 +41,9 @@ const displayEvents = computed(() => {
     today.setHours(0, 0, 0, 0)
 
     processed = processed.filter((event) => {
+      if (!event.date || event.date.trim().toLowerCase() === 'tba') return false
       const eventDate = new Date(event.date)
+      if (isNaN(eventDate.getTime())) return false
       if (event.dateEnd) {
         const endDate = new Date(event.dateEnd)
         return endDate >= today

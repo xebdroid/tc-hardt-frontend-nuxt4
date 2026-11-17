@@ -6,7 +6,7 @@ export function useAllEventsCalendar() {
   const generateIcsContent = () => {
     const now = new Date()
     const upcomingEvents = [...db.events]
-      .filter(event => new Date(event.date) >= now)
+      .filter(event => event.date && event.date.trim().toLowerCase() !== 'tba' && !isNaN(new Date(event.date).getTime()) && new Date(event.date) >= now)
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
     const toUTC = (dateString: string, timeString: string = '09:00'): string => {

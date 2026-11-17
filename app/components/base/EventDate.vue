@@ -25,7 +25,13 @@ const months = ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 
 // --- Default Variant Logic ---
 const parseDate = (dateInput: string | Date) => {
   if (!dateInput) return { day: '00', month: '???', year: '0000' }
+  if (typeof dateInput === 'string' && dateInput.trim().toLowerCase() === 'tba') {
+    return { day: 'TBA', month: 'TERMIN', year: 'OFFEN' }
+  }
   const date = new Date(dateInput)
+  if (isNaN(date.getTime())) {
+    return { day: 'TBA', month: 'TERMIN', year: 'OFFEN' }
+  }
   return {
     day: date.getDate().toString().padStart(2, '0'),
     month: months[date.getMonth()],

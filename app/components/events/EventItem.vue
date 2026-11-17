@@ -159,7 +159,7 @@ const downloadIcs = () => {
           class="flex flex-row items-center justify-between p-3 md:p-4 gap-4"
         >
           <div :class="[!event.dateEnd ? 'md:flex-1 md:flex md:justify-center' : '']">
-            <EventDate :date="new Date(event.date)" :date-end="event.dateEnd ? new Date(event.dateEnd) : undefined" />
+            <EventDate :date="event.date" :date-end="event.dateEnd" />
           </div>
 
           <Image
@@ -173,19 +173,20 @@ const downloadIcs = () => {
       </div>
 
       <UCollapsible
-        class="flex-1 flex flex-col group min-w-0 justify-center group-data-[state=open]:justify-start"
+        class="flex-1 flex flex-col group/event min-w-0 justify-center data-[state=open]:justify-start"
         :disabled="!hasOptionalContent"
         :open="isOpen"
       >
         <div class="p-3 md:p-4 flex justify-between items-center gap-4 cursor-pointer min-h-[5.5rem] md:min-h-24" @click="handleToggle">
-          <h3 class="text-xl font-bold text-brand-dark-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+          <h3 class="text-xl font-bold text-brand-dark-900 dark:text-white group-hover/event:text-accent-600 dark:group-hover/event:text-accent-400 transition-colors">
             {{ event.title }}
           </h3>
 
           <div v-if="hasOptionalContent" class="flex-shrink-0 mt-1">
             <UIcon
               name="i-heroicons-chevron-down"
-              class="w-6 h-6 text-gray-400 transition-transform duration-300 group-data-[state=open]:rotate-180"
+              class="w-6 h-6 text-gray-400 transition-transform duration-300"
+              :class="{ 'rotate-180': isOpen }"
             />
           </div>
         </div>
@@ -212,7 +213,7 @@ const downloadIcs = () => {
               </div>
             </div>
 
-            <div v-if="!isPast" class="flex flex-wrap gap-3 pt-2">
+            <div v-if="!isPast && calendarOptions.length > 0" class="flex flex-wrap gap-3 pt-2">
               <Button
                 v-for="(action, idx) in calendarOptions"
                 :key="idx"
