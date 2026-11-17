@@ -213,6 +213,16 @@ const downloadIcs = () => {
               </div>
             </div>
 
+            <div v-if="event.gallerySlug" class="pt-2">
+              <Button
+                :to="$localePath(`/galerie/${event.gallerySlug}`)"
+                label="Zur Bildergalerie"
+                icon="i-heroicons-photo"
+                size="md"
+                variant="outline"
+              />
+            </div>
+
             <div v-if="!isPast && calendarOptions.length > 0" class="flex flex-wrap gap-3 pt-2">
               <Button
                 v-for="(action, idx) in calendarOptions"

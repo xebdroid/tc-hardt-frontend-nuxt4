@@ -10,6 +10,7 @@
       "title": "Eishockey statt Tennis: TC Hardt zu Gast beim Deutschland Cup",
       "date": "06.11.2026",
       "slug": "2026-deutschland-cup",
+      "gallerySlug": "2026-deutschland-cup",
       "excerpt": "Schwarzer Puck statt gelbe Filzkugel: Am 5. November tauschten einige Mitglieder des TC Hardt den Tennisplatz gegen die Tribüne und besuchten gemeinsam das Länderspiel der deutschen Eishockey-Nationalmannschaft gegen Österreich im Düsseldorfer PSD Bank Dome.",
       "image": "/img/news/2026-deutschland-cup.jpg",
       "published": true,
@@ -30,6 +31,7 @@
       "title": "TC Hardt feiert 50-jähriges Vereinsjubiläum",
       "date": "29.06.2026",
       "slug": "2026-rueckblick-jubilaeumsfeier",
+      "gallerySlug": "2026-jubilaeumsfeier",
       "excerpt": "Mit einem festlichen Jubiläumsabend hat der TC Hardt sein 50-jähriges Bestehen gefeiert. Zahlreiche Mitglieder, Ehrengäste und Freunde des Vereins kamen zusammen, um auf ein halbes Jahrhundert Vereinsgeschichte zurückzublicken und gemeinsam in die Zukunft zu schauen.",
       "image": "/img/news/50-jahre-gala.jpg",
       "published": true,
@@ -52,7 +54,8 @@
       "excerpt": "Mit strahlendem Frühlingswetter und einem bunten Programm für alle Altersklassen startete der TC Hardt am vergangenen Sonntag offiziell in sein 50. Jubiläumsjahr.",
       "content": "<p class=\"mb-4\">Mit einer rundum gelungenen Saisoneröffnung und einem bestens besuchten Tag der offenen Tür ist der TC Hardt am vergangenen Sonntag in die Tennissaison 2026 gestartet. Gleichzeitig fiel damit auch der offizielle Startschuss in das Jubiläumsjahr zum 50-jährigen Bestehen des Vereins .</p><p class=\"mb-4\">Bei strahlendem Frühlingswetter nutzten zahlreiche Mitglieder, Familien, Gäste und Interessierte die Gelegenheit, die Anlage zu besuchen und einen abwechslungsreichen Tag auf dem Vereinsgelände zu erleben. Von 11 bis 17 Uhr wurde den Besucherinnen und Besuchern ein buntes Programm geboten: Neben dem Schnuppertraining unserer Jugendabteilung in Kooperation mit der Tennisschule Rot Weiss konnten Besucher auf der vereinseigenen Bügelbahn die Traditions-Sportart Bügeln kennenlernen oder die Beachvolleyball-Saison eröffnen .</p><p class=\"mb-4\">Weitere Highlights waren eine Hüpfburg für die jüngsten Gäste, die Messung der Aufschlaggeschwindigkeit sowie der spannende One-Point-Slam am Nachmittag, bei dem pro Partie nur ein einziger Punkt ausgespielt wurde – Spannung und Unterhaltung waren dabei garantiert .</p><p class=\"mb-4\">Der Vorsitzende des TC Hardt Kaspar Fuchs zeigte sich sehr zufrieden mit dem Verlauf: „Es war ein wunderbarer Auftakt in unser Jubiläumsjahr. Besonders gefreut hat uns die große Resonanz, die tolle Stimmung und das starke Miteinander auf unserer Anlage“ .</p><p class=\"mb-4\">Mit der erfolgreichen Saisoneröffnung blickt der Verein nun auf weitere Höhepunkte im Jubiläumsjahr – darunter die Jubiläumsfeier im Juni, die Sangria Open im Juli sowie die Kreis- und Stadtmeisterschaften im Spätsommer (29.08. – 13.09.).</p>","image": "/img/news/2026-tag-der-offenen-tuer_cropped_resized.jpg",
       "published": true,
-      "slug": "2026-tag-der-offenen-tuer"
+      "slug": "2026-tag-der-offenen-tuer",
+      "gallerySlug": "2026-tag-der-offenen-tuer"
     },
     {
       "id": 5,
@@ -273,7 +276,8 @@
       "location": "Gesamte Anlage",
       "image": "/img/events/tag-der-offenen-tuer-2026.jpg",
       "highlightLevel": 1,
-      "slug": "tag-der-offenen-tuer-saisoneroeffnung"
+      "slug": "tag-der-offenen-tuer-saisoneroeffnung",
+      "gallerySlug": "2026-tag-der-offenen-tuer"
     },
     {
       "id": 100,
@@ -604,7 +608,8 @@
       "location": "Festzelt auf der Anlage",
       "image": "/img/events/50-jahre-emblem.jpg",
       "highlightLevel": 2,
-      "slug": "jubilaumsfeier-50-jahre-tc-hardt"
+      "slug": "jubilaumsfeier-50-jahre-tc-hardt",
+      "gallerySlug": "2026-jubilaeumsfeier"
     },
     {
       "id": 129,
@@ -1022,6 +1027,65 @@
         "Kostenlos",
         "Spaß an der Bewegung"
       ]
+    }
+  ],
+  "galleries": [
+    {
+      "id": 1,
+      "title": "TC Hardt beim Deutschland Cup in Düsseldorf",
+      "slug": "2026-deutschland-cup",
+      "year": 2026,
+      "date": "05.11.2026",
+      "description": "Gemeinsamer Ausflug unserer Mitglieder zum Länderspiel der deutschen Eishockey-Nationalmannschaft gegen Österreich (3:0) im PSD Bank Dome.",
+      "folder": "2026/deutschland-cup",
+      "published": true,
+      "captions": {
+        "01-team-im-stadion.jpg": "Unsere TC-Hardt-Truppe auf der Tribüne im Düsseldorfer PSD Bank Dome",
+        "02-arena-panorama.jpg": "Blick über das Eis beim 3:0-Auftaktsieg gegen Österreich"
+      }
+    },
+    {
+      "id": 4,
+      "title": "50 Jahre TC Hardt – Die große Jubiläumsfeier",
+      "slug": "2026-jubilaeumsfeier",
+      "year": 2026,
+      "date": "27.06.2026",
+      "description": "Ein unvergesslicher Festabend unter den Baumkronen am Birkmannsweg: Impressionen vom Empfang, dem Festakt mit der Hardter Blasmusik, den Ehrungen und der anschließenden Jubiläumsparty im Festzelt.",
+      "folder": "2026/jubilaeumsfeier",
+      "cover": "/img/news/50-jahre-gala.jpg",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "Saisoneröffnung & Tag der offenen Tür 2026",
+      "slug": "2026-tag-der-offenen-tuer",
+      "year": 2026,
+      "date": "19.04.2026",
+      "description": "Strahlendes Frühlingswetter, Schnuppertraining, Bügelbahn und Beachvolleyball beim großen Saisonauftakt am Birkmannsweg.",
+      "folder": "2026/tag-der-offenen-tuer",
+      "published": true,
+      "captions": {
+        "01-eroeffnung.jpg": "Beste Stimmung bei der Saisoneröffnung",
+        "02-anlage.jpg": "Unsere gepflegten Sandplätze im Grünen",
+        "03-buegelbahn.jpg": "Traditionssport auf unserer vereinseigenen Bügelbahn",
+        "04-beachvolleyball.jpg": "Action auf dem Beachvolleyballfeld"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Unsere Anlage & Vereinsleben",
+      "slug": "2025-vereinsleben",
+      "year": 2025,
+      "date": "15.08.2025",
+      "description": "Einblicke in unsere Tennisanlage am Hardter Wald, das Clubhaus mit Sonnenterrasse und das gesellige Miteinander im Verein.",
+      "folder": "2025/vereinsleben",
+      "published": true,
+      "captions": {
+        "01-clubhaus.jpg": "Luftaufnahme unseres Clubhauses",
+        "02-sonnenterrasse.jpg": "Gemütliches Beisammensein auf der Sonnenterrasse",
+        "03-sandplaetze.jpg": "6 frisch sanierte Ascheplätze direkt am Wald",
+        "04-gemeinschaft.jpg": "Teamgeist und Freude am Spiel beim TC Hardt"
+      }
     }
   ]
 }

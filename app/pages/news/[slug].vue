@@ -99,11 +99,19 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
 
             <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed order-3">
               <div v-html="newsItem.content"/>
-              <div v-if="newsItem.cta && newsItem.cta.to && newsItem.cta.label" class="mt-8">
+              <div v-if="(newsItem.cta && newsItem.cta.to && newsItem.cta.label) || newsItem.gallerySlug" class="mt-8 flex flex-wrap gap-4">
                 <Button
+                  v-if="newsItem.cta && newsItem.cta.to && newsItem.cta.label"
                   :to="newsItem.cta.to"
                   :label="newsItem.cta.label"
                   variant="brand-dark"
+                />
+                <Button
+                  v-if="newsItem.gallerySlug"
+                  :to="$localePath(`/galerie/${newsItem.gallerySlug}`)"
+                  label="Zur Bildergalerie"
+                  icon="i-heroicons-photo"
+                  variant="outline"
                 />
               </div>
             </div>
@@ -131,11 +139,19 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
             />
             <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed mb-10">
               <div v-html="newsItem.content"/>
-              <div v-if="newsItem.cta && newsItem.cta.to && newsItem.cta.label" class="mt-8">
+              <div v-if="(newsItem.cta && newsItem.cta.to && newsItem.cta.label) || newsItem.gallerySlug" class="mt-8 flex flex-wrap gap-4">
                 <Button
+                  v-if="newsItem.cta && newsItem.cta.to && newsItem.cta.label"
                   :to="newsItem.cta.to"
                   :label="newsItem.cta.label"
                   variant="brand-dark"
+                />
+                <Button
+                  v-if="newsItem.gallerySlug"
+                  :to="$localePath(`/galerie/${newsItem.gallerySlug}`)"
+                  label="Zur Bildergalerie"
+                  icon="i-heroicons-photo"
+                  variant="outline"
                 />
               </div>
             </div>
