@@ -76,7 +76,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     // Spezifische Umleitung
-    '/index.php/50-jahre-tc-hardt.html': { redirect: { to: '/50-jahre-tc-hardt', statusCode: 301 } },
+    // '/index.php/50-jahre-tc-hardt.html': { redirect: { to: '/50-jahre-tc-hardt', statusCode: 301 } },
     // Catch-all für alles andere, was mit /index.php anfängt
     '/index.php/**': { redirect: { to: '/', statusCode: 301 } },
     '/index.php': { redirect: { to: '/', statusCode: 301 } }
@@ -95,7 +95,7 @@ export default defineNuxtConfig({
       events: { de: '/termine' },
       membership: { de: '/mitglied-werden' },
       'ksm-2026': { de: '/kreis-und-stadtmeisterschaften-2026' },
-      jubilee: { de: '/50-jahre-tc-hardt' },
+      // jubilee: { de: '/50-jahre-tc-hardt' },
       facility: { de: '/anlage' },
       about: { de: "/ueber-uns" },
       board: { de: "/vorstand" },

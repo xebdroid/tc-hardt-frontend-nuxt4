@@ -83,7 +83,7 @@
       "image": "/img/news/50-jahre-wappen.jpg",
       "published": true,
       "slug": "ein-jahr-voller-events",
-      "cta": {
+      "_cta": {
         "to": "/50-jahre-tc-hardt",
         "label": "Alle Highlights im Überblick"
       }

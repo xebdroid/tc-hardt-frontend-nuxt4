@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// Seite vorübergehend deaktiviert – bei Bedarf wieder einkommentieren
+await navigateTo('/', { redirectCode: 302 })
+
+/*
 import type { HeroSlide } from '~/components/base/Hero.vue'
 import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
@@ -77,9 +81,12 @@ const timelineItems = [
     image: '/img/jubilee/gluehwein.jpg'
   }
 ]
+*/
 </script>
 
 <template>
+  <div />
+  <!--
   <div class="bg-white dark:bg-gray-900 min-h-screen">
 
     <Hero :slides="heroSlides" height="large" />
@@ -154,4 +161,5 @@ const timelineItems = [
       </template>
     </div>
   </div>
+  -->
 </template>

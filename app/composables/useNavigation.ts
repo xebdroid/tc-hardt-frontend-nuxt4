@@ -49,6 +49,7 @@ export const useNavigation = () => {
       icon: 'i-heroicons-building-library',
       noDesktopIcon: true,
       children: [
+        /*
         {
           label: t('nav.sup.jubilee'),
           to: localePath('jubilee'),
@@ -63,6 +64,7 @@ export const useNavigation = () => {
             [&_[data-slot=childLinkIcon]]:group-hover:text-accent-300
           `
         },
+        */
         {
           label: t('nav.sup.news'),
           to: localePath('news'),

@@ -205,6 +205,7 @@ useSeoMeta({
       </div>
     </Section>
 
+    <!--
     <Section>
       <FeatureSection
         image-src="/img/jubilee/50-jahre-tc-hardt.jpg"
@@ -228,5 +229,6 @@ useSeoMeta({
         </div>
       </FeatureSection>
     </Section>
+    -->
   </div>
 </template>

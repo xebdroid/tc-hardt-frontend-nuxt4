@@ -38,6 +38,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     overlayClass: 'bg-gradient-to-t from-highlight-900/70 via-highlight-900/10 to-transparent',
     ctaPrimary: { variant: 'brand-dark', label: 'Jetzt Mitglied werden', to: localePath('membership') }
   },
+  /*
   {
     type: 'image',
     src: '/img/jubilee/drei-tennis-plaetze-leer.jpg',
@@ -51,6 +52,7 @@ const heroSlides = computed<HeroSlide[]>(() => [
     overlayClass: 'bg-gradient-to-t from-black/50 via-black/60 to-black/50',
     ctaPrimary: { variant:'gold2', label: 'Unsere Jubiläums-Highlights', to: localePath('jubilee') }
   },
+  */
   {
     type: 'image',
     src: '/img/home/alexander-lunyov-wBLW_19byJY-unsplash.jpg',

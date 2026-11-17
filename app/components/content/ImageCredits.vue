@@ -67,6 +67,7 @@ const imageCredits: ImageCredit[] = [
       url: 'https://unsplash.com/de/fotos/eine-person-die-einen-tennisschlager-auf-einem-tennisplatz-halt-RjCo6j0BkU8',
     },
   },
+  /*
   {
     location: 'Jubiläum', src: '/img/jubilee/konfetti.jpg',
     author: { name: 'Jason Leung', url: 'https://unsplash.com/de/@ninjason' },
@@ -83,6 +84,7 @@ const imageCredits: ImageCredit[] = [
       url: 'https://unsplash.com/de/fotos/ein-holzloffel-mit-zitronen-und-eine-schussel-mit-geschnittenen-zitronen-8ts6P7yv-nE',
     },
   },
+  */
   // Internal Images
   { location: 'Training', src: '/img/training/tennisschule-rot-weiss.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Training', src: '/img/training/trainer-nicole-gafert.jpg', credit: 'TC Hardt e.V.' },
@@ -92,10 +94,12 @@ const imageCredits: ImageCredit[] = [
   { location: 'Sponsoring', src: '/img/sponsoring/sponsoring-website.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Sponsoring', src: '/img/sponsoring/sponsoring-freundetafel_4x3.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Sponsoring', src: '/img/boris_ruetten.jpg', credit: 'TC Hardt e.V.' },
+  /*
   { location: 'Jubiläum', src: '/img/jubilee/tennis-plaetze-von-oben.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Jubiläum', src: '/img/jubilee/50-jahre-emblem.png', credit: 'TC Hardt e.V.' },
   { location: 'Jubiläum', src: '/img/jubilee/drei-tennis-plaetze-leer.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Jubiläum', src: '/img/jubilee/50-jahre-emblem-gold.png', credit: 'TC Hardt e.V.' },
+  */
   { location: 'Startseite', src: '/img/home/anlage-von-oben-large-preview.png', credit: 'TC Hardt e.V.' },
   { location: 'Startseite', src: '/img/home/clubhaus-von-oben.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Startseite', src: '/img/home/unsere-werte.jpg', credit: 'TC Hardt e.V.' },
@@ -104,7 +108,7 @@ const imageCredits: ImageCredit[] = [
   { location: 'Anlage', src: '/img/facility/buegeln.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Anlage', src: '/img/facility/beachvolleyball.jpg', credit: 'TC Hardt e.V.' },
   { location: 'Über Uns', src: '/img/about/tc-hardt-anlage.jpg', credit: 'TC Hardt e.V.' },
-  { location: 'Jubiläum', src: '/img/jubilee/50-jahre-tc-hardt.jpg', credit: 'TC Hardt e.V.' },
+  // { location: 'Jubiläum', src: '/img/jubilee/50-jahre-tc-hardt.jpg', credit: 'TC Hardt e.V.' },
   {
     location: 'Sponsoren',
     src: '/img/sponsors/logo_fsd_fruhen_schulze_dupuis.jpg',
