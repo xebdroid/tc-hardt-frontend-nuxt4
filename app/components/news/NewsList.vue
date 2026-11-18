@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import db from '~/assets/data/db.json'
+import { parseGermanDate } from '~/utils/date'
 
 const today = new Date()
 today.setHours(0, 0, 0, 0)
@@ -24,13 +25,7 @@ const newsItems = (db.news as any[])
 
     return true
   })
-  .sort((a, b) => {
-    const parseDate = (dateString: string) => {
-      const [day = 1, month = 1, year = 2000] = dateString.split('.').map(Number)
-      return new Date(year, month - 1, day)
-    }
-    return parseDate(b.date).getTime() - parseDate(a.date).getTime()
-  })
+  .sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date))
 </script>
 
 <template>

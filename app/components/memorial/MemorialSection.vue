@@ -39,12 +39,19 @@ withDefaults(defineProps<Props>(), {
         <div class="portrait-col">
           <div class="portrait-card">
             <div class="portrait-media">
-              <img
+              <NuxtImg
                 :src="portraitSrc"
                 :alt="name"
+                width="480"
+                height="600"
+                fit="cover"
+                format="webp"
+                quality="80"
+                densities="1x"
                 class="portrait-img"
                 loading="lazy"
-              >
+                decoding="async"
+              />
               <div class="portrait-shade" />
             </div>
 

@@ -9,6 +9,7 @@ import EventList from '~/components/events/EventList.vue'
 import PastEventsArchive from '~/components/events/PastEventsArchive.vue'
 import { useAllEventsCalendar } from '~/composables/useAllEventsCalendar'
 import Button from '~/components/base/Button.vue'
+import { isTbaDate, resolveEventLocation } from '~/utils/date'
 
 useSeoMeta({
   title: 'Events & Termine',
@@ -26,8 +27,6 @@ onMounted(() => {
 })
 
 const { downloadAllIcs } = useAllEventsCalendar()
-
-const isTbaDate = (dateStr?: string) => !dateStr || dateStr.trim().toLowerCase() === 'tba' || isNaN(new Date(dateStr).getTime())
 
 const upcomingEvents = computed(() => {
   return [...db.events]
@@ -54,10 +53,7 @@ const upcomingEventsForSchema = computed(() => {
     .filter(event => !isTbaDate(event.date))
     .slice(0, 10)
     .map((event) => {
-      const atHomeKeywords = ['clubhaus', 'anlage', 'tc hardt']
-      const locationString = event.location?.toLowerCase() || ''
-      const isAtHome = atHomeKeywords.some(keyword => locationString.includes(keyword))
-      const address = isAtHome ? (db as any).clubInfo?.address : event.location
+      const { isAtHome, address } = resolveEventLocation(event.location, db.clubInfo?.address)
 
       return {
         name: event.title,

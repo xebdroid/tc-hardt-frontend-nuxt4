@@ -22,11 +22,19 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="club-values-section">
     <div class="values-media">
-      <img
+      <NuxtImg
         :src="imageSrc"
         :alt="imageAlt"
+        width="800"
+        height="600"
+        fit="cover"
+        format="webp"
+        quality="80"
+        densities="1x"
+        loading="lazy"
+        decoding="async"
         class="values-img"
-      >
+      />
     </div>
     <div class="values-col">
       <div class="values-grid">

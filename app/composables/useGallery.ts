@@ -1,6 +1,7 @@
 import { computed } from 'vue'
 import db from '~/assets/data/db.json'
 import type { GalleryAlbum, GalleryImage } from '~/types'
+import { parseGermanDate } from '~/utils/date'
 
 export interface ResolvedGalleryAlbum extends Omit<GalleryAlbum, 'images'> {
   coverImage: string
@@ -23,19 +24,6 @@ export const useGallery = () => {
   const rawAlbums = computed<GalleryAlbum[]>(() => {
     return ((db as any).galleries || []) as GalleryAlbum[]
   })
-
-  const parseGermanDate = (dateStr: string): number => {
-    if (!dateStr) return 0
-    if (dateStr.includes('.')) {
-      const parts = dateStr.split('.').map(Number)
-      if (parts.length === 3) {
-        const [day = 1, month = 1, year = 2000] = parts
-        return new Date(year, month - 1, day).getTime()
-      }
-    }
-    const parsed = new Date(dateStr).getTime()
-    return isNaN(parsed) ? 0 : parsed
-  }
 
   const resolveAlbumImages = (album: GalleryAlbum): GalleryImage[] => {
     const resolvedMap = new Map<string, GalleryImage>()

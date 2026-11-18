@@ -27,6 +27,15 @@ export default defineNuxtConfig({
     defaultLocale: 'de',
   },
 
+  sitemap: {
+    zeroRuntime: true,
+    exclude: ['/galerie', '/galerie/**']
+  },
+
+  linkChecker: {
+    skipInspections: ['no-underscores']
+  },
+
   image: {
     quality: 80,
   },
@@ -79,7 +88,7 @@ export default defineNuxtConfig({
       failOnError: false,
       // Generiert die physische Datei für den Webserver
       routes: ['/404.html'],
-      ignore: ['/en']
+      ignore: ['/en', '/galerie', '/galerie/**']
     }
   },
 

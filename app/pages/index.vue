@@ -11,6 +11,7 @@ import NewsSlider from '~/components/news/NewsSlider.vue'
 import EventList from '~/components/events/EventList.vue'
 import MemorialSection from '~/components/memorial/MemorialSection.vue'
 import db from '~/assets/data/db.json'
+import { parseGermanDate } from '~/utils/date'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -98,16 +99,9 @@ const values = computed(() => [
 ])
 
 const newsItems = computed(() => {
-  const parseDate = (dateString: string) => {
-    const [day = 1, month = 1, year = 2000] = dateString.split('.').map(Number)
-    return new Date(year, month - 1, day)
-  }
-
-  const sortedNews = [...db.news].sort((a, b) => {
-    return parseDate(b.date).getTime() - parseDate(a.date).getTime()
-  })
-
-  return sortedNews.slice(0, 4)
+  return [...db.news]
+    .sort((a, b) => parseGermanDate(b.date) - parseGermanDate(a.date))
+    .slice(0, 4)
 })
 </script>
 
