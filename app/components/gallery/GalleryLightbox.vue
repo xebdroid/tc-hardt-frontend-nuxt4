@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { GalleryImage } from '~/types'
 import BaseIcon from '~/components/base/Icon.vue'
 
@@ -14,9 +14,71 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: number | null): void
 }>()
 
+const $img = useImage()
+
 const isOpen = computed(() => props.modelValue !== null && props.images.length > 0)
 const currentIndex = computed(() => props.modelValue ?? 0)
 const currentImage = computed(() => props.images[currentIndex.value])
+
+const thumbBarRef = ref<HTMLElement | null>(null)
+const loadedThumbIndices = ref<Set<number>>(new Set())
+
+const THUMB_WINDOW = 12
+
+const getLightboxThumbUrl = (src: string) => {
+  return $img(src, {
+    width: 120,
+    height: 90,
+    fit: 'cover',
+    format: 'webp',
+    quality: 70
+  })
+}
+
+const shouldRenderThumb = (idx: number) => {
+  if (Math.abs(idx - currentIndex.value) <= THUMB_WINDOW) {
+    return true
+  }
+  return loadedThumbIndices.value.has(idx)
+}
+
+const updateLoadedWindow = (centerIdx: number) => {
+  const total = props.images.length
+  if (!total) return
+  const start = Math.max(0, centerIdx - THUMB_WINDOW)
+  const end = Math.min(total - 1, centerIdx + THUMB_WINDOW)
+  for (let i = start; i <= end; i++) {
+    loadedThumbIndices.value.add(i)
+  }
+}
+
+const scrollActiveThumbIntoView = (behavior: ScrollBehavior = 'smooth') => {
+  if (!import.meta.client || !thumbBarRef.value) return
+  const activeBtn = thumbBarRef.value.querySelector<HTMLElement>(`[data-thumb-idx="${currentIndex.value}"]`)
+  if (activeBtn) {
+    activeBtn.scrollIntoView({
+      behavior,
+      inline: 'center',
+      block: 'nearest'
+    })
+  }
+}
+
+const preloadAdjacentImages = (centerIdx: number) => {
+  if (!import.meta.client || props.images.length <= 1) return
+  const total = props.images.length
+  const adjacentIndices = [
+    (centerIdx + 1) % total,
+    (centerIdx - 1 + total) % total
+  ]
+  for (const idx of adjacentIndices) {
+    const item = props.images[idx]
+    if (item && item.type !== 'video') {
+      const preloadImg = new window.Image()
+      preloadImg.src = item.src
+    }
+  }
+}
 
 const close = () => {
   emit('update:modelValue', null)
@@ -45,10 +107,28 @@ const handleKeydown = (e: KeyboardEvent) => {
   else if (e.key === 'ArrowRight') next()
 }
 
-watch(isOpen, (open) => {
+watch(isOpen, async (open) => {
   if (import.meta.client) {
     document.body.style.overflow = open ? 'hidden' : ''
+    if (open) {
+      updateLoadedWindow(currentIndex.value)
+      preloadAdjacentImages(currentIndex.value)
+      await nextTick()
+      scrollActiveThumbIntoView('instant' as ScrollBehavior)
+    }
   }
+})
+
+watch(currentIndex, async (newIdx) => {
+  if (!isOpen.value) return
+  updateLoadedWindow(newIdx)
+  preloadAdjacentImages(newIdx)
+  await nextTick()
+  scrollActiveThumbIntoView('smooth')
+})
+
+watch(() => props.images, () => {
+  loadedThumbIndices.value.clear()
 })
 
 onMounted(() => {
@@ -121,6 +201,7 @@ onUnmounted(() => {
               :key="currentImage.src"
               :src="currentImage.src"
               :alt="currentImage.alt || albumTitle || 'Galeriebild'"
+              decoding="async"
               class="media-el is-img"
             >
             <p v-if="currentImage.caption" class="caption">
@@ -140,34 +221,37 @@ onUnmounted(() => {
         </div>
 
         <!-- Thumbnail-Leiste -->
-        <div v-if="images.length > 1" class="thumb-bar">
+        <div
+          v-if="images.length > 1"
+          ref="thumbBarRef"
+          class="thumb-bar"
+        >
           <button
             v-for="(img, idx) in images"
             :key="img.src"
             type="button"
+            :data-thumb-idx="idx"
             class="thumb-btn"
             :class="{ 'is-active': idx === currentIndex }"
+            :aria-label="`Medium ${idx + 1} anzeigen`"
             @click.stop="selectIndex(idx)"
           >
             <template v-if="img.type === 'video'">
-              <video
-                :src="`${img.src}#t=0.5`"
-                preload="metadata"
-                muted
-                playsinline
-                class="thumb-media"
-              />
-              <div class="thumb-play-overlay">
+              <div class="thumb-video-tile">
                 <BaseIcon name="i-heroicons-play-solid" class="play-icon" />
               </div>
             </template>
             <img
-              v-else
-              :src="img.src"
+              v-else-if="shouldRenderThumb(idx)"
+              :src="getLightboxThumbUrl(img.src)"
               :alt="img.alt || ''"
               class="thumb-media"
               loading="lazy"
+              decoding="async"
             >
+            <span v-else class="thumb-placeholder">
+              {{ idx + 1 }}
+            </span>
           </button>
         </div>
         <div v-else class="bottom-spacer" />
@@ -361,9 +445,10 @@ onUnmounted(() => {
   padding: var(--space-3) var(--space-4);
   background-image: linear-gradient(to top, rgb(0 0 0 / 0.8), transparent);
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
   overflow-x: auto;
   gap: var(--space-2);
+  scrollbar-width: thin;
 
   @include up("md") {
     padding-block: var(--space-4);
@@ -383,6 +468,9 @@ onUnmounted(() => {
   opacity: 0.5;
   cursor: pointer;
   transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @include up("md") {
     width: 4rem;
@@ -406,19 +494,25 @@ onUnmounted(() => {
   object-fit: cover;
 }
 
-.thumb-play-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgb(0 0 0 / 0.3);
+.thumb-video-tile {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-brand-dark-900), var(--color-gray-900));
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.thumb-placeholder {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--color-gray-400);
+}
+
 .play-icon {
   width: 1rem;
   height: 1rem;
-  color: var(--color-white);
+  color: var(--color-accent-400);
 }
 
 .bottom-spacer {

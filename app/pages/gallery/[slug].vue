@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import Hero from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
@@ -9,13 +9,51 @@ import BaseIcon from '~/components/base/Icon.vue'
 import GalleryLightbox from '~/components/gallery/GalleryLightbox.vue'
 import { useGallery } from '~/composables/useGallery'
 
+const PAGE_SIZE = 24
+
 const route = useRoute()
 const localePath = useLocalePath()
 const { getGalleryBySlug } = useGallery()
+const $img = useImage()
 
 const album = computed(() => {
   return getGalleryBySlug(String(route.params.slug || ''))
 })
+
+const getGridThumbUrl = (src: string) => {
+  return $img(src, {
+    width: 480,
+    height: 360,
+    fit: 'cover',
+    format: 'webp',
+    quality: 75
+  })
+}
+
+const getLightboxThumbUrl = (src: string) => {
+  return $img(src, {
+    width: 120,
+    height: 90,
+    fit: 'cover',
+    format: 'webp',
+    quality: 70
+  })
+}
+
+// Beim statischen Build (nuxt generate) alle WebP-Thumbnails des Albums vorab registrieren,
+// damit auch per Infinite Scroll nachgeladene Bilder als statische _ipx-Dateien existieren.
+if (import.meta.server && import.meta.prerender && album.value) {
+  const thumbRoutes: string[] = []
+  for (const img of album.value.images) {
+    if (img.type !== 'video') {
+      thumbRoutes.push(getGridThumbUrl(img.src))
+      thumbRoutes.push(getLightboxThumbUrl(img.src))
+    }
+  }
+  if (thumbRoutes.length > 0) {
+    prerenderRoutes(thumbRoutes)
+  }
+}
 
 if (album.value) {
   useSeoMeta({
@@ -33,11 +71,116 @@ if (album.value) {
   })
 }
 
+// --- Infinite Scroll ---
+const visibleCount = ref(PAGE_SIZE)
+const loadMoreSentinel = ref<HTMLElement | null>(null)
+let sentinelObserver: IntersectionObserver | null = null
+
+const totalCount = computed(() => album.value?.images.length || 0)
+
+const visibleImages = computed(() => {
+  if (!album.value) return []
+  return album.value.images.slice(0, visibleCount.value)
+})
+
+const hasMore = computed(() => visibleCount.value < totalCount.value)
+
+const loadMore = () => {
+  if (!hasMore.value) return
+  visibleCount.value = Math.min(visibleCount.value + PAGE_SIZE, totalCount.value)
+}
+
+// --- Lazy Video Loading (Videos erst im Viewport aktivieren) ---
+const visibleVideoSrcs = ref<Set<string>>(new Set())
+let videoObserver: IntersectionObserver | null = null
+
+const registerVideoTile = (el: Element | ComponentPublicInstance | null, src: string) => {
+  if (!import.meta.client || !el || !(el instanceof HTMLElement)) return
+  if (visibleVideoSrcs.value.has(src)) return
+  el.dataset.videoSrc = src
+  videoObserver?.observe(el)
+}
+
+const isVideoInView = (src: string) => {
+  return visibleVideoSrcs.value.has(src)
+}
+
+const setupObservers = () => {
+  if (!import.meta.client) return
+
+  sentinelObserver?.disconnect()
+  if ('IntersectionObserver' in window) {
+    sentinelObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          loadMore()
+        }
+      },
+      { rootMargin: '450px 0px' }
+    )
+    if (loadMoreSentinel.value) {
+      sentinelObserver.observe(loadMoreSentinel.value)
+    }
+
+    if (!videoObserver) {
+      videoObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const target = entry.target as HTMLElement
+              const src = target.dataset.videoSrc
+              if (src) {
+                visibleVideoSrcs.value.add(src)
+              }
+              videoObserver?.unobserve(target)
+            }
+          }
+        },
+        { rootMargin: '250px 0px' }
+      )
+    }
+  }
+}
+
+watch(loadMoreSentinel, (el) => {
+  if (el && sentinelObserver) {
+    sentinelObserver.observe(el)
+  }
+})
+
+watch(() => route.params.slug, async () => {
+  visibleCount.value = PAGE_SIZE
+  visibleVideoSrcs.value.clear()
+  await nextTick()
+  setupObservers()
+})
+
+onMounted(() => {
+  setupObservers()
+})
+
+onUnmounted(() => {
+  sentinelObserver?.disconnect()
+  videoObserver?.disconnect()
+})
+
+// --- Lightbox ---
 const activeLightboxIndex = ref<number | null>(null)
 
 const openLightbox = (index: number) => {
   activeLightboxIndex.value = index
 }
+
+// Wenn in der Lightbox weitergeblättert wird als bisher im Grid geladen,
+// ziehen wir das Grid im Hintergrund automatisch nach.
+watch(activeLightboxIndex, (idx) => {
+  if (idx !== null && idx >= visibleCount.value) {
+    visibleCount.value = Math.min(
+      Math.ceil((idx + 1) / PAGE_SIZE) * PAGE_SIZE,
+      totalCount.value
+    )
+  }
+})
 </script>
 
 <template>
@@ -109,34 +252,40 @@ const openLightbox = (index: number) => {
           />
         </div>
 
-        <!-- Einheitliches 4:3 Foto-Grid -->
+        <!-- Einheitliches 4:3 Foto-Grid (Infinite Scroll) -->
         <div
-          v-if="album.images.length > 0"
+          v-if="visibleImages.length > 0"
           class="media-grid"
         >
           <button
-            v-for="(img, idx) in album.images"
+            v-for="(img, idx) in visibleImages"
             :key="img.src"
+            :ref="img.type === 'video' ? (el) => registerVideoTile(el, img.src) : undefined"
             type="button"
             class="media-item"
             @click="openLightbox(idx)"
           >
-            <video
-              v-if="img.type === 'video'"
-              :src="`${img.src}#t=0.5`"
-              preload="metadata"
-              muted
-              playsinline
-              class="media-thumb"
-            />
-            <NuxtImg
+            <template v-if="img.type === 'video'">
+              <video
+                v-if="isVideoInView(img.src)"
+                :src="`${img.src}#t=0.5`"
+                preload="metadata"
+                muted
+                playsinline
+                class="media-thumb"
+              />
+              <div v-else class="video-placeholder" />
+            </template>
+            <img
               v-else
-              :src="img.src"
+              :src="getGridThumbUrl(img.src)"
               :alt="img.alt || album.title"
-              sizes="sm:100vw md:50vw lg:320px"
+              width="480"
+              height="360"
               loading="lazy"
+              decoding="async"
               class="media-thumb"
-            />
+            >
             <!-- Video-Badge & Play-Button bei Videos -->
             <template v-if="img.type === 'video'">
               <div class="video-badge">
@@ -173,6 +322,25 @@ const openLightbox = (index: number) => {
           <p class="empty-text">
             In diesem Album befinden sich aktuell noch keine Fotos.
           </p>
+        </div>
+
+        <!-- Infinite-Scroll Sentinel & Statusanzeige -->
+        <div
+          v-if="totalCount > PAGE_SIZE"
+          ref="loadMoreSentinel"
+          class="load-more-footer"
+        >
+          <p class="progress-text">
+            {{ visibleImages.length }} von {{ totalCount }} Medien geladen
+          </p>
+          <Button
+            v-if="hasMore"
+            variant="outline"
+            size="md"
+            label="Weitere Fotos laden"
+            icon="i-heroicons-arrow-down"
+            @click="loadMore"
+          />
         </div>
       </div>
     </Section>
@@ -336,6 +504,12 @@ const openLightbox = (index: number) => {
   transition: transform 500ms ease;
 }
 
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-brand-dark-900), var(--color-gray-800));
+}
+
 .video-badge {
   position: absolute;
   top: 0.625rem;
@@ -437,6 +611,25 @@ const openLightbox = (index: number) => {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.load-more-footer {
+  margin-top: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.progress-text {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-500);
+
+  @include dark {
+    color: var(--color-gray-400);
+  }
 }
 
 .empty-state {

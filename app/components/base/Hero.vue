@@ -609,6 +609,30 @@ const onSlideChange = (swiper: any) => {
   position: absolute;
   inset: 0;
   z-index: 5;
+
+  &.overlay-highlight {
+    background-image: linear-gradient(to top, rgb(54 83 20 / 0.7), rgb(54 83 20 / 0.1), transparent);
+  }
+
+  &.overlay-accent {
+    background-image: linear-gradient(to top, rgb(64 32 6 / 0.7), rgb(64 32 6 / 0.1), transparent);
+  }
+
+  &.overlay-accent-mid {
+    background-image: linear-gradient(to top, rgb(64 32 6 / 0.7), rgb(64 32 6 / 0.4), transparent);
+  }
+
+  &.overlay-accent-strong {
+    background-image: linear-gradient(to top, rgb(64 32 6 / 0.9), rgb(64 32 6 / 0.5), transparent);
+  }
+
+  &.overlay-brand-dark {
+    background-image: linear-gradient(to top, rgb(26 40 82 / 0.9), rgb(26 40 82 / 0.2), transparent);
+  }
+
+  &.overlay-dark {
+    background-image: linear-gradient(to top, rgb(0 0 0 / 0.7), rgb(0 0 0 / 0.3), transparent);
+  }
 }
 
 .hide-from-md {

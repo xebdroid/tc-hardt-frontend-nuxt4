@@ -116,6 +116,11 @@ const isLink = computed(() => Boolean(props.to))
     }
   }
 
+  &.bg-orange { background-color: #fff7ed; @include dark { background-color: rgb(124 45 18 / 0.1); } }
+  &.bg-blue   { background-color: #eff6ff; @include dark { background-color: rgb(30 58 138 / 0.1); } }
+  &.bg-green  { background-color: #f0fdf4; @include dark { background-color: rgb(20 83 45 / 0.1); } }
+  &.bg-teal   { background-color: #f0fdfa; @include dark { background-color: rgb(19 78 74 / 0.1); } }
+
   .feature-card:hover & {
     transform: scale(1.1);
   }
@@ -128,6 +133,11 @@ const isLink = computed(() => Boolean(props.to))
   &.default-icon-color {
     color: var(--color-brand-light-600);
   }
+
+  &.color-orange { color: #f97316; }
+  &.color-blue   { color: #3b82f6; }
+  &.color-green  { color: #22c55e; }
+  &.color-teal   { color: #14b8a6; }
 }
 
 .title {

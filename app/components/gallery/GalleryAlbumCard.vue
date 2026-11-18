@@ -18,8 +18,14 @@ defineProps<Props>()
       <NuxtImg
         :src="album.coverImage"
         :alt="album.title"
-        sizes="sm:100vw md:50vw lg:400px"
+        width="600"
+        height="450"
+        fit="cover"
+        format="webp"
+        quality="80"
+        densities="1x"
         loading="lazy"
+        decoding="async"
         class="cover-img"
       />
       <div class="cover-gradient" />
