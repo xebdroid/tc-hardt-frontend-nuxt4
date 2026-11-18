@@ -2,7 +2,7 @@
 import { computed, ref, onMounted } from 'vue'
 import db from '~/assets/data/db.json'
 import type { Event } from '~/types'
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import EventList from '~/components/events/EventList.vue'
@@ -134,19 +134,10 @@ const handlePastEventToggle = (id: number) => {
 
 <template>
   <div class="events-page">
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Club-Veranstaltungen"
-          description="Das ist bei uns im Club los. Komm vorbei!"
-          tag="h1"
-          size="h1"
-          mode="light"
-          alignment="center"
-          margin-bottom="sm"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Club-Veranstaltungen"
+      description="Das ist bei uns im Club los. Komm vorbei!"
+    />
 
     <Section margin-bottom="none">
       <Headline

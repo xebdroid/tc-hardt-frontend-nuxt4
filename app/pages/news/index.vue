@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import NewsList from '~/components/news/NewsList.vue'
-import Headline from '~/components/base/Headline.vue'
-import Hero from '~/components/base/Hero.vue'
 
 useSeoMeta({
   title: 'Aktuelles & News',
@@ -16,18 +15,10 @@ useSeoMeta({
 
 <template>
   <div class="news-index-page">
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Aktuelles"
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'none'"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Aktuelles"
+      margin-bottom="none"
+    />
 
     <Section
       variant="secondary-light"

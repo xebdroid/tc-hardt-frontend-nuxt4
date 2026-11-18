@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import Headline from '~/components/base/Headline.vue'
-import Button from '~/components/base/Button.vue'
+import BaseCtaSection from '~/components/base/CtaSection.vue'
 import type { SpacingSize, Responsive } from '~/types'
 
 useSeoMeta({
@@ -23,21 +23,10 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
 
 <template>
   <div>
-    <Hero
-      :slides="[]"
-      height="small"
-    >
-      <template #content>
-        <div class="hero-header">
-          <h1 class="hero-title">
-            Anlage & Freizeit
-          </h1>
-          <p class="hero-subtitle">
-            Viel Raum für Sport, Familie und Erholung direkt am Hardter Wald.
-          </p>
-        </div>
-      </template>
-    </Hero>
+    <PageHero
+      title="Anlage & Freizeit"
+      description="Viel Raum für Sport, Familie und Erholung direkt am Hardter Wald."
+    />
 
     <!-- 1. Sektion -->
     <Section
@@ -134,74 +123,18 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
       </FeatureSection>
     </Section>
 
-    <Section
-      variant="secondary-light"
-      padding-top="md"
-      padding-bottom="xl"
-      overlap-bottom
-      rounded="top"
-      outer-container
-    >
-      <div class="cta-box">
-        <Headline
-          title="Neugierig geworden?"
-          description="Komm einfach vorbei und mach dir selbst ein Bild von unserer idyllischen Anlage. Wir freuen uns auf deinen Besuch am Hardter Wald!"
-          tag="h2"
-          size="h2"
-          alignment="center"
-          margin-bottom="lg"
-        />
-        <div class="cta-actions">
-          <Button
-            to="/kontakt#map"
-            variant="primary"
-            size="lg"
-            label="Anlage besichtigen"
-            icon="i-heroicons-map-pin"
-          />
-        </div>
-      </div>
-    </Section>
+    <BaseCtaSection
+      title="Neugierig geworden?"
+      description="Komm einfach vorbei und mach dir selbst ein Bild von unserer idyllischen Anlage. Wir freuen uns auf deinen Besuch am Hardter Wald!"
+      :actions="[
+        {
+          to: '/kontakt#map',
+          variant: 'primary',
+          size: 'lg',
+          label: 'Anlage besichtigen',
+          icon: 'i-heroicons-map-pin'
+        }
+      ]"
+    />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.hero-header {
-  text-align: center;
-}
-
-.hero-title {
-  margin: 0 0 var(--space-4);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 2.25rem;
-  color: var(--color-white);
-
-  @include up("sm") {
-    font-size: 3rem;
-  }
-}
-
-.hero-subtitle {
-  margin: 0 auto;
-  font-size: 1.25rem;
-  color: var(--color-brand-light-100);
-  max-width: 42rem;
-}
-
-.cta-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 42rem;
-  margin-inline: auto;
-}
-
-.cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-4);
-}
-</style>

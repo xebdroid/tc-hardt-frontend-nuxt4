@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
+import BaseGrid from '~/components/base/Grid.vue'
+import BaseIconList, { type IconListItem } from '~/components/base/IconList.vue'
 import Button from '~/components/base/Button.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 
@@ -15,23 +17,21 @@ useSeoMeta({
   ogImage: '/img/about/tc-hardt-anlage.jpg',
   twitterCard: 'summary_large_image',
 })
+
+const highlightsList: IconListItem[] = [
+  { label: '6 frisch sanierte Sandplätze', text: 'für optimale Spielbedingungen.' },
+  { label: 'Einladendes Clubhaus', text: 'mit Sonnenterrasse für gesellige Stunden.' },
+  { text: 'Professionelles Training für alle Alters- und Spielklassen.' },
+  { text: 'Eine einzigartige Bügelbahn für Spaß abseits des Tennisplatzes.' }
+]
 </script>
 
 <template>
   <div>
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Über uns"
-          description="Tennis mit Herz und Seele – seit 1976 im Herzen von Hardt."
-          tag="h1"
-          size="h1"
-          mode="light"
-          alignment="center"
-          margin-bottom="sm"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Über uns"
+      description="Tennis mit Herz und Seele – seit 1976 im Herzen von Hardt."
+    />
 
     <Section>
       <FeatureSection
@@ -45,24 +45,12 @@ useSeoMeta({
           alignment="left"
           margin-bottom="none"
         />
-        <ul class="check-list">
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span><b>6 frisch sanierte Sandplätze</b> für optimale Spielbedingungen.</span>
-          </li>
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span><b>Einladendes Clubhaus</b> mit Sonnenterrasse für gesellige Stunden.</span>
-          </li>
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span>Professionelles Training für alle Alters- und Spielklassen.</span>
-          </li>
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span>Eine einzigartige <b>Bügelbahn</b> für Spaß abseits des Tennisplatzes.</span>
-          </li>
-        </ul>
+        <BaseIconList
+          :items="highlightsList"
+          icon-color="brand-light"
+          icon-size="lg"
+          margin-top="md"
+        />
         <div class="cta-wrap">
           <Button
             :to="$localePath('contact')"
@@ -143,7 +131,7 @@ useSeoMeta({
         tagline="Deine Vorteile"
         alignment="center"
       />
-      <div class="cards-grid">
+      <BaseGrid :cols="3" margin-top="lg">
         <FeatureCard
           title="Faire Beiträge"
           description="Wir bieten attraktive Mitgliedsbeiträge mit Vergünstigungen für Familien, Azubis, Studierende und Senioren."
@@ -159,7 +147,7 @@ useSeoMeta({
           description="Wir pflegen einen persönlichen Umgang und stärken die Gemeinschaft durch gemeinsame Veranstaltungen."
           icon="i-heroicons-home-modern"
         />
-      </div>
+      </BaseGrid>
       <div class="bottom-cta">
         <Button
           label="Jetzt Mitglied werden"
@@ -173,28 +161,6 @@ useSeoMeta({
 </template>
 
 <style lang="scss" scoped>
-.check-list {
-  margin: var(--space-8) 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: var(--space-4);
-  color: var(--color-gray-700);
-}
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.check-icon {
-  width: 1.875rem;
-  height: 1.875rem;
-  color: var(--color-brand-light-600);
-  flex-shrink: 0;
-}
-
 .cta-wrap {
   margin-top: var(--space-8);
 }
@@ -250,17 +216,6 @@ useSeoMeta({
   margin: var(--space-2) 0 0 4rem;
   font-size: 1rem;
   color: var(--color-gray-500);
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  margin-top: var(--space-12);
-
-  @include up("md") {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 .bottom-cta {

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
-import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Image from '~/components/base/Image.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
+import BaseGrid from '~/components/base/Grid.vue'
+import BaseIconList, { type IconListItem } from '~/components/base/IconList.vue'
 import Button from '~/components/base/Button.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 
@@ -21,6 +23,24 @@ function trackSponsoringContact(method: string) {
     (window as any)._paq.push(['trackEvent', 'Sponsoring', 'Kontakt aufgenommen', method])
   }
 }
+
+const communityValues: IconListItem[] = [
+  { icon: 'i-heroicons-heart', label: 'Gastfreundschaft:', text: 'Wir bieten ein familiäres Umfeld und eine erstklassige Infrastruktur für Mitglieder und Gäste.' },
+  { icon: 'i-heroicons-users', label: 'Teamgeist:', text: 'Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel und starkem Zusammenhalt.' },
+  { icon: 'i-heroicons-hand-raised', label: 'Fairness:', text: 'Wir legen Wert auf sportliches Verhalten und eine transparente Partnerschaft auf Augenhöhe.' }
+]
+
+const sponsorBenefits: IconListItem[] = [
+  { icon: 'i-heroicons-megaphone', label: 'Hohe Sichtbarkeit:', text: 'Profitieren Sie von unserer starken Präsenz – online und vor Ort auf unserer Anlage mit hunderten wöchentlichen Besuchern.' },
+  { icon: 'i-heroicons-user-group', label: 'Attraktive Zielgruppe:', text: 'Treffen Sie auf eine vielseitige Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.' },
+  { icon: 'i-heroicons-sparkles', label: 'Positives Image:', text: 'Positionieren Sie sich als Förderer des lokalen Sports und der Jugendarbeit. Das schafft Sympathie und Vertrauen.' }
+]
+
+const fundUsage: IconListItem[] = [
+  { label: 'Infrastrukturinvestitionen:', text: 'Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.' },
+  { label: 'Jugendförderung:', text: 'In Zusammenarbeit mit der Gemeinschaftsgrundschule Hardt, der Gesamtschule Hardt und unserer Tennisschule.' },
+  { label: 'Events:', text: 'Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.' }
+]
 
 const pricing = [
   {
@@ -64,21 +84,10 @@ const pricing = [
 
 <template>
   <div class="sponsoring-page">
-    <Hero
-      height="small"
-      class="hero-top"
-    >
-      <template #content>
-        <div class="hero-header">
-          <h1 class="hero-title">
-            Sponsoring
-          </h1>
-          <p class="hero-subtitle">
-            Gemeinsam mehr bewegen – Werden Sie Partner des TC Hardt.
-          </p>
-        </div>
-      </template>
-    </Hero>
+    <PageHero
+      title="Sponsoring"
+      description="Gemeinsam mehr bewegen – Werden Sie Partner des TC Hardt."
+    />
 
     <Section
       variant="gray-light"
@@ -105,20 +114,7 @@ const pricing = [
             class="headline-left"
             :margin-bottom="'none'"
           />
-          <ul class="check-list with-mt">
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-heart" class="check-icon is-offset" />
-              <span><strong>Gastfreundschaft:</strong> Wir bieten ein familiäres Umfeld und eine erstklassige Infrastruktur für Mitglieder und Gäste.</span>
-            </li>
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-users" class="check-icon is-offset" />
-              <span><strong>Teamgeist:</strong> Von der U9 bis zu den Damen 55 – wir leben den Wettkampf mit Freude am Spiel und starkem Zusammenhalt.</span>
-            </li>
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-hand-raised" class="check-icon is-offset" />
-              <span><strong>Fairness:</strong> Wir legen Wert auf sportliches Verhalten und eine transparente Partnerschaft auf Augenhöhe.</span>
-            </li>
-          </ul>
+          <BaseIconList :items="communityValues" margin-top="md" />
         </FeatureSection>
 
         <FeatureSection
@@ -134,20 +130,7 @@ const pricing = [
             class="headline-left"
             :margin-bottom="'none'"
           />
-          <ul class="check-list with-mt">
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-megaphone" class="check-icon is-offset" />
-              <span><strong>Hohe Sichtbarkeit:</strong> Profitieren Sie von unserer starken Präsenz – online und vor Ort auf unserer Anlage mit hunderten wöchentlichen Besuchern.</span>
-            </li>
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-user-group" class="check-icon is-offset" />
-              <span><strong>Attraktive Zielgruppe:</strong> Treffen Sie auf eine vielseitige Gemeinschaft aus Familien, lokalen Unternehmern und Sportbegeisterten.</span>
-            </li>
-            <li class="check-item">
-              <BaseIcon name="i-heroicons-sparkles" class="check-icon is-offset" />
-              <span><strong>Positives Image:</strong> Positionieren Sie sich als Förderer des lokalen Sports und der Jugendarbeit. Das schafft Sympathie und Vertrauen.</span>
-            </li>
-          </ul>
+          <BaseIconList :items="sponsorBenefits" margin-top="md" />
         </FeatureSection>
       </div>
     </Section>
@@ -160,7 +143,7 @@ const pricing = [
         alignment="center"
       />
 
-      <div class="pricing-grid">
+      <BaseGrid :cols="3" gap="md">
         <div
           v-for="item in pricing"
           :key="item.name"
@@ -178,7 +161,7 @@ const pricing = [
             </div>
           </div>
         </div>
-      </div>
+      </BaseGrid>
 
       <div class="custom-banner">
         <p class="banner-text">Windfänger, Sportausrüstung oder individuelle Pakete? Sprechen wir darüber!</p>
@@ -202,20 +185,7 @@ const pricing = [
           tagline="Transparenz"
           description="Ihre Sponsorengelder werden zweckgebunden eingesetzt, um unseren Verein nachhaltig zu stärken."
         />
-        <ul class="check-list">
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span><strong>Infrastrukturinvestitionen:</strong> Wie z.B. Bänke, Sonnenschirme, Platzpflege und Instandhaltung.</span>
-          </li>
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span><strong>Jugendförderung:</strong> In Zusammenarbeit mit der Gemeinschaftsgrundschule Hardt, der Gesamtschule Hardt und unserer Tennisschule.</span>
-          </li>
-          <li class="check-item">
-            <BaseIcon name="i-heroicons-check-circle" class="check-icon" />
-            <span><strong>Events:</strong> Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.</span>
-          </li>
-        </ul>
+        <BaseIconList :items="fundUsage" />
       </FeatureSection>
     </Section>
 
@@ -280,37 +250,6 @@ const pricing = [
 </template>
 
 <style lang="scss" scoped>
-.hero-top {
-  position: relative;
-  z-index: 10;
-}
-
-.hero-header {
-  text-align: center;
-}
-
-.hero-title {
-  margin: 0 0 var(--space-6);
-  font-family: var(--font-heading);
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-  font-weight: 700;
-  color: var(--color-pure-white);
-
-  @include up('sm') {
-    font-size: 3.75rem;
-    line-height: 1;
-  }
-}
-
-.hero-subtitle {
-  margin: 0 auto;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  color: var(--color-gray-300);
-  max-width: 42rem;
-}
-
 .values-stack {
   margin-top: var(--space-16);
   display: flex;
@@ -321,50 +260,6 @@ const pricing = [
 .headline-left {
   text-align: left;
   align-items: flex-start;
-}
-
-.check-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  color: var(--color-gray-700);
-
-  &.with-mt {
-    margin-top: var(--space-8);
-  }
-}
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.check-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--color-brand-dark-500);
-  flex-shrink: 0;
-
-  &.is-offset {
-    margin-top: 0.25rem;
-  }
-}
-
-.pricing-grid {
-  display: grid;
-  gap: var(--space-6);
-
-  @include up('md') {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @include up('lg') {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 .package-card {

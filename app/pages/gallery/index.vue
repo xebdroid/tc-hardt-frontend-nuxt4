@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
-import Headline from '~/components/base/Headline.vue'
+import BaseGrid from '~/components/base/Grid.vue'
 import GalleryAlbumCard from '~/components/gallery/GalleryAlbumCard.vue'
 import { useGallery } from '~/composables/useGallery'
 
@@ -34,19 +34,10 @@ const getYearCount = (year: number) => {
 
 <template>
   <div class="gallery-page">
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Bildergalerie"
-          description="Impressionen von unseren Turnieren, Events und dem Vereinsleben."
-          tag="h1"
-          size="h1"
-          mode="light"
-          alignment="center"
-          margin-bottom="sm"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Bildergalerie"
+      description="Impressionen von unseren Turnieren, Events und dem Vereinsleben."
+    />
 
     <Section
       variant="secondary-light"
@@ -92,9 +83,9 @@ const getYearCount = (year: number) => {
       </div>
 
       <!-- 3-Spalten-Alben-Grid -->
-      <div
+      <BaseGrid
         v-if="filteredGalleries.length > 0"
-        class="albums-grid"
+        :cols="3"
       >
         <GalleryAlbumCard
           v-for="album in filteredGalleries"
@@ -102,7 +93,7 @@ const getYearCount = (year: number) => {
           :album="album"
           :to="localePath(`/galerie/${album.slug}`)"
         />
-      </div>
+      </BaseGrid>
 
       <div v-else class="empty-state">
         <p class="empty-text">
@@ -177,20 +168,6 @@ const getYearCount = (year: number) => {
   @include dark {
     background-color: var(--color-gray-700);
     color: var(--color-gray-300);
-  }
-}
-
-.albums-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-
-  @include up('md') {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @include up('lg') {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

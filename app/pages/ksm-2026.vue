@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
+import BaseGrid from '~/components/base/Grid.vue'
+import BaseCtaSection from '~/components/base/CtaSection.vue'
 import Sponsors from '~/components/base/Sponsors.vue'
 
 const localePath = useLocalePath()
@@ -79,18 +81,10 @@ const ksmSponsors = [
 
 <template>
   <div class="ksm-page">
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Kreis- und Stadtmeisterschaften 2026"
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'none'"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Kreis- und Stadtmeisterschaften 2026"
+      margin-bottom="none"
+    />
 
     <Section>
       <Headline
@@ -114,13 +108,13 @@ const ksmSponsors = [
         />
       </div>
 
-      <div class="facts-grid">
+      <BaseGrid :cols="4" margin-top="md">
         <FeatureCard
           v-for="(fact, index) in tournamentFacts"
           :key="index"
           v-bind="fact"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <div class="schedule-wrapper">
@@ -139,7 +133,7 @@ const ksmSponsors = [
           description="Plane deine Turnierteilnahme oder deinen Besuch auf der Anlage am Birkmannsweg."
         />
 
-        <div class="schedule-grid">
+        <BaseGrid :cols="3" gap="md" margin-top="md">
           <div
             v-for="(item, idx) in scheduleMilestones"
             :key="idx"
@@ -155,7 +149,7 @@ const ksmSponsors = [
               {{ item.desc }}
             </p>
           </div>
-        </div>
+        </BaseGrid>
       </Section>
     </div>
 
@@ -184,38 +178,25 @@ const ksmSponsors = [
       <Sponsors :items="ksmSponsors" contained />
     </Section>
 
-    <Section
-      variant="secondary-light"
-      padding-top="md"
-      padding-bottom="xl"
-      overlap-bottom
-      rounded="top"
-      outer-container
-      class="contact-section"
-    >
-      <Headline
-        title="Noch Fragen zum Turnier?"
-        tagline="Turnierleitung & Kontakt"
-        alignment="center"
-      />
-      <p class="contact-text">
-        Unser Sportwart und das Organisationsteam stehen dir für alle Fragen rund um Konkurrenzen, Meldungen und Spielzeiten gerne zur Verfügung.
-      </p>
-      <div class="contact-actions">
-        <Button
-          to="mailto:sportwart@tc-hardt.de"
-          label="E-Mail an Sportwart"
-          variant="outline"
-          icon="i-heroicons-envelope"
-        />
-        <Button
-          :to="localePath('contact')"
-          label="Kontaktformular"
-          variant="outline"
-          icon="i-heroicons-chat-bubble-left-right"
-        />
-      </div>
-    </Section>
+    <BaseCtaSection
+      title="Noch Fragen zum Turnier?"
+      tagline="Turnierleitung & Kontakt"
+      description="Unser Sportwart und das Organisationsteam stehen dir für alle Fragen rund um Konkurrenzen, Meldungen und Spielzeiten gerne zur Verfügung."
+      :actions="[
+        {
+          to: 'mailto:sportwart@tc-hardt.de',
+          label: 'E-Mail an Sportwart',
+          variant: 'outline',
+          icon: 'i-heroicons-envelope'
+        },
+        {
+          to: localePath('contact'),
+          label: 'Kontaktformular',
+          variant: 'outline',
+          icon: 'i-heroicons-chat-bubble-left-right'
+        }
+      ]"
+    />
   </div>
 </template>
 
@@ -223,21 +204,6 @@ const ksmSponsors = [
 .results-cta {
   display: flex;
   justify-content: center;
-}
-
-.facts-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  margin-top: var(--space-10);
-
-  @include up('md') {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @include up('lg') {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 .schedule-wrapper {
@@ -255,17 +221,6 @@ const ksmSponsors = [
 .schedule-section {
   position: relative;
   z-index: 10;
-}
-
-.schedule-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-  margin-top: var(--space-10);
-
-  @include up('md') {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 .milestone-card {
@@ -336,27 +291,5 @@ const ksmSponsors = [
   justify-content: center;
   margin-top: var(--space-6);
   margin-bottom: var(--space-10);
-}
-
-.contact-section {
-  text-align: center;
-}
-
-.contact-text {
-  color: var(--color-gray-700);
-  margin: var(--space-4) auto;
-  max-width: 42rem;
-
-  @include dark {
-    color: var(--color-gray-300);
-  }
-}
-
-.contact-actions {
-  margin-top: var(--space-8);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-4);
 }
 </style>

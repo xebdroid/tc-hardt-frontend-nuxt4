@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
+import BaseGrid from '~/components/base/Grid.vue'
 import Button from '~/components/base/Button.vue'
 import Badge from '~/components/base/Badge.vue'
 import BaseIcon from '~/components/base/Icon.vue'
@@ -20,19 +21,10 @@ useSeoMeta({
 
 <template>
   <div class="board-page">
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Der Vorstand"
-          description="Deine Ansprechpartner für alle Belange rund um den TC Hardt."
-          :tag="'h1'"
-          :size="'h1'"
-          :mode="'light'"
-          :alignment="'center'"
-          :margin-bottom="'sm'"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Der Vorstand"
+      description="Deine Ansprechpartner für alle Belange rund um den TC Hardt."
+    />
 
     <div>
       <Section
@@ -167,7 +159,7 @@ useSeoMeta({
         alignment="center"
         tagline="Zusätzliche Unterstützung für den Verein"
       />
-      <div class="extended-grid">
+      <BaseGrid :cols="3" margin-top="lg" padded>
         <div
           v-for="member in db.extendedBoard"
           :key="member.name"
@@ -215,7 +207,7 @@ useSeoMeta({
             </Button>
           </div>
         </div>
-      </div>
+      </BaseGrid>
     </Section>
   </div>
 </template>
@@ -324,21 +316,6 @@ useSeoMeta({
     @include up('md') {
       justify-content: flex-start;
     }
-  }
-}
-
-.extended-grid {
-  display: grid;
-  gap: var(--space-8);
-  margin-top: var(--space-12);
-
-  @include up('md') {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-inline: var(--space-24);
-  }
-
-  @include up('lg') {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

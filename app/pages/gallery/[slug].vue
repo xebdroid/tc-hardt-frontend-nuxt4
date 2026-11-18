@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
@@ -171,8 +171,6 @@ const openLightbox = (index: number) => {
   activeLightboxIndex.value = index
 }
 
-// Wenn in der Lightbox weitergeblättert wird als bisher im Grid geladen,
-// ziehen wir das Grid im Hintergrund automatisch nach.
 watch(activeLightboxIndex, (idx) => {
   if (idx !== null && idx >= visibleCount.value) {
     visibleCount.value = Math.min(
@@ -185,26 +183,11 @@ watch(activeLightboxIndex, (idx) => {
 
 <template>
   <div v-if="album" class="gallery-detail-page">
-    <Hero height="small">
-      <template #content>
-        <div class="hero-content">
-          <Headline
-            title="Bildergalerie"
-            tag="h1"
-            size="h1"
-            mode="light"
-            alignment="center"
-            margin-bottom="none"
-          />
-          <Button
-            :to="localePath('/galerie')"
-            variant="ghost-white"
-            label="Zurück zur Galerie"
-            icon="i-heroicons-arrow-left"
-          />
-        </div>
-      </template>
-    </Hero>
+    <PageHero
+      title="Bildergalerie"
+      :back-to="localePath('/galerie')"
+      back-label="Zurück zur Galerie"
+    />
 
     <Section
       variant="secondary-light"
@@ -364,13 +347,6 @@ watch(activeLightboxIndex, (idx) => {
 </template>
 
 <style lang="scss" scoped>
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
-}
-
 .album-container {
   max-width: 72rem;
   margin-inline: auto;

@@ -3,6 +3,7 @@ import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Button from '~/components/base/Button.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import PricingCard from '~/components/base/PricingCard.vue'
+import BaseGrid from '~/components/base/Grid.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import BaseIcon from '~/components/base/Icon.vue'
@@ -169,13 +170,13 @@ const simplifiedRegularPlans = computed(() => {
         description="Beim TC Hardt triffst du Freunde. Wir legen Wert auf ein familiäres Miteinander, sportlichen Ehrgeiz und gesellige Abende auf unserer Terrasse."
       />
 
-      <div class="benefits-grid">
+      <BaseGrid :cols="4">
         <FeatureCard
           v-for="(benefit, index) in benefits"
           :key="index"
           v-bind="benefit"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <Section
@@ -193,14 +194,14 @@ const simplifiedRegularPlans = computed(() => {
         title="Schnupperangebote"
         description="Ideal für Einsteiger und Neugierige. Die Mitgliedschaft endet automatisch nach 3 Monaten, ohne dass eine Kündigung erforderlich ist."
       />
-      <div class="plans-grid">
+      <BaseGrid :cols="2">
         <PricingCard
           v-for="(plan, i) in simplifiedTrialPlans"
           :key="i"
           :plan="plan"
           @button-click="scrollToDownload"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <Section
@@ -221,14 +222,14 @@ const simplifiedRegularPlans = computed(() => {
         description="Werde ein fester Teil unserer Gemeinschaft. Alle Jahresmitgliedschaften für aktive Spieler profitieren im ersten Jahr von 50% Rabatt."
         hyphens
       />
-      <div class="plans-grid">
+      <BaseGrid :cols="2">
         <PricingCard
           v-for="(plan, i) in simplifiedRegularPlans"
           :key="i"
           :plan="plan"
           @button-click="scrollToDownload"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <Section
@@ -307,31 +308,6 @@ const simplifiedRegularPlans = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.benefits-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-
-  @include up("sm") {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @include up("lg") {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-.plans-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  margin-inline: auto;
-
-  @include up("sm") {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 .steps-header {
   margin-bottom: var(--space-12);
 }

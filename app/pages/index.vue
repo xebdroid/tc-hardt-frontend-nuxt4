@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Navigation } from 'swiper/modules'
-import 'swiper/css'
 import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
+import BaseGrid from '~/components/base/Grid.vue'
 import Sponsors from '~/components/base/Sponsors.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeaturedNewsCard from '~/components/news/FeaturedNewsCard.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
+import NewsSlider from '~/components/news/NewsSlider.vue'
 import EventList from '~/components/events/EventList.vue'
 import MemorialSection from '~/components/memorial/MemorialSection.vue'
 import BaseIcon from '~/components/base/Icon.vue'
@@ -83,10 +81,10 @@ const clubFeatures = computed(() => [
     iconBg: 'bg-green'
   },
   {
-    icon: 'i-heroicons-home-modern',
-    title: 'Clubheim',
-    description: 'Geselligkeit & kühle Getränke nach dem Match.',
-    to: localePath('about'),
+    icon: 'i-heroicons-heart',
+    title: t('home.intro_features.leisure.title'),
+    description: t('home.intro_features.leisure.desc'),
+    to: localePath('facility'),
     iconColor: 'color-teal',
     iconBg: 'bg-teal'
   }
@@ -136,13 +134,13 @@ const newsItems = computed(() => {
         description="Entdecke, was unseren Verein besonders macht und warum du dich bei uns wohlfühlen wirst."
       />
 
-      <div class="features-grid">
+      <BaseGrid :cols="4">
         <FeatureCard
           v-for="(feature, index) in clubFeatures"
           :key="index"
           v-bind="feature"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <Section
@@ -219,55 +217,7 @@ const newsItems = computed(() => {
         </Button>
       </div>
 
-      <div class="news-slider-wrap">
-        <ClientOnly>
-          <Swiper
-            :modules="[Autoplay, Navigation]"
-            direction="horizontal"
-            :slides-per-view="1"
-            :space-between="24"
-            :loop="true"
-            :navigation="{
-              nextEl: '.news-next',
-              prevEl: '.news-prev'
-            }"
-            :autoplay="{
-              delay: 8000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true
-            }"
-            class="news-swiper"
-          >
-            <SwiperSlide
-              v-for="news in newsItems"
-              :key="(news as any).slug"
-              class="news-slide"
-            >
-              <FeaturedNewsCard
-                :to="localePath({ name: 'news-slug', params: { slug: (news as any).slug } })"
-                :image="news.image ?? ''"
-                :title="news.title"
-                :date="news.date"
-                :description="news.excerpt"
-                link-text="Weiterlesen"
-              />
-            </SwiperSlide>
-          </Swiper>
-
-          <template #fallback>
-            <div class="news-skeleton" />
-          </template>
-        </ClientOnly>
-
-        <div class="news-arrows">
-          <button type="button" class="news-prev news-arrow is-prev" aria-label="Vorherige News">
-            <BaseIcon name="i-heroicons-chevron-left" class="arrow-icon" />
-          </button>
-          <button type="button" class="news-next news-arrow is-next" aria-label="Nächste News">
-            <BaseIcon name="i-heroicons-chevron-right" class="arrow-icon" />
-          </button>
-        </div>
-      </div>
+      <NewsSlider :items="newsItems as any" />
     </Section>
 
     <Section
@@ -330,20 +280,6 @@ const newsItems = computed(() => {
 .home-page {
   display: flex;
   flex-direction: column;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-
-  @include up("md") {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @include up("lg") {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 .values-layout {
@@ -467,73 +403,5 @@ const newsItems = computed(() => {
   justify-content: center;
   margin-top: var(--space-6);
   margin-bottom: var(--space-12);
-}
-
-.news-slider-wrap {
-  position: relative;
-  padding-inline: 0;
-
-  @include up("md") {
-    padding-inline: var(--space-12);
-  }
-}
-
-.news-swiper {
-  width: 100%;
-}
-
-.news-slide {
-  height: auto;
-}
-
-.news-skeleton {
-  width: 100%;
-  height: 16rem;
-  background-color: var(--color-gray-100);
-  border-radius: var(--radius-xl);
-
-  @include dark {
-    background-color: var(--color-gray-800);
-  }
-}
-
-.news-arrows {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-8);
-  margin-top: var(--space-6);
-
-  @include up("md") {
-    display: block;
-    margin-top: 0;
-  }
-}
-
-.news-arrow {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  color: var(--color-white);
-  cursor: pointer;
-  transition: color var(--transition-fast);
-
-  &:hover {
-    color: var(--color-highlight-500);
-  }
-
-  @include up("md") {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-
-    &.is-prev { left: 0; }
-    &.is-next { right: 0; }
-  }
-}
-
-.arrow-icon {
-  width: 2rem;
-  height: 2rem;
 }
 </style>

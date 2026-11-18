@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import ArticleInfoBox from '~/components/ArticleInfoBox.vue'
 import db from '~/assets/data/db.json'
-import Hero from '~/components/base/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Image from '~/components/base/Image.vue'
 import Button from '~/components/base/Button.vue'
@@ -38,26 +38,11 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
 
 <template>
   <div v-if="newsItem" class="news-detail-page">
-    <Hero height="small">
-      <template #content>
-        <div class="hero-content">
-          <Headline
-            title="Aktuelles"
-            tag="h1"
-            size="h1"
-            mode="light"
-            alignment="center"
-            margin-bottom="none"
-          />
-          <Button
-            to="/news"
-            variant="ghost-white"
-            label="Zurück zur Übersicht"
-            icon="i-heroicons-arrow-left"
-          />
-        </div>
-      </template>
-    </Hero>
+    <PageHero
+      title="Aktuelles"
+      back-to="/news"
+      back-label="Zurück zur Übersicht"
+    />
 
     <Section
       variant="secondary-light"
@@ -175,13 +160,6 @@ const isLargeImageLayout = computed(() => newsItem.value?.layout === 'large-imag
 </template>
 
 <style lang="scss" scoped>
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
-}
-
 .article-container {
   max-width: 72rem;
   margin-inline: auto;

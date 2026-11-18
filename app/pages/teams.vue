@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
-import Hero from '~/components/base/Hero.vue'
+import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import Button from '~/components/base/Button.vue'
+import BaseCtaSection from '~/components/base/CtaSection.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 
 useSeoMeta({
@@ -18,19 +18,10 @@ useSeoMeta({
 
 <template>
   <div>
-    <Hero height="small">
-      <template #content>
-        <Headline
-          title="Unsere Mannschaften"
-          description="Gemeinsam stark auf dem Platz – wo Tennis auf Teamgeist trifft."
-          tag="h1"
-          size="h1"
-          mode="light"
-          alignment="center"
-          margin-bottom="sm"
-        />
-      </template>
-    </Hero>
+    <PageHero
+      title="Unsere Mannschaften"
+      description="Gemeinsam stark auf dem Platz – wo Tennis auf Teamgeist trifft."
+    />
 
     <Section>
       <div class="intro-box">
@@ -72,65 +63,43 @@ useSeoMeta({
       </div>
     </Section>
 
-    <Section
+    <BaseCtaSection
       variant="accent-light"
       overlap-top
-      rounded
-      outer-container
-      class="center-section"
+      :overlap-bottom="false"
+      :rounded="true"
       padding-top="sm"
       padding-bottom="md"
       margin-bottom="xl"
-    >
-      <Headline
-        title="Spielpläne, Tabellen & Ergebnisse"
-        tagline="Live dabei"
-        alignment="center"
-      />
-      <p class="section-desc">
-        Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse,
-        findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga.
-      </p>
-      <div class="action-wrap">
-        <Button
-          to="https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786"
-          target="_blank"
-          variant="primary"
-          size="lg"
-          label="Zu den Mannschaften auf nuLiga"
-          icon="i-heroicons-arrow-top-right-on-square"
-        />
-      </div>
-    </Section>
+      title="Spielpläne, Tabellen & Ergebnisse"
+      tagline="Live dabei"
+      description="Alle aktuellen Informationen zu den Spielen unserer Mannschaften, wie Termine, namentliche Meldungen und Ergebnisse, findest du auf der offiziellen Seite des Tennis-Verband Niederrhein (TVN) bei nuLiga."
+      :actions="[
+        {
+          to: 'https://tvn.liga.nu/cgi-bin/WebObjects/nuLigaTENDE.woa/wa/clubTeams?club=35786',
+          target: '_blank',
+          variant: 'primary',
+          size: 'lg',
+          label: 'Zu den Mannschaften auf nuLiga',
+          icon: 'i-heroicons-arrow-top-right-on-square'
+        }
+      ]"
+    />
 
-    <Section
-      variant="secondary-light"
-      padding-top="md"
-      padding-bottom="xl"
-      overlap-bottom
-      rounded="top"
-      outer-container
-    >
-      <div class="center-section">
-        <Headline
-          title="Du möchtest Teil eines Teams werden?"
-          alignment="center"
-          tag="h3"
-        />
-        <p class="join-desc">
-          Dann sprich uns an – wir freuen uns über neue Gesichter, Spielstärke ist zweitrangig.
-          Was zählt, ist der Spaß am Spiel und der Zusammenhalt im Team.
-        </p>
-        <div class="join-actions">
-          <Button
-            :to="$localePath('contact')"
-            size="lg"
-            variant="primary"
-            label="Kontakt aufnehmen"
-          />
-        </div>
-      </div>
-    </Section>
+    <BaseCtaSection
+      title="Du möchtest Teil eines Teams werden?"
+      title-tag="h3"
+      title-size="h3"
+      description="Dann sprich uns an – wir freuen uns über neue Gesichter, Spielstärke ist zweitrangig. Was zählt, ist der Spaß am Spiel und der Zusammenhalt im Team."
+      :actions="[
+        {
+          to: $localePath('contact'),
+          size: 'lg',
+          variant: 'primary',
+          label: 'Kontakt aufnehmen'
+        }
+      ]"
+    />
   </div>
 </template>
 
@@ -200,36 +169,5 @@ useSeoMeta({
   color: var(--color-gray-400);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-}
-
-.center-section {
-  text-align: center;
-}
-
-.section-desc {
-  color: var(--color-gray-700);
-  margin: var(--space-4) auto;
-  max-width: 42rem;
-}
-
-.action-wrap {
-  margin-top: var(--space-8);
-}
-
-.join-desc {
-  color: var(--color-gray-700);
-  margin: var(--space-4) auto var(--space-8);
-  max-width: 42rem;
-}
-
-.join-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-4);
-
-  @include up("sm") {
-    flex-direction: row;
-  }
 }
 </style>

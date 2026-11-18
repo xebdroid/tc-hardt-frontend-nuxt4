@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import FeatureCard from '~/components/base/FeatureCard.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
+import BaseGrid from '~/components/base/Grid.vue'
+import BaseCtaSection from '~/components/base/CtaSection.vue'
 import Button from '~/components/base/Button.vue'
-import type { HeroSlide } from '~/components/base/Hero.vue'
 
 useSeoMeta({
   title: 'Training & Tennisschule',
@@ -92,7 +93,7 @@ const trainingTypes = [
         tagline="Für jedes Ziel der richtige Weg"
         alignment="center"
       />
-      <div class="offers-grid">
+      <BaseGrid :cols="2" margin-top="lg">
         <FeatureCard
           v-for="training in trainingTypes"
           :key="training.title"
@@ -100,7 +101,7 @@ const trainingTypes = [
           :description="training.desc"
           :icon="training.icon"
         />
-      </div>
+      </BaseGrid>
     </Section>
 
     <Section
@@ -143,44 +144,31 @@ const trainingTypes = [
       </div>
     </Section>
 
-    <Section
-      variant="secondary-light"
-      padding-top="md"
-      padding-bottom="xl"
-      overlap-bottom
-      rounded="top"
-      outer-container
-      class="contact-section"
-    >
-      <Headline
-        title="Interesse geweckt?"
-        tagline="Nimm Kontakt auf"
-        alignment="center"
-      />
-      <p class="contact-desc">
-        Für weitere Informationen zum Trainingsangebot, Preisen oder zur Buchung einer Probestunde, kontaktiere die Tennisschule Rot-Weiss direkt.
-      </p>
-      <div class="contact-actions">
-        <Button
-          to="tel:01608081655"
-          label="Nicole Gafert anrufen"
-          variant="outline"
-          icon="i-heroicons-phone"
-        />
-        <Button
-          to="tel:017696519561"
-          label="Marc Wigge anrufen"
-          variant="outline"
-          icon="i-heroicons-phone"
-        />
-        <Button
-          to="mailto:info@tennisschule-rotweiss.de"
-          label="E-Mail schreiben"
-          variant="outline"
-          icon="i-heroicons-envelope"
-        />
-      </div>
-    </Section>
+    <BaseCtaSection
+      title="Interesse geweckt?"
+      tagline="Nimm Kontakt auf"
+      description="Für weitere Informationen zum Trainingsangebot, Preisen oder zur Buchung einer Probestunde, kontaktiere die Tennisschule Rot-Weiss direkt."
+      :actions="[
+        {
+          to: 'tel:01608081655',
+          label: 'Nicole Gafert anrufen',
+          variant: 'outline',
+          icon: 'i-heroicons-phone'
+        },
+        {
+          to: 'tel:017696519561',
+          label: 'Marc Wigge anrufen',
+          variant: 'outline',
+          icon: 'i-heroicons-phone'
+        },
+        {
+          to: 'mailto:info@tennisschule-rotweiss.de',
+          label: 'E-Mail schreiben',
+          variant: 'outline',
+          icon: 'i-heroicons-envelope'
+        }
+      ]"
+    />
   </div>
 </template>
 
@@ -209,40 +197,11 @@ const trainingTypes = [
   margin-top: var(--space-8);
 }
 
-.offers-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  margin-top: var(--space-12);
-
-  @include up("md") {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 .coaches-stack {
   margin-top: var(--space-12);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
-}
-
-.contact-section {
-  text-align: center;
-}
-
-.contact-desc {
-  color: var(--color-gray-700);
-  margin: var(--space-4) auto;
-  max-width: 42rem;
-}
-
-.contact-actions {
-  margin-top: var(--space-8);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-4);
 }
 </style>
