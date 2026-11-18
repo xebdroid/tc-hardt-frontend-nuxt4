@@ -4,7 +4,7 @@ import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import BaseGrid from '~/components/base/Grid.vue'
 import PrivacyGate from '~/components/base/PrivacyGate.vue'
-import BaseIcon from '~/components/base/Icon.vue'
+import ContactInfoCard from '~/components/content/ContactInfoCard.vue'
 import ContactForm from '~/components/forms/ContactForm.vue'
 
 useSeoMeta({
@@ -26,41 +26,29 @@ useSeoMeta({
 
     <div class="u-container page-body">
       <BaseGrid :cols="3">
-        <div class="info-card">
-          <div class="info-icon-box">
-            <BaseIcon name="i-heroicons-map-pin" class="info-icon" />
-          </div>
-          <h3 class="info-title">Clubanlage</h3>
-          <address class="info-address">
+        <ContactInfoCard icon="i-heroicons-map-pin" title="Clubanlage">
+          <address>
             TC Hardt 1976 e.V.<br>
             Birkmannsweg 16<br>
             41169 Mönchengladbach
           </address>
-        </div>
+        </ContactInfoCard>
 
-        <div class="info-card">
-          <div class="info-icon-box">
-            <BaseIcon name="i-heroicons-inbox-arrow-down" class="info-icon" />
-          </div>
-          <h3 class="info-title">Postanschrift</h3>
-          <address class="info-address">
+        <ContactInfoCard icon="i-heroicons-inbox-arrow-down" title="Postanschrift">
+          <address>
             Postfach 601272<br>
             41162 Mönchengladbach
           </address>
-        </div>
+        </ContactInfoCard>
 
-        <div class="info-card">
-          <div class="info-icon-box">
-            <BaseIcon name="i-heroicons-envelope" class="info-icon" />
-          </div>
-          <h3 class="info-title">E-Mail</h3>
-          <p class="info-text">
+        <ContactInfoCard icon="i-heroicons-envelope" title="E-Mail">
+          <p>
             Schreib uns jederzeit eine E-Mail.
           </p>
-          <a href="mailto:info@tc-hardt.de" class="info-link">
+          <a href="mailto:info@tc-hardt.de">
             info@tc-hardt.de
           </a>
-        </div>
+        </ContactInfoCard>
       </BaseGrid>
 
       <ContactForm />
@@ -114,94 +102,6 @@ useSeoMeta({
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
-}
-
-.info-card {
-  background-color: var(--color-pure-white);
-  padding: var(--space-8);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-gray-100);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: box-shadow var(--transition-fast);
-
-  @include dark {
-    background-color: var(--color-gray-800);
-    border-color: var(--color-gray-700);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-md);
-  }
-}
-
-.info-icon-box {
-  width: 3rem;
-  height: 3rem;
-  border-radius: var(--radius-full);
-  background-color: var(--color-brand-dark-100);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-brand-dark-900);
-  margin-bottom: var(--space-4);
-
-  @include dark {
-    background-color: var(--color-brand-dark-800);
-    color: var(--color-white);
-  }
-}
-
-.info-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.info-title {
-  margin: 0 0 var(--space-2);
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  color: var(--color-brand-dark-900);
-
-  @include dark {
-    color: var(--color-white);
-  }
-}
-
-.info-address {
-  font-style: normal;
-  color: var(--color-gray-600);
-
-  @include dark {
-    color: var(--color-gray-300);
-  }
-}
-
-.info-text {
-  margin: 0 0 var(--space-4);
-  color: var(--color-gray-600);
-
-  @include dark {
-    color: var(--color-gray-300);
-  }
-}
-
-.info-link {
-  color: var(--color-accent-600);
-  font-weight: 700;
-  text-decoration: none;
-
-  @include dark {
-    color: var(--color-accent-400);
-  }
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .map-frame {

@@ -2,12 +2,12 @@
 import PageHero from '~/components/base/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import Image from '~/components/base/Image.vue'
 import FeatureSection from '~/components/base/FeatureSection.vue'
 import BaseGrid from '~/components/base/Grid.vue'
 import BaseIconList, { type IconListItem } from '~/components/base/IconList.vue'
 import Button from '~/components/base/Button.vue'
-import BaseIcon from '~/components/base/Icon.vue'
+import SponsorPackageCard, { type SponsorPackageItem } from '~/components/sponsoring/SponsorPackageCard.vue'
+import ContactPersonSection from '~/components/sponsoring/ContactPersonSection.vue'
 
 useSeoMeta({
   title: 'Sponsoring & Partner',
@@ -42,7 +42,7 @@ const fundUsage: IconListItem[] = [
   { label: 'Events:', text: 'Durchführung von Veranstaltungen und attraktiven Vereinsturnieren.' }
 ]
 
-const pricing = [
+const pricing: SponsorPackageItem[] = [
   {
     name: 'Homepage Banner',
     size: 'Präsenz auf der Website',
@@ -144,23 +144,11 @@ const pricing = [
       />
 
       <BaseGrid :cols="3" gap="md">
-        <div
+        <SponsorPackageCard
           v-for="item in pricing"
           :key="item.name"
-          class="package-card"
-        >
-          <div class="package-icon-box">
-            <BaseIcon :name="item.icon" class="package-icon" />
-          </div>
-          <h3 class="package-title">{{ item.name }}</h3>
-          <p class="package-desc">{{ item.description }}</p>
-          <div class="package-footer">
-            <div class="package-meta">
-              <span class="meta-label">Format</span>
-              <p class="meta-value">{{ item.size }}</p>
-            </div>
-          </div>
-        </div>
+          :item="item"
+        />
       </BaseGrid>
 
       <div class="custom-banner">
@@ -189,63 +177,18 @@ const pricing = [
       </FeatureSection>
     </Section>
 
-    <Section
-      variant="secondary-light"
-      padding-top="md"
-      padding-bottom="xl"
-      overlap-bottom
-      rounded="top"
-      outer-container
-    >
-      <div class="contact-layout">
-        <div class="contact-portrait">
-          <Image
-            src="/img/board/vorstand-boris-ruetten.jpg"
-            alt="Boris Rütten"
-            variant="portrait"
-          />
-        </div>
-
-        <div class="contact-body">
-          <Headline
-            title="Lassen Sie uns sprechen!"
-            tagline="Ihr Ansprechpartner"
-            mode="dark"
-            :use-container="false"
-            alignment="none"
-            class="contact-headline"
-            margin-bottom="sm"
-          />
-
-          <p class="contact-text">
-            Haben Sie Fragen zu unseren Paketen oder möchten Sie den TC Hardt individuell unterstützen?
-            Ich freue mich auf den persönlichen Austausch!
-          </p>
-
-          <div class="contact-person">
-            <p class="person-name">Boris Rütten</p>
-            <p class="person-role">Stv. Vorsitzender & Sponsoring</p>
-          </div>
-
-          <div class="contact-actions">
-            <Button
-              to="mailto:boris.ruetten@tc-hardt.de"
-              variant="primary"
-              icon="i-heroicons-envelope"
-              label="E-Mail senden"
-              @click="trackSponsoringContact('E-Mail (Boris Rütten)')"
-            />
-            <Button
-              to="tel:+491632374893"
-              variant="outline"
-              icon="i-heroicons-phone"
-              label="+49 163 237 48 93"
-              @click="trackSponsoringContact('Telefon (Boris Rütten)')"
-            />
-          </div>
-        </div>
-      </div>
-    </Section>
+    <ContactPersonSection
+      title="Lassen Sie uns sprechen!"
+      tagline="Ihr Ansprechpartner"
+      description="Haben Sie Fragen zu unseren Paketen oder möchten Sie den TC Hardt individuell unterstützen? Ich freue mich auf den persönlichen Austausch!"
+      name="Boris Rütten"
+      role="Stv. Vorsitzender & Sponsoring"
+      image-src="/img/board/vorstand-boris-ruetten.jpg"
+      email="boris.ruetten@tc-hardt.de"
+      phone="+491632374893"
+      phone-label="+49 163 237 48 93"
+      @contact="(m) => trackSponsoringContact(m === 'email' ? 'E-Mail (Boris Rütten)' : 'Telefon (Boris Rütten)')"
+    />
   </div>
 </template>
 
@@ -260,128 +203,6 @@ const pricing = [
 .headline-left {
   text-align: left;
   align-items: flex-start;
-}
-
-.package-card {
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-8);
-  background-color: var(--color-pure-white);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-gray-100);
-  box-shadow: var(--shadow-sm);
-  transition: all 300ms ease;
-
-  @include dark {
-    background-color: var(--color-gray-800);
-    border-color: var(--color-gray-700);
-  }
-
-  &:hover {
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-0.25rem);
-
-    .package-icon-box {
-      transform: scale(1.1);
-    }
-
-    .package-title {
-      color: var(--color-brand-light-600);
-    }
-  }
-}
-
-.package-icon-box {
-  width: 4rem;
-  height: 4rem;
-  margin-inline: auto;
-  margin-bottom: var(--space-6);
-  background-color: var(--color-brand-light-50);
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-brand-light-600);
-  transition: transform 300ms ease;
-
-  @include dark {
-    background-color: rgb(9 44 60 / 0.3);
-    color: var(--color-brand-light-400);
-  }
-}
-
-.package-icon {
-  width: 2rem;
-  height: 2rem;
-}
-
-.package-title {
-  margin: 0 0 var(--space-3);
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  color: var(--color-brand-dark-900);
-  text-align: center;
-  transition: color var(--transition-fast);
-
-  @include dark {
-    color: var(--color-white);
-  }
-}
-
-.package-desc {
-  margin: 0 0 var(--space-8);
-  color: var(--color-gray-600);
-  font-size: 1rem;
-  flex-grow: 1;
-  line-height: 1.625;
-  text-align: center;
-
-  @include dark {
-    color: var(--color-gray-300);
-  }
-}
-
-.package-footer {
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--color-gray-100);
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-
-  @include dark {
-    border-top-color: var(--color-gray-700);
-  }
-}
-
-.package-meta {
-  width: 100%;
-}
-
-.meta-label {
-  display: block;
-  margin-bottom: var(--space-1);
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 700;
-  color: var(--color-brand-light-600);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.meta-value {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  color: var(--color-gray-900);
-
-  @include dark {
-    color: var(--color-gray-100);
-  }
 }
 
 .custom-banner {
@@ -407,90 +228,5 @@ const pricing = [
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 500;
-}
-
-.contact-layout {
-  display: grid;
-  gap: var(--space-12);
-  align-items: center;
-
-  @include up('md') {
-    grid-template-columns: auto 1fr;
-    gap: 0;
-  }
-}
-
-.contact-portrait {
-  display: flex;
-  justify-content: center;
-
-  @include up('md') {
-    padding-inline: var(--space-24);
-  }
-}
-
-.contact-body {
-  text-align: center;
-
-  @include up('md') {
-    text-align: left;
-  }
-}
-
-.contact-headline {
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-
-  @include up('md') {
-    align-items: flex-start;
-    text-align: left;
-    margin-inline: 0;
-  }
-}
-
-.contact-text {
-  margin: 0 auto var(--space-8);
-  color: var(--color-gray-600);
-  font-size: 1.125rem;
-  line-height: 1.625;
-  max-width: 42rem;
-
-  @include up('md') {
-    margin-inline: 0;
-  }
-}
-
-.contact-person {
-  margin-bottom: var(--space-10);
-  color: var(--color-brand-dark-900);
-}
-
-.person-name {
-  margin: 0 0 var(--space-1);
-  font-weight: 900;
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.person-role {
-  margin: 0;
-  color: var(--color-brand-light-600);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 700;
-}
-
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-4);
-
-  @include up('md') {
-    justify-content: flex-start;
-  }
 }
 </style>
