@@ -29,5 +29,14 @@ function toggleColorMode() {
       :aria-label="isDark ? 'Zum hellen Modus wechseln' : 'Zum dunklen Modus wechseln'"
       @click="toggleColorMode"
     />
+    <template #fallback>
+      <Button
+        :variant="variant"
+        :size="size"
+        icon="i-heroicons-sun"
+        aria-label="Farbschema wechseln"
+        disabled
+      />
+    </template>
   </ClientOnly>
 </template>

@@ -2,7 +2,7 @@
 import Button from '~/components/base/Button.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 import Image from '~/components/base/Image.vue'
-import type { BoardMember } from '~/components/board/BoardMemberRow.vue'
+import type { BoardMember } from '~/components/club/BoardMemberRow.vue'
 
 interface Props {
   member: BoardMember

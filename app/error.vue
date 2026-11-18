@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-import ErrorScreen from '~/components/base/ErrorScreen.vue'
+import ErrorScreen from '~/components/sections/ErrorScreen.vue'
 
 const props = defineProps({
   error: Object as () => NuxtError

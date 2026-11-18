@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
+import Hero, { type HeroSlide } from '~/components/sections/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeatureCard from '~/components/base/FeatureCard.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
+import FeatureCard from '~/components/sections/FeatureCard.vue'
+import FeatureSection from '~/components/sections/FeatureSection.vue'
 import BaseGrid from '~/components/base/Grid.vue'
-import BaseCtaSection from '~/components/base/CtaSection.vue'
+import BaseCtaSection from '~/components/sections/CtaSection.vue'
 import Button from '~/components/base/Button.vue'
 
 useSeoMeta({

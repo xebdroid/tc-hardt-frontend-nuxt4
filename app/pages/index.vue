@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import Hero, { type HeroSlide } from '~/components/base/Hero.vue'
+import Hero, { type HeroSlide } from '~/components/sections/Hero.vue'
 import Section from '~/components/base/Section.vue'
 import BaseGrid from '~/components/base/Grid.vue'
-import Sponsors from '~/components/base/Sponsors.vue'
+import Sponsors from '~/components/sections/Sponsors.vue'
 import Button from '~/components/base/Button.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeatureCard from '~/components/base/FeatureCard.vue'
-import ClubValuesSection from '~/components/content/ClubValuesSection.vue'
+import FeatureCard from '~/components/sections/FeatureCard.vue'
+import ClubValuesSection from '~/components/club/ClubValuesSection.vue'
 import NewsSlider from '~/components/news/NewsSlider.vue'
 import EventList from '~/components/events/EventList.vue'
-import MemorialSection from '~/components/memorial/MemorialSection.vue'
+import MemorialSection from '~/components/club/MemorialSection.vue'
 import db from '~/assets/data/db.json'
 import { parseGermanDate } from '~/utils/date'
 
@@ -82,10 +82,10 @@ const clubFeatures = computed(() => [
     iconBg: 'bg-green'
   },
   {
-    icon: 'i-heroicons-heart',
-    title: t('home.intro_features.leisure.title'),
-    description: t('home.intro_features.leisure.desc'),
-    to: localePath('facility'),
+    icon: 'i-heroicons-home-modern',
+    title: 'Clubheim',
+    description: 'Geselligkeit & kühle Getränke nach dem Match.',
+    to: localePath('about'),
     iconColor: 'color-teal',
     iconBg: 'bg-teal'
   }

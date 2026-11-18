@@ -29,7 +29,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     zeroRuntime: true,
-    exclude: ['/galerie', '/galerie/**']
+    exclude: ['/galerie', '/galerie/**', '/design-system', '/dev-colors']
   },
 
   linkChecker: {
@@ -88,7 +88,7 @@ export default defineNuxtConfig({
       failOnError: false,
       // Generiert die physische Datei für den Webserver
       routes: ['/404.html'],
-      ignore: ['/en', '/galerie', '/galerie/**']
+      ignore: ['/en', '/galerie', '/galerie/**', '/design-system', '/dev-colors']
     }
   },
 

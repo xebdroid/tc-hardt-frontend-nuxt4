@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import BaseGrid from '~/components/base/Grid.vue'
-import PrivacyGate from '~/components/base/PrivacyGate.vue'
-import ContactInfoCard from '~/components/content/ContactInfoCard.vue'
+import PrivacyGate from '~/components/sections/PrivacyGate.vue'
+import ContactInfoCard from '~/components/club/ContactInfoCard.vue'
 import ContactForm from '~/components/forms/ContactForm.vue'
 
 useSeoMeta({

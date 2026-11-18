@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Hero from '~/components/base/Hero.vue'
+import Hero from '~/components/sections/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
 

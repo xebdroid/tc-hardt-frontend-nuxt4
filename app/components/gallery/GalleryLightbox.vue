@@ -144,8 +144,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="lightbox-fade">
+  <ClientOnly>
+    <Teleport to="body">
+      <Transition name="lightbox-fade">
       <div
         v-if="isOpen && currentImage"
         class="gallery-lightbox"
@@ -256,8 +257,9 @@ onUnmounted(() => {
         </div>
         <div v-else class="bottom-spacer" />
       </div>
-    </Transition>
-  </Teleport>
+      </Transition>
+    </Teleport>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>

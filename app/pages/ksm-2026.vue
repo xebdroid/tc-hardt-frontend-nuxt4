@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import Button from '~/components/base/Button.vue'
-import FeatureCard from '~/components/base/FeatureCard.vue'
+import FeatureCard from '~/components/sections/FeatureCard.vue'
 import BaseGrid from '~/components/base/Grid.vue'
-import BaseCtaSection from '~/components/base/CtaSection.vue'
-import Sponsors from '~/components/base/Sponsors.vue'
+import BaseCtaSection from '~/components/sections/CtaSection.vue'
+import Sponsors from '~/components/sections/Sponsors.vue'
 
 const localePath = useLocalePath()
 

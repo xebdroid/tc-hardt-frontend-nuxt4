@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import NewsList from '~/components/news/NewsList.vue'
 

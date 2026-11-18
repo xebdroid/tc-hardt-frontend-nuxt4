@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import MemorialPlaque from '~/components/memorial/MemorialPlaque.vue'
+import MemorialPlaque from '~/components/club/MemorialPlaque.vue'
 
 interface Props {
   portraitSrc?: string

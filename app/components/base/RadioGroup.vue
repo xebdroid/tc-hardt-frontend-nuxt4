@@ -10,10 +10,14 @@ interface Props {
   name?: string
 }
 
+const fallbackId = useId()
+
 const props = withDefaults(defineProps<Props>(), {
   modelValue: undefined,
-  name: () => `radio-${Math.random().toString(36).slice(2, 7)}`
+  name: undefined
 })
+
+const groupName = computed(() => props.name || `radio-${fallbackId}`)
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
@@ -29,7 +33,7 @@ const emit = defineEmits<{
     >
       <input
         type="radio"
-        :name="props.name"
+        :name="groupName"
         :value="item.value"
         :checked="modelValue === item.value"
         class="radio-input"

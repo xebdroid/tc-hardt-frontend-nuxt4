@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
 import BaseGrid from '~/components/base/Grid.vue'
-import BoardMemberRow from '~/components/board/BoardMemberRow.vue'
-import ExtendedBoardCard from '~/components/board/ExtendedBoardCard.vue'
+import BoardMemberRow from '~/components/club/BoardMemberRow.vue'
+import ExtendedBoardCard from '~/components/club/ExtendedBoardCard.vue'
 
 useSeoMeta({
   title: 'Vorstand',

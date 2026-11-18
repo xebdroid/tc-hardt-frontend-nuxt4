@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import db from '~/assets/data/db.json'
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import BaseCtaSection from '~/components/base/CtaSection.vue'
+import BaseCtaSection from '~/components/sections/CtaSection.vue'
 import BaseIcon from '~/components/base/Icon.vue'
 
 useSeoMeta({

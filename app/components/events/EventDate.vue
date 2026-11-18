@@ -24,8 +24,31 @@ const months = ['JAN', 'FEB', 'MÄR', 'APR', 'MAI', 'JUN', 'JUL', 'AUG', 'SEP', 
 
 const parseDate = (dateInput: string | Date) => {
   if (!dateInput) return { day: '00', month: '???', year: '0000' }
-  if (typeof dateInput === 'string' && dateInput.trim().toLowerCase() === 'tba') {
-    return { day: 'TBA', month: 'TERMIN', year: 'OFFEN' }
+  if (typeof dateInput === 'string') {
+    const trimmed = dateInput.trim()
+    if (trimmed.toLowerCase() === 'tba') {
+      return { day: 'TBA', month: 'TERMIN', year: 'OFFEN' }
+    }
+    if (trimmed.includes('-')) {
+      const parts = trimmed.split('-').map(Number)
+      if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
+        return {
+          day: parts[2].toString().padStart(2, '0'),
+          month: months[parts[1] - 1] || '???',
+          year: parts[0].toString()
+        }
+      }
+    }
+    if (trimmed.includes('.')) {
+      const parts = trimmed.split('.').map(Number)
+      if (parts.length === 3 && parts[0] && parts[1] && parts[2]) {
+        return {
+          day: parts[0].toString().padStart(2, '0'),
+          month: months[parts[1] - 1] || '???',
+          year: parts[2].toString()
+        }
+      }
+    }
   }
   const date = new Date(dateInput)
   if (isNaN(date.getTime())) {

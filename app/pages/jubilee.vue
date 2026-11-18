@@ -3,11 +3,11 @@
 await navigateTo('/', { redirectCode: 302 })
 
 /*
-import type { HeroSlide } from '~/components/base/Hero.vue'
-import Hero from '~/components/base/Hero.vue'
+import type { HeroSlide } from '~/components/sections/Hero.vue'
+import Hero from '~/components/sections/Hero.vue'
 import Headline from '~/components/base/Headline.vue'
 import Section from '~/components/base/Section.vue'
-import EventDate from '~/components/base/EventDate.vue'
+import EventDate from '~/components/events/EventDate.vue'
 import AppButton from '~/components/base/Button.vue'
 
 useSeoMeta({

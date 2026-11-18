@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeatureCard from '~/components/base/FeatureCard.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
+import FeatureCard from '~/components/sections/FeatureCard.vue'
+import FeatureSection from '~/components/sections/FeatureSection.vue'
 import BaseGrid from '~/components/base/Grid.vue'
 import BaseIconList, { type IconListItem } from '~/components/base/IconList.vue'
 import Button from '~/components/base/Button.vue'

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
+import FeatureSection from '~/components/sections/FeatureSection.vue'
 import Headline from '~/components/base/Headline.vue'
-import BaseCtaSection from '~/components/base/CtaSection.vue'
+import BaseCtaSection from '~/components/sections/CtaSection.vue'
 import type { SpacingSize, Responsive } from '~/types'
 
 useSeoMeta({

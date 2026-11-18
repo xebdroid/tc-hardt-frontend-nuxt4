@@ -2,7 +2,7 @@
 import { computed, ref, onMounted } from 'vue'
 import db from '~/assets/data/db.json'
 import type { Event } from '~/types'
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
 import EventList from '~/components/events/EventList.vue'

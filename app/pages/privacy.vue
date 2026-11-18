@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
-import LegalSection from '~/components/content/LegalSection.vue'
+import PageHero from '~/components/sections/PageHero.vue'
+import LegalSection from '~/components/club/LegalSection.vue'
 import AppButton from '~/components/base/Button.vue'
 
 useSeoMeta({

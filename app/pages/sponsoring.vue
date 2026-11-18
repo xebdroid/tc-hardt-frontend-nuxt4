@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import PageHero from '~/components/base/PageHero.vue'
+import PageHero from '~/components/sections/PageHero.vue'
 import Section from '~/components/base/Section.vue'
 import Headline from '~/components/base/Headline.vue'
-import FeatureSection from '~/components/base/FeatureSection.vue'
+import FeatureSection from '~/components/sections/FeatureSection.vue'
 import BaseGrid from '~/components/base/Grid.vue'
 import BaseIconList, { type IconListItem } from '~/components/base/IconList.vue'
 import Button from '~/components/base/Button.vue'
-import SponsorPackageCard, { type SponsorPackageItem } from '~/components/sponsoring/SponsorPackageCard.vue'
-import ContactPersonSection from '~/components/sponsoring/ContactPersonSection.vue'
+import SponsorPackageCard, { type SponsorPackageItem } from '~/components/club/SponsorPackageCard.vue'
+import ContactPersonSection from '~/components/club/ContactPersonSection.vue'
 
 useSeoMeta({
   title: 'Sponsoring & Partner',
