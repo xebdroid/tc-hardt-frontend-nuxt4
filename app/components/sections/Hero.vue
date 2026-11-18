@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, onUnmounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import Button from '~/components/base/Button.vue'
@@ -95,10 +95,32 @@ const props = withDefaults(defineProps<{
 
 const swiperInstance = ref<any>(null)
 const uiStore = useUIStore()
+const heroRef = ref<HTMLElement | null>(null)
+const isMounted = ref(false)
 
 onMounted(() => {
+  isMounted.value = true
   if (props.height === 'full' || props.height === 'large') {
     uiStore.setFullScreenHero(true)
+  }
+})
+
+onBeforeUnmount(() => {
+  isMounted.value = false
+  if (swiperInstance.value) {
+    try {
+      if (swiperInstance.value.autoplay?.running) {
+        swiperInstance.value.autoplay.stop()
+      }
+    } catch {}
+  }
+  if (heroRef.value) {
+    const allVideos = heroRef.value.querySelectorAll('video')
+    allVideos.forEach((v) => {
+      try {
+        if (!v.paused) v.pause()
+      } catch {}
+    })
   }
 })
 
@@ -139,18 +161,34 @@ const getPositionClasses = (slide: HeroSlide) => {
 
 const modules = [Navigation, Pagination, Autoplay, EffectFade]
 
+const safePlayVideo = (video: HTMLVideoElement | null | undefined) => {
+  if (!video || !isMounted.value || !video.isConnected) return
+  const playPromise = video.play()
+  if (playPromise !== undefined) {
+    playPromise.catch((error: any) => {
+      // AbortError is benign and occurs when the user navigates away, slide changes, or video is removed from the DOM
+      if (error?.name !== 'AbortError' && error?.name !== 'NotAllowedError') {
+        console.warn('Hero video autoplay was prevented or failed:', error)
+      }
+    })
+  }
+}
+
 const handleVideoLoaded = (e: Event) => {
+  if (!isMounted.value) return
   const video = e.target as HTMLVideoElement
-  if (swiperInstance.value && swiperInstance.value.autoplay.running) {
+  if (!video || !video.isConnected) return
+
+  if (swiperInstance.value?.autoplay?.running) {
     swiperInstance.value.autoplay.stop()
   }
-  video.play().catch(() => console.log('Autoplay blocked'))
+  safePlayVideo(video)
 }
 
 const handleVideoEnded = () => {
   if (swiperInstance.value && !props.loopVideo) {
     swiperInstance.value.slideNext()
-    if (props.autoplay !== false) {
+    if (props.autoplay !== false && swiperInstance.value.autoplay) {
       swiperInstance.value.autoplay.start()
     }
   }
@@ -160,7 +198,9 @@ const onSwiperInit = (swiper: any) => {
   swiperInstance.value = swiper
   const firstSlide = props.slides[0]
   if (firstSlide && firstSlide.type === 'video') {
-    swiper.autoplay.stop()
+    if (swiper.autoplay?.running) {
+      swiper.autoplay.stop()
+    }
   }
 }
 
@@ -169,14 +209,26 @@ const onSlideChange = (swiper: any) => {
   const activeIndex = swiper.realIndex
   const currentSlide = props.slides[activeIndex]
 
+  // Pause videos on other slides to prevent background play or play/pause race conditions
+  if (heroRef.value) {
+    const allVideos = heroRef.value.querySelectorAll('video')
+    allVideos.forEach((v) => {
+      try {
+        if (!v.paused) v.pause()
+      } catch {}
+    })
+  }
+
   const activeSlideEl = swiper.slides[swiper.activeIndex]
-  const videoElement = activeSlideEl ? activeSlideEl.querySelector('video') : null
+  const videoElement = activeSlideEl ? (activeSlideEl.querySelector('video') as HTMLVideoElement | null) : null
 
   if (currentSlide?.type === 'video' && videoElement) {
-    if (swiper.autoplay.running) swiper.autoplay.stop()
-    videoElement.currentTime = 0
-    videoElement.play()
-  } else if (props.autoplay !== false) {
+    if (swiper.autoplay?.running) swiper.autoplay.stop()
+    try {
+      videoElement.currentTime = 0
+    } catch {}
+    safePlayVideo(videoElement)
+  } else if (props.autoplay !== false && swiper.autoplay) {
     swiper.autoplay.start()
   }
 }
@@ -184,6 +236,7 @@ const onSlideChange = (swiper: any) => {
 
 <template>
   <div
+    ref="heroRef"
     class="base-hero"
     :class="[
       `height-${height}`,

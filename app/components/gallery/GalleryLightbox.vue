@@ -80,6 +80,20 @@ const preloadAdjacentImages = (centerIdx: number) => {
   }
 }
 
+const handleVideoLoaded = (e: Event) => {
+  const video = e.target as HTMLVideoElement
+  if (!video || !video.isConnected) return
+  const promise = video.play()
+  if (promise !== undefined) {
+    promise.catch((err) => {
+      // AbortError is benign when the lightbox is closed or image changed before play resolves
+      if (err?.name !== 'AbortError' && err?.name !== 'NotAllowedError') {
+        console.warn('Gallery video autoplay was prevented or failed:', err)
+      }
+    })
+  }
+}
+
 const close = () => {
   emit('update:modelValue', null)
 }
@@ -193,9 +207,9 @@ onUnmounted(() => {
               :key="currentImage.src"
               :src="currentImage.src"
               controls
-              autoplay
               playsinline
               class="media-el is-video"
+              @loadedmetadata="handleVideoLoaded"
             />
             <img
               v-else
