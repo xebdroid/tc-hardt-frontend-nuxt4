@@ -4,7 +4,6 @@ import Section from '~/components/base/Section.vue'
 import FeatureSection from '~/components/sections/FeatureSection.vue'
 import Headline from '~/components/base/Headline.vue'
 import BaseCtaSection from '~/components/sections/CtaSection.vue'
-import type { SpacingSize, Responsive } from '~/types'
 
 useSeoMeta({
   title: 'Anlage & Freizeit',
@@ -14,11 +13,6 @@ useSeoMeta({
   ogImage: '/img/facility/tc-hardt-facility-01.jpg',
   twitterCard: 'summary_large_image',
 })
-
-const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<SpacingSize> } = {
-  top: { base: 'xs', sm: 'sm', md: 'lg' },
-  bottom: { base: 'xs', sm: 'sm', md: 'lg' }
-}
 </script>
 
 <template>
@@ -29,11 +23,7 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     />
 
     <!-- 1. Sektion -->
-    <Section
-      variant="default"
-      :padding-top="{ base: 'sm', sm: 'sm', md: 'lg' }"
-      :padding-bottom="sectionPaddings.bottom"
-    >
+    <Section variant="default">
       <FeatureSection
         image-src="/img/facility/tc-hardt-facility-01.jpg"
         image-alt="Tennisplätze des TC Hardt"
@@ -48,11 +38,7 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     </Section>
 
     <!-- 2. Sektion -->
-    <Section
-      variant="gray-light"
-      :padding-top="sectionPaddings.top"
-      :padding-bottom="sectionPaddings.bottom"
-    >
+    <Section variant="gray-light">
       <FeatureSection
         image-src="/img/facility/clubhaus-sonnenterrasse.jpg"
         image-alt="Clubhaus Terrasse"
@@ -67,11 +53,7 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     </Section>
 
     <!-- 3. Sektion -->
-    <Section
-      variant="default"
-      :padding-top="sectionPaddings.top"
-      :padding-bottom="sectionPaddings.bottom"
-    >
+    <Section variant="default">
       <FeatureSection
         image-src="/img/facility/buegeln.jpg"
         image-alt="Bügelbahn am Niederrhein"
@@ -87,11 +69,7 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     </Section>
 
     <!-- 4. Sektion -->
-    <Section
-      variant="gray-light"
-      :padding-top="sectionPaddings.top"
-      :padding-bottom="sectionPaddings.bottom"
-    >
+    <Section variant="gray-light">
       <FeatureSection
         image-src="/img/facility/beachvolleyball.jpg"
         image-alt="Beach-Volleyball Feld"
@@ -106,10 +84,7 @@ const sectionPaddings: { top: Responsive<SpacingSize>, bottom: Responsive<Spacin
     </Section>
 
     <!-- 5. Sektion -->
-    <Section
-      :padding-top="sectionPaddings.top"
-      :padding-bottom="sectionPaddings.bottom"
-    >
+    <Section>
       <FeatureSection
         image-src="/img/facility/maedchen-auf-schaukel.jpg"
         image-alt="Kinderspielplatz Schaukel"

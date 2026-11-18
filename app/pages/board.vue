@@ -43,10 +43,8 @@ useSeoMeta({
 
     <Section
       variant="secondary-light"
-      outer-container
-      rounded
+      card
       overlap-top
-      margin-bottom="xl"
     >
       <Headline
         title="Erweiterter Vorstand"

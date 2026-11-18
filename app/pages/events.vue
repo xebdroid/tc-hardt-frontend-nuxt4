@@ -144,13 +144,9 @@ const eventCountDescription = computed(() => {
     <Section
       v-if="upcomingEvents.length > 0"
       variant="secondary-light"
-      rounded
+      card
       overlap-bottom
-      padding-top="xs"
-      padding-bottom="sm"
-      :padding-left="{ base: 'none', md: 'xs', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'xs', lg: 'md' }"
-      :outer-container="{ base: false, md: true }"
+      spacing="compact"
       class="upcoming-section"
     >
       <template v-if="Object.keys(upcomingEventsByMonth).length > 0">
@@ -170,13 +166,8 @@ const eventCountDescription = computed(() => {
     <Section
       v-if="pastEventsByYear.length > 0"
       variant="gray-light"
-      rounded="top"
-      :padding-top="{ base: 'lg', md: 'xl' }"
-      padding-bottom="lg"
-      :padding-left="{ base: 'none', md: 'xs', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'xs', lg: 'md' }"
-      :outer-container="{ base: false, md: true }"
-      margin-bottom="xl"
+      card
+      spacing="spacious"
       class="past-section"
     >
       <Headline

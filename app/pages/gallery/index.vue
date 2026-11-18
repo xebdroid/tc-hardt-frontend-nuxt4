@@ -41,14 +41,8 @@ const getYearCount = (year: number) => {
 
     <Section
       variant="secondary-light"
-      margin-top="sm"
-      margin-bottom="xl"
-      :padding-top="{ base: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      :outer-container="{ base: false, md: true }"
-      rounded
+      card
+      spacing="compact"
     >
       <!-- Jahrgangs-Filter-Tabs -->
       <div

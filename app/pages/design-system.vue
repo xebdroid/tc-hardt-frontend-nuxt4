@@ -20,6 +20,7 @@ import PricingCard from '~/components/sections/PricingCard.vue'
 import EventDate from '~/components/events/EventDate.vue'
 import ContactInfoCard from '~/components/club/ContactInfoCard.vue'
 import SponsorPackageCard from '~/components/club/SponsorPackageCard.vue'
+import Section from '~/components/base/Section.vue'
 import PageHero from '~/components/sections/PageHero.vue'
 import CtaSection from '~/components/sections/CtaSection.vue'
 import Sponsors from '~/components/sections/Sponsors.vue'
@@ -610,6 +611,23 @@ const demoExtendedMember = {
         </div>
 
         <div class="sg-stack">
+          <!-- Section Component Demo -->
+          <div class="sg-card no-padding overflow-hidden">
+            <div class="card-caption">
+              <h3 class="card-caption-title"><code>&lt;Section card spacing="compact"&gt;</code></h3>
+              <p class="card-caption-desc">Semantische Sektionskarte mit kompaktem Innenabstand, abgerundeten Ecken und ohne Klassen-Überladung.</p>
+            </div>
+            <Section variant="secondary-light" card spacing="compact">
+              <Headline
+                title="Sektion mit semantischem Preset"
+                description="Einfach 'card' und 'spacing=compact' übergeben – keine 15 manuellen Padding-Klassen mehr nötig."
+                alignment="center"
+                size="h3"
+                margin-bottom="none"
+              />
+            </Section>
+          </div>
+
           <!-- PageHero Demo -->
           <div class="sg-card no-padding overflow-hidden">
             <div class="card-caption">

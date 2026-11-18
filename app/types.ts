@@ -2,6 +2,7 @@
 
 // --- Layout & Spacing ---
 export type SpacingSize = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+export type SectionSpacing = 'none' | 'compact' | 'normal' | 'spacious'
 export type Breakpoint = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export type Responsive<T> = T | Partial<Record<Breakpoint | 'base', T>>
 export type RoundedSide = boolean | 'top' | 'bottom' | 'both'

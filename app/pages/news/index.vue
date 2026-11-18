@@ -22,14 +22,8 @@ useSeoMeta({
 
     <Section
       variant="secondary-light"
-      margin-top="sm"
-      margin-bottom="md"
-      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      :outer-container="{ base: false, md: true }"
-      rounded
+      card
+      spacing="compact"
     >
       <NewsList />
     </Section>

@@ -191,14 +191,8 @@ watch(activeLightboxIndex, (idx) => {
 
     <Section
       variant="secondary-light"
-      outer-container
-      rounded
-      :padding-top="{ base: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      margin-bottom="xl"
-      margin-top="sm"
+      card
+      spacing="compact"
     >
       <div class="album-container">
         <!-- Album-Header -->

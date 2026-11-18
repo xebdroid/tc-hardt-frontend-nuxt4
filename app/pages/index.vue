@@ -159,8 +159,7 @@ const newsItems = computed(() => {
       variant="primary"
       rounded
       overlap-bottom
-      :padding-top="{ base: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', md: 'md' }"
+      spacing="compact"
       class="news-section"
     >
       <Headline
@@ -188,8 +187,7 @@ const newsItems = computed(() => {
     <Section
       variant="secondary"
       rounded
-      :padding-top="{ base: 'lg', md: 'lg', lg: 'xl' }"
-      :padding-bottom="{ base: 'sm', md: 'md' }"
+      spacing="normal"
       class="events-section"
     >
       <Headline

@@ -181,12 +181,8 @@ const simplifiedRegularPlans = computed(() => {
     <Section
       id="tarife"
       variant="highlight-light"
-      outer-container
-      rounded
-      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'lg', sm: 'lg', md: 'xl' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
+      card
+      spacing="normal"
     >
       <Headline
         alignment="center"
@@ -206,14 +202,9 @@ const simplifiedRegularPlans = computed(() => {
     <Section
       id="jahresmitgliedschaften"
       variant="accent-light"
+      card
       overlap-top
-      rounded
-      outer-container
-      :padding-top="{ base: 'xs', sm: 'xs', md: 'sm' }"
-      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      margin-bottom="sm"
+      spacing="compact"
     >
       <Headline
         alignment="center"
@@ -234,13 +225,8 @@ const simplifiedRegularPlans = computed(() => {
     <Section
       id="anmeldung"
       variant="secondary-light"
-      outer-container
-      rounded
-      :padding-top="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-bottom="{ base: 'xs', sm: 'sm', md: 'md' }"
-      :padding-left="{ base: 'none', md: 'sm', lg: 'md' }"
-      :padding-right="{ base: 'none', md: 'sm', lg: 'md' }"
-      margin-bottom="xl"
+      card
+      spacing="compact"
     >
       <MembershipSignupSteps :pdf-path="PDF_PATH" />
     </Section>

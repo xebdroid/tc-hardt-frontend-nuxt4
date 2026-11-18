@@ -40,8 +40,7 @@ useSeoMeta({
 
     <Section
       variant="highlight-light"
-      outer-container
-      rounded
+      card
       padding-bottom="xl"
     >
       <Headline

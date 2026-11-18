@@ -121,8 +121,7 @@ const ksmSponsors = [
       <Section
         variant="secondary-light"
         rounded
-        padding-top="lg"
-        padding-bottom="lg"
+        spacing="normal"
         class="schedule-section"
       >
         <Headline
@@ -155,8 +154,7 @@ const ksmSponsors = [
 
     <Section
       variant="default"
-      padding-top="xl"
-      padding-bottom="xl"
+      spacing="spacious"
     >
       <Headline
         alignment="center"
