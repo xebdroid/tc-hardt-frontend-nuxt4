@@ -15,7 +15,7 @@ export function useCalendar(event: Event) {
   })
 
   const toUTC = (dateString: string, timeString: string = '09:00'): string => {
-    const [hours, minutes] = timeString.split(':').map(Number)
+    const [hours = 9, minutes = 0] = timeString.split(':').map(Number)
     const date = new Date(dateString)
     if (isNaN(date.getTime())) return ''
     date.setUTCHours(hours - 2) // Adjust for CEST to UTC
@@ -26,12 +26,12 @@ export function useCalendar(event: Event) {
 
   const googleLink = computed(() => {
     const cleanTimeString = (ts: string) => ts.replace('Uhr', '').trim()
-    const startTime = event.time ? cleanTimeString(event.time.split('–')[0]) : '09:00'
+    const startTime = event.time ? cleanTimeString(event.time.split('–')[0] || '09:00') : '09:00'
     let endTime: string;
     if (event.time && event.time.includes('–')) {
-      endTime = cleanTimeString(event.time.split('–')[1])
+      endTime = cleanTimeString(event.time.split('–')[1] || '10:00')
     } else {
-      endTime = (parseInt(startTime.split(':')[0]) + 1).toString() + ':00'
+      endTime = (parseInt(startTime.split(':')[0] || '9') + 1).toString() + ':00'
     }
 
     const startDate = toUTC(event.date, startTime)
@@ -53,12 +53,12 @@ export function useCalendar(event: Event) {
 
   const icsContent = computed(() => {
     const cleanTimeString = (ts: string) => ts.replace('Uhr', '').trim()
-    const startTime = event.time ? cleanTimeString(event.time.split('–')[0]) : '09:00'
+    const startTime = event.time ? cleanTimeString(event.time.split('–')[0] || '09:00') : '09:00'
     let endTime: string;
     if (event.time && event.time.includes('–')) {
-      endTime = cleanTimeString(event.time.split('–')[1])
+      endTime = cleanTimeString(event.time.split('–')[1] || '10:00')
     } else {
-      endTime = (parseInt(startTime.split(':')[0]) + 1).toString() + ':00'
+      endTime = (parseInt(startTime.split(':')[0] || '9') + 1).toString() + ':00'
     }
 
     const startDate = toUTC(event.date, startTime)

@@ -5,7 +5,7 @@ import db from '~/assets/data/db.json'
 const today = new Date()
 today.setHours(0, 0, 0, 0)
 
-const newsItems = db.news
+const newsItems = (db.news as any[])
   .filter((item) => {
     if (item.published === false) {
       return false
@@ -26,7 +26,7 @@ const newsItems = db.news
   })
   .sort((a, b) => {
     const parseDate = (dateString: string) => {
-      const [day, month, year] = dateString.split('.').map(Number)
+      const [day = 1, month = 1, year = 2000] = dateString.split('.').map(Number)
       return new Date(year, month - 1, day)
     }
     return parseDate(b.date).getTime() - parseDate(a.date).getTime()

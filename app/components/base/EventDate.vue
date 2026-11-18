@@ -60,38 +60,38 @@ const parsedJubileeDate = computed(() => {
   }
 
   if (props.dateString.includes('–')) {
-    const [start, end] = props.dateString.split('–').map(s => s.trim())
+    const [start = '', end = ''] = props.dateString.split('–').map(s => s.trim())
     const startParts = start.split('.')
     const endParts = end.split('.')
     return {
       type: 'range',
-      startDay: startParts[0],
-      startMonth: months[parseInt(startParts[1], 10) - 1],
-      endDay: endParts[0],
-      endMonth: months[parseInt(endParts[1], 10) - 1],
-      year: endParts[2]
+      startDay: startParts[0] || '',
+      startMonth: months[parseInt(startParts[1] || '1', 10) - 1],
+      endDay: endParts[0] || '',
+      endMonth: months[parseInt(endParts[1] || '1', 10) - 1],
+      year: endParts[2] || ''
     }
   }
 
   if (props.dateString.includes('/')) {
     const parts = props.dateString.split('.')
-    const days = parts[0]
-    const [day1, day2] = days.split('/')
+    const days = parts[0] || ''
+    const [day1 = '', day2 = ''] = days.split('/')
     return {
       type: 'multiday',
       day1,
       day2,
-      month: months[parseInt(parts[1], 10) - 1],
-      year: parts[2]
+      month: months[parseInt(parts[1] || '1', 10) - 1],
+      year: parts[2] || ''
     }
   }
 
   const parts = props.dateString.split('.')
   return {
     type: 'single',
-    day: parts[0],
-    month: months[parseInt(parts[1], 10) - 1],
-    year: parts[2]
+    day: parts[0] || '',
+    month: months[parseInt(parts[1] || '1', 10) - 1],
+    year: parts[2] || ''
   }
 })
 </script>

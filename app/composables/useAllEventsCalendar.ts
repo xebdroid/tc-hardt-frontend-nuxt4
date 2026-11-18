@@ -10,7 +10,7 @@ export function useAllEventsCalendar() {
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
     const toUTC = (dateString: string, timeString: string = '09:00'): string => {
-      const [hours, minutes] = timeString.split(':').map(Number)
+      const [hours = 9, minutes = 0] = timeString.split(':').map(Number)
       const date = new Date(dateString)
       // Hinweis: Diese Logik geht fest von Sommerzeit (CEST, UTC+2) aus.
       // Für eine ganzjährige Lösung müsste man die Zeitverschiebung dynamisch ermitteln.
@@ -22,12 +22,12 @@ export function useAllEventsCalendar() {
 
     const eventEntries = upcomingEvents.map(event => {
       const cleanTimeString = (ts: string) => ts.replace('Uhr', '').trim()
-      const startTime = event.time ? cleanTimeString(event.time.split('–')[0]) : '09:00'
+      const startTime = event.time ? cleanTimeString(event.time.split('–')[0] || '09:00') : '09:00'
       let endTime: string;
       if (event.time && event.time.includes('–')) {
-        endTime = cleanTimeString(event.time.split('–')[1])
+        endTime = cleanTimeString(event.time.split('–')[1] || '11:00')
       } else {
-        endTime = (parseInt(startTime.split(':')[0]) + 2).toString() + ':00'
+        endTime = (parseInt(startTime.split(':')[0] || '9') + 2).toString() + ':00'
       }
 
       const startDate = toUTC(event.date, startTime)

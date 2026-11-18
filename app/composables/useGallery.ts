@@ -29,7 +29,7 @@ export const useGallery = () => {
     if (dateStr.includes('.')) {
       const parts = dateStr.split('.').map(Number)
       if (parts.length === 3) {
-        const [day, month, year] = parts
+        const [day = 1, month = 1, year = 2000] = parts
         return new Date(year, month - 1, day).getTime()
       }
     }

@@ -27,16 +27,13 @@ export default defineNuxtConfig({
     defaultLocale: 'de',
   },
 
-  seo: {
-    titleTemplate: '%s | TC Hardt e.V.',
-  },
-
   image: {
     quality: 80,
   },
 
   app: {
     head: {
+      titleTemplate: '%s | TC Hardt e.V.',
       link: [
         { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon/favicon-96x96.png' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon/favicon.svg' },

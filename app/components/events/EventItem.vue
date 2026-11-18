@@ -44,7 +44,7 @@ function handleToggle() {
 
 function trackCalendarClick(actionLabel?: string) {
   if (import.meta.client && (window as any)._paq) {
-    const label = actionLabel || 'Unbekannt'
+    const label = actionLabel || 'Unbekannt';
     (window as any)._paq.push(['trackEvent', 'Termine', 'Kalender Export', `${props.event.title} (${label})`])
   }
 }

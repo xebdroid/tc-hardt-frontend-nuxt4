@@ -75,12 +75,14 @@ export const useNavigation = () => {
           description: t('nav.sup.news_desc'),
           icon: 'i-heroicons-newspaper'
         },
+        /*
         {
           label: t('nav.sup.gallery'),
           to: localePath('/galerie'),
           description: t('nav.sup.gallery_desc'),
           icon: 'i-heroicons-photo'
         },
+        */
         {
           label: t('nav.sup.facility'),
           to: localePath('facility'),

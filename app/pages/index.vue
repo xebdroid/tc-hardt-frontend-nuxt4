@@ -101,7 +101,7 @@ const values = computed(() => [
 
 const newsItems = computed(() => {
   const parseDate = (dateString: string) => {
-    const [day, month, year] = dateString.split('.').map(Number)
+    const [day = 1, month = 1, year = 2000] = dateString.split('.').map(Number)
     return new Date(year, month - 1, day)
   }
 
