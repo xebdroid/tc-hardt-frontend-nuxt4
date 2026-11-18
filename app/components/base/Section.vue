@@ -225,6 +225,15 @@ const backgroundStyles = computed(() => {
     border-radius: var(--radius-2xl);
     margin-block: var(--space-4) var(--space-12);
     overflow: hidden;
+    padding-inline: var(--space-4);
+
+    @include up("sm") {
+      padding-inline: var(--space-6);
+    }
+
+    @include up("md") {
+      padding-inline: var(--space-8);
+    }
   }
 
   /* Specific Spacing Overrides (optional) */

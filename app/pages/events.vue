@@ -145,7 +145,6 @@ const eventCountDescription = computed(() => {
       v-if="upcomingEvents.length > 0"
       variant="secondary-light"
       card
-      overlap-bottom
       spacing="compact"
       class="upcoming-section"
     >
@@ -167,12 +166,14 @@ const eventCountDescription = computed(() => {
       v-if="pastEventsByYear.length > 0"
       variant="gray-light"
       card
-      spacing="spacious"
+      spacing="compact"
       class="past-section"
     >
       <Headline
         title="Vergangene Events"
         description="Ein kleiner Rückblick auf unsere letzten Veranstaltungen."
+        tag="h2"
+        size="h2"
         alignment="center"
       />
       <PastEventsArchive :groups="pastEventsByYear" />
