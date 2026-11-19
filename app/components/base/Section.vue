@@ -60,7 +60,8 @@ const isCard = computed(() => {
 })
 
 const effectiveSpacing = computed<SectionSpacing>(() => {
-  if (props.paddingTop || props.paddingBottom) return 'none'
+  if (props.spacing === 'none') return 'none'
+  if (props.paddingTop && props.paddingBottom) return 'none'
   if (props.spacing !== 'normal') return props.spacing
   if (isCard.value) return 'compact'
   return 'normal'
@@ -243,6 +244,8 @@ const backgroundStyles = computed(() => {
   &.pt-md   { padding-top: var(--space-12); }
   &.pt-lg   { padding-top: var(--space-16); }
   &.pt-xl   { padding-top: var(--space-24); }
+  &.pt-2xl,
+  &.pt-xxl  { padding-top: calc(var(--space-24) + var(--space-8)); }
 
   &.pb-none { padding-bottom: 0; }
   &.pb-xs   { padding-bottom: var(--space-4); }
@@ -250,6 +253,8 @@ const backgroundStyles = computed(() => {
   &.pb-md   { padding-bottom: var(--space-12); }
   &.pb-lg   { padding-bottom: var(--space-16); }
   &.pb-xl   { padding-bottom: var(--space-24); }
+  &.pb-2xl,
+  &.pb-xxl  { padding-bottom: calc(var(--space-24) + var(--space-8)); }
 
   &.mt-none { margin-top: 0; }
   &.mt-sm   { margin-top: var(--space-4); }

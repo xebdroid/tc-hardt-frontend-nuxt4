@@ -187,6 +187,7 @@ const newsItems = computed(() => {
     <Section
       variant="secondary"
       rounded
+      padding-top="2xl"
       spacing="normal"
       class="events-section"
     >
@@ -215,7 +216,7 @@ const newsItems = computed(() => {
     </Section>
 
     <Section
-      padding-bottom="lg"
+      spacing="normal"
       :use-container="false"
     >
       <Headline
